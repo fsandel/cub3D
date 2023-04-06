@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/04 17:52:21 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/06 11:38:24 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 LINKFLAGS		=
 REDIRECT		=	#2> /dev/null 1> /dev/null
+OS				=	$(shell uname)
 
 ################################################################################
 ################################################################################
@@ -73,7 +74,8 @@ re:	fclean all
 
 bonus:
 	@echo "make sure to implement bonus"
-
+test:
+	gcc src/main.c $(MLX) -ldl -lglfw -pthread -lm -I ./include -I ./lib/MLX42/include/MLX42 -I ./lib/libft $(LIBFT) -L lib/MLX42/build -lXext -lX11
 ################################################################################
 ################################################################################
 
@@ -143,8 +145,12 @@ BREW			= $(HOME)/.brew
 
 MLX				=	lib/MLX42/build/libmlx42.a
 MLX_INCLUDE		=	-I ./lib/MLX42/include/MLX42
-GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
-
+ifeq ($(OS), Darwin)
+	GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
+endif
+ifeq ($(OS), Linux)
+	GLFW			=	-ldl -lglfw -pthread -lm
+endif
 mlx: $(MLX)
 
 $(MLX):
