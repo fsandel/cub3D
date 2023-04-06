@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/06 16:21:40 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/06 16:43:26 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ NAME			=	cub3D
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 LINKFLAGS		=
-REDIRECT		=	#2> /dev/null 1> /dev/null
+REDIRECT		=	2> /dev/null 1> /dev/null
 OS				=	$(shell uname -s)
+BREW			=	$(HOME)/.brew
 
 ################################################################################
 ################################################################################
@@ -74,16 +75,15 @@ re:	fclean all
 
 bonus:
 	@echo "make sure to implement bonus"
-test:
-	gcc src/main.c -I ./include -I ./lib/libft $(LIBFT) ./lib/MLX42/libmlx42.a -I ./lib/MLX42/include/MLX42 -ldl -lglfw -pthread -lm
+
 ################################################################################
 ################################################################################
 
 ffclean:
 	@echo $(RED)"hard reset"
-	@rm -rf obj
-	@rm -rf lib
-	@rm -f $(NAME)
+	@rm -rfv obj
+	@rm -rfv lib
+	@rm -fv $(NAME)
 	@echo $(DEFAULT)
 
 t:
@@ -100,7 +100,7 @@ help:
 	@make check_brew
 
 check_brew:
-ifeq ($(shell which brew ), $(HOME)/.brew/bin/brew)
+ifeq ($(shell which brew ),$(BREW)/bin/brew)
 	@echo "brew is installed"
 	@make check_glfw
 else
@@ -118,12 +118,12 @@ else
 endif
 
 check_cmake:
-		ifeq ($(shell which cmake), $(HOME)/.brew/bin/cmake)
-			@echo "cmake is installed in the default directory"
-		else
-			@echo "no cmake found in the default directory"
-			@echo "use make cmake to install"
-		endif
+ifeq ($(shell which cmake), $(BREW)/bin/cmake)
+	@echo "cmake is installed in the default directory"
+else
+	@echo "no cmake found in the default directory"
+	@echo "use make cmake to install"
+endif
 
 ################################################################################
 ################################################################################
@@ -140,25 +140,26 @@ cmake:
 ################################################################################
 ################################################################################
 
-BREW			= $(HOME)/.brew
+MLX				=	$(MLX_DIR)/build/$(MLX_LIB)
+MLX_LIB			=	libmlx42.a
+MLX_DIR			=	lib/MLX42
+MLX_INCLUDE		=	-I ./$(MLX_DIR)/include/MLX42
 
-
-MLX				=	lib/MLX42/build/libmlx42.a
-MLX_INCLUDE		=	-I ./lib/MLX42/include/MLX42
 ifeq ($(OS), Darwin)
 	GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
 endif
 ifeq ($(OS), Linux)
 	GLFW			=	-ldl -lglfw -pthread -lm
 endif
+
 mlx: $(MLX)
 
 $(MLX):
-	@git submodule init $(REDIRECT)
-	@git submodule update $(REDIRECT)
-	@cd lib/MLX42 && cmake -B build $(REDIRECT)
-	@cd lib/MLX42/build && make $(REDIRECT)
-	@echo $(GREEN)"created libmlx42.a"$(DEFAULT)
+	@git submodule init $(MLX_DIR) $(REDIRECT)
+	@git submodule update $(MLX_DIR) $(REDIRECT)
+	@cd $(MLX_DIR) && cmake -B build $(REDIRECT)
+	@cd $(MLX_DIR)/build && make $(REDIRECT)
+	@echo $(GREEN)"created $(MLX_LIB)"$(DEFAULT)
 
 ################################################################################
 ################################################################################
@@ -166,13 +167,13 @@ $(MLX):
 LIBFT			=	$(LIBFT_DIR)$(LIBFT_LIB)
 LIBFT_LIB		=	libft.a
 LIBFT_DIR		=	lib/libft/
-LIBFT_INCLUDE	=	-I ./lib/libft
+LIBFT_INCLUDE	=	-I ./$(LIBFT_DIR)
 
 libft: $(LIBFT)
 
 $(LIBFT):
-	@git submodule init $(REDIRECT)
-	@git submodule update $(REDIRECT)
+	@git submodule init $(LIBFT_DIR) $(REDIRECT)
+	@git submodule update $(LIBFT_DIR) $(REDIRECT)
 	@make -C lib/libft
 
 ################################################################################
@@ -194,11 +195,13 @@ lsan: fclean $(LSANLIB)
 lsan: all
 
 $(LSAN):
-	@git submodule init $(LSAN)
-	@git submodule update $(LSAN)
+	@git submodule init $(LSAN) $(REDIRECT)
+	@git submodule update $(LSAN) $(REDIRECT)
 
 $(LSANLIB): $(LSAN)
 	@$(MAKE) -C $(LSAN) $(REDIRECT)
+	@echo $(GREEN)"created liblsan.a"$(DEFAULT)
+
 
 ################################################################################
 ################################################################################
