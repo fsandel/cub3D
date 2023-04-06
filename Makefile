@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/06 11:38:24 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/06 16:21:40 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 LINKFLAGS		=
 REDIRECT		=	#2> /dev/null 1> /dev/null
-OS				=	$(shell uname)
+OS				=	$(shell uname -s)
 
 ################################################################################
 ################################################################################
@@ -75,7 +75,7 @@ re:	fclean all
 bonus:
 	@echo "make sure to implement bonus"
 test:
-	gcc src/main.c $(MLX) -ldl -lglfw -pthread -lm -I ./include -I ./lib/MLX42/include/MLX42 -I ./lib/libft $(LIBFT) -L lib/MLX42/build -lXext -lX11
+	gcc src/main.c -I ./include -I ./lib/libft $(LIBFT) ./lib/MLX42/libmlx42.a -I ./lib/MLX42/include/MLX42 -ldl -lglfw -pthread -lm
 ################################################################################
 ################################################################################
 
@@ -178,27 +178,27 @@ $(LIBFT):
 ################################################################################
 ################################################################################
 
-LSAN			=	LeakSanitizer
-LSANLIB			=	/LeakSanitizer/liblsan.a
+LSAN			=	lib/LeakSanitizer
+LSANLIB			=	$(LSAN)/liblsan.a
 
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S),Linux)
-#	LINK_FLAGS += -ltinfo
-	LSANLFLAGS := -rdynamic -LLeakSanitizer -llsan -ldl -lstdc++
+ifeq ($(OS),Linux)
+	LSANLFLAGS := -rdynamic -Llib/LeakSanitizer -llsan -ldl -lstdc++
 endif
-ifeq ($(UNAME_S),Darwin)
-	LSANLFLAGS := -LLeakSanitizer -llsan -lc++
+ifeq ($(OS),Darwin)
+	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
 endif
 
-lsan: CFLAGS += -ILeakSanitizer -Wno-gnu-include-next
+lsan: CFLAGS += -I $(LSAN) -Wno-gnu-include-next
 lsan: LINK_FLAGS += $(LSANLFLAGS)
 lsan: fclean $(LSANLIB)
 lsan: all
+
 $(LSAN):
-	git clone https://github.com/mhahnFr/LeakSanitizer.git $(REDIRECT)
+	@git submodule init $(LSAN)
+	@git submodule update $(LSAN)
+
 $(LSANLIB): $(LSAN)
-	@$(MAKE) -C LeakSanitizer $(REDIRECT)
+	@$(MAKE) -C $(LSAN) $(REDIRECT)
 
 ################################################################################
 ################################################################################

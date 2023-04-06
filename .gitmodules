@@ -4,3 +4,6 @@
 [submodule "lib/MLX42"]
 	path = lib/MLX42
 	url = https://github.com/codam-coding-college/MLX42
+[submodule "lib/LeakSanitizer"]
+	path = lib/LeakSanitizer
+	url = https://github.com/mhahnFr/LeakSanitizer.git
