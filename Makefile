@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/06 16:43:26 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/06 17:01:29 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,10 @@ ALL_OBJ_DIR		=	$(sort $(dir $(ALL_OBJ)))
 ################################################################################
 ################################################################################
 
-all: libft mlx $(NAME)
+all:
+	@make all2 || make help
+
+all2: libft mlx $(NAME)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@ $(HDR_INCLUDE) $(MLX_INCLUDE) $(LIBFT_INCLUDE)
@@ -104,7 +107,7 @@ ifeq ($(shell which brew ),$(BREW)/bin/brew)
 	@echo "brew is installed"
 	@make check_glfw
 else
-	@echo "no brew found in standart path."
+	@echo "no brew found in standard path."
 	@echo "use make brew to install"
 endif
 
