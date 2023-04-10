@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:44:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/10 18:17:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/10 18:19:34 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(void)
 	//mlx_loop_hook(window->mlx, player_2d, window);
 	mlx_loop_hook(window->mlx, player_movement, window);
 	put_square(window->img, window->player->pos->x, window->player->pos->y, 0xFFFFFFF);
-	draw_map(window);
+	//draw_map(window);
 	mlx_loop(window->mlx);
 	ft_printf("am after loop\n");
 	free_window_struct(window);
