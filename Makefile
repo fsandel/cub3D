@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/10 12:36:31 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/10 16:18:12 by fsandel          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c
+SRC_FILES		=	main.c rotate.c 2dtest.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -34,9 +34,9 @@ UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
 UTILS_FILES		=	
 
-HDR				=	$(addprefix $(HDR_DIR), $(HDR_DIR))
+HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
-HDR_FILES		=	
+HDR_FILES		=	cub3D.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
 ALL_SRC			=	$(SRC) $(PARSER)
@@ -92,6 +92,9 @@ t:
 
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
+
+norm:
+	norminette $(SRC) $(HDR)
 
 ################################################################################
 ################################################################################
