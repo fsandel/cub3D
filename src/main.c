@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:44:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/06 11:32:56 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/10 20:25:04 by pschwarz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 int	main(void)
 {
 	mlx_t	*mlx;
+	int		fd;
 
+	fd = open("maps/test.cub", O_RDONLY);
+	parse(fd);
 	mlx = mlx_init(100, 100, "hi philipp", 1);
 	if (!mlx)
 		ft_printf("MLX_init failed");

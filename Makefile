@@ -6,7 +6,7 @@
 #    By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/08 09:53:10 by fsandel           #+#    #+#              #
-#    Updated: 2023/04/10 12:36:31 by fsandel          ###   ########.fr        #
+#    Updated: 2023/04/10 20:18:17 by pschwarz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_FILES		=	main.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	
+PARSER_FILES	=	parser.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
