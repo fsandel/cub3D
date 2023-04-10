@@ -1,3 +1,6 @@
 obj
 **.o
 cub3D
+a.out
+.vscode/
+.DS_Store
