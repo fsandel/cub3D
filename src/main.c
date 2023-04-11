@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:44:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/10 18:19:34 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 09:29:05 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	player_2d(void *arg);
 void	player_movement(void *arg);
 void	put_square(mlx_image_t *img, int x, int y, int color);
+//char	get_map_char(char **map, )
 
 void	draw_map(t_window *window)
 {
@@ -65,7 +66,7 @@ t_window	*setup_window_struct(void)
 	window->map = ft_read_file(fd);
 	window->player = malloc(sizeof(t_player) * 1);
 	window->player->pos = malloc(sizeof(t_v_i) * 1);
-	window->player->dir = malloc(sizeof(t_v_f) * 1);
+	window->player->dir = malloc(sizeof(t_vector_f) * 1);
 	window->player->pos->x = WIDTH / 2;
 	window->player->pos->y = HEIGHT / 2;
 	window->player->pos->z = 0;

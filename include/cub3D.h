@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:39:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/10 16:21:39 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 09:28:50 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-typedef struct s_v_f
+typedef struct s_vector_f
 {
 	double	x;
 	double	y;
 	double	z;
-}			t_v_f;
+}			t_vector_f;
 
 typedef struct s_v_i
 {
@@ -44,7 +44,7 @@ typedef struct s_v_i
 typedef struct s_player
 {
 	t_v_i	*pos;
-	t_v_f	*dir;
+	t_vector_f	*dir;
 }			t_player;
 
 typedef struct s_window

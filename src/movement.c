@@ -6,13 +6,13 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/10 17:50:32 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 09:30:16 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-void	rotate_hor_f(t_v_f *v, double angle);
+void	rotate_hor_f(t_vector_f *v, double angle);
 void	put_square(mlx_image_t *img, int x, int y, int color);
 
 void	put_player(t_window *window, int color)
@@ -35,7 +35,7 @@ void	cast_ray(t_window *window, int color)
 {
 	double	x;
 	double	y;
-	t_v_f	v;
+	t_vector_f	v;
 
 	x = window->player->pos->x;
 	y = window->player->pos->y;
