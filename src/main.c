@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:44:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 09:31:53 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 10:10:00 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	player_2d(void *arg);
 void	player_movement(void *arg);
 void	put_square(mlx_image_t *img, int x, int y, int color);
-//char	get_map_char(char **map, )
 
 void	draw_map(t_window *window)
 {
@@ -23,20 +22,23 @@ void	draw_map(t_window *window)
 	int	y;
 	int	width;
 	int	height;
-
+	int	len;
+	int	size;
 	int	i = 0;
+
 	while (window->map[i])
 		ft_putendl_fd(window->map[i++], 1);
-	width = ft_strlen(window->map[0]);
-	height = ft_arr_size(window->map);
+	len = ft_strlen(window->map[0]);
+	size = ft_arr_size(window->map);
+	width = WIDTH / len;
+	height = HEIGHT / size;
 	x = 0;
-	
 	while (x < WIDTH)
 	{
 		y = 0;
 		while (y < HEIGHT)
 		{
-			if (window->map[x * width / WIDTH][y * height / HEIGHT])
+			if (y / height < size && x / width < len && window->map[y / height][x / width] == '1')
 				mlx_put_pixel(window->img, x, y, 0xff0000ff);
 			y++;
 		}
@@ -97,7 +99,7 @@ int	main(void)
 	//mlx_loop_hook(window->mlx, player_2d, window);
 	mlx_loop_hook(window->mlx, player_movement, window);
 	put_square(window->img, window->player->pos->x, window->player->pos->y, 0xFFFFFFF);
-	//draw_map(window);
+	draw_map(window);
 	mlx_loop(window->mlx);
 	ft_printf("am after loop\n");
 	free_window_struct(window);
