@@ -4,4 +4,6 @@ cub3D
 a.out
 .vscode/
 .DS_Store
-cub3D.dSYM
+.ccls
+.ccls-cache/
+cub3D.dSYM/

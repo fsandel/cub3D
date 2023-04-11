@@ -8,16 +8,16 @@ int	on_screen(int x, int y)
 		return (0);
 }
 
-char	get_map_char(t_vector_f *pos, t_map *map)
+t_cube_type	get_cube_type(t_vector_f *pos, t_map *map)
 {
 	int	width;
 	int	height;
 
 	width = WIDTH / map->width;
-	height = HEIGHT / map->heigth;
+	height = HEIGHT / map->height;
 	if (pos->x > WIDTH || pos->x < 0)
-		return ('1');
+		return (wall);
 	if (pos->y > HEIGHT || pos->y < 0)
-		return ('1');
-	return (map->array[(int)pos->y / height][(int)pos->x / width]);
+		return (wall);
+	return (map->cubes[(int)pos->y / height][(int)pos->x / width]);
 }

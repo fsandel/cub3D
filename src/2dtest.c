@@ -28,16 +28,16 @@ void	draw_map(t_window *window)
 	int	height;
 
 	width = WIDTH / window->map->width;
-	height = HEIGHT / window->map->heigth;
+	height = HEIGHT / window->map->height;
 	x = 0;
 	while (x < WIDTH)
 	{
 		y = 0;
 		while (y < HEIGHT)
 		{
-			if (y / height < window->map->heigth
+			if (y / height < window->map->height
 				&& x / width < window->map->width
-				&& window->map->array[y / height][x / width] == '1')
+				&& window->map->cubes[y / height][x / width] == wall)
 				mlx_put_pixel(window->img, x, y, 0xff0000ff);
 			y++;
 		}
