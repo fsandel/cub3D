@@ -27,6 +27,7 @@ typedef enum e_cube_type
 	walkable,
 	wall,
 	empty,
+	spawn
 }	t_cube_type;
 
 typedef struct s_map
