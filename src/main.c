@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 09:44:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 09:29:05 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 09:31:53 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_window	*setup_window_struct(void)
 	fd = open("testmap.txt", O_RDONLY);
 	window->map = ft_read_file(fd);
 	window->player = malloc(sizeof(t_player) * 1);
-	window->player->pos = malloc(sizeof(t_v_i) * 1);
+	window->player->pos = malloc(sizeof(t_vector_f) * 1);
 	window->player->dir = malloc(sizeof(t_vector_f) * 1);
 	window->player->pos->x = WIDTH / 2;
 	window->player->pos->y = HEIGHT / 2;
