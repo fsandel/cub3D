@@ -1,11 +1,9 @@
 #include "cub3D.h"
 
-int	parse(char *path)
+int	parse(int fd)
 {
 	char	*str;
-	int		fd;
 
-	fd = open(path, O_RDONLY);
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
@@ -16,5 +14,6 @@ int	parse(char *path)
 		}
 		str = get_next_line(fd);
 	}
+	close(fd);
 	return (EXIT_SUCCESS);
 }
