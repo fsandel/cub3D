@@ -22,18 +22,18 @@ typedef struct s_vector_f
 	double	z;
 }			t_vector_f;
 
-typedef enum e_square_type
+typedef enum e_cube_type
 {
-	empty,
 	walkable,
-	wall
-}	t_square_type;
+	wall,
+	empty,
+}	t_cube_type;
 
 typedef struct s_map
 {
-	t_square_type	**cubes;
-	int				width;
-	int				heigth;
+	t_cube_type	**cubes;
+	int			width;
+	int			height;
 }			t_map;
 
 typedef struct s_player
@@ -51,15 +51,15 @@ typedef struct s_window
 }			t_window;
 
 //utils.c
-int		on_screen(int x, int y);
-char	get_map_char(t_vector_f *pos, t_map *map);
+int			on_screen(int x, int y);
+t_cube_type	get_cube_type(t_vector_f *pos, t_map *map);
 
 //2dtest.c
 void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
 void	draw_map(t_window *window);
 
 // parser
-int		parse(int fd);
+t_map	*parse(int fd);
 int		args_valid(int argc, char **argv);
 
 // parser utils

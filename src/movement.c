@@ -33,7 +33,7 @@ void	cast_ray(t_vector_f *pos, t_vector_f *dir,
 
 	temp = (t_vector_f){pos->x, pos->y, pos->z};
 	i = 0;
-	while (on_screen(temp.x, temp.y) && get_map_char(&temp, map) != '1')
+	while (on_screen(temp.x, temp.y) && get_cube_type(&temp, map) != wall)
 	{
 		temp.x = pos->x - i * dir->x;
 		temp.y = pos->y - i * dir->y;

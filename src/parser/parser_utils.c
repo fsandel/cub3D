@@ -3,11 +3,11 @@
 void	set_map_value(t_map *map, int line, int column, char c)
 {
 	if (c == '0')
-		map->square[line][column] = floor;
+		map->cubes[line][column] = walkable;
 	else if (c == '1')
-		map->square[line][column] = wall;
+		map->cubes[line][column] = wall;
 	else
-		map->square[line][column] = empty;
+		map->cubes[line][column] = empty;
 }
 
 void	print_file(t_list *line_list)

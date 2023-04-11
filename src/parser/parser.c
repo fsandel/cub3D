@@ -1,76 +1,72 @@
 #include "cub3D.h"
 
-static t_list			*read_file(int fd, t_map *map);
-static void				populate_map(t_list *line_list, t_map *map);
-static t_square_type	**create_map(t_list *line_list, t_map *map);
+static t_list		*read_file(int fd, t_map *map);
+static void			populate_map(t_list *line_list, t_map *map);
+static t_cube_type	**create_map(t_list *line_list, t_map *map);
 
-int	parse(int fd)
+t_map	*parse(int fd)
 {
 	t_list	*line_list;
 	t_map	*map;
 
 	map = malloc(sizeof(map));
 	if (!map)
-		return (EXIT_FAILURE);
+		return (NULL);
 	line_list = read_file(fd, map);
 	close(fd);
-	print_file(line_list);
-	ft_printf("line count: %d\ncolumn cout: %d\n", map->height, map->width);
-	map->square = NULL;
-	map->square = create_map(line_list, map);
+	map->cubes = NULL;
+	map->cubes = create_map(line_list, map);
 	populate_map(line_list, map);
 	ft_lstclear(&line_list, &free);
-	free(map);
-	return (EXIT_SUCCESS);
+	return (map);
 }
 
 static void	populate_map(t_list *line_list, t_map *map)
 {
 	int		line;
-	int		column;
-	t_list	*temp;
-	char	*line_str;
+	int		col;
+	char	*line_s;
 
 	line = 0;
-	temp = line_list;
-	while (temp->next != NULL)
+	while (line_list->next != NULL)
 	{
-		line_str = (char *) temp->content;
-		column = 0;
-		while ((line_str[column] != '\0' || column < map->width)
-			&& line_str[column] != '\n' && line_str[0] != '\n')
+		line_s = (char *) line_list->content;
+		col = 0;
+		while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
 		{
-			set_map_value(map, line, column, line_str[column]);
-			column++;
+			set_map_value(map, line, col, line_s[col]);
+			col++;
 		}
 		line++;
-		temp = temp->next;
+		line_list = line_list->next;
 	}
-	while (line_str[column] != '\0' || column < map->width)
+	line_s = (char *) line_list->content;
+	col = 0;
+	while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
 	{
-		set_map_value(map, line, column, line_str[column]);
-		column++;
+		set_map_value(map, line, col, line_s[col]);
+		col++;
 	}
 }
 
-static t_square_type	**create_map(t_list *line_list, t_map *map)
+static t_cube_type	**create_map(t_list *line_list, t_map *map)
 {
-	t_list			*temp;
-	t_square_type	**res;
-	int				i;
+	t_list		*temp;
+	t_cube_type	**res;
+	int			i;
 
-	res = malloc(map->height * sizeof(t_square_type *));
+	res = malloc((map->height + 1) * sizeof(t_cube_type *));
 	if (!res)
 		return (NULL);
 	temp = line_list;
 	i = 0;
 	while (temp->next != NULL)
 	{
-		res[i] = malloc(map->width * sizeof(t_square_type));
+		res[i] = malloc((map->width + 1) * sizeof(t_cube_type));
 		temp = temp->next;
 		i++;
 	}
-	res[i] = malloc(map->width * sizeof(t_square_type));
+	res[i] = malloc(map->width * sizeof(t_cube_type));
 	temp = temp->next;
 	return (res);
 }
