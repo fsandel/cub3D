@@ -31,9 +31,11 @@ static t_list	*read_file(int fd)
 {
 	char	*str;
 	int		line_count;
+	size_t	max_column_count;
 	t_list	*lines;
 
 	line_count = 0;
+	max_column_count = 0;
 	str = get_next_line(fd);
 	lines = NULL;
 	while (str != NULL)
@@ -41,10 +43,12 @@ static t_list	*read_file(int fd)
 		if (str != NULL)
 		{
 			ft_lstadd_back(&lines, ft_lstnew(str));
+			if (ft_strlen(str) - 1 > max_column_count)
+				max_column_count = ft_strlen(str) - 1;
 			line_count++;
 		}
 		str = get_next_line(fd);
 	}
-	ft_printf("line count: %d\n", line_count);
+	ft_printf("line count: %d\ncolumn cout: %d\n", line_count, max_column_count);
 	return (lines);
 }
