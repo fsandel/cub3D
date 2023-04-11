@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 	map = NULL;
 	if (fd != -1)
 		map = parse(fd);
+	else
+		return (EXIT_FAILURE);
 	window = setup_window_struct(map);
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);

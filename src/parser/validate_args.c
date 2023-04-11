@@ -14,7 +14,7 @@ int	args_valid(int argc, char **argv)
 	if (!extension_valid(argv[1]))
 	{
 		ft_printf("file extension invalid\n");
-		return (false);
+		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
