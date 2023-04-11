@@ -3,7 +3,7 @@
 static bool	extension_valid(char *filepath);
 
 /*
- * returns a filedescriptor if arg is valid cub map or -1 if invalid
+ * returns a filedescriptor if arg is valid valid path to cub map else -1
  */
 int	args_valid(int argc, char **argv)
 {
