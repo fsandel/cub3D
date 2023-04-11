@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:39:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 09:32:01 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 10:13:38 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_vector_f
 	double	z;
 }			t_vector_f;
 
-// typedef struct s_v_i
-// {
-// 	int	x;
-// 	int	y;
-// 	int	z;
-// }		t_v_i;
+typedef struct s_map
+{
+	char	**array;
+	int		width;
+	int		heigth;
+}			t_map;
 
 typedef struct s_player
 {
@@ -52,7 +52,7 @@ typedef struct s_window
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_player	*player;
-	char		**map;
+	t_map		*map;
 }			t_window;
 
 #endif
