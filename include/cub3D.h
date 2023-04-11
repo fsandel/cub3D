@@ -7,7 +7,7 @@
 # include <stdio.h>
 
 // parser
-int		parse(char *path);
-bool	args_valid(int argc, char **argv);
+int	parse(char *path);
+int	args_valid(int argc, char **argv);
 
 #endif

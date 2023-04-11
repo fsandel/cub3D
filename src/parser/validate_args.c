@@ -2,30 +2,27 @@
 
 static bool	extension_valid(char *filepath);
 
-bool	args_valid(int argc, char **argv)
+/*
+ * returns a filedescriptor if arg is valid cub map or -1 if invalid
+ */
+int	args_valid(int argc, char **argv)
 {
-	int	i;
+	int	fd;
 
 	if (argc != 2)
 		return (false);
-	i = 0;
-	while (argv[1][i])
-	{
-		if (ft_isalnum(argv[1][i]) == 1
-			|| argv[1][i] == '/' || argv[1][i] == '.')
-			i++;
-		else
-		{
-			ft_printf("char: %c is invalid\n", argv[1][i]);
-			return (false);
-		}
-	}
 	if (!extension_valid(argv[1]))
 	{
 		ft_printf("file extension invalid\n");
 		return (false);
 	}
-	return (true);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("not a valid file\n");
+		close(fd);
+	}
+	return (fd);
 }
 
 static bool	extension_valid(char *filepath)

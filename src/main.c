@@ -3,8 +3,10 @@
 int	main(int argc, char **argv)
 {
 	mlx_t	*mlx;
+	int		fd;
 
-	if (args_valid(argc, argv))
+	fd = args_valid(argc, argv);
+	if (fd > 2)
 		parse(argv[1]);
 	else
 		ft_putstr_fd("Error\nArgument invalid\n", STDERR_FILENO);
