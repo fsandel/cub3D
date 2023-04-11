@@ -50,6 +50,10 @@ typedef struct s_window
 	t_map		*map;
 }			t_window;
 
+//free_utils.c
+void	free_map(t_cube_type **cube);
+void	free_window_struct(t_window *window);
+
 //utils.c
 int			on_screen(int x, int y);
 t_cube_type	get_cube_type(t_vector_f *pos, t_map *map);
@@ -57,6 +61,13 @@ t_cube_type	get_cube_type(t_vector_f *pos, t_map *map);
 //2dtest.c
 void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
 void	draw_map(t_window *window);
+
+//rotate.c
+void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
+
+//movement.c
+void	player_movement(void *arg);
+void	put_player(t_window *window, int color);
 
 // parser
 t_map	*parse(int fd);

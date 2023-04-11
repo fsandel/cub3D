@@ -1,9 +1,7 @@
 #include <cub3D.h>
 
-void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
-void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
-void	cast_ray(t_vector_f *pos, t_vector_f *dir,
-			t_vector_f *target, t_map *map);
+static void	cast_ray(t_vector_f *pos, t_vector_f *dir,
+				t_vector_f *target, t_map *map);
 
 void	put_player(t_window *window, int color)
 {
@@ -25,7 +23,7 @@ void	put_player(t_window *window, int color)
 	}
 }
 
-void	cast_ray(t_vector_f *pos, t_vector_f *dir,
+static void	cast_ray(t_vector_f *pos, t_vector_f *dir,
 	t_vector_f *target, t_map *map)
 {
 	int			i;
