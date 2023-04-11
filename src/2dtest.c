@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   2dtest.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 16:17:47 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/10 17:01:17 by fsandel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <cub3D.h>
 
-void	put_square(mlx_image_t *img, int x, int y, int color)
+void	put_square(mlx_image_t *img, t_vector_f *pos, int color)
 {
 	int			i;
 	int			j;
@@ -22,18 +10,37 @@ void	put_square(mlx_image_t *img, int x, int y, int color)
 	{
 		j = -3;
 		while (j < 4)
-			mlx_put_pixel(img, x + j++, y + i, color);
+		{
+			if (pos->x + j > 0 && pos->x + j < WIDTH
+				&& pos->y + i > 0 && pos->y + i < HEIGHT)
+				mlx_put_pixel(img, pos->x + j, pos->y + i, color);
+			j++;
+		}
 		i++;
 	}
 }
 
-
-
-void	player_2d(void *arg)
+void	draw_map(t_window *window)
 {
-	t_window	*window;
+	int	x;
+	int	y;
+	int	width;
+	int	height;
 
-	window = (t_window *)arg;
-	put_square(window->img, window->player->pos->x, window->player->pos->y, 0xFFFFFF);
+	width = WIDTH / window->map->width;
+	height = HEIGHT / window->map->heigth;
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			if (y / height < window->map->heigth
+				&& x / width < window->map->width
+				&& window->map->array[y / height][x / width] == '1')
+				mlx_put_pixel(window->img, x, y, 0xff0000ff);
+			y++;
+		}
+		x++;
+	}
 }
-

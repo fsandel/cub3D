@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 13:10:07 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 09:29:21 by fsandel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <cub3D.h>
 
 void	norm(t_vector_f *v, double future_length)
@@ -21,9 +9,12 @@ void	norm(t_vector_f *v, double future_length)
 	v->y = v->y / length * future_length;
 }
 
-void	rotate_hor_f(t_vector_f *v, double angle)
+void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle)
 {
-	v->x = v->x * cos(angle) - v->y * sin(angle);
-	v->y = v->x * sin(angle) + v->y * cos(angle);
-	norm(v, 10);
+	const double	x = before->x;
+	const double	y = before->y;
+
+	after->x = x * cos(angle) - y * sin(angle);
+	after->y = x * sin(angle) + y * cos(angle);
+	norm(after, 1);
 }

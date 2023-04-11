@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/04 11:39:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 10:13:38 by fsandel          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -19,13 +7,13 @@
 # include <stdlib.h> //malloc, free, exit
 # include <math.h>
 
-//# include <MLX42.h>
 # include "../lib/MLX42/include/MLX42/MLX42.h"
-//# include <libft.h>
 # include "../lib/libft/libft.h"
 
 # define WIDTH 1000
 # define HEIGHT 1000
+
+# define FOV 60
 
 typedef struct s_vector_f
 {
@@ -54,5 +42,13 @@ typedef struct s_window
 	t_player	*player;
 	t_map		*map;
 }			t_window;
+
+//utils.c
+int		on_screen(int x, int y);
+char	get_map_char(t_vector_f *pos, t_map *map);
+
+//2dtest.c
+void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
+void	draw_map(t_window *window);
 
 #endif
