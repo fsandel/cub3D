@@ -15,5 +15,6 @@ int	main(int argc, char **argv)
 		ft_printf("MLX_init failed");
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
+	system("leaks cub3D");
 	return (0);
 }
