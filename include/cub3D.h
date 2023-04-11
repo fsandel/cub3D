@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 11:39:31 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/11 09:28:50 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/11 09:32:01 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ typedef struct s_vector_f
 	double	z;
 }			t_vector_f;
 
-typedef struct s_v_i
-{
-	int	x;
-	int	y;
-	int	z;
-}		t_v_i;
+// typedef struct s_v_i
+// {
+// 	int	x;
+// 	int	y;
+// 	int	z;
+// }		t_v_i;
 
 typedef struct s_player
 {
-	t_v_i	*pos;
+	t_vector_f	*pos;
 	t_vector_f	*dir;
 }			t_player;
 
