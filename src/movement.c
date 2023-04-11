@@ -5,7 +5,34 @@ void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
 void	cast_ray(t_vector_f *pos, t_vector_f *dir,
 			t_vector_f *target, t_map *map);
 
-void	put_player(t_window *window, int color)
+void	draw_line(t_window *window, t_vector_f *dir, t_vector_f *target, int i)
+{
+	const double	lineHeight = HEIGHT * 100 / distancePerp(*window->player->pos, *window->player->dir, *target);
+	int				start;
+	int				end;
+	int				y;
+
+	start = (- lineHeight / 2 + HEIGHT / 2);
+	end = (lineHeight / 2 + HEIGHT / 2);
+	if (start < 0)
+		start = 0;
+	if (end >= HEIGHT)
+		end = HEIGHT - 1;
+	y = 0;
+	while (y < HEIGHT)
+	{
+		if (y < start)
+			mlx_put_pixel(window->img, i, y, BLACK);
+		else if (y > end)
+			mlx_put_pixel(window->img, i, y, RED);
+		else
+			mlx_put_pixel(window->img, i, y, BLUE);
+		y++;
+	}
+	(void)dir;
+}
+
+void	put_player(t_window *window)
 {
 	t_vector_f		target;
 	t_vector_f		dir;
@@ -14,13 +41,12 @@ void	put_player(t_window *window, int color)
 	int				i;
 
 	i = -WIDTH / 2;
-	put_square(window->img, window->player->pos, color);
-	while (i < WIDTH / 2 + 1)
+	while (i < WIDTH / 2)
 	{
 		angle = i * fov / WIDTH;
 		rotate_hor_f(window->player->dir, &dir, angle);
 		cast_ray(window->player->pos, &dir, &target, window->map);
-		put_square(window->img, &target, color);
+		draw_line(window, &dir, &target, i + WIDTH / 2);
 		i++;
 	}
 }
@@ -51,22 +77,6 @@ void	cast_ray(t_vector_f *pos, t_vector_f *dir,
 	}
 }
 
-void	turn_player(t_window *window)
-{
-	if (mlx_is_key_down(window->mlx, MLX_KEY_D))
-	{
-		put_player(window, 0x0);
-		rotate_hor_f(window->player->dir, window->player->dir, 0.1f);
-		put_player(window, 0xFFFFFF);
-	}
-	if (mlx_is_key_down(window->mlx, MLX_KEY_A))
-	{
-		put_player(window, 0x0);
-		rotate_hor_f(window->player->dir, window->player->dir, -0.1f);
-		put_player(window, 0xFFFFFF);
-	}
-}
-
 void	player_movement(void *arg)
 {
 	t_window	*window;
@@ -74,17 +84,24 @@ void	player_movement(void *arg)
 	window = (t_window *)arg;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
 	{
-		put_player(window, 0x0);
 		window->player->pos->x -= window->player->dir->x;
 		window->player->pos->y -= window->player->dir->y;
-		put_player(window, 0xFFFFFF);
+		put_player(window);
 	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
 	{
-		put_player(window, 0x0);
 		window->player->pos->x += window->player->dir->x;
 		window->player->pos->y += window->player->dir->y;
-		put_player(window, 0xFFFFFF);
+		put_player(window);
 	}
-	turn_player(window);
+	if (mlx_is_key_down(window->mlx, MLX_KEY_D))
+	{
+		rotate_hor_f(window->player->dir, window->player->dir, 0.1f);
+		put_player(window);
+	}
+	if (mlx_is_key_down(window->mlx, MLX_KEY_A))
+	{
+		rotate_hor_f(window->player->dir, window->player->dir, -0.1f);
+		put_player(window);
+	}
 }

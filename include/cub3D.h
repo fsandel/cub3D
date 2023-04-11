@@ -13,7 +13,11 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-# define FOV 60
+# define FOV 45
+
+# define BLUE 0xFFFFFF
+# define RED 0xff0000ff
+# define BLACK 0x0
 
 typedef struct s_vector_f
 {
@@ -50,5 +54,13 @@ char	get_map_char(t_vector_f *pos, t_map *map);
 //2dtest.c
 void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
 void	draw_map(t_window *window);
+
+//distance.c
+double	distance(t_vector_f pos, t_vector_f target);
+double dotProduct(t_vector_f v1, t_vector_f v2);
+double abs_vector(t_vector_f v);
+double distancePerp(t_vector_f pos, t_vector_f dir, t_vector_f target);
+
+void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
 
 #endif

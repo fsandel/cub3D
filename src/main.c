@@ -1,7 +1,7 @@
 #include <cub3D.h>
 
 void	player_movement(void *arg);
-void	put_player(t_window *window, int color);
+void	put_player(t_window *window);
 
 void	escape_handler(void *arg)
 {
@@ -58,8 +58,7 @@ int	main(void)
 	window = setup_window_struct();
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);
-	put_player(window, 0xFFFFFFF);
-	draw_map(window);
+	put_player(window);
 	mlx_loop(window->mlx);
 	ft_printf("am after loop\n");
 	free_window_struct(window);
