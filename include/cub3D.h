@@ -71,7 +71,7 @@ void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
 
 //movement.c
 void	player_movement(void *arg);
-void	put_player(t_window *window, int color);
+void	put_player(t_window *window);
 
 // parser
 t_map	*parse(int fd);
@@ -80,5 +80,8 @@ int		args_valid(int argc, char **argv);
 // parser utils
 void	set_map_value(t_map *map, int line, int column, char c);
 void	print_file(t_list *line_list);
+
+//distance.c
+double distancePerp(t_vector_f pos, t_vector_f dir, t_vector_f target);
 
 #endif

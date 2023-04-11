@@ -45,8 +45,7 @@ int	main(int argc, char **argv)
 	window = setup_window_struct(map);
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);
-	put_player(window, 0xFFFFFFF);
-	draw_map(window);
+	put_player(window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);
