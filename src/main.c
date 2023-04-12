@@ -1,14 +1,5 @@
 #include <cub3D.h>
 
-static void	escape_handler(void *arg)
-{
-	mlx_t	*mlx;
-
-	mlx = (mlx_t *)arg;
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-}
-
 static t_window	*setup_window_struct(t_map *map)
 {
 	t_window	*window;
@@ -39,8 +30,7 @@ int	main(int argc, char **argv)
 	window = setup_window_struct(map);
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);
-	put_player(window, 0xFFFFFFF);
-	draw_map(window);
+	draw_scene(window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);
