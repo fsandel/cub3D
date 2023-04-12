@@ -9,7 +9,7 @@ void	draw_scene(t_window *window)
 	t_vector		target;
 	t_vector		dir;
 	double			angle;
-	const double	fov = (FOV * M_PI ) / 180;
+	const double	fov = (FOV * M_PI) / 180;
 	int				i;
 
 	i = -WIDTH / 2;
