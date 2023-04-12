@@ -8,7 +8,7 @@ int	on_screen(int x, int y)
 		return (0);
 }
 
-t_cube_type	get_cube_type(t_vector_f *pos, t_map *map)
+t_cube_type	get_cube_type(t_vector *pos, t_map *map)
 {
 	int	width;
 	int	height;

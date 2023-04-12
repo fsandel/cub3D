@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static void	norm(t_vector_f *v, double future_length)
+static void	norm(t_vector *v, double future_length)
 {
 	double	length;
 
@@ -9,7 +9,7 @@ static void	norm(t_vector_f *v, double future_length)
 	v->y = v->y / length * future_length;
 }
 
-void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle)
+void	rotate_hor_f(t_vector *before, t_vector *after, double angle)
 {
 	const double	x = before->x;
 	const double	y = before->y;
