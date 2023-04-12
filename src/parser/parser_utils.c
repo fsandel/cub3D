@@ -30,21 +30,46 @@ void	parse_textures(t_list *textures, t_map *map)
 	(void) map;
 	while (textures->next != NULL)
 	{
-		ft_printf("Texture parser: %s\n", textures->content);
+		ft_printf("FloorCeiling parser: %s\n", textures->content);
 		textures = textures->next;
 	}
-	ft_printf("Texture parser: %s\n", textures->content);
+	ft_printf("FloorCeiling parser: %s\n", textures->content);
+}
+
+void	set_floor_color(t_map *map, int color)
+{
+	map->floor_color = color;
+}
+
+void	set_ceiling_color(t_map *map, int color)
+{
+	map->ceiling_color = color;
+}
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 void	parse_f_c(t_list *f_c_colors, t_map *map)
 {
+	char	*str;
+
 	(void) map;
 	while (f_c_colors->next != NULL)
 	{
-		ft_printf("FloorCeiling parser: %s\n", f_c_colors->content);
+		str = (char *) f_c_colors->content;
+		if (str[0] == 'F' && str[1] == ' ')
+			set_floor_color(map, get_rgba(250, 100, 0, 255));
+		else if (str[0] == 'C' && str[1] == ' ')
+			set_ceiling_color(map, get_rgba(255, 30, 0, 255));
 		f_c_colors = f_c_colors->next;
 	}
-	ft_printf("FloorCeiling parser: %s\n", f_c_colors->content);
+	str = (char *) f_c_colors->content;
+	if (str[0] == 'F' && str[1] == ' ')
+		set_floor_color(map, get_rgba(250, 100, 0, 255));
+	else if (str[0] == 'C' && str[1] == ' ')
+		set_ceiling_color(map, get_rgba(255, 30, 0, 255));
 }
 
 void	print_file(t_list *line_list)

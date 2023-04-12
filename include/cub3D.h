@@ -53,6 +53,8 @@ typedef struct s_map
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*west_tex;
 	mlx_texture_t	*east_tex;
+	int				floor_color;
+	int				ceiling_color;
 
 }				t_map;
 

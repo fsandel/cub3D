@@ -41,9 +41,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i)
 	while (y < HEIGHT)
 	{
 		if (y < start)
-			mlx_put_pixel(window->img, i, y, BLACK);
+			mlx_put_pixel(window->img, i, y, window->map->ceiling_color);
 		else if (y > end)
-			mlx_put_pixel(window->img, i, y, RED);
+			mlx_put_pixel(window->img, i, y, window->map->floor_color);
 		else
 			mlx_put_pixel(window->img, i, y, BLUE);
 		y++;
