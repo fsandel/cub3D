@@ -10,7 +10,7 @@ int	args_valid(int argc, char **argv)
 	int	fd;
 
 	if (argc != 2)
-		return (false);
+		return (-1);
 	if (!extension_valid(argv[1]))
 	{
 		ft_printf("file extension invalid\n");

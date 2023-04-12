@@ -1,9 +1,9 @@
 [submodule "lib/libft"]
 	path = lib/libft
-	url = https://github.com/fsandel/libft
+	url = git@github.com:fsandel/libft.git
 [submodule "lib/MLX42"]
 	path = lib/MLX42
-	url = https://github.com/codam-coding-college/MLX42
+	url = git@github.com:codam-coding-college/MLX42.git
 [submodule "lib/LeakSanitizer"]
 	path = lib/LeakSanitizer
-	url = https://github.com/mhahnFr/LeakSanitizer.git
+	url = git@github.com:mhahnFr/LeakSanitizer.git

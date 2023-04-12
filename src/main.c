@@ -10,14 +10,8 @@ static t_window	*setup_window_struct(t_map *map)
 	mlx_image_to_window(window->mlx, window->img, 0, 0);
 	window->map = map;
 	window->player = malloc(sizeof(t_player) * 1);
-	window->player->pos = malloc(sizeof(t_vector) * 1);
-	window->player->dir = malloc(sizeof(t_vector) * 1);
-	window->player->pos->x = WIDTH / 2;
-	window->player->pos->y = HEIGHT / 2;
-	window->player->pos->z = 0;
-	window->player->dir->x = 0;
-	window->player->dir->y = 10;
-	window->player->dir->z = HEIGHT / 2;
+	window->player->pos = window->map->start_pos;
+	window->player->dir = window->map->start_dir;
 	return (window);
 }
 
