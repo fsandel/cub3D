@@ -70,7 +70,8 @@ bonus:
 ffclean:
 	@echo $(RED)"hard reset"
 	@rm -rfv obj
-	@rm -rfv lib
+	@rm -rfv lib/*/*
+	@rm -rfv lib/*/.git lib/*/.gitattributes lib/*/.gitignore lib/*/.github
 	@rm -fv $(NAME)
 	@echo $(DEFAULT)
 
