@@ -1,22 +1,33 @@
 #include "cub3D.h"
 
-static t_map		*init_map(void);
-static t_list		*read_file(int fd, t_map *map);
-static void			populate_map(t_list *line_list, t_map *map);
-static t_cube_type	**create_map(t_list *line_list, t_map *map);
+static t_map			*init_map(void);
+static t_file_content	*read_file(int fd, t_map *map, t_file_content *file_content);
+static void				populate_map(t_list *line_list, t_map *map);
+static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
 t_map	*parse(int fd)
 {
-	t_list	*line_list;
-	t_map	*map;
+	t_map			*map;
+	t_file_content	*file_content;
 
 	map = init_map();
-	line_list = read_file(fd, map);
+	file_content = malloc(sizeof(t_file_content));
+	if (!file_content)
+		return (NULL);
+	file_content->f_c_lines = NULL;
+	file_content->texture_lines = NULL;
+	file_content->map_lines = NULL;
+	file_content = read_file(fd, map, file_content);
 	close(fd);
 	map->cubes = NULL;
-	map->cubes = create_map(line_list, map);
-	populate_map(line_list, map);
-	ft_lstclear(&line_list, &free);
+	map->cubes = create_map(file_content->map_lines, map);
+	populate_map(file_content->map_lines, map);
+	parse_textures(file_content->texture_lines, map);
+	parse_f_c(file_content->f_c_lines, map);
+	ft_lstclear(&file_content->map_lines, &free);
+	ft_lstclear(&file_content->texture_lines, &free);
+	ft_lstclear(&file_content->f_c_lines, &free);
+	free(file_content);
 	return (map);
 }
 
@@ -82,25 +93,30 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 	return (res);
 }
 
-static t_list	*read_file(int fd, t_map *map)
+static t_file_content	*read_file(int fd, t_map *map, t_file_content *file_content)
 {
 	char	*str;
-	t_list	*lines;
 
 	map->width = 0;
 	map->height = 0;
 	str = get_next_line(fd);
-	lines = NULL;
 	while (str != NULL)
 	{
-		if (str != NULL)
+		if (str != NULL && ft_strlen(str) > 0)
 		{
-			ft_lstadd_back(&lines, ft_lstnew(str));
+			if (ft_strncmp(str, "NO", 2) == 0 || ft_strncmp(str, "SO", 2) == 0
+				|| ft_strncmp(str, "WE", 2) == 0
+				|| ft_strncmp(str, "EA", 2) == 0)
+				ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
+			else if (str[0] == 'F' || str[0] == 'C')
+				ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
+			else
+				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
 			if ((int) ft_strlen(str) - 1 > map->width)
 				map->width = ft_strlen(str) - 1;
 			map->height++;
 		}
 		str = get_next_line(fd);
 	}
-	return (lines);
+	return (file_content);
 }

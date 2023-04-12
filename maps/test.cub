@@ -1,3 +1,11 @@
+NO ./path_to_the_texture
+SO ./path_to_the_texture
+WE ./path_to_the_texture
+EA ./path_to_the_texture
+
+F 220,100,0
+C 225,30,0
+
 1111111111
 1N00000001
 1001111001

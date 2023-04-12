@@ -25,6 +25,28 @@ void	set_map_value(t_map *map, int line, int column, char c)
 		map->cubes[line][column] = empty;
 }
 
+void	parse_textures(t_list *textures, t_map *map)
+{
+	(void) map;
+	while (textures->next != NULL)
+	{
+		ft_printf("Texture parser: %s\n", textures->content);
+		textures = textures->next;
+	}
+	ft_printf("Texture parser: %s\n", textures->content);
+}
+
+void	parse_f_c(t_list *f_c_colors, t_map *map)
+{
+	(void) map;
+	while (f_c_colors->next != NULL)
+	{
+		ft_printf("FloorCeiling parser: %s\n", f_c_colors->content);
+		f_c_colors = f_c_colors->next;
+	}
+	ft_printf("FloorCeiling parser: %s\n", f_c_colors->content);
+}
+
 void	print_file(t_list *line_list)
 {
 	t_list	*temp;
