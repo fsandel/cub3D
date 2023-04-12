@@ -16,14 +16,14 @@ void	player_movement(void *arg)
 	window = (t_window *)arg;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
 	{
-		window->player->pos->x -= window->player->dir->x;
-		window->player->pos->y -= window->player->dir->y;
+		window->player->pos->x -= window->player->dir->x * SPEED;
+		window->player->pos->y -= window->player->dir->y * SPEED;
 		draw_scene(window);
 	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
 	{
-		window->player->pos->x += window->player->dir->x;
-		window->player->pos->y += window->player->dir->y;
+		window->player->pos->x += window->player->dir->x * SPEED;
+		window->player->pos->y += window->player->dir->y * SPEED;
 		draw_scene(window);
 	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_D))

@@ -14,6 +14,7 @@
 # define HEIGHT 1000
 
 # define FOV 60
+# define SPEED 10
 
 # define BLUE 0xFFFFFF
 # define RED 0xff0000ff
