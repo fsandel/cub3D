@@ -18,6 +18,11 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player->dir->x = 0;
 	window->player->dir->y = 10;
 	window->player->dir->z = HEIGHT / 2;
+	window->map->north = mlx_load_png("textures/north.png");
+	window->map->east = mlx_load_png("textures/east.png");
+	window->map->south = mlx_load_png("textures/south.png");
+	window->map->west = mlx_load_png("textures/west.png");
+
 	return (window);
 }
 
