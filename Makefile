@@ -20,14 +20,14 @@ PARSER_FILES	=	parser.c validate_args.c parser_utils.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	
+UTILS_FILES		=	vector.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS)
 
 ################################################################################
 ################################################################################
@@ -67,15 +67,7 @@ bonus:
 ################################################################################
 ################################################################################
 
-ffclean:
-	@echo $(RED)"hard reset"
-	@rm -rfv obj
-	@rm -rfv lib/*/*
-	@rm -rfv lib/*/.git lib/*/.gitattributes lib/*/.gitignore lib/*/.github
-	@rm -fv $(NAME)
-	@echo $(DEFAULT)
-
-r:
+t:
 	make all
 	./$(NAME) maps/testmap.cub
 
