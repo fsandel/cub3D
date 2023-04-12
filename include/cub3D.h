@@ -35,7 +35,9 @@ typedef struct s_map
 	t_cube_type	**cubes;
 	int			width;
 	int			height;
-}			t_map;
+	t_vector_f	*start_pos;
+	t_vector_f	*start_dir;
+}	t_map;
 
 typedef struct s_player
 {
@@ -49,7 +51,7 @@ typedef struct s_window
 	mlx_image_t	*img;
 	t_player	*player;
 	t_map		*map;
-}			t_window;
+}	t_window;
 
 //free_utils.c
 void	free_map(t_cube_type **cube);

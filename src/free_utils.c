@@ -21,6 +21,8 @@ void	free_window_struct(t_window *window)
 	free(window->player->dir);
 	free(window->player->pos);
 	free(window->player);
+	free(window->map->start_dir);
+	free(window->map->start_pos);
 	free(window->map);
 	free(window);
 }

@@ -1,5 +1,6 @@
 #include "cub3D.h"
 
+static t_map		*init_map(void);
 static t_list		*read_file(int fd, t_map *map);
 static void			populate_map(t_list *line_list, t_map *map);
 static t_cube_type	**create_map(t_list *line_list, t_map *map);
@@ -9,15 +10,25 @@ t_map	*parse(int fd)
 	t_list	*line_list;
 	t_map	*map;
 
-	map = malloc(sizeof(map));
-	if (!map)
-		return (NULL);
+	map = init_map();
 	line_list = read_file(fd, map);
 	close(fd);
 	map->cubes = NULL;
 	map->cubes = create_map(line_list, map);
 	populate_map(line_list, map);
 	ft_lstclear(&line_list, &free);
+	return (map);
+}
+
+static t_map	*init_map(void)
+{
+	t_map	*map;
+
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
+	map->start_pos = malloc(sizeof(t_vector_f));
+	map->start_dir = malloc(sizeof(t_vector_f));
 	return (map);
 }
 
