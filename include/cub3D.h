@@ -47,9 +47,13 @@ typedef enum e_direction
 
 typedef struct s_map
 {
-	t_cube_type	**cubes;
-	int			width;
-	int			height;
+	t_cube_type		**cubes;
+	int				width;
+	int				height;
+	mlx_texture_t	*north;
+	mlx_texture_t	*east;
+	mlx_texture_t	*south;
+	mlx_texture_t	*west;
 }				t_map;
 
 typedef struct s_player
