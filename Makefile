@@ -74,9 +74,9 @@ ffclean:
 	@rm -fv $(NAME)
 	@echo $(DEFAULT)
 
-t:
+r:
 	make all
-	./$(NAME)
+	./$(NAME) maps/testmap.cub
 
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
