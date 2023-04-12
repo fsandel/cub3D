@@ -77,7 +77,7 @@ ffclean:
 
 r:
 	make all
-	./$(NAME) maps/testmap.cub
+	./$(NAME) maps/test.cub
 
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
