@@ -27,8 +27,8 @@ static t_map	*init_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
-	map->start_pos = malloc(sizeof(t_vector_f));
-	map->start_dir = malloc(sizeof(t_vector_f));
+	map->start_pos = malloc(sizeof(t_vector));
+	map->start_dir = malloc(sizeof(t_vector));
 	return (map);
 }
 
