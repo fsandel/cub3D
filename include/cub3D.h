@@ -16,7 +16,7 @@
 # define FOV 60
 # define SPEED 10
 
-#define WHITE 0xffffffff
+# define WHITE 0xffffffff
 # define YELLOW 0xffff00ff
 # define BLUE 0xffffff
 # define PINK 0xff00ffff
@@ -36,6 +36,14 @@ typedef enum e_cube_type
 	wall,
 	empty,
 }	t_cube_type;
+
+typedef enum e_direction
+{
+	north,
+	east,
+	south,
+	west,
+}	t_direction;
 
 typedef struct s_map
 {
