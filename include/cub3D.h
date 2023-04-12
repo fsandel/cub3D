@@ -19,12 +19,12 @@
 # define RED 0xff0000ff
 # define BLACK 0x0
 
-typedef struct s_vector_f
+typedef struct s_vector
 {
 	double	x;
 	double	y;
 	double	z;
-}			t_vector_f;
+}			t_vector;
 
 typedef enum e_cube_type
 {
@@ -38,12 +38,12 @@ typedef struct s_map
 	t_cube_type	**cubes;
 	int			width;
 	int			height;
-}			t_map;
+}				t_map;
 
 typedef struct s_player
 {
-	t_vector_f	*pos;
-	t_vector_f	*dir;
+	t_vector	*pos;
+	t_vector	*dir;
 }			t_player;
 
 typedef struct s_window
@@ -55,33 +55,35 @@ typedef struct s_window
 }			t_window;
 
 //free_utils.c
-void	free_map(t_cube_type **cube);
-void	free_window_struct(t_window *window);
+void		free_map(t_cube_type **cube);
+void		free_window_struct(t_window *window);
 
 //utils.c
 int			on_screen(int x, int y);
-t_cube_type	get_cube_type(t_vector_f *pos, t_map *map);
-
-//2dtest.c
-void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
-void	draw_map(t_window *window);
+t_cube_type	get_cube_type(t_vector *pos, t_map *map);
 
 //rotate.c
-void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
-
-//movement.c
-void	player_movement(void *arg);
-void	put_player(t_window *window);
+void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
 
 // parser
-t_map	*parse(int fd);
-int		args_valid(int argc, char **argv);
+t_map		*parse(int fd);
+int			args_valid(int argc, char **argv);
 
 // parser utils
-void	set_map_value(t_map *map, int line, int column, char c);
-void	print_file(t_list *line_list);
+void		set_map_value(t_map *map, int line, int column, char c);
+void		print_file(t_list *line_list);
 
 //distance.c
-double distancePerp(t_vector_f pos, t_vector_f dir, t_vector_f target);
+double		distance(t_vector pos, t_vector target);
+double		dot_product(t_vector v1, t_vector v2);
+double		abs_vector(t_vector v);
+double		distance_perpendicular(t_vector pos, t_vector dir, t_vector target);
+
+//keyboard_input.c
+void		escape_handler(void *arg);
+void		player_movement(void *arg);
+
+//raycasting.c
+void		draw_scene(t_window *window);
 
 #endif
