@@ -16,7 +16,10 @@
 # define FOV 60
 # define SPEED 10
 
-# define BLUE 0xFFFFFF
+#define WHITE 0xffffffff
+# define YELLOW 0xffff00ff
+# define BLUE 0xffffff
+# define PINK 0xff00ffff
 # define RED 0xff0000ff
 # define BLACK 0x0
 
