@@ -20,14 +20,14 @@ PARSER_FILES	=	parser.c validate_args.c parser_utils.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	
+UTILS_FILES		=	vector.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS)
 
 ################################################################################
 ################################################################################

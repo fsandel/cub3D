@@ -54,30 +54,33 @@ typedef struct s_window
 }	t_window;
 
 //free_utils.c
-void	free_map(t_cube_type **cube);
-void	free_window_struct(t_window *window);
+void		free_map(t_cube_type **cube);
+void		free_window_struct(t_window *window);
 
 //utils.c
 int			on_screen(int x, int y);
 t_cube_type	get_cube_type(t_vector_f *pos, t_map *map);
 
 //2dtest.c
-void	put_square(mlx_image_t *img, t_vector_f *pos, int color);
-void	draw_map(t_window *window);
+void		put_square(mlx_image_t *img, t_vector_f *pos, int color);
+void		draw_map(t_window *window);
 
 //rotate.c
-void	rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
+void		rotate_hor_f(t_vector_f *before, t_vector_f *after, double angle);
 
 //movement.c
-void	player_movement(void *arg);
-void	put_player(t_window *window, int color);
+void		player_movement(void *arg);
+void		put_player(t_window *window, int color);
 
 // parser
-t_map	*parse(int fd);
-int		args_valid(int argc, char **argv);
+t_map		*parse(int fd);
+int			args_valid(int argc, char **argv);
 
 // parser utils
-void	set_map_value(t_map *map, int line, int column, char c);
-void	print_file(t_list *line_list);
+void		set_map_value(t_map *map, int line, int column, char c);
+void		print_file(t_list *line_list);
+
+// vector utils
+t_vector_f	*set_vec(t_vector_f *vec, double x, double y, double z);
 
 #endif
