@@ -55,8 +55,8 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 //make sure this thinking is correct, my thought is you always should hit now
 static void	set_target(t_vector *target, t_vector *pos, t_vector *dir, int i)
 {
-		target->x = pos->x - i * dir->x;
-		target->y = pos->y - i * dir->y;
+	target->x = pos->x - i * dir->x;
+	target->y = pos->y - i * dir->y;
 }
 
 static enum e_direction	get_direction(t_vector *dir, char c)
