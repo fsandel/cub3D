@@ -3,8 +3,8 @@ SO ./path_to_the_texture
 WE ./path_to_the_texture
 EA ./path_to_the_texture
 
-F 220,100,0
-C 225,30,0
+F 203,166,247
+C 4,165,229
 
 1111111111
 1N00000001
