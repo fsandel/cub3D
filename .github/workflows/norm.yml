@@ -8,4 +8,4 @@ jobs:
       - uses: actions/checkout@v2
       - uses: alexandregv/norminette-action@v3
         with:
-          flags: src
+          flags: src include
