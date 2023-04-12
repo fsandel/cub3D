@@ -22,7 +22,6 @@ static t_window	*setup_window_struct(t_map *map)
 	window->map->east = mlx_load_png("textures/east.png");
 	window->map->south = mlx_load_png("textures/south.png");
 	window->map->west = mlx_load_png("textures/west.png");
-
 	return (window);
 }
 
