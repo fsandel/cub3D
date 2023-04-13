@@ -5,6 +5,22 @@ static int	cast_ray(t_vector *pos, t_vector *dir,
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction);
 
+uint32_t	get_pixel(mlx_texture_t *tex, int x, int y)
+{
+	int		i = 0;
+	u_int32_t pixel;
+
+	pixel = 0;
+	while (i < 4)
+	{
+		pixel += tex->pixels[(y * tex->width + x) * 4 + i];
+		pixel = pixel << 2;
+		//pixel *= 256;
+		i++;
+	}
+	return (pixel);
+}
+
 void	draw_scene(t_window *window)
 {
 	t_vector			target;
@@ -18,9 +34,27 @@ void	draw_scene(t_window *window)
 	{
 		rotate_hor_f(window->player->dir, &dir, i * fov / WIDTH);
 		direction = cast_ray(window->player->pos, &dir, &target, window->map);
+		//if (i == 0)
+		//	printf("x: %f y: %f\n", ft_modf(target.x * window->map->width / WIDTH), ft_modf(target.y * window->map->height / HEIGHT));
 		draw_vertical_line(window, &target, i + WIDTH / 2, direction);
 		i++;
 	}
+	int	x = 0;
+	int	y = 0;
+	uint32_t	color;
+	while (x < 50)
+	{
+		y = 0;
+		while (y < 50)
+		{
+			color = get_pixel(window->map->north, x, y);
+			//color = WHITE;
+			mlx_put_pixel(window->img, x, y, color);
+			y++;
+		}
+		x++;
+	}
+	
 }
 
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
@@ -32,6 +66,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 	int				end;
 	int				y;
 	const int		all_colors[] = {BLUE, RED, PINK, YELLOW};
+	uint32_t			pix;
 
 	start = (-line_height / 2 + HEIGHT / 2);
 	end = (line_height / 2 + HEIGHT / 2);
@@ -47,9 +82,14 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 		else if (y > start + line_height)
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
+		{
+			//pix = get_pixel_from_texture(target, window->map, line_height, y + start, window->map->north);
+			//ft_memcpy(&window->img->pixels[y * WIDTH + i], &pix, 4);
 			mlx_put_pixel(window->img, i, y, all_colors[direction]);
+		}
 		y++;
 	}
+	(void)pix;
 }
 
 //make sure this thinking is correct, my thought is you always should hit now
