@@ -27,28 +27,28 @@ void	draw_scene(t_window *window)
 	}
 	int	x = 0;
 	int	y = 0;
-	// while (x < 50)
-	// {
-	// 	y = 0;
-	// 	while (y < 50)
-	// 	{
-	// 		//color = get_pixel(window->map->north, x, y);
-	// 		//color = WHITE;
-	// 		//mlx_put_pixel(window->img, x, y, color);
-	// 		int *color = malloc(4 * sizeof(int));
-	// 		int	c = RED;
-	// 		color[0] = c;
-	// 		color[1] = c;
-	// 		color[2] = c;
-	// 		color[3] = c;
+	while (x < 50)
+	{
+		y = 0;
+		while (y < 50)
+		{
+			//color = get_pixel(window->map->north, x, y);
+			//color = WHITE;
+			//mlx_put_pixel(window->img, x, y, color);
+			int *color = malloc(4 * sizeof(int));
+			int	c = RED;
+			color[0] = c;
+			color[1] = c;
+			color[2] = c;
+			color[3] = c;
 
-	// 		ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], &window->map->north->pixels[(y * window->map->north->width + x) * 4], 4);
-	// 		//ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], color, 4);
+			ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], &window->map->north->pixels[(y * window->map->north->width + x) * 4], 4);
+			//ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], color, 4);
 
-	// 		y++;
-	// 	}
-	// 	x++;
-	// }
+			y++;
+		}
+		x++;
+	}
 	
 }
 
@@ -73,8 +73,7 @@ static int dim_color(int color, double distance)
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction)
 {
-	const double	distance =  distance_perpendicular(
-			*window->player->pos, *window->player->dir, *target);
+	const double	dis =  distance(*window->player->pos, *target);
 	const double	line_height = HEIGHT * 100 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
 	int				start;
@@ -99,7 +98,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
 		{
-			mlx_put_pixel(window->img, i, y, dim_color(all_colors[direction], distance));
+			pix = get_pixel_from_texture(window, target, window->map, line_height, y, window->map->north, i);
+			ft_memset(&window->img[(i + y * WIDTH)], pix, 4);
+			//mlx_put_pixel(window->img, i, y, all_colors[direction]);
 			// if (i == WIDTH / 2)
 			// 	printf("%d\n", wall_x);
 		}
