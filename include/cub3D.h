@@ -15,6 +15,7 @@
 
 # define FOV 60
 # define SPEED 10
+# define DARKNESS_FACTOR 50
 
 # define WHITE 0xffffffff
 # define YELLOW 0xffff00ff
@@ -112,5 +113,12 @@ void		draw_scene(t_window *window);
 uint32_t	get_pixel_from_texture(t_window *window, t_vector *target, t_map *map, int line_height,
 			int y, mlx_texture_t *tex, int x);
 double		ft_modf(double num);
+
+//colors.c
+int get_rgba(int r, int g, int b, int a);
+int get_red(int rgba);
+int get_green(int rgba);
+int get_blue(int rgba);
+int get_alpha(int rgba);
 
 #endif

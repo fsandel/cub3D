@@ -64,7 +64,7 @@ static int dim_color(int color, double distance)
 	green = get_green(color);
 	blue = get_blue(color);
 	alpha = get_alpha(color);
-	alpha = alpha * 50 / distance;
+	alpha = alpha * DARKNESS_FACTOR / distance;
 	if (alpha > 255)
 		alpha = get_alpha(color);
 	return (get_rgba(red, green, blue, alpha));
