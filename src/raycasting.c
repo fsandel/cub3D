@@ -5,21 +5,7 @@ static int	cast_ray(t_vector *pos, t_vector *dir,
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction);
 
-uint32_t	get_pixel(mlx_texture_t *tex, int x, int y)
-{
-	int		i = 0;
-	u_int32_t pixel;
-
-	pixel = 0;
-	while (i < 4)
-	{
-		pixel += tex->pixels[(y * tex->width + x) * 4 + i];
-		pixel = pixel << 2;
-		//pixel *= 256;
-		i++;
-	}
-	return (pixel);
-}
+uint32_t	get_pixel(mlx_texture_t *tex, int x, int y);
 
 void	draw_scene(t_window *window)
 {
@@ -41,15 +27,24 @@ void	draw_scene(t_window *window)
 	}
 	int	x = 0;
 	int	y = 0;
-	uint32_t	color;
 	while (x < 50)
 	{
 		y = 0;
 		while (y < 50)
 		{
-			color = get_pixel(window->map->north, x, y);
+			//color = get_pixel(window->map->north, x, y);
 			//color = WHITE;
-			mlx_put_pixel(window->img, x, y, color);
+			//mlx_put_pixel(window->img, x, y, color);
+			int *color = malloc(4 * sizeof(int));
+			int	c = RED;
+			color[0] = c;
+			color[1] = c;
+			color[2] = c;
+			color[3] = c;
+
+			ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], &window->map->north->pixels[(y * window->map->north->width + x) * 4], 4);
+			//ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], color, 4);
+
 			y++;
 		}
 		x++;
@@ -67,6 +62,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 	int				y;
 	const int		all_colors[] = {BLUE, RED, PINK, YELLOW};
 	uint32_t			pix;
+	const double	wall_x = ((double)(target->x * window->map->width) / WIDTH);
 
 	start = (-line_height / 2 + HEIGHT / 2);
 	end = (line_height / 2 + HEIGHT / 2);
@@ -83,9 +79,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
 		{
-			//pix = get_pixel_from_texture(target, window->map, line_height, y + start, window->map->north);
-			//ft_memcpy(&window->img->pixels[y * WIDTH + i], &pix, 4);
-			mlx_put_pixel(window->img, i, y, all_colors[direction]);
+			mlx_put_pixel(window->img, i, y, all_colors[direction] * wall_x);
+			if (i == WIDTH / 2)
+				printf("%d\n", wall_x);
 		}
 		y++;
 	}

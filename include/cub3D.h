@@ -103,8 +103,8 @@ void		player_movement(void *arg);
 void		draw_scene(t_window *window);
 
 //textures.c
-uint32_t	get_pixel_from_texture(t_vector *target, t_map *map, int line_height,
-			int y, mlx_texture_t *tex);
-double	ft_modf(double num);
+uint32_t	get_pixel_from_texture(t_window *window, t_vector *target, t_map *map, int line_height,
+			int y, mlx_texture_t *tex, int x);
+double		ft_modf(double num);
 
 #endif
