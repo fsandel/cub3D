@@ -30,7 +30,7 @@ static int	colission(t_window *window, char c, double speed, t_vector *dir)
 		return (1);
 }
 
-static void	change_player_position(t_window *window, double speed, double angle)
+static void	change_player_position(t_window *window, double angle)
 {
 	t_vector	dir;
 	int			moved;
@@ -39,14 +39,14 @@ static void	change_player_position(t_window *window, double speed, double angle)
 	dir.y = window->player->dir->y;
 	rotate_hor_f(&dir, &dir, angle);
 	moved = 0;
-	if (!colission(window, 'x', speed, &dir))
+	if (!colission(window, 'x', SPEED, &dir))
 	{
-		window->player->pos->x -= dir.x * speed;
+		window->player->pos->x -= dir.x * SPEED;
 		moved = 1;
 	}
-	if (!colission(window, 'y', speed, &dir))
+	if (!colission(window, 'y', SPEED, &dir))
 	{
-		window->player->pos->y -= dir.y * speed;
+		window->player->pos->y -= dir.y * SPEED;
 		moved = 1;
 	}
 	if (moved)
@@ -59,13 +59,13 @@ void	player_movement(void *arg)
 
 	window = (t_window *)arg;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
-		change_player_position(window, SPEED, 0);
+		change_player_position(window, 0);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
-		change_player_position(window, SPEED, M_PI);
+		change_player_position(window, M_PI);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_D))
-		change_player_position(window, SPEED, M_PI_2);
+		change_player_position(window, M_PI_2);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_A))
-		change_player_position(window, SPEED, -M_PI_2);
+		change_player_position(window, -M_PI_2);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_E))
 	{
