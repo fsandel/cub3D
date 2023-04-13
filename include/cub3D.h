@@ -35,6 +35,7 @@ typedef enum e_cube_type
 	walkable,
 	wall,
 	empty,
+	spawn
 }	t_cube_type;
 
 typedef enum e_direction
@@ -54,6 +55,8 @@ typedef struct s_map
 	mlx_texture_t	*east;
 	mlx_texture_t	*south;
 	mlx_texture_t	*west;
+	t_vector	*start_pos;
+	t_vector	*start_dir;
 }				t_map;
 
 typedef struct s_player
@@ -68,7 +71,7 @@ typedef struct s_window
 	mlx_image_t	*img;
 	t_player	*player;
 	t_map		*map;
-}			t_window;
+}	t_window;
 
 //free_utils.c
 void		free_map(t_cube_type **cube);
@@ -88,6 +91,9 @@ int			args_valid(int argc, char **argv);
 // parser utils
 void		set_map_value(t_map *map, int line, int column, char c);
 void		print_file(t_list *line_list);
+
+// vector utils
+t_vector	*set_vec(t_vector *vec, double x, double y, double z);
 
 //distance.c
 double		distance(t_vector pos, t_vector target);
