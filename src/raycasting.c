@@ -27,34 +27,54 @@ void	draw_scene(t_window *window)
 	}
 	int	x = 0;
 	int	y = 0;
-	while (x < 50)
-	{
-		y = 0;
-		while (y < 50)
-		{
-			//color = get_pixel(window->map->north, x, y);
-			//color = WHITE;
-			//mlx_put_pixel(window->img, x, y, color);
-			int *color = malloc(4 * sizeof(int));
-			int	c = RED;
-			color[0] = c;
-			color[1] = c;
-			color[2] = c;
-			color[3] = c;
+	// while (x < 50)
+	// {
+	// 	y = 0;
+	// 	while (y < 50)
+	// 	{
+	// 		//color = get_pixel(window->map->north, x, y);
+	// 		//color = WHITE;
+	// 		//mlx_put_pixel(window->img, x, y, color);
+	// 		int *color = malloc(4 * sizeof(int));
+	// 		int	c = RED;
+	// 		color[0] = c;
+	// 		color[1] = c;
+	// 		color[2] = c;
+	// 		color[3] = c;
 
-			ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], &window->map->north->pixels[(y * window->map->north->width + x) * 4], 4);
-			//ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], color, 4);
+	// 		ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], &window->map->north->pixels[(y * window->map->north->width + x) * 4], 4);
+	// 		//ft_memcpy(&window->img->pixels[(y * WIDTH + x) * 4], color, 4);
 
-			y++;
-		}
-		x++;
-	}
+	// 		y++;
+	// 	}
+	// 	x++;
+	// }
 	
+}
+
+static int dim_color(int color, double distance)
+{
+	int	red;
+	int	green;
+	int	blue;
+	int alpha;
+	int dis_factor;
+
+	red = get_red(color);
+	green = get_green(color);
+	blue = get_blue(color);
+	alpha = get_alpha(color);
+	alpha = alpha * 50 / distance;
+	if (alpha > 255)
+		alpha = get_alpha(color);
+	return (get_rgba(red, green, blue, alpha));
 }
 
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction)
 {
+	const double	distance =  distance_perpendicular(
+			*window->player->pos, *window->player->dir, *target);
 	const double	line_height = HEIGHT * 100 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
 	int				start;
@@ -79,9 +99,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
 		{
-			mlx_put_pixel(window->img, i, y, all_colors[direction] * wall_x);
-			if (i == WIDTH / 2)
-				printf("%d\n", wall_x);
+			mlx_put_pixel(window->img, i, y, dim_color(all_colors[direction], distance));
+			// if (i == WIDTH / 2)
+			// 	printf("%d\n", wall_x);
 		}
 		y++;
 	}
