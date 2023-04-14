@@ -114,7 +114,7 @@ uint32_t	get_pixel_from_texture(t_window *window, t_vector *target, t_map *map, 
 			int y, mlx_texture_t *tex, int x);
 double		ft_modf(double num);
 u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
-int texture_x_value(mlx *tex, t_vector *target, t_map *map, t_direction direction);
+int texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map, t_direction direction);
 int texture_y_value(mlx_texture_t *tex,  int line_height, int window_y, int start);
 
 //colors.c

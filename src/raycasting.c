@@ -52,13 +52,12 @@ void	draw_scene(t_window *window)
 	
 }
 
-static int dim_color(int color, double distance)
+int dim_color(int color, double distance)
 {
 	int	red;
 	int	green;
 	int	blue;
 	int alpha;
-	int dis_factor;
 
 	red = get_red(color);
 	green = get_green(color);
@@ -73,15 +72,13 @@ static int dim_color(int color, double distance)
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction)
 {
-	const double	dis =  distance(*window->player->pos, *target);
 	const double	line_height = HEIGHT * 100 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
 	int				start;
 	int				end;
 	int				y;
-	const int		all_colors[] = {BLUE, RED, PINK, YELLOW};
+	//const int		all_colors[] = {BLUE, RED, PINK, YELLOW};
 	uint32_t			pix;
-	const double	wall_x = ((double)(target->x * window->map->width) / WIDTH);
 	int tex_x;
 	int tex_y;
 
@@ -101,8 +98,8 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 		else
 		{
 			tex_x = texture_x_value(window->map->north, target, window->map, direction);
-			tex_y = texture_y_value(line_height, y, start, window->map->north);
-			pix = get_rgba_from_tex(window->map->north, tex_x, tey_y);
+			tex_y = texture_y_value(window->map->north, line_height, y, start);
+			pix = get_rgba_from_tex(window->map->north, tex_x, tex_y);
 			mlx_put_pixel(window->img, i, y, pix);
 		}
 		y++;
