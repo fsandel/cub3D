@@ -82,6 +82,8 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 	const int		all_colors[] = {BLUE, RED, PINK, YELLOW};
 	uint32_t			pix;
 	const double	wall_x = ((double)(target->x * window->map->width) / WIDTH);
+	int tex_x;
+	int tex_y;
 
 	start = (-line_height / 2 + HEIGHT / 2);
 	end = (line_height / 2 + HEIGHT / 2);
@@ -98,11 +100,10 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
 		{
-			pix = get_pixel_from_texture(window, target, window->map, line_height, y, window->map->north, i);
-			ft_memset(&window->img[(i + y * WIDTH)], pix, 4);
-			//mlx_put_pixel(window->img, i, y, all_colors[direction]);
-			// if (i == WIDTH / 2)
-			// 	printf("%d\n", wall_x);
+			tex_x = texture_x_value(window->map->north, target, window->map, direction);
+			tex_y = texture_y_value(line_height, y, start, window->map->north);
+			pix = get_rgba_from_tex(window->map->north, tex_x, tey_y);
+			mlx_put_pixel(window->img, i, y, pix);
 		}
 		y++;
 	}
