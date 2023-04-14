@@ -75,7 +75,6 @@ typedef struct s_window
 }	t_window;
 
 //free_utils.c
-void		free_map(t_cube_type **cube);
 void		free_window_struct(t_window *window);
 
 //utils.c
