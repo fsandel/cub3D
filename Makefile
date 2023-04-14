@@ -75,7 +75,7 @@ $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
 
 norm:
-	norminette $(ALL_SRC) $(HDR)
+	@norminette $(ALL_SRC) $(HDR) | grep -v "Missing or invalid 42 header"
 
 ################################################################################
 ################################################################################
