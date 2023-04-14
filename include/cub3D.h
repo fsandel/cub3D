@@ -57,9 +57,9 @@ typedef struct s_map
 	mlx_texture_t	*south;
 	mlx_texture_t	*west;
 	mlx_texture_t	*all_textures[4];
-	t_vector	*start_pos;
-	t_vector	*start_dir;
-}				t_map;
+	t_vector		*start_pos;
+	t_vector		*start_dir;
+}					t_map;
 
 typedef struct s_player
 {
@@ -111,22 +111,23 @@ void		player_movement(void *arg);
 void		draw_scene(t_window *window);
 
 //textures.c
-uint32_t	get_pixel_from_texture(t_window *window, t_vector *target, t_map *map, int line_height,
-			int y, mlx_texture_t *tex, int x);
 double		ft_modf(double num);
 u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
-int texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map, t_direction direction);
-int texture_y_value(mlx_texture_t *tex,  int line_height, int window_y, int start);
+int			texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
+				t_direction direction);
+int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
+				int start);
+int			dim_color(int color, double distance);
 
 //colors.c
-int get_rgba(int r, int g, int b, int a);
-int get_red(int rgba);
-int get_green(int rgba);
-int get_blue(int rgba);
-int get_alpha(int rgba);
+int			get_rgba(int r, int g, int b, int a);
+int			get_red(int rgba);
+int			get_green(int rgba);
+int			get_blue(int rgba);
+int			get_alpha(int rgba);
 
 //utils/utils.c
-int min(int a, int b);
-int max(int a, int b);
+int			min(int a, int b);
+int			max(int a, int b);
 
 #endif
