@@ -18,8 +18,8 @@ u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y)
 //check if no weird float/int stuff happens
 int texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map, t_direction direction)
 {
-	//if (direction == north || direction == south)
-	if (direction == west || direction == east)
+	if (direction == north || direction == south)
+	//if (direction == west || direction == east)
 		return (ft_modf(target->x * map->width / WIDTH) * tex->width);
 	else
 		return (ft_modf(target->y * map->height / HEIGHT) * tex->height);

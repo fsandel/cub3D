@@ -14,6 +14,10 @@ static t_window	*setup_window_struct(t_map *map)
 	window->map->east = mlx_load_png("textures/east.png");
 	window->map->south = mlx_load_png("textures/south.png");
 	window->map->west = mlx_load_png("textures/west.png");
+	window->map->all_textures[north] = window->map->north;
+	window->map->all_textures[east] = window->map->east;
+	window->map->all_textures[south] = window->map->south;
+	window->map->all_textures[west] = window->map->west;
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
 	return (window);

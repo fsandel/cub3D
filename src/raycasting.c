@@ -97,9 +97,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y, WHITE);
 		else
 		{
-			tex_x = texture_x_value(window->map->north, target, window->map, direction);
-			tex_y = texture_y_value(window->map->north, line_height, y, start);
-			pix = get_rgba_from_tex(window->map->north, tex_x, tex_y);
+			tex_x = texture_x_value(window->map->all_textures[direction], target, window->map, direction);
+			tex_y = texture_y_value(window->map->all_textures[direction], line_height, y, start);
+			pix = get_rgba_from_tex(window->map->all_textures[direction], tex_x, tex_y);
 			mlx_put_pixel(window->img, i, y, pix);
 		}
 		y++;
@@ -121,16 +121,16 @@ static enum e_direction	get_direction(t_vector *dir, char c)
 	if (c == 'x')
 	{
 		if (dir->x > 0)
-			direction = north;
+			direction = east;
 		else
-			direction = south;
+			direction = west;
 	}
 	else
 	{
 		if (dir->y > 0)
-			direction = west;
+			direction = south;
 		else
-			direction = east;
+			direction = north;
 	}
 	return (direction);
 }
