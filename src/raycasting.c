@@ -5,8 +5,6 @@ static int	cast_ray(t_vector *pos, t_vector *dir,
 static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 				enum e_direction direction);
 
-uint32_t	get_pixel(mlx_texture_t *tex, int x, int y);
-
 void	draw_scene(t_window *window)
 {
 	t_vector			target;
