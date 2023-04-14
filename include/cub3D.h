@@ -23,6 +23,7 @@
 # define PINK 0xff00ffff
 # define RED 0xff0000ff
 # define BLACK 0x0
+# define ORANGE 0xffa500ff
 
 typedef struct s_vector
 {
