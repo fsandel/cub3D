@@ -125,4 +125,8 @@ int get_green(int rgba);
 int get_blue(int rgba);
 int get_alpha(int rgba);
 
+//utils/utils.c
+int min(int a, int b);
+int max(int a, int b);
+
 #endif

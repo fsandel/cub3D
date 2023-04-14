@@ -20,7 +20,7 @@ PARSER_FILES	=	parser.c validate_args.c parser_utils.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c
+UTILS_FILES		=	vector.c utils.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
