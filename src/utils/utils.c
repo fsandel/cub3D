@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-int min(int a, int b)
+int	min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -8,7 +8,7 @@ int min(int a, int b)
 		return (b);
 }
 
-int max(int a, int b)
+int	max(int a, int b)
 {
 	if (a > b)
 		return (a);

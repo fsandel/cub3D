@@ -44,11 +44,11 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 			mlx_put_pixel(window->img, i, y++, WHITE);
 		else
 		{
-			tex.x = texture_x_value(window->map->all_textures[direction],
+			tex.x = texture_x_value(window->map->textures[direction],
 					target, window->map, direction);
-			tex.y = texture_y_value(window->map->all_textures[direction],
+			tex.y = texture_y_value(window->map->textures[direction],
 					line_height, y, start);
-			pix = get_rgba_from_tex(window->map->all_textures[direction],
+			pix = get_rgba_from_tex(window->map->textures[direction],
 					tex.x, tex.y);
 			mlx_put_pixel(window->img, i, y++, pix);
 		}

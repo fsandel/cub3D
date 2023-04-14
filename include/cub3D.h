@@ -56,7 +56,7 @@ typedef struct s_map
 	mlx_texture_t	*east;
 	mlx_texture_t	*south;
 	mlx_texture_t	*west;
-	mlx_texture_t	*all_textures[4];
+	mlx_texture_t	*textures[4];
 	t_vector		*start_pos;
 	t_vector		*start_dir;
 }					t_map;
