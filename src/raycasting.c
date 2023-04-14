@@ -10,45 +10,45 @@ void	draw_scene(t_window *window)
 	t_vector			target;
 	t_vector			dir;
 	const double		fov = (FOV * M_PI) / 180;
-	int					i;
+	int					ray_iter;
 	enum e_direction	direction;
 
-	i = -WIDTH / 2;
-	while (i < WIDTH / 2)
+	ray_iter = -WIDTH / 2;
+	while (ray_iter < WIDTH / 2)
 	{
-		rotate_hor_f(window->player->dir, &dir, i * fov / WIDTH);
+		rotate_hor_f(window->player->dir, &dir, ray_iter * fov / WIDTH);
 		direction = cast_ray(window->player->pos, &dir, &target, window->map);
-		draw_vertical_line(window, &target, i + WIDTH / 2, direction);
-		i++;
+		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
+		ray_iter++;
 	}	
 }
 
-static void	draw_vertical_line(t_window *window, t_vector *target, int i,
+static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				enum e_direction direction)
 {
 	const double	line_height = HEIGHT * 100 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
 	const int		start = max(((HEIGHT - line_height) / 2), 0);
-	int				y;
+	int				p_y;
 	uint32_t		pix;
 	t_vector		tex;
 
-	y = 0;
-	while (y < HEIGHT)
+	p_y = 0;
+	while (p_y < HEIGHT)
 	{
-		if (y < start)
-			mlx_put_pixel(window->img, i, y++, window->map->ceiling_color);
-		else if (y > start + line_height)
-			mlx_put_pixel(window->img, i, y++, window->map->floor_color);
+		if (p_y < start)
+			mlx_put_pixel(window->img, p_x, p_y++, window->map->ceiling_color);
+		else if (p_y >= start + line_height - 1)
+			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
 			tex.x = texture_x_value(window->map->textures[direction],
 					target, window->map, direction);
 			tex.y = texture_y_value(window->map->textures[direction],
-					line_height, y, start);
+					line_height, p_y, start);
 			pix = get_rgba_from_tex(window->map->textures[direction],
 					tex.x, tex.y);
-			mlx_put_pixel(window->img, i, y++, pix);
+			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}
 }
