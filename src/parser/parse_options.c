@@ -46,11 +46,6 @@ void	set_ceiling_color(t_map *map, int color)
 	map->ceiling_color = color;
 }
 
-int	get_rgba(int r, int g, int b, int a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
 void	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;

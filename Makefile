@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c raycasting.c textures.c colors.c
+SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c raycasting.c textures.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -20,7 +20,7 @@ PARSER_FILES	=	parser.c validate_args.c parser_utils.c parse_options.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c utils.c
+UTILS_FILES		=	vector.c utils.c colors.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
