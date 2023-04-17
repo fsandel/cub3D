@@ -6,6 +6,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
+// TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
 	t_map			*map;
@@ -19,6 +20,8 @@ t_map	*parse(int fd)
 	file_content->texture_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, file_content);
+	if (!file_content)
+		return (NULL);
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
@@ -40,6 +43,8 @@ static t_map	*init_map(void)
 		return (NULL);
 	map->start_pos = malloc(sizeof(t_vector));
 	map->start_dir = malloc(sizeof(t_vector));
+	map->width = 0;
+	map->height = 0;
 	return (map);
 }
 
@@ -89,8 +94,6 @@ static t_file_content	*read_file(int fd, t_map *map,
 {
 	char	*str;
 
-	map->width = 0;
-	map->height = 0;
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
@@ -108,6 +111,8 @@ static t_file_content	*read_file(int fd, t_map *map,
 					map->width = ft_strlen(str) - 1;
 				map->height++;
 			}
+			else
+				return (NULL);
 		}
 		str = get_next_line(fd);
 	}
