@@ -106,17 +106,18 @@ static t_file_content	*read_file(int fd, t_map *map,
 	{
 		if (str != NULL && ft_strlen(str) > 0)
 		{
-			if (ft_strncmp(str, "NO", 2) == 0 || ft_strncmp(str, "SO", 2) == 0
-				|| ft_strncmp(str, "WE", 2) == 0
-				|| ft_strncmp(str, "EA", 2) == 0)
+			if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
+				|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
 				ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
 			else if (str[0] == 'F' || str[0] == 'C')
 				ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
 			else
+			{
 				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-			if ((int) ft_strlen(str) - 1 > map->width)
-				map->width = ft_strlen(str) - 1;
-			map->height++;
+				if ((int) ft_strlen(str) - 1 > map->width)
+					map->width = ft_strlen(str) - 1;
+				map->height++;
+			}
 		}
 		str = get_next_line(fd);
 	}

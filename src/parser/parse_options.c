@@ -3,18 +3,20 @@
 void	parse_texture(char *input, t_map *map)
 {
 	char			**str_vals;
+	char			*temp;
 	mlx_texture_t	*texture;
 	int				i;
 
 	str_vals = ft_split(input, ' ');
-	texture = mlx_load_png(str_vals[1]);
-	if (ft_strncmp(str_vals[0], "NO", 3) == 0)
+	temp = ft_strtrim(str_vals[1], "\n");
+	texture = mlx_load_png(temp);
+	if (ft_strncmp(str_vals[0], "NO", 2) == 0)
 		map->textures[north] = texture;
-	else if (ft_strncmp(str_vals[0], "SO", 3) == 0)
+	else if (ft_strncmp(str_vals[0], "SO", 2) == 0)
 		map->textures[south] = texture;
-	else if (ft_strncmp(str_vals[0], "WE", 3) == 0)
+	else if (ft_strncmp(str_vals[0], "WE", 2) == 0)
 		map->textures[west] = texture;
-	else if (ft_strncmp(str_vals[0], "EA", 3) == 0)
+	else if (ft_strncmp(str_vals[0], "EA", 2) == 0)
 		map->textures[east] = texture;
 	i = 0;
 	while (str_vals[i])
@@ -23,6 +25,7 @@ void	parse_texture(char *input, t_map *map)
 		i++;
 	}
 	free(str_vals);
+	free(temp);
 }
 
 void	parse_textures(t_list *textures, t_map *map)

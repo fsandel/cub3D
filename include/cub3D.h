@@ -63,8 +63,8 @@ typedef struct s_map
 	mlx_texture_t	*textures[4];
 	t_vector		*start_pos;
 	t_vector		*start_dir;
-	uint32_t		floor_color;
-	uint32_t		ceiling_color;
+	int				floor_color;
+	int				ceiling_color;
 }					t_map;
 
 typedef struct s_player
