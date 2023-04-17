@@ -13,6 +13,13 @@ void	free_cubes(t_map *map)
 	free(map->cubes);
 }
 
+static void	free_hud(t_window *window)
+{
+	mlx_delete_image(window->mlx, window->hud->fps->fps_image);
+	free(window->hud->fps);
+	free(window->hud);
+}
+
 void	free_window_struct(t_window *window)
 {
 	mlx_delete_image(window->mlx, window->img);
@@ -22,6 +29,7 @@ void	free_window_struct(t_window *window)
 	mlx_delete_texture(window->map->textures[west]);
 	mlx_terminate(window->mlx);
 	free_cubes(window->map);
+	free_hud(window);
 	free(window->player);
 	free(window->map->start_dir);
 	free(window->map->start_pos);

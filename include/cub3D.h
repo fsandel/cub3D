@@ -73,12 +73,25 @@ typedef struct s_player
 	t_vector	*dir;
 }			t_player;
 
+typedef struct s_fps
+{
+	int			fps_num;
+	int			*frame_time;
+	mlx_image_t	*fps_image;
+}	t_fps;
+
+typedef struct s_hud
+{
+	t_fps	*fps;
+}	t_hud;
+
 typedef struct s_window
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_player	*player;
 	t_map		*map;
+	t_hud		*hud;
 }	t_window;
 
 //free_utils.c
@@ -139,5 +152,9 @@ int			get_alpha(int rgba);
 //utils/utils.c
 int			min(int a, int b);
 int			max(int a, int b);
+
+//hud.c
+void		setup_hud(t_window *window);
+void		fps(void *arg);
 
 #endif
