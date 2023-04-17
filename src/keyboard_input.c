@@ -11,43 +11,43 @@ void	escape_handler(void *arg)
 
 static int	colission(t_window *window, char c, double speed, t_vector *dir)
 {
-	t_vector	future;
+	t_vector	future_pos;
 
 	if (c == 'x')
 	{
-		future.x = window->player->pos->x - dir->x * speed;
-		future.y = window->player->pos->y;
+		future_pos.x = window->player->pos->x - dir->x * speed;
+		future_pos.y = window->player->pos->y;
 	}
 	else
 	{
-		future.x = window->player->pos->x;
-		future.y = window->player->pos->y - dir->y * speed;
+		future_pos.x = window->player->pos->x;
+		future_pos.y = window->player->pos->y - dir->y * speed;
 	}
-	future.z = 0;
-	if (get_cube_type(&future, window->map) != wall)
-		return (0);
+	future_pos.z = 0;
+	if (get_cube_type(&future_pos, window->map) != wall)
+		return (false);
 	else
-		return (1);
+		return (true);
 }
 
 static void	change_player_position(t_window *window, double angle)
 {
 	t_vector	dir;
-	int			moved;
+	bool		moved;
 
 	dir.x = window->player->dir->x;
 	dir.y = window->player->dir->y;
 	rotate_hor_f(&dir, &dir, angle);
-	moved = 0;
+	moved = false;
 	if (!colission(window, 'x', SPEED, &dir))
 	{
 		window->player->pos->x -= dir.x * SPEED;
-		moved = 1;
+		moved = true;
 	}
 	if (!colission(window, 'y', SPEED, &dir))
 	{
 		window->player->pos->y -= dir.y * SPEED;
-		moved = 1;
+		moved = true;
 	}
 	if (moved)
 		draw_scene(window);
