@@ -108,10 +108,13 @@ void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
 t_map		*parse(int fd);
 int			args_valid(int argc, char **argv);
 
-// parser utils
-void		set_map_value(t_map *map, int line, int column, char c);
+// parse_options.c
 void		parse_textures(t_list *textures, t_map *map);
 void		parse_f_c(t_list *f_c_colors, t_map *map);
+
+// parser utils
+void		set_map_value(t_map *map, int line, int column, char c);
+void		parse_rgb(char *str, int *r, int *g, int *b);
 
 // map utils
 void		set_floor_color(t_map *map, int color);

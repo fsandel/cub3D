@@ -21,4 +21,5 @@ void	fps(void *arg)
 		mlx_delete_image(window->mlx, window->hud->fps->fps_image);
 	window->hud->fps->fps_image = mlx_put_string(window->mlx, fps_char,
 			x_position, y_position);
+	free(fps_char);
 }
