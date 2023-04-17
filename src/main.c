@@ -34,8 +34,10 @@ int	main(int argc, char **argv)
 	else
 		return (EXIT_FAILURE);
 	window = setup_window_struct(map);
+	setup_hud(window);
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);
+	mlx_loop_hook(window->mlx, fps, window);
 	draw_scene(window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
