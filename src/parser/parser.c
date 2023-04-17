@@ -20,7 +20,6 @@ t_map	*parse(int fd)
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, file_content);
 	close(fd);
-	map->cubes = NULL;
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
 	parse_textures(file_content->texture_lines, map);
