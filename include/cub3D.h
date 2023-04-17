@@ -15,10 +15,15 @@
 
 # define FOV 60
 # define SPEED 10
+# define DARKNESS_FACTOR 50
 
-# define BLUE 0xFFFFFF
+# define WHITE 0xffffffff
+# define YELLOW 0xffff00ff
+# define BLUE 0xffffff
+# define PINK 0xff00ffff
 # define RED 0xff0000ff
 # define BLACK 0x0
+# define ORANGE 0xffa500ff
 
 typedef struct s_vector
 {
@@ -48,20 +53,19 @@ typedef enum e_direction
 	east,
 	south,
 	west,
-}			t_direction;
+}	t_direction;
 
 typedef struct s_map
 {
-	t_cube_type	**cubes;
+	t_cube_type		**cubes;
 	int				width;
 	int				height;
+	mlx_texture_t	*textures[4];
 	t_vector		*start_pos;
 	t_vector		*start_dir;
-	mlx_texture_t	*textures[4];
-	int				floor_color;
-	int				ceiling_color;
-
-}				t_map;
+	uint32_t		floor_color;
+	uint32_t		ceiling_color;
+}					t_map;
 
 typedef struct s_player
 {
@@ -78,7 +82,6 @@ typedef struct s_window
 }	t_window;
 
 //free_utils.c
-void		free_map(t_cube_type **cube);
 void		free_window_struct(t_window *window);
 
 //utils.c
@@ -112,5 +115,25 @@ void		player_movement(void *arg);
 
 //raycasting.c
 void		draw_scene(t_window *window);
+
+//textures.c
+double		ft_modf(double num);
+u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
+int			texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
+				t_direction direction);
+int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
+				int start);
+int			dim_color(int color, double distance);
+
+//colors.c
+int			get_rgba(int r, int g, int b, int a);
+int			get_red(int rgba);
+int			get_green(int rgba);
+int			get_blue(int rgba);
+int			get_alpha(int rgba);
+
+//utils/utils.c
+int			min(int a, int b);
+int			max(int a, int b);
 
 #endif
