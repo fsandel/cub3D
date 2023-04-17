@@ -78,7 +78,6 @@ typedef struct s_hud
 	t_fps	*fps;
 }	t_hud;
 
-
 typedef struct s_window
 {
 	mlx_t		*mlx;
@@ -142,9 +141,8 @@ int			get_alpha(int rgba);
 int			min(int a, int b);
 int			max(int a, int b);
 
-
 //hud.c
-void	setup_hud(t_window *window);
-void	fps(void *arg);
+void		setup_hud(t_window *window);
+void		fps(void *arg);
 
 #endif
