@@ -101,7 +101,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 				ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
 			else if (str[0] == 'F' || str[0] == 'C')
 				ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
-			else
+			else if (is_valid_map_str(str))
 			{
 				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
 				if ((int) ft_strlen(str) - 1 > map->width)

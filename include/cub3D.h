@@ -116,6 +116,9 @@ void		parse_f_c(t_list *f_c_colors, t_map *map);
 void		set_map_value(t_map *map, int line, int column, char c);
 void		parse_rgb(char *str, int *r, int *g, int *b);
 
+// check_syntax.c
+bool		is_valid_map_str(char *map_str);
+
 // map utils
 void		set_floor_color(t_map *map, int color);
 void		set_ceiling_color(t_map *map, int color);
