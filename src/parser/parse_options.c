@@ -39,16 +39,6 @@ void	parse_textures(t_list *textures, t_map *map)
 	parse_texture(textures->content, map);
 }
 
-void	set_floor_color(t_map *map, int color)
-{
-	map->floor_color = color;
-}
-
-void	set_ceiling_color(t_map *map, int color)
-{
-	map->ceiling_color = color;
-}
-
 void	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;

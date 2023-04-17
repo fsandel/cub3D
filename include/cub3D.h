@@ -100,6 +100,10 @@ void		set_map_value(t_map *map, int line, int column, char c);
 void		parse_textures(t_list *textures, t_map *map);
 void		parse_f_c(t_list *f_c_colors, t_map *map);
 
+// map utils
+void		set_floor_color(t_map *map, int color);
+void		set_ceiling_color(t_map *map, int color);
+
 // vector utils
 t_vector	*set_vec(t_vector *vec, double x, double y, double z);
 
