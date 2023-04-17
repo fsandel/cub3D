@@ -68,7 +68,7 @@ typedef struct s_player
 
 typedef struct s_fps
 {
-	int			fps;
+	int			fps_num;
 	int			*frame_time;
 	mlx_image_t	*fps_image;
 }	t_fps;
