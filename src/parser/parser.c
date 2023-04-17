@@ -51,7 +51,7 @@ static void	populate_map(t_list *line_list, t_map *map)
 	char	*line_s;
 
 	line = 0;
-	while (line_list->next != NULL)
+	while (line_list != NULL)
 	{
 		line_s = (char *) line_list->content;
 		col = 0;
@@ -62,13 +62,6 @@ static void	populate_map(t_list *line_list, t_map *map)
 		}
 		line++;
 		line_list = line_list->next;
-	}
-	line_s = (char *) line_list->content;
-	col = 0;
-	while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
-	{
-		set_map_value(map, line, col, line_s[col]);
-		col++;
 	}
 }
 
@@ -83,14 +76,12 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 		return (NULL);
 	temp = line_list;
 	i = 0;
-	while (temp->next != NULL)
+	while (temp != NULL)
 	{
 		res[i] = malloc((map->width + 1) * sizeof(t_cube_type));
 		temp = temp->next;
 		i++;
 	}
-	res[i] = malloc(map->width * sizeof(t_cube_type));
-	temp = temp->next;
 	return (res);
 }
 
