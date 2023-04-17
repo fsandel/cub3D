@@ -1,5 +1,18 @@
 #include <cub3D.h>
 
+static void	fps(void *arg)
+{
+	t_window			*window;
+	static mlx_image_t	*fps_img = NULL;
+	char				*fps_char;
+
+	window = (t_window *)arg;
+	fps_char = ft_itoa((int)(1 / window->mlx->delta_time));
+	if (fps_img)
+		mlx_delete_image(window->mlx, fps_img);
+	fps_img = mlx_put_string(window->mlx, fps_char, WIDTH - 100, 50);
+}
+
 static t_window	*setup_window_struct(t_map *map)
 {
 	t_window	*window;
@@ -36,6 +49,7 @@ int	main(int argc, char **argv)
 	window = setup_window_struct(map);
 	mlx_loop_hook(window->mlx, escape_handler, window->mlx);
 	mlx_loop_hook(window->mlx, player_movement, window);
+	mlx_loop_hook(window->mlx, fps, window);
 	draw_scene(window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
