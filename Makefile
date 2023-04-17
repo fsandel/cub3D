@@ -16,7 +16,7 @@ SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c ra
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c validate_args.c parser_utils.c
+PARSER_FILES	=	parser.c validate_args.c parser_utils.c parse_options.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/

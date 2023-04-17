@@ -1,7 +1,8 @@
 #include "cub3D.h"
 
 static t_map			*init_map(void);
-static t_file_content	*read_file(int fd, t_map *map, t_file_content *file_content);
+static t_file_content	*read_file(int fd, t_map *map,
+							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
@@ -93,7 +94,8 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 	return (res);
 }
 
-static t_file_content	*read_file(int fd, t_map *map, t_file_content *file_content)
+static t_file_content	*read_file(int fd, t_map *map,
+							t_file_content *file_content)
 {
 	char	*str;
 
