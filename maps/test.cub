@@ -1,3 +1,11 @@
+NO textures/brick.png
+SO textures/brick.png
+WE textures/brick.png
+EA textures/brick.png
+
+F 203,166,247
+C 4,165,229
+
 1111111111
 1000000001
 1001111001
@@ -5,4 +13,4 @@
 1000W00001
 1000000001
 1000000001
-111111111
+1111111111

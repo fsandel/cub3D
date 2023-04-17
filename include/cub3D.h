@@ -32,6 +32,13 @@ typedef struct s_vector
 	double	z;
 }			t_vector;
 
+typedef struct s_file_content
+{
+	t_list	*map_lines;
+	t_list	*texture_lines;
+	t_list	*f_c_lines;
+}			t_file_content;
+
 typedef enum e_cube_type
 {
 	walkable,
@@ -56,8 +63,8 @@ typedef struct s_map
 	mlx_texture_t	*textures[4];
 	t_vector		*start_pos;
 	t_vector		*start_dir;
-	uint32_t		floor_color;
-	uint32_t		ceiling_color;
+	int				floor_color;
+	int				ceiling_color;
 }					t_map;
 
 typedef struct s_player
@@ -103,7 +110,12 @@ int			args_valid(int argc, char **argv);
 
 // parser utils
 void		set_map_value(t_map *map, int line, int column, char c);
-void		print_file(t_list *line_list);
+void		parse_textures(t_list *textures, t_map *map);
+void		parse_f_c(t_list *f_c_colors, t_map *map);
+
+// map utils
+void		set_floor_color(t_map *map, int color);
+void		set_ceiling_color(t_map *map, int color);
 
 // vector utils
 t_vector	*set_vec(t_vector *vec, double x, double y, double z);
