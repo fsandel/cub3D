@@ -25,15 +25,40 @@ void	set_map_value(t_map *map, int line, int column, char c)
 		map->cubes[line][column] = empty;
 }
 
+void	parse_texture(char *input, t_map *map)
+{
+	char			**str_vals;
+	mlx_texture_t	*texture;
+	int				i;
+
+	str_vals = ft_split(input, ' ');
+	texture = mlx_load_png(str_vals[1]);
+	if (ft_strncmp(str_vals[0], "NO", 3) == 0)
+		map->textures[north] = texture;
+	else if (ft_strncmp(str_vals[0], "SO", 3) == 0)
+		map->textures[south] = texture;
+	else if (ft_strncmp(str_vals[0], "WE", 3) == 0)
+		map->textures[west] = texture;
+	else if (ft_strncmp(str_vals[0], "EA", 3) == 0)
+		map->textures[east] = texture;
+	i = 0;
+	while (str_vals[i])
+	{
+		free(str_vals[i]);
+		i++;
+	}
+	free(str_vals);
+}
+
 void	parse_textures(t_list *textures, t_map *map)
 {
 	(void) map;
 	while (textures->next != NULL)
 	{
-		ft_printf("FloorCeiling parser: %s\n", textures->content);
+		parse_texture(textures->content, map);
 		textures = textures->next;
 	}
-	ft_printf("FloorCeiling parser: %s\n", textures->content);
+	parse_texture(textures->content, map);
 }
 
 void	set_floor_color(t_map *map, int color)
@@ -105,17 +130,4 @@ void	parse_f_c(t_list *f_c_colors, t_map *map)
 		set_floor_color(map, get_rgba(r, g, b, a));
 	else if (str[0] == 'C' && str[1] == ' ')
 		set_ceiling_color(map, get_rgba(r, g, b, a));
-}
-
-void	print_file(t_list *line_list)
-{
-	t_list	*temp;
-
-	temp = line_list;
-	while (temp->next != NULL)
-	{
-		ft_printf("%s", temp->content);
-		temp = temp->next;
-	}
-	ft_printf("%s\n", temp->content);
 }

@@ -42,6 +42,14 @@ typedef enum e_cube_type
 	spawn
 }	t_cube_type;
 
+typedef enum e_direction
+{
+	north,
+	east,
+	south,
+	west,
+}			t_direction;
+
 typedef struct s_map
 {
 	t_cube_type	**cubes;
@@ -49,10 +57,7 @@ typedef struct s_map
 	int				height;
 	t_vector		*start_pos;
 	t_vector		*start_dir;
-	mlx_texture_t	*north_tex;
-	mlx_texture_t	*south_tex;
-	mlx_texture_t	*west_tex;
-	mlx_texture_t	*east_tex;
+	mlx_texture_t	*textures[4];
 	int				floor_color;
 	int				ceiling_color;
 
@@ -89,7 +94,6 @@ int			args_valid(int argc, char **argv);
 
 // parser utils
 void		set_map_value(t_map *map, int line, int column, char c);
-void		print_file(t_list *line_list);
 void		parse_textures(t_list *textures, t_map *map);
 void		parse_f_c(t_list *f_c_colors, t_map *map);
 
