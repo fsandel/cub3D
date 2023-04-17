@@ -112,7 +112,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 				map->height++;
 			}
 			else
-				return (NULL);
+				ft_printf("found faulty or empty line in .cub file\n");
 		}
 		str = get_next_line(fd);
 	}
