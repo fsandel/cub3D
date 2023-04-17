@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c raycasting.c
+SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c raycasting.c textures.c colors.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -20,7 +20,7 @@ PARSER_FILES	=	parser.c validate_args.c parser_utils.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c
+UTILS_FILES		=	vector.c utils.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
@@ -69,13 +69,13 @@ bonus:
 
 t:
 	make all
-	./$(NAME) maps/testmap.cub
+	./$(NAME) maps/test.cub
 
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
 
 norm:
-	norminette $(SRC) $(HDR)
+	@norminette $(ALL_SRC) $(HDR) | grep -v "Missing or invalid 42 header"
 
 ################################################################################
 ################################################################################
