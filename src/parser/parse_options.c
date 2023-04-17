@@ -30,7 +30,6 @@ void	parse_texture(char *input, t_map *map)
 
 void	parse_textures(t_list *textures, t_map *map)
 {
-	(void) map;
 	while (textures->next != NULL)
 	{
 		parse_texture(textures->content, map);
