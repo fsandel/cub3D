@@ -97,22 +97,19 @@ static t_file_content	*read_file(int fd, t_map *map,
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if (str != NULL && ft_strlen(str) > 0)
+		if (is_valid_tex_str(str))
+			ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
+		else if (is_valid_f_c_str(str))
+			ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
+		else if (is_valid_map_str(str))
 		{
-			if (is_valid_tex_str(str))
-				ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
-			else if (is_valid_f_c_str(str))
-				ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
-			else if (is_valid_map_str(str))
-			{
-				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-				if ((int) ft_strlen(str) - 1 > map->width)
-					map->width = ft_strlen(str) - 1;
-				map->height++;
-			}
-			else
-				ft_printf("found faulty or empty line in .cub file\n");
+			ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+			map->height++;
+			if ((int) ft_strlen(str) - 1 > map->width)
+				map->width = ft_strlen(str) - 1;
 		}
+		else
+			free(str);
 		str = get_next_line(fd);
 	}
 	return (file_content);
