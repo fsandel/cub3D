@@ -49,6 +49,14 @@ $(NAME): $(ALL_OBJ_DIR) $(ALL_OBJ)
 	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) $(MLX) $(GLFW)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
+test: $(ALL_OBJ_DIR) $(ALL_OBJ)
+	ar -rcs libcub3dtest.a $(ALL_OBJ) lib/libft/obj/*.o
+	cd tests && $(MAKE) run
+
+testclean:
+	rm libcub3dtest.a
+	rm tests/*.out
+
 clean:
 	@echo $(RED)"cleaning:"
 	@rm -rfv $(patsubst %/,%,$(OBJ_DIR))
