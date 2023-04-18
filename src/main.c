@@ -12,8 +12,8 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player = malloc(sizeof(t_player) * 1);
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
-	window->map->width = 10; //remeber to remove
-	window->map->height = 8; //remember to remove
+	map->width = 10;
+	map->height = 8;
 	return (window);
 }
 

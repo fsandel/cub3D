@@ -69,13 +69,13 @@ void	player_movement(void *arg)
 	if (mlx_is_key_down(window->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_E))
 	{
-		rotate_hor_f(window->player->dir, window->player->dir, 0.1f);
+		rotate_hor_f(window->player->dir, window->player->dir, TURN_SPEED);
 		draw_scene(window);
 	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_Q))
 	{
-		rotate_hor_f(window->player->dir, window->player->dir, -0.1f);
+		rotate_hor_f(window->player->dir, window->player->dir, -TURN_SPEED);
 		draw_scene(window);
 	}
 }

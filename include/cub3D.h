@@ -14,7 +14,8 @@
 # define HEIGHT 1000
 
 # define FOV 60
-# define SPEED 0.1f
+# define SPEED 0.05f
+# define TURN_SPEED 0.05f
 # define DARKNESS_FACTOR 50
 
 # define WHITE 0xffffffff
