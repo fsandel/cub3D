@@ -7,3 +7,5 @@ a.out
 .ccls
 .ccls-cache/
 cub3D.dSYM/
+libcub3dtest.a
+tests/*.out
