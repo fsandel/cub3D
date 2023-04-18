@@ -85,6 +85,19 @@ static t_direction	get_direction(t_vector *dir, char c)
 	}
 	return (direction);
 }
+double	get_s_x(double d_x, double d_y)
+{
+	if (d_x == 0)
+		return (1);
+	return (sqrt(1 + (d_y * d_y / d_x / d_x)));
+}
+
+double	get_s_y(double d_x, double d_y)
+{
+	if (d_y == 0)
+		return (1);
+	return (sqrt(1 + (d_x * d_x / d_y / d_y)));
+}
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	t_vector *target, t_map *map)
