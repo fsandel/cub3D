@@ -16,11 +16,11 @@ SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c ra
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c validate_args.c parser_utils.c parse_options.c map_utils.c check_syntax.c
+PARSER_FILES	=	parser.c validate_args.c parser_utils.c parse_options.c check_syntax.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c utils.c colors.c
+UTILS_FILES		=	vector.c utils.c colors.c map.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/

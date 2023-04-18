@@ -13,13 +13,13 @@ int	args_valid(int argc, char **argv)
 		return (-1);
 	if (!extension_valid(argv[1]))
 	{
-		ft_printf("file extension invalid\n");
+		ft_printf("Error\nFile extension invalid\n");
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("not a valid file\n");
+		ft_printf("Error\nFile couldn't be opened\n");
 		close(fd);
 	}
 	return (fd);
