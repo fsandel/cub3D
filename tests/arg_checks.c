@@ -8,7 +8,7 @@ void	setup(void)
 	cr_redirect_stderr();
 }
 
-TestSuite(valid_args, .init=setup);
+TestSuite(valid_args, .init = setup);
 
 Test(valid_args, wrong_argc){
 char *test[3];
