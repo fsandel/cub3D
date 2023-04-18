@@ -30,6 +30,8 @@ bool	is_valid_tex_str(char *tex_str)
 	if (!ft_strncmp(tex_str, "NO", 2) || !ft_strncmp(tex_str, "SO", 2)
 		|| !ft_strncmp(tex_str, "WE", 2) || !ft_strncmp(tex_str, "EA", 2))
 		res = true;
+	if (tex_str[2] != ' ')
+		res = false;
 	return (res);
 }
 
