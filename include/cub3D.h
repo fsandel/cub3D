@@ -113,7 +113,6 @@ void		parse_textures(t_list *textures, t_map *map);
 void		parse_f_c(t_list *f_c_colors, t_map *map);
 
 // parser utils
-void		set_map_value(t_map *map, int line, int column, char c);
 void		parse_rgb(char *str, int *r, int *g, int *b);
 
 // check_syntax.c
@@ -124,6 +123,7 @@ bool		is_valid_f_c_str(char *f_c_str);
 // map utils
 void		set_floor_color(t_map *map, int color);
 void		set_ceiling_color(t_map *map, int color);
+void		set_cube_value(t_map *map, int line, int column, char c);
 
 // vector utils
 t_vector	*set_vec(t_vector *vec, double x, double y, double z);
