@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static void	norm(t_vector *v, double future_length)
+void	norm(t_vector *v, double future_length)
 {
 	double	length;
 

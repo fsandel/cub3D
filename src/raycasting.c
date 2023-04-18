@@ -1,7 +1,7 @@
 #include <cub3D.h>
 
-static t_direction	cast_ray(t_vector *pos, t_vector *dir,
-						t_vector *target, t_map *map);
+// static t_direction	cast_ray(t_vector *pos, t_vector *dir,
+// 						t_vector *target, t_map *map);
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
@@ -19,9 +19,9 @@ void	draw_scene(t_window *window)
 	while (ray_iter < WIDTH / 2)
 	{
 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
+		// direction = cast_ray(window->player->pos, &ray_dir,
+		// 		&target, window->map);
 		direction = cast_ray_dda(window->player->pos, &ray_dir,
-				&target, window->map);
-		direction = cast_ray(window->player->pos, &ray_dir,
 				&target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
@@ -59,32 +59,32 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 }
 
 //make sure this thinking is correct, my thought is you always should hit now
-static void	set_target(t_vector *target, t_vector *pos, t_vector *dir, int i)
-{
-	target->x = pos->x - (i * dir->x * SPEED);
-	target->y = pos->y - (i * dir->y * SPEED);
-}
+// static void	set_target(t_vector *target, t_vector *pos, t_vector *dir, int i)
+// {
+// 	target->x = pos->x - (i * dir->x * SPEED);
+// 	target->y = pos->y - (i * dir->y * SPEED);
+// }
 
-static t_direction	get_direction(t_vector *dir, char c)
-{
-	t_direction	direction;
+// static t_direction	get_direction(t_vector *dir, char c)
+// {
+// 	t_direction	direction;
 
-	if (c == 'x')
-	{
-		if (dir->x > 0)
-			direction = east;
-		else
-			direction = west;
-	}
-	else
-	{
-		if (dir->y > 0)
-			direction = south;
-		else
-			direction = north;
-	}
-	return (direction);
-}
+// 	if (c == 'x')
+// 	{
+// 		if (dir->x > 0)
+// 			direction = east;
+// 		else
+// 			direction = west;
+// 	}
+// 	else
+// 	{
+// 		if (dir->y > 0)
+// 			direction = south;
+// 		else
+// 			direction = north;
+// 	}
+// 	return (direction);
+// }
 double	get_sx(double dx, double dy)
 {
 	if (dx == 0)
@@ -98,6 +98,7 @@ double	get_sy(double dx, double dy)
 		return (1);
 	return (sqrt(1 + (dx * dx / dy / dy)));
 }
+
 static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 {
 	if (dir->x > 0 && dir->y > 0)
@@ -127,38 +128,52 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 {
 	double	dx;
 	double	dy;
+	double	sx;
+	double	sy;
+	t_vector	temp_dir;
 
-	set_dx_and_dy(&dx, &dy, dir, pos);
-	(void)target;
-	(void)map;
+	set_vec(target, pos->x, pos->y, pos->z);
+	set_vec(&temp_dir, dir->x, dir->y, dir->z);
+	while (get_cube_type(target, map) != wall)
+	{
+		set_dx_and_dy(&dx, &dy, dir, target);
+		sx = get_sx(dx, dy);
+		sy = get_sy(dx, dy);
+		if (sx < sy)
+			norm(&temp_dir, sx);
+		else
+			norm(&temp_dir, sy);
+		set_vec(target, target->x + temp_dir.x, target->y + temp_dir.y, target->z + temp_dir.z);
+	}
+	//remember to return the right direction
 	return (0);
 }
 
-static t_direction	cast_ray(t_vector *pos, t_vector *dir,
-	t_vector *target, t_map *map)
-{
-	int			i;
-	t_vector	temp;
-	t_direction	direction;
+// static t_direction	cast_ray(t_vector *pos, t_vector *dir,
+// 	t_vector *target, t_map *map)
+// {
+// 	int			i;
+// 	t_vector	temp;
+// 	t_direction	direction;
 
-	temp = (t_vector){pos->x, pos->y, pos->z};
-	i = 0;
-	direction = north;
-	while (temp.x < map->width && temp.y < map->height)
-	{
-		temp.x = pos->x - i * (dir->x * SPEED);
-		if (get_cube_type(&temp, map) == wall)
-		{
-			direction = get_direction(dir, 'x');
-			break ;
-		}
-		temp.y = pos->y - i * (dir->y * SPEED);
-		if (get_cube_type(&temp, map) == wall)
-		{
-			direction = get_direction(dir, 'y');
-			break ;
-		}
-		i++;
-	}
-	return (set_target(target, pos, dir, i), direction);
-}
+// 	temp = (t_vector){pos->x, pos->y, pos->z};
+// 	i = 0;
+// 	direction = north;
+// 	while (temp.x < map->width && temp.y < map->height)
+// 	{
+// 		temp.x = pos->x - i * (dir->x * SPEED);
+// 		if (get_cube_type(&temp, map) == wall)
+// 		{
+// 			direction = get_direction(dir, 'x');
+// 			break ;
+// 		}
+// 		temp.y = pos->y - i * (dir->y * SPEED);
+// 		if (get_cube_type(&temp, map) == wall)
+// 		{
+// 			direction = get_direction(dir, 'y');
+// 			break ;
+// 		}
+// 		i++;
+// 	}
+// 	return (set_target(target, pos, dir, i), direction);
+// }
