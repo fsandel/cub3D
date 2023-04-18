@@ -1,7 +1,12 @@
 #include "cub3D.h"
 
+struct s_parser_state
+{
+	bool	map_parsed;
+};
+
 static t_map			*init_map(void);
-static t_file_content	*read_file(int fd, t_map *map,
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
@@ -9,9 +14,11 @@ static t_cube_type		**create_map(t_list *line_list, t_map *map);
 // TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
-	t_map			*map;
-	t_file_content	*file_content;
+	t_map					*map;
+	t_file_content			*file_content;
+	struct s_parser_state	state;
 
+	state.map_parsed = false;
 	map = init_map();
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
@@ -19,7 +26,7 @@ t_map	*parse(int fd)
 	file_content->f_c_lines = NULL;
 	file_content->texture_lines = NULL;
 	file_content->map_lines = NULL;
-	file_content = read_file(fd, map, file_content);
+	file_content = read_file(fd, map, state, file_content);
 	if (!file_content)
 		return (NULL);
 	close(fd);
@@ -104,7 +111,7 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
  * and counts the mapwidth and height
  */
 // TODO map strings must not be interupted by non-map-lines
-static t_file_content	*read_file(int fd, t_map *map,
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 							t_file_content *file_content)
 {
 	char	*str;
@@ -118,10 +125,20 @@ static t_file_content	*read_file(int fd, t_map *map,
 			ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
 		else if (is_valid_map_str(str))
 		{
-			ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-			map->height++;
-			if ((int) ft_strlen(str) - 1 > map->width)
-				map->width = ft_strlen(str) - 1;
+			if (s.map_parsed == true)
+				printf("already parsed a map\n");
+			else
+			{
+				while (str != NULL && is_valid_map_str(str))
+				{
+					ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+					map->height++;
+					if ((int) ft_strlen(str) - 1 > map->width)
+						map->width = ft_strlen(str) - 1;
+					str = get_next_line(fd);
+				}
+			}
+			s.map_parsed = true;
 		}
 		else
 			free(str);
