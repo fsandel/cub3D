@@ -1,6 +1,6 @@
 CC = cc
 LDFLAGS = -lcriterion -L.. -lcub3dtest
-SRC = arg_checks.c
+SRC = arg_tests.c
 EXECS = $(SRC:%.c=%.out)
 %.out: %.c
 	@$(CC) $< -o $@ $(LDFLAGS)
