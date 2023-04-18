@@ -1,6 +1,7 @@
 #include <cub3D.h>
 
 static bool	is_map_char(char c, int *whitespace);
+static bool	is_valid_color_char(char c);
 
 bool	is_valid_map_str(char *map_str)
 {
@@ -23,17 +24,31 @@ bool	is_valid_map_str(char *map_str)
 
 bool	is_valid_tex_str(char *tex_str)
 {
+	bool	res;
+
+	res = false;
 	if (!ft_strncmp(tex_str, "NO", 2) || !ft_strncmp(tex_str, "SO", 2)
 		|| !ft_strncmp(tex_str, "WE", 2) || !ft_strncmp(tex_str, "EA", 2))
-		return (true);
-	return (false);
+		res = true;
+	return (res);
 }
 
 bool	is_valid_f_c_str(char *f_c_str)
 {
-	if (f_c_str[0] == 'F' || f_c_str[0] == 'C')
-		return (true);
-	return (false);
+	bool	res;
+	int		i;
+
+	res = false;
+	if ((f_c_str[0] == 'F' || f_c_str[0] == 'C') && f_c_str[1] == ' ')
+		res = true;
+	i = 2;
+	while (i < (int) ft_strlen(f_c_str + 2) - 1)
+	{
+		if (!is_valid_color_char(f_c_str[i]))
+			res = false;
+		i++;
+	}
+	return (res);
 }
 
 static bool	is_map_char(char c, int *whitespace)
@@ -46,4 +61,12 @@ static bool	is_map_char(char c, int *whitespace)
 		return (true);
 	}
 	return (false);
+}
+
+static bool	is_valid_color_char(char c)
+{
+	if (ft_isdigit(c) || c == ',')
+		return (true);
+	else
+		return (false);
 }
