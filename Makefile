@@ -50,8 +50,8 @@ $(NAME): $(ALL_OBJ_DIR) $(ALL_OBJ)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
 
 test: $(ALL_OBJ_DIR) $(ALL_OBJ)
-	ar -rcs libcub3dtest.a $(ALL_OBJ) lib/libft/obj/*.o
-	cd tests && $(MAKE) run
+	@ar -rcs libcub3dtest.a $(ALL_OBJ) lib/libft/obj/*.o
+	@cd tests && $(MAKE) run
 
 testclean:
 	rm libcub3dtest.a
