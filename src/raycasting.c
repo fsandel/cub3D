@@ -98,12 +98,37 @@ double	get_s_y(double d_x, double d_y)
 		return (1);
 	return (sqrt(1 + (d_x * d_x / d_y / d_y)));
 }
+static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
+{
+	if (dir->x > 0 && dir->y > 0)
+	{
+		*dx = 1 - ft_modf(pos->x);
+		*dy = 1 - ft_modf(pos->y);
+	}
+	else if (dir->x > 0 && dir->y < 0)
+	{
+		*dx = 1 - ft_modf(pos->x);
+		*dy = ft_modf(pos->y);
+	}
+	else if (dir->x < 0 && dir->y > 0)
+	{
+		*dx = ft_modf(pos->x);
+		*dy = 1 - ft_modf(pos->y);
+	}
+	else
+	{
+		*dx = ft_modf(pos->x);
+		*dy = ft_modf(pos->y);
+	}
+}
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	t_vector *target, t_map *map)
 {
-	(void)pos;
-	(void)dir;
+	double	dx;
+	double	dy;
+
+	set_dx_and_dy(&dx, &dy, dir, pos);
 	(void)target;
 	(void)map;
 	return (0);
