@@ -4,6 +4,8 @@ static t_direction	cast_ray(t_vector *pos, t_vector *dir,
 						t_vector *target, t_map *map);
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
+static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
+						t_vector *target, t_map *map);
 
 void	draw_scene(t_window *window)
 {
@@ -17,6 +19,8 @@ void	draw_scene(t_window *window)
 	while (ray_iter < WIDTH / 2)
 	{
 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
+		direction = cast_ray_dda(window->player->pos, &ray_dir,
+				&target, window->map);
 		direction = cast_ray(window->player->pos, &ray_dir,
 				&target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
@@ -80,6 +84,16 @@ static t_direction	get_direction(t_vector *dir, char c)
 			direction = north;
 	}
 	return (direction);
+}
+
+static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
+	t_vector *target, t_map *map)
+{
+	(void)pos;
+	(void)dir;
+	(void)target;
+	(void)map;
+	return (0);
 }
 
 static t_direction	cast_ray(t_vector *pos, t_vector *dir,
