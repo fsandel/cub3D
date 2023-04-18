@@ -85,18 +85,18 @@ static t_direction	get_direction(t_vector *dir, char c)
 	}
 	return (direction);
 }
-double	get_s_x(double d_x, double d_y)
+double	get_sx(double dx, double dy)
 {
-	if (d_x == 0)
+	if (dx == 0)
 		return (1);
-	return (sqrt(1 + (d_y * d_y / d_x / d_x)));
+	return (sqrt(1 + (dy * dy / dx / dx)));
 }
 
-double	get_s_y(double d_x, double d_y)
+double	get_sy(double dx, double dy)
 {
-	if (d_y == 0)
+	if (dy == 0)
 		return (1);
-	return (sqrt(1 + (d_x * d_x / d_y / d_y)));
+	return (sqrt(1 + (dx * dx / dy / dy)));
 }
 static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 {
