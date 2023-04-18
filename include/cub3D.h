@@ -118,6 +118,8 @@ void		parse_rgb(char *str, int *r, int *g, int *b);
 
 // check_syntax.c
 bool		is_valid_map_str(char *map_str);
+bool		is_valid_tex_str(char *tex_str);
+bool		is_valid_f_c_str(char *f_c_str);
 
 // map utils
 void		set_floor_color(t_map *map, int color);
