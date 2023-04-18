@@ -112,9 +112,6 @@ int			args_valid(int argc, char **argv);
 void		parse_textures(t_list *textures, t_map *map);
 void		parse_f_c(t_list *f_c_colors, t_map *map);
 
-// parser utils
-void		parse_rgb(char *str, int *r, int *g, int *b);
-
 // check_syntax.c
 bool		is_valid_map_str(char *map_str);
 bool		is_valid_tex_str(char *tex_str);
