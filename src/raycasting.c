@@ -19,14 +19,35 @@ void	draw_scene(t_window *window)
 	while (ray_iter < WIDTH / 2)
 	{
 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
-		// direction = cast_ray(window->player->pos, &ray_dir,
-		// 		&target, window->map);
 		direction = cast_ray_dda(window->player->pos, &ray_dir,
 				&target, window->map);
+		if (ray_iter == 0)
+			printf("distance: %f\n", distance(*window->player->pos, target));
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
 	}
 }
+
+// void	draw_scene(t_window *window)
+// {
+// 	t_vector			target;
+// 	t_vector			ray_dir;
+// 	const double		fov = (FOV * M_PI) / 180;
+// 	int					ray_iter;
+// 	t_direction			direction;
+
+// 	ray_iter = -WIDTH / 2;
+// 	while (ray_iter < WIDTH / 2)
+// 	{
+// 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
+// 		direction = cast_ray_dda(window->player->pos, &ray_dir,
+// 				&target, window->map);
+// 		if (ray_iter == 0)
+// 			printf("distance: %f\n", distance(*window->player->pos, target));
+// 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
+// 		ray_iter++;
+// 	}
+// }
 
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				t_direction direction)
@@ -53,7 +74,8 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 					line_height, p_y, start);
 			pix = get_rgba_from_tex(window->map->textures[direction],
 					tex.x, tex.y);
-			mlx_put_pixel(window->img, p_x, p_y++, pix);
+			(void)pix;
+			mlx_put_pixel(window->img, p_x, p_y++, RED);
 		}
 	}
 }
@@ -143,7 +165,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 			norm(&temp_dir, sx);
 		else
 			norm(&temp_dir, sy);
-		set_vec(target, target->x + temp_dir.x, target->y + temp_dir.y, target->z + temp_dir.z);
+		set_vec(target, target->x - temp_dir.x, target->y - temp_dir.y, target->z - temp_dir.z);
 	}
 	//remember to return the right direction
 	return (0);
