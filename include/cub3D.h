@@ -108,7 +108,7 @@ t_map		*parse(int fd);
 int			args_valid(int argc, char **argv);
 
 // parse_options.c
-void	parse_options(t_list *option_lines, t_map *map);
+void		parse_options(t_list *option_lines, t_map *map);
 
 // check_syntax.c
 bool		is_valid_map_str(char *map_str);
