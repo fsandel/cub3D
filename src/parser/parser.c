@@ -3,6 +3,7 @@
 struct s_parser_state
 {
 	bool	map_parsed;
+	bool	multiple_maps;
 };
 
 static t_map			*init_map(void);
@@ -23,8 +24,7 @@ t_map	*parse(int fd)
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
 		return (NULL);
-	file_content->f_c_lines = NULL;
-	file_content->texture_lines = NULL;
+	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, state, file_content);
 	if (!file_content)
@@ -32,11 +32,9 @@ t_map	*parse(int fd)
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
-	parse_textures(file_content->texture_lines, map);
-	parse_f_c(file_content->f_c_lines, map);
+	parse_options(file_content->option_lines, map);
 	ft_lstclear(&file_content->map_lines, &free);
-	ft_lstclear(&file_content->texture_lines, &free);
-	ft_lstclear(&file_content->f_c_lines, &free);
+	ft_lstclear(&file_content->option_lines, &free);
 	free(file_content);
 	return (map);
 }
@@ -119,14 +117,12 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if (is_valid_tex_str(str))
-			ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
-		else if (is_valid_f_c_str(str))
-			ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
+		if (is_valid_tex_str(str) || is_valid_f_c_str(str))
+			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
 		else if (is_valid_map_str(str))
 		{
 			if (s.map_parsed == true)
-				printf("already parsed a map\n");
+				s.multiple_maps = true;
 			else
 			{
 				while (str != NULL && is_valid_map_str(str))

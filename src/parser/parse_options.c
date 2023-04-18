@@ -1,8 +1,22 @@
 #include <cub3D.h>
 
 static void	parse_rgb(char *str, int *r, int *g, int *b);
+static void	parse_f_c(char *f_c_colors, t_map *map);
+static void	parse_texture(char *input, t_map *map);
 
-void	parse_texture(char *input, t_map *map)
+void	parse_options(t_list *option_lines, t_map *map)
+{
+	while (option_lines != NULL)
+	{
+		if (is_valid_f_c_str(option_lines->content))
+			parse_f_c(option_lines->content, map);
+		else if (is_valid_tex_str(option_lines->content))
+			parse_texture(option_lines->content, map);
+		option_lines = option_lines->next;
+	}
+}
+
+static void	parse_texture(char *input, t_map *map)
 {
 	char			**str_vals;
 	char			*temp;
@@ -23,34 +37,19 @@ void	parse_texture(char *input, t_map *map)
 	free(temp);
 }
 
-void	parse_textures(t_list *textures, t_map *map)
+static void	parse_f_c(char *f_c_colors, t_map *map)
 {
-	while (textures != NULL)
-	{
-		parse_texture(textures->content, map);
-		textures = textures->next;
-	}
-}
-
-void	parse_f_c(t_list *f_c_colors, t_map *map)
-{
-	char	*str;
 	int		r;
 	int		g;
 	int		b;
 	int		a;
 
 	a = 255;
-	while (f_c_colors != NULL)
-	{
-		str = (char *) f_c_colors->content;
-		parse_rgb(str, &r, &g, &b);
-		if (str[0] == 'F' && str[1] == ' ')
-			set_floor_color(map, get_rgba(r, g, b, a));
-		else if (str[0] == 'C' && str[1] == ' ')
-			set_ceiling_color(map, get_rgba(r, g, b, a));
-		f_c_colors = f_c_colors->next;
-	}
+	parse_rgb(f_c_colors, &r, &g, &b);
+	if (f_c_colors[0] == 'F' && f_c_colors[1] == ' ')
+		set_floor_color(map, get_rgba(r, g, b, a));
+	else if (f_c_colors[0] == 'C' && f_c_colors[1] == ' ')
+		set_ceiling_color(map, get_rgba(r, g, b, a));
 }
 
 // TODO needs to throw an error if one of the values is bigger < 0 or > 255
