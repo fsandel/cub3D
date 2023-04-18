@@ -3,7 +3,6 @@
 struct s_parser_state
 {
 	bool	map_parsed;
-	bool	multiple_maps;
 };
 
 static t_map			*init_map(void);
