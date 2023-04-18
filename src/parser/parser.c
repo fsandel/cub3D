@@ -34,6 +34,9 @@ t_map	*parse(int fd)
 	return (map);
 }
 
+/*
+ * inits the map struct
+ */
 static t_map	*init_map(void)
 {
 	t_map	*map;
@@ -48,6 +51,10 @@ static t_map	*init_map(void)
 	return (map);
 }
 
+/*
+ * fills a previously allocated map with corresponding cubes, specified by the
+ * line_list
+ */
 static void	populate_map(t_list *line_list, t_map *map)
 {
 	int		line;
@@ -69,6 +76,9 @@ static void	populate_map(t_list *line_list, t_map *map)
 	}
 }
 
+/*
+ * allocates necessary memory for the map
+ */
 static t_cube_type	**create_map(t_list *line_list, t_map *map)
 {
 	t_list		*temp;
@@ -89,6 +99,10 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 	return (res);
 }
 
+/*
+ * reads line by line from fd, adds line depending on content to linked list 
+ * and counts the mapwidth and height
+ */
 static t_file_content	*read_file(int fd, t_map *map,
 							t_file_content *file_content)
 {
