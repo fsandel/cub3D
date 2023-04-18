@@ -61,7 +61,7 @@ static void	populate_map(t_list *line_list, t_map *map)
 		col = 0;
 		while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
 		{
-			set_map_value(map, line, col, line_s[col]);
+			set_cube_value(map, line, col, line_s[col]);
 			col++;
 		}
 		line++;
