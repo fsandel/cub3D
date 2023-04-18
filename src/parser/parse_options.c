@@ -53,6 +53,7 @@ void	parse_f_c(t_list *f_c_colors, t_map *map)
 	}
 }
 
+// TODO needs to throw an error if one of the values is bigger < 0 or > 255
 static void	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;
