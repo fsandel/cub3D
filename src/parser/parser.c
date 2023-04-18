@@ -105,10 +105,9 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 }
 
 /*
- * reads line by line from fd, adds line depending on content to linked list 
+ * reads line by line from fd, adds line to map_lines or option_lines
  * and counts the mapwidth and height
  */
-// TODO map strings must not be interupted by non-map-lines
 static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 							t_file_content *file_content)
 {
@@ -119,20 +118,15 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 	{
 		if (is_valid_tex_str(str) || is_valid_f_c_str(str))
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
-		else if (is_valid_map_str(str))
+		else if (is_valid_map_str(str) && s.map_parsed == false)
 		{
-			if (s.map_parsed == true)
-				s.multiple_maps = true;
-			else
+			while (str != NULL && is_valid_map_str(str))
 			{
-				while (str != NULL && is_valid_map_str(str))
-				{
-					ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-					map->height++;
-					if ((int) ft_strlen(str) - 1 > map->width)
-						map->width = ft_strlen(str) - 1;
-					str = get_next_line(fd);
-				}
+				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+				map->height++;
+				if ((int) ft_strlen(str) - 1 > map->width)
+					map->width = ft_strlen(str) - 1;
+				str = get_next_line(fd);
 			}
 			s.map_parsed = true;
 		}
