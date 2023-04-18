@@ -8,7 +8,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int i,
 void	draw_scene(t_window *window)
 {
 	t_vector			target;
-	t_vector			dir;
+	t_vector			ray_dir;
 	const double		fov = (FOV * M_PI) / 180;
 	int					ray_iter;
 	enum e_direction	direction;
@@ -16,8 +16,8 @@ void	draw_scene(t_window *window)
 	ray_iter = -WIDTH / 2;
 	while (ray_iter < WIDTH / 2)
 	{
-		rotate_hor_f(window->player->dir, &dir, ray_iter * fov / WIDTH);
-		direction = cast_ray(window->player->pos, &dir, &target, window->map);
+		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
+		direction = cast_ray(window->player->pos, &ray_dir, &target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
 	}	
@@ -26,7 +26,7 @@ void	draw_scene(t_window *window)
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				enum e_direction direction)
 {
-	const double	line_height = HEIGHT * 100 / distance_perpendicular(
+	const double	line_height = HEIGHT * 1 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
 	const int		start = max(((HEIGHT - line_height) / 2), 0);
 	int				p_y;
@@ -42,13 +42,14 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
-			tex.x = texture_x_value(window->map->textures[direction],
-					target, window->map, direction);
-			tex.y = texture_y_value(window->map->textures[direction],
-					line_height, p_y, start);
-			pix = get_rgba_from_tex(window->map->textures[direction],
-					tex.x, tex.y);
-			mlx_put_pixel(window->img, p_x, p_y++, pix);
+			// tex.x = texture_x_value(window->map->textures[direction],
+			// 		target, window->map, direction);
+			// tex.y = texture_y_value(window->map->textures[direction],
+			// 		line_height, p_y, start);
+			// pix = get_rgba_from_tex(window->map->textures[direction],
+			// 		tex.x, tex.y);
+			//mlx_put_pixel(window->img, p_x, p_y++, pix);
+			mlx_put_pixel(window->img, p_x, p_y++, RED);
 		}
 	}
 }
@@ -56,8 +57,8 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 //make sure this thinking is correct, my thought is you always should hit now
 static void	set_target(t_vector *target, t_vector *pos, t_vector *dir, int i)
 {
-	target->x = pos->x - i * dir->x;
-	target->y = pos->y - i * dir->y;
+	target->x = pos->x - (i * dir->x * SPEED);
+	target->y = pos->y - (i * dir->y * SPEED);
 }
 
 static enum e_direction	get_direction(t_vector *dir, char c)
@@ -86,20 +87,20 @@ static int	cast_ray(t_vector *pos, t_vector *dir,
 {
 	int			i;
 	t_vector	temp;
-	int			direction;
+	t_direction	direction;
 
 	temp = (t_vector){pos->x, pos->y, pos->z};
 	i = 0;
 	direction = north;
-	while (on_screen(temp.x, temp.y))
+	while (temp.x < map->width && temp.y < map->height )
 	{
-		temp.x = pos->x - i * dir->x;
+		temp.x = pos->x - i * (dir->x * SPEED);
 		if (get_cube_type(&temp, map) == wall)
 		{
 			direction = get_direction(dir, 'x');
 			break ;
 		}
-		temp.y = pos->y - i * dir->y;
+		temp.y = pos->y - i * (dir->y * SPEED);
 		if (get_cube_type(&temp, map) == wall)
 		{
 			direction = get_direction(dir, 'y');
