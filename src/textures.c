@@ -22,17 +22,16 @@ int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
 	if (direction == north || direction == south)
 	{
 		if (direction == south)
-			return (ft_modf(target->x * map->width / WIDTH) * tex->width);
+			return (ft_modf(target->x) * tex->width);
 		else
-			return ((1 - ft_modf(target->x * map->width / WIDTH)) * tex->width);
+			return ((1 - ft_modf(target->x)) * tex->width);
 	}
 	else
 	{
 		if (direction == west)
-			return (ft_modf(target->y * map->height / HEIGHT) * tex->height);
+			return (ft_modf(target->y) * tex->width);
 		else
-			return ((1 - ft_modf(target->y * map->height / HEIGHT))
-				* tex->height);
+			return ((1 - ft_modf(target->y)) * tex->width);
 	}
 }
 

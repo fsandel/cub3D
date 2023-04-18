@@ -17,7 +17,8 @@ void	draw_scene(t_window *window)
 	while (ray_iter < WIDTH / 2)
 	{
 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
-		direction = cast_ray(window->player->pos, &ray_dir, &target, window->map);
+		direction = cast_ray(window->player->pos, &ray_dir,
+				&target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
 	}	
@@ -42,14 +43,13 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
-			// tex.x = texture_x_value(window->map->textures[direction],
-			// 		target, window->map, direction);
-			// tex.y = texture_y_value(window->map->textures[direction],
-			// 		line_height, p_y, start);
-			// pix = get_rgba_from_tex(window->map->textures[direction],
-			// 		tex.x, tex.y);
-			//mlx_put_pixel(window->img, p_x, p_y++, pix);
-			mlx_put_pixel(window->img, p_x, p_y++, RED);
+			tex.x = texture_x_value(window->map->textures[direction],
+					target, window->map, direction);
+			tex.y = texture_y_value(window->map->textures[direction],
+					line_height, p_y, start);
+			pix = get_rgba_from_tex(window->map->textures[direction],
+					tex.x, tex.y);
+			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}
 }
@@ -92,7 +92,7 @@ static int	cast_ray(t_vector *pos, t_vector *dir,
 	temp = (t_vector){pos->x, pos->y, pos->z};
 	i = 0;
 	direction = north;
-	while (temp.x < map->width && temp.y < map->height )
+	while (temp.x < map->width && temp.y < map->height)
 	{
 		temp.x = pos->x - i * (dir->x * SPEED);
 		if (get_cube_type(&temp, map) == wall)
