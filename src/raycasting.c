@@ -1,9 +1,9 @@
 #include <cub3D.h>
 
-static int	cast_ray(t_vector *pos, t_vector *dir,
-				t_vector *target, t_map *map);
-static void	draw_vertical_line(t_window *window, t_vector *target, int i,
-				enum e_direction direction);
+static t_direction	cast_ray(t_vector *pos, t_vector *dir,
+						t_vector *target, t_map *map);
+static void			draw_vertical_line(t_window *window, t_vector *target,
+						int i, t_direction direction);
 
 void	draw_scene(t_window *window)
 {
@@ -11,7 +11,7 @@ void	draw_scene(t_window *window)
 	t_vector			ray_dir;
 	const double		fov = (FOV * M_PI) / 180;
 	int					ray_iter;
-	enum e_direction	direction;
+	t_direction			direction;
 
 	ray_iter = -WIDTH / 2;
 	while (ray_iter < WIDTH / 2)
@@ -21,11 +21,11 @@ void	draw_scene(t_window *window)
 				&target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
-	}	
+	}
 }
 
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
-				enum e_direction direction)
+				t_direction direction)
 {
 	const double	line_height = HEIGHT * 1 / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
@@ -44,7 +44,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 		else
 		{
 			tex.x = texture_x_value(window->map->textures[direction],
-					target, window->map, direction);
+					target, direction);
 			tex.y = texture_y_value(window->map->textures[direction],
 					line_height, p_y, start);
 			pix = get_rgba_from_tex(window->map->textures[direction],
@@ -61,9 +61,9 @@ static void	set_target(t_vector *target, t_vector *pos, t_vector *dir, int i)
 	target->y = pos->y - (i * dir->y * SPEED);
 }
 
-static enum e_direction	get_direction(t_vector *dir, char c)
+static t_direction	get_direction(t_vector *dir, char c)
 {
-	enum e_direction	direction;
+	t_direction	direction;
 
 	if (c == 'x')
 	{
@@ -82,7 +82,7 @@ static enum e_direction	get_direction(t_vector *dir, char c)
 	return (direction);
 }
 
-static int	cast_ray(t_vector *pos, t_vector *dir,
+static t_direction	cast_ray(t_vector *pos, t_vector *dir,
 	t_vector *target, t_map *map)
 {
 	int			i;

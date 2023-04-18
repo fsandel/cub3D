@@ -136,7 +136,7 @@ void		draw_scene(t_window *window);
 //textures.c
 double		ft_modf(double num);
 u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
-int			texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
+int			texture_x_value(mlx_texture_t *tex, t_vector *target,
 				t_direction direction);
 int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 				int start);

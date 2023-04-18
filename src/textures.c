@@ -16,8 +16,7 @@ u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y)
 	return (color);
 }
 
-int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
-		t_direction direction)
+int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_direction direction)
 {
 	if (direction == north || direction == south)
 	{
