@@ -103,6 +103,7 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
  * reads line by line from fd, adds line depending on content to linked list 
  * and counts the mapwidth and height
  */
+// TODO map strings must not be interupted by non-map-lines
 static t_file_content	*read_file(int fd, t_map *map,
 							t_file_content *file_content)
 {
