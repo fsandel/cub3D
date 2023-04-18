@@ -13,13 +13,13 @@ int	args_valid(int argc, char **argv)
 		return (-1);
 	if (!is_cub_file(argv[1]))
 	{
-		ft_printf("Error\nFile extension invalid\n");
+		ft_putendl_fd("Error\nFile extension invalid", STDERR_FILENO);
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("Error\nFile couldn't be opened\n");
+		ft_putendl_fd("Error\nFile couldn't be opened", STDERR_FILENO);
 		close(fd);
 	}
 	return (fd);
