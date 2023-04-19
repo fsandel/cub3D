@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c rotate.c utils.c free_utils.c distance.c keyboard_input.c raycasting.c textures.c hud.c
+SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c hud.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -22,12 +22,20 @@ UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
 UTILS_FILES		=	vector.c utils.c colors.c
 
+MATH			=	$(addprefix $(MATH_DIR), $(MATH_FILES))
+MATH_DIR		=	src/math/
+MATH_FILES		=	distance.c rotate.c
+
+WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
+WALLS_DIR		=	src/walls/
+WALLS_FILES		=	raycasting.c textures.c
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER) $(UTILS)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS)
 
 ################################################################################
 ################################################################################
