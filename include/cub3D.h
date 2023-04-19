@@ -80,9 +80,18 @@ typedef struct s_fps
 	mlx_image_t	*fps_image;
 }	t_fps;
 
+typedef struct s_minimap
+{
+	int	pix_pos_x;
+	int	pix_pos_y;
+	int	radius;
+}	t_minimap;
+
 typedef struct s_hud
 {
-	t_fps	*fps;
+	mlx_image_t	*hud_img;
+	t_fps		*fps;
+	t_minimap	*minimap;
 }	t_hud;
 
 typedef struct s_window
