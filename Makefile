@@ -1,7 +1,7 @@
 NAME			=	cub3D
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -O3 #-Werror
+CFLAGS			=	-Wall -Wextra -Werror -Ofast
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
 OS				=	$(shell uname -s)

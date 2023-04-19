@@ -18,7 +18,7 @@ void	draw_scene(t_window *window)
 	{
 		rotate_hor_f(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
 		direction = cast_ray_dda(window->player->pos, &ray_dir,
-				&target, window->map, window);
+				&target, window->map);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
 		ray_iter++;
 	}
