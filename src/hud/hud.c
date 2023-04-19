@@ -1,19 +1,33 @@
 #include <cub3D.h>
 
+static void	fps(void *arg);
+
+void	draw_hud(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	fps(window);
+	draw_minimap(window);
+}
+
 void	setup_hud(t_window *window)
 {
 	mlx_image_t	*hud_img;
 
 	window->hud = malloc(sizeof(t_hud) * 1);
 	window->hud->fps = malloc(sizeof(t_fps) * 1);
+	window->hud->minimap = malloc(sizeof(t_minimap) * 1);
 	window->hud->fps->fps_image = NULL;
 	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
 	window->hud->hud_img = hud_img;
+	window->hud->minimap->pix_pos_x = 105;
+	window->hud->minimap->pix_pos_y = 105;
 	mlx_image_to_window(window->mlx, window->hud->hud_img, 0, 0);
 	mlx_set_instance_depth(window->hud->hud_img->instances, 2);
 }
 
-void	fps(void *arg)
+static void	fps(void *arg)
 {
 	t_window	*window;
 	char		*fps_char;
