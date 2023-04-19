@@ -16,11 +16,11 @@ SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c hud.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c validate_args.c parser_utils.c parse_options.c map_utils.c
+PARSER_FILES	=	parser.c validate_args.c parse_options.c check_syntax.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c utils.c colors.c
+UTILS_FILES		=	vector.c utils.c colors.c map.c
 
 MATH			=	$(addprefix $(MATH_DIR), $(MATH_FILES))
 MATH_DIR		=	src/math/
@@ -56,6 +56,14 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 $(NAME): $(ALL_OBJ_DIR) $(ALL_OBJ)
 	@$(CC) $(ALL_OBJ) -o $(NAME) $(LINK_FLAGS) $(LIBFT) $(MLX) $(GLFW)
 	@echo $(GREEN)" compiled "$@$(DEFAULT)
+
+test: $(ALL_OBJ_DIR) $(ALL_OBJ)
+	@ar -rcs libcub3dtest.a $(ALL_OBJ) lib/libft/obj/*.o
+	@cd tests && $(MAKE) run
+
+testclean:
+	rm libcub3dtest.a
+	rm tests/*.out
 
 clean:
 	@echo $(RED)"cleaning:"

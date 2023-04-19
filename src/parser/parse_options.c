@@ -1,11 +1,26 @@
 #include <cub3D.h>
 
-void	parse_texture(char *input, t_map *map)
+static void	parse_rgb(char *str, int *r, int *g, int *b);
+static void	parse_f_c(char *f_c_colors, t_map *map);
+static void	parse_texture(char *input, t_map *map);
+
+void	parse_options(t_list *option_lines, t_map *map)
+{
+	while (option_lines != NULL)
+	{
+		if (is_valid_f_c_str(option_lines->content))
+			parse_f_c(option_lines->content, map);
+		else if (is_valid_tex_str(option_lines->content))
+			parse_texture(option_lines->content, map);
+		option_lines = option_lines->next;
+	}
+}
+
+static void	parse_texture(char *input, t_map *map)
 {
 	char			**str_vals;
 	char			*temp;
 	mlx_texture_t	*texture;
-	int				i;
 
 	str_vals = ft_split(input, ' ');
 	temp = ft_strtrim(str_vals[1], "\n");
@@ -18,27 +33,27 @@ void	parse_texture(char *input, t_map *map)
 		map->textures[west] = texture;
 	else if (ft_strncmp(str_vals[0], "EA", 2) == 0)
 		map->textures[east] = texture;
-	i = 0;
-	while (str_vals[i])
-	{
-		free(str_vals[i]);
-		i++;
-	}
-	free(str_vals);
+	ft_arr_free(str_vals);
 	free(temp);
 }
 
-void	parse_textures(t_list *textures, t_map *map)
+static void	parse_f_c(char *f_c_colors, t_map *map)
 {
-	while (textures->next != NULL)
-	{
-		parse_texture(textures->content, map);
-		textures = textures->next;
-	}
-	parse_texture(textures->content, map);
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+
+	a = 255;
+	parse_rgb(f_c_colors, &r, &g, &b);
+	if (f_c_colors[0] == 'F' && f_c_colors[1] == ' ')
+		set_floor_color(map, get_rgba(r, g, b, a));
+	else if (f_c_colors[0] == 'C' && f_c_colors[1] == ' ')
+		set_ceiling_color(map, get_rgba(r, g, b, a));
 }
 
-void	parse_rgb(char *str, int *r, int *g, int *b)
+// TODO needs to throw an error if one of the values is bigger < 0 or > 255
+static void	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;
 	char	**str_vals;
@@ -57,39 +72,6 @@ void	parse_rgb(char *str, int *r, int *g, int *b)
 			*b = ft_atoi(str_vals[i]);
 		i++;
 	}
-	i = 0;
-	while (str_vals[i])
-	{
-		free(str_vals[i]);
-		i++;
-	}
-	free(str_vals);
+	ft_arr_free(str_vals);
 	free(temp);
-}
-
-void	parse_f_c(t_list *f_c_colors, t_map *map)
-{
-	char	*str;
-	int		r;
-	int		g;
-	int		b;
-	int		a;
-
-	a = 255;
-	while (f_c_colors->next != NULL)
-	{
-		str = (char *) f_c_colors->content;
-		parse_rgb(str, &r, &g, &b);
-		if (str[0] == 'F' && str[1] == ' ')
-			set_floor_color(map, get_rgba(r, g, b, a));
-		else if (str[0] == 'C' && str[1] == ' ')
-			set_ceiling_color(map, get_rgba(r, g, b, a));
-		f_c_colors = f_c_colors->next;
-	}
-	str = (char *) f_c_colors->content;
-	parse_rgb(str, &r, &g, &b);
-	if (str[0] == 'F' && str[1] == ' ')
-		set_floor_color(map, get_rgba(r, g, b, a));
-	else if (str[0] == 'C' && str[1] == ' ')
-		set_ceiling_color(map, get_rgba(r, g, b, a));
 }

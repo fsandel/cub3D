@@ -36,8 +36,7 @@ typedef struct s_vector
 typedef struct s_file_content
 {
 	t_list	*map_lines;
-	t_list	*texture_lines;
-	t_list	*f_c_lines;
+	t_list	*option_lines;
 }			t_file_content;
 
 typedef enum e_cube_type
@@ -110,14 +109,18 @@ void		norm(t_vector *v, double future_length);
 t_map		*parse(int fd);
 int			args_valid(int argc, char **argv);
 
-// parser utils
-void		set_map_value(t_map *map, int line, int column, char c);
-void		parse_textures(t_list *textures, t_map *map);
-void		parse_f_c(t_list *f_c_colors, t_map *map);
+// parse_options.c
+void		parse_options(t_list *option_lines, t_map *map);
+
+// check_syntax.c
+bool		is_valid_map_str(char *map_str);
+bool		is_valid_tex_str(char *tex_str);
+bool		is_valid_f_c_str(char *f_c_str);
 
 // map utils
 void		set_floor_color(t_map *map, int color);
 void		set_ceiling_color(t_map *map, int color);
+void		set_cube_value(t_map *map, int line, int column, char c);
 
 // vector utils
 t_vector	*set_vec(t_vector *vec, double x, double y, double z);

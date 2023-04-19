@@ -1,37 +1,46 @@
 #include "cub3D.h"
 
+struct s_parser_state
+{
+	bool	map_parsed;
+};
+
 static t_map			*init_map(void);
-static t_file_content	*read_file(int fd, t_map *map,
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
+// TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
-	t_map			*map;
-	t_file_content	*file_content;
+	t_map					*map;
+	t_file_content			*file_content;
+	struct s_parser_state	state;
 
+	state.map_parsed = false;
 	map = init_map();
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
 		return (NULL);
-	file_content->f_c_lines = NULL;
-	file_content->texture_lines = NULL;
+	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
-	file_content = read_file(fd, map, file_content);
+	file_content = read_file(fd, map, state, file_content);
+	if (!file_content)
+		return (NULL);
 	close(fd);
-	map->cubes = NULL;
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
-	parse_textures(file_content->texture_lines, map);
-	parse_f_c(file_content->f_c_lines, map);
+	parse_options(file_content->option_lines, map);
 	ft_lstclear(&file_content->map_lines, &free);
-	ft_lstclear(&file_content->texture_lines, &free);
-	ft_lstclear(&file_content->f_c_lines, &free);
+	ft_lstclear(&file_content->option_lines, &free);
 	free(file_content);
 	return (map);
 }
 
+/*
+ * inits the map struct
+ */
 static t_map	*init_map(void)
 {
 	t_map	*map;
@@ -41,9 +50,15 @@ static t_map	*init_map(void)
 		return (NULL);
 	map->start_pos = malloc(sizeof(t_vector));
 	map->start_dir = malloc(sizeof(t_vector));
+	map->width = 0;
+	map->height = 0;
 	return (map);
 }
 
+/*
+ * fills a previously allocated map with corresponding cubes, specified by the
+ * line_list
+ */
 static void	populate_map(t_list *line_list, t_map *map)
 {
 	int		line;
@@ -51,27 +66,23 @@ static void	populate_map(t_list *line_list, t_map *map)
 	char	*line_s;
 
 	line = 0;
-	while (line_list->next != NULL)
+	while (line_list != NULL)
 	{
 		line_s = (char *) line_list->content;
 		col = 0;
 		while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
 		{
-			set_map_value(map, line, col, line_s[col]);
+			set_cube_value(map, line, col, line_s[col]);
 			col++;
 		}
 		line++;
 		line_list = line_list->next;
 	}
-	line_s = (char *) line_list->content;
-	col = 0;
-	while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
-	{
-		set_map_value(map, line, col, line_s[col]);
-		col++;
-	}
 }
 
+/*
+ * allocates necessary memory for the map
+ */
 static t_cube_type	**create_map(t_list *line_list, t_map *map)
 {
 	t_list		*temp;
@@ -83,42 +94,43 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 		return (NULL);
 	temp = line_list;
 	i = 0;
-	while (temp->next != NULL)
+	while (temp != NULL)
 	{
 		res[i] = malloc((map->width + 1) * sizeof(t_cube_type));
 		temp = temp->next;
 		i++;
 	}
-	res[i] = malloc(map->width * sizeof(t_cube_type));
-	temp = temp->next;
 	return (res);
 }
 
-static t_file_content	*read_file(int fd, t_map *map,
+/*
+ * reads line by line from fd, adds line to map_lines or option_lines
+ * and counts the mapwidth and height
+ */
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 							t_file_content *file_content)
 {
 	char	*str;
 
-	map->width = 0;
-	map->height = 0;
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if (str != NULL && ft_strlen(str) > 0)
+		if (is_valid_tex_str(str) || is_valid_f_c_str(str))
+			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
+		else if (is_valid_map_str(str) && s.map_parsed == false)
 		{
-			if (!ft_strncmp(str, "NO", 2) || !ft_strncmp(str, "SO", 2)
-				|| !ft_strncmp(str, "WE", 2) || !ft_strncmp(str, "EA", 2))
-				ft_lstadd_back(&file_content->texture_lines, ft_lstnew(str));
-			else if (str[0] == 'F' || str[0] == 'C')
-				ft_lstadd_back(&file_content->f_c_lines, ft_lstnew(str));
-			else
+			while (str != NULL && is_valid_map_str(str))
 			{
 				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+				map->height++;
 				if ((int) ft_strlen(str) - 1 > map->width)
 					map->width = ft_strlen(str) - 1;
-				map->height++;
+				str = get_next_line(fd);
 			}
+			s.map_parsed = true;
 		}
+		else
+			free(str);
 		str = get_next_line(fd);
 	}
 	return (file_content);

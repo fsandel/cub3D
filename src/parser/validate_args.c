@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static bool	extension_valid(char *filepath);
+static bool	is_cub_file(char *filepath);
 
 /*
  * returns a filedescriptor if arg is valid valid path to cub map else -1
@@ -10,22 +10,28 @@ int	args_valid(int argc, char **argv)
 	int	fd;
 
 	if (argc != 2)
-		return (-1);
-	if (!extension_valid(argv[1]))
 	{
-		ft_printf("file extension invalid\n");
+		ft_putendl_fd("Error\nWrong argumentcount", STDERR_FILENO);
+		return (-1);
+	}
+	if (!is_cub_file(argv[1]))
+	{
+		ft_putendl_fd("Error\nFile extension invalid", STDERR_FILENO);
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf("not a valid file\n");
+		ft_putendl_fd("Error\nFile couldn't be opened", STDERR_FILENO);
 		close(fd);
 	}
 	return (fd);
 }
 
-static bool	extension_valid(char *filepath)
+/*
+ * returns true if the given string ends on .cub
+ */
+static bool	is_cub_file(char *filepath)
 {
 	int		len;
 	char	*extension;
