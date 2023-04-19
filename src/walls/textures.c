@@ -37,6 +37,8 @@ int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_direction direction)
 int	texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 		int start)
 {
+	if (line_height >= HEIGHT)
+		start = start - ((line_height - HEIGHT) / 2);
 	return ((window_y - start) * tex->height / line_height);
 }
 

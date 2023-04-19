@@ -1,7 +1,7 @@
 NO textures/brick.png
-SO textures/brick.png
-WE textures/brick.png
-EA textures/brick.png
+SO textures/redbrick.png
+WE textures/graywallshade1.png
+EA textures/graywallshade2.png
 
 F 203,166,247
 C 4,165,229
