@@ -3,7 +3,7 @@
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
-						t_vector *target, t_map *map, t_window *window);
+						t_vector *target, t_map *map);
 
 void	draw_scene(t_window *window)
 {
@@ -54,7 +54,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 	}
 }
 
-static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos, t_map *map, t_window *window)
+static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 {
 	if (dir->x >= 0 && dir->y >= 0)
 	{
@@ -78,72 +78,45 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos, 
 	}
 }
 
-static bool		on_map(double x, double y, t_map *map)
+//maybe rethink this in the future, it works for right now
+//but it doesnt seem perfect
+static t_direction	get_direction_of_target(t_vector target)
 {
-	const double	x_pix = x * WIDTH / map->width;
-	const double	y_pix = y * HEIGHT / map->height;
+	const double	eps = 0.02f;
 
-	if (x_pix > 0 && x_pix < WIDTH && y_pix > 0 && y_pix < HEIGHT)
-		return (true);
+	if (ft_modf(target.y) > 1 - eps)
+		return (south);
+	else if (ft_modf(target.y) < eps)
+		return (north);
+	else if (ft_modf(target.x) > 1 - eps)
+		return (east);
 	else
-		return (false);
-}
-
-static	void	set_sx_and_sy(double *sx, double *sy, double dx, double dy, double angle)
-{
-	if (angle > 0 && angle < M_PI_2)
-	{
-		*sx = fabs(dx) / cos(angle);
-		*sy = fabs(dy) / sin(angle);
-	}
-	else if (angle >= M_PI_2 && angle < M_PI)
-	{
-		*sx = fabs(dx) / -cos(angle);
-		*sy = fabs(dy) / sin(angle);
-	}
-	else if (angle < -M_PI_2)
-	{
-		*sx = (fabs(dx)) / -cos(angle);
-		*sy = (fabs(dy)) / -sin(angle);
-	}
-	else
-	{
-		*sx = (fabs(dx)) / cos(angle);
-		*sy = (fabs(dy)) / -sin(angle);
-	}
+		return (west);
 }
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
-	t_vector *target, t_map *map, t_window *window)
+	t_vector *target, t_map *map)
 {
 	double		dx;
 	double		dy;
 	double		sx;
 	double		sy;
-	t_vector	temp_dir;
 	double		angle;
 
 	set_vec(target, pos->x, pos->y, pos->z);
-	set_vec(&temp_dir, dir->x, dir->y, dir->z);
-	while (get_cube_type(target, map) != wall && on_map(target->x, target->y, map))
+	while (get_cube_type(target, map) != wall)
 	{
-		set_dx_and_dy(&dx, &dy, dir, target, map, window);
+		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = (atan2(dir->y, dir->x));
-		set_sx_and_sy(&sx, &sy, dx, dy, angle);
+		sx = dx / -cos(angle);
+		sy = dy / -sin(angle);
 		if (sx < sy)
-			norm(&temp_dir, sx * 1.01);
+			norm(dir, sx * 1.01);
 		else
-			norm(&temp_dir, sy * 1.01);
-		set_vec(target, target->x - temp_dir.x, target->y - temp_dir.y, target->z - temp_dir.z);
+			norm(dir, sy * 1.01);
+		set_vec(target, target->x - dir->x, target->y - dir->y,
+			target->z - dir->z);
 	}
-	const double	eps = 0.02f;
-	if (ft_modf(target->y) > 1 - eps)
-		return (south);
-	if (ft_modf(target->y) < eps)
-		return (north);
-	if (ft_modf(target->x) > 1 - eps)
-		return (east);
-	if (ft_modf(target->x) < eps)
-		return (west);
-	return (east);
+	norm(dir, 1);
+	return (get_direction_of_target(*target));
 }
