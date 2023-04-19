@@ -10,14 +10,9 @@ int	on_screen(int x, int y)
 
 t_cube_type	get_cube_type(t_vector *pos, t_map *map)
 {
-	int	width;
-	int	height;
-
-	width = WIDTH / map->width;
-	height = HEIGHT / map->height;
-	if (pos->x > WIDTH || pos->x < 0)
+	if (pos->x > map->width || pos->x < 0)
 		return (wall);
-	if (pos->y > HEIGHT || pos->y < 0)
+	if (pos->y > map->height || pos->y < 0)
 		return (wall);
-	return (map->cubes[(int)pos->y / height][(int)pos->x / width]);
+	return (map->cubes[(int)pos->y][(int)pos->x]);
 }

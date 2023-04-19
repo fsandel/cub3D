@@ -14,7 +14,8 @@
 # define HEIGHT 1000
 
 # define FOV 60
-# define SPEED 10
+# define SPEED 0.05f
+# define TURN_SPEED 0.05f
 # define DARKNESS_FACTOR 50
 
 # define WHITE 0xffffffff
@@ -102,6 +103,7 @@ t_cube_type	get_cube_type(t_vector *pos, t_map *map);
 
 //rotate.c
 void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
+void		norm(t_vector *v, double future_length);
 
 // parser
 t_map		*parse(int fd);
@@ -139,7 +141,7 @@ void		draw_scene(t_window *window);
 //textures.c
 double		ft_modf(double num);
 u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
-int			texture_x_value(mlx_texture_t *tex, t_vector *target, t_map *map,
+int			texture_x_value(mlx_texture_t *tex, t_vector *target,
 				t_direction direction);
 int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 				int start);

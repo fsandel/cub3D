@@ -18,8 +18,7 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 		map->cubes[line][column] = wall;
 	else if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
 	{
-		set_vec(map->start_pos, (column * WIDTH) / map->width,
-			(line * HEIGHT) / map->height, 0);
+		set_vec(map->start_pos, column + 0.5f, line + 0.5f, 0);
 		if (c == 'N')
 			set_vec(map->start_dir, 0, 1, 0);
 		else if (c == 'E')

@@ -15,7 +15,6 @@ void	free_cubes(t_map *map)
 
 static void	free_hud(t_window *window)
 {
-	mlx_delete_image(window->mlx, window->hud->fps->fps_image);
 	free(window->hud->fps);
 	free(window->hud);
 }
