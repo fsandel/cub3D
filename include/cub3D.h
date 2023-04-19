@@ -13,7 +13,7 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-# define FOV 60
+# define FOV 45
 # define SPEED 0.05f
 # define TURN_SPEED 0.05f
 # define DARKNESS_FACTOR 50
