@@ -20,8 +20,6 @@ void	draw_scene(t_window *window)
 		direction = cast_ray_dda(window->player->pos, &ray_dir,
 				&target, window->map, window);
 		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
-		if (ray_iter == 0)
-			printf("x: %f   y: %f\n", ft_modf(target.x), ft_modf(target.y));
 		ray_iter++;
 	}
 }
@@ -95,49 +93,42 @@ static	void	set_sx_and_sy(double *sx, double *sy, double dx, double dy, double a
 {
 	if (angle > 0 && angle < M_PI_2)
 	{
-		*sy = fabs(dy) / sin(angle);
 		*sx = fabs(dx) / cos(angle);
+		*sy = fabs(dy) / sin(angle);
 	}
 	else if (angle >= M_PI_2 && angle < M_PI)
 	{
-		angle -= M_PI_2;
-		*sy = fabs(dy) / cos(angle);
-		*sx = fabs(dx) / sin(angle);
+		*sx = fabs(dx) / -cos(angle);
+		*sy = fabs(dy) / sin(angle);
 	}
 	else if (angle < -M_PI_2)
 	{
-		*sy =(fabs(dy)) / -sin(angle);
 		*sx = (fabs(dx)) / -cos(angle);
+		*sy = (fabs(dy)) / -sin(angle);
 	}
 	else
 	{
-		angle -= M_PI_2;
-		*sy =(fabs(dy)) / -cos(angle);
-		*sx = (fabs(dx)) / -sin(angle);
+		*sx = (fabs(dx)) / cos(angle);
+		*sy = (fabs(dy)) / -sin(angle);
 	}
-	printf("angle: %f\n", angle);
 }
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	t_vector *target, t_map *map, t_window *window)
 {
-	double	dx;
-	double	dy;
-	double	sx;
-	double	sy;
+	double		dx;
+	double		dy;
+	double		sx;
+	double		sy;
 	t_vector	temp_dir;
-	double	angle;
-	t_direction	direction = 0;
+	double		angle;
 
 	set_vec(target, pos->x, pos->y, pos->z);
 	set_vec(&temp_dir, dir->x, dir->y, dir->z);
 	while (get_cube_type(target, map) != wall && on_map(target->x, target->y, map))
 	{
 		set_dx_and_dy(&dx, &dy, dir, target, map, window);
-		if (dir->x != 0)
-			angle = (atan2(dir->y, dir->x));
-		else
-			angle = tan(dir->x/ dir->y);
+		angle = (atan2(dir->y, dir->x));
 		set_sx_and_sy(&sx, &sy, dx, dy, angle);
 		if (sx < sy)
 			norm(&temp_dir, sx * 1.01);
