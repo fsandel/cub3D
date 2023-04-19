@@ -171,4 +171,7 @@ int			max(int a, int b);
 void		setup_hud(t_window *window);
 void		fps(void *arg);
 
+//minimap.c
+void		draw_minimap(t_window *window);
+
 #endif
