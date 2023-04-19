@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static bool	is_map_char(char c, int *whitespace);
+static bool	is_map_char(char c);
 static bool	is_valid_color_char(char c);
 
 bool	is_valid_map_str(char *map_str)
@@ -12,7 +12,13 @@ bool	is_valid_map_str(char *map_str)
 	whitespace = 0;
 	while (map_str[i])
 	{
-		if (is_map_char(map_str[i], &whitespace))
+		if ((map_str[i] == ' ' || map_str[i] == '\n')
+			&& is_map_char(map_str[i]))
+		{
+			whitespace++;
+			i++;
+		}
+		else if (is_map_char(map_str[i]))
 			i++;
 		else
 			return (false);
@@ -53,15 +59,12 @@ bool	is_valid_f_c_str(char *f_c_str)
 	return (res);
 }
 
-static bool	is_map_char(char c, int *whitespace)
+static bool	is_map_char(char c)
 {
 	if (c == '1' || c == '0' || c == 'N' || c == 'E' || c == 'S' || c == 'W')
 		return (true);
 	if (c == ' ' || c == '\n')
-	{
-		*whitespace += 1;
 		return (true);
-	}
 	return (false);
 }
 
