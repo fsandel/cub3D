@@ -23,7 +23,7 @@
 # define BLUE 0xffffff
 # define PINK 0xff00ffff
 # define RED 0xff0000ff
-# define BLACK 0x0
+# define BLACK 0x000000ff
 # define ORANGE 0xffa500ff
 
 typedef struct s_vector
@@ -85,6 +85,7 @@ typedef struct s_minimap
 	int	pix_pos_x;
 	int	pix_pos_y;
 	int	radius;
+	int	zoom;
 }	t_minimap;
 
 typedef struct s_hud
