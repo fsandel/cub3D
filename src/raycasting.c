@@ -82,7 +82,7 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 //but it doesnt seem perfect
 static t_direction	get_direction_of_target(t_vector target)
 {
-	const double	eps = 0.02f;
+	const double	eps = 0.002f;
 
 	if (ft_modf(target.y) > 1 - eps)
 		return (south);
@@ -107,13 +107,13 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	while (get_cube_type(target, map) != wall)
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
-		angle = (atan2(dir->y, dir->x));
+		angle = atan2(dir->y, dir->x);
 		sx = dx / -cos(angle);
 		sy = dy / -sin(angle);
 		if (sx < sy)
-			norm(dir, sx * 1.01);
+			norm(dir, sx * 1.001);
 		else
-			norm(dir, sy * 1.01);
+			norm(dir, sy * 1.001);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);
 	}
