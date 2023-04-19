@@ -10,7 +10,10 @@ int	args_valid(int argc, char **argv)
 	int	fd;
 
 	if (argc != 2)
+	{
+		ft_putendl_fd("Error\nWrong argumentcount", STDERR_FILENO);
 		return (-1);
+	}
 	if (!is_cub_file(argv[1]))
 	{
 		ft_putendl_fd("Error\nFile extension invalid", STDERR_FILENO);
