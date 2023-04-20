@@ -170,6 +170,7 @@ int			get_alpha(int rgba);
 //utils/utils.c
 int			min(int a, int b);
 int			max(int a, int b);
+bool		is_on_map(double x, double y, t_map *map);
 
 //hud.c
 void		setup_hud(t_window *window);
