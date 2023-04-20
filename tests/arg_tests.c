@@ -11,18 +11,18 @@ void	setup(void)
 TestSuite(valid_args, .description = "Testing Args", .init = setup);
 
 Test(valid_args, wrong_argc){
-char *test[3];
-test[0] = "cub3D";
-test[1] = "test";
-test[2] = "test";
-cr_expect_eq(args_valid(3, test), -1);
+	char *test[3];
+	test[0] = "cub3D";
+	test[1] = "test";
+	test[2] = "test";
+	cr_expect_eq(args_valid(3, test), -1);
 }
 
 Test(valid_args, wrong_file_extension){
-char *test[2];
-test[0] = "cub3D";
-test[1] = "test";
-cr_expect_eq(args_valid(2, test), -1);
+	char *test[2];
+	test[0] = "cub3D";
+	test[1] = "test";
+	cr_expect_eq(args_valid(2, test), -1);
 }
 
 Test(valid_args, correct_args){
