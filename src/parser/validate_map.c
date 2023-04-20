@@ -29,7 +29,8 @@ bool	map_is_valid(t_map *map)
 
 bool	is_valid_field(t_map *map, int line, int column)
 {
-	if (line == 0 || line == map->height - 1 || column == 0 || column == map->width - 1)
+	if (line == 0 || line == map->height - 1
+		|| column == 0 || column == map->width - 1)
 		return (false);
 	if (map->cubes[line][column - 1] == empty)
 		return (false);
