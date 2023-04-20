@@ -65,6 +65,7 @@ typedef struct s_map
 	t_vector		*start_dir;
 	int				floor_color;
 	int				ceiling_color;
+	bool			has_spawn;
 }					t_map;
 
 typedef struct s_player
