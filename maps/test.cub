@@ -2,15 +2,15 @@
 1000000001
 1001111001
 1000110001
-1000W00001
+1000N00001
 1010101011
 1000000001
 1111111111
 
-NO textures/brick.png
-SO textures/brick.png
-WE textures/brick.png
-EA textures/brick.png
+NO textures/north.png
+SO textures/south.png
+WE textures/west.png
+EA textures/east.png
 
 F 203,166,247
 C 4,165,229
