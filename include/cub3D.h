@@ -115,6 +115,9 @@ t_cube_type	get_cube_type(t_vector *pos, t_map *map);
 void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
 void		norm(t_vector *v, double future_length);
 
+//math/misc.c
+double		quad_add(double x, double y);
+
 // parser
 t_map		*parse(int fd);
 int			args_valid(int argc, char **argv);
