@@ -28,7 +28,7 @@ UTILS_FILES		=	vector.c utils.c colors.c map.c
 
 MATH			=	$(addprefix $(MATH_DIR), $(MATH_FILES))
 MATH_DIR		=	src/math/
-MATH_FILES		=	distance.c rotate.c
+MATH_FILES		=	distance.c rotate.c misc.c
 
 WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
 WALLS_DIR		=	src/walls/
