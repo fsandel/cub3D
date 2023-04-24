@@ -103,8 +103,6 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 {
 	double		dx;
 	double		dy;
-	double		sx;
-	double		sy;
 	double		angle;
 	t_vector	old;
 
@@ -113,9 +111,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
-		sx = dx / -cos(angle);
-		sy = dy / -sin(angle);
-		norm(dir, min(sx, sy) * 1.0001);
+		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0001);
 		set_vec(&old, target->x, target->y, target->z);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);
