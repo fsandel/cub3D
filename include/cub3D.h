@@ -109,78 +109,84 @@ typedef struct s_window
 }	t_window;
 
 //free_utils.c
-void		free_window_struct(t_window *window);
+void			free_window_struct(t_window *window);
 
 //utils.c
-int			on_screen(int x, int y);
-t_cube_type	get_cube_type(t_vector *pos, t_map *map);
+int				on_screen(int x, int y);
+t_cube_type		get_cube_type(t_vector *pos, t_map *map);
 
 //rotate.c
-void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
-void		norm(t_vector *v, double future_length);
+void			rotate_hor_f(t_vector *before, t_vector *after, double angle);
+void			norm(t_vector *v, double future_length);
 
 //math/misc.c
-double		quad_add(double x, double y);
+double			quad_add(double x, double y);
+double			ft_modf(double num);
 
 // parser
-t_map		*parse(int fd);
-int			args_valid(int argc, char **argv);
+t_map			*parse(int fd);
+int				args_valid(int argc, char **argv);
 
 // parse_options.c
-void		parse_options(t_list *option_lines, t_map *map);
+void			parse_options(t_list *option_lines, t_map *map);
 
 // check_syntax.c
-bool		is_valid_map_str(char *map_str);
-bool		is_valid_tex_str(char *tex_str);
-bool		is_valid_f_c_str(char *f_c_str);
+bool			is_valid_map_str(char *map_str);
+bool			is_valid_tex_str(char *tex_str);
+bool			is_valid_f_c_str(char *f_c_str);
 
 // map utils
-void		set_floor_color(t_map *map, int color);
-void		set_ceiling_color(t_map *map, int color);
-void		set_cube_value(t_map *map, int line, int column, char c);
+void			set_floor_color(t_map *map, int color);
+void			set_ceiling_color(t_map *map, int color);
+void			set_cube_value(t_map *map, int line, int column, char c);
 
 // vector utils
-t_vector	*set_vec(t_vector *vec, double x, double y, double z);
+t_vector		*set_vec(t_vector *vec, double x, double y, double z);
 
 //distance.c
-double		distance(t_vector pos, t_vector target);
-double		dot_product(t_vector v1, t_vector v2);
-double		abs_vector(t_vector v);
-double		distance_perpendicular(t_vector pos, t_vector dir, t_vector target);
+double			distance(t_vector pos, t_vector target);
+double			dot_product(t_vector v1, t_vector v2);
+double			abs_vector(t_vector v);
+double			distance_perpendicular(t_vector pos, t_vector dir,
+					t_vector target);
 
 //keyboard_input.c
-void		escape_handler(void *arg);
-void		player_movement(void *arg);
+void			escape_handler(void *arg);
+void			player_movement(void *arg);
 
 //raycasting.c
-void		draw_scene(t_window *window);
+void			draw_scene(t_window *window);
 
 //textures.c
-double		ft_modf(double num);
-u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
-int			texture_x_value(mlx_texture_t *tex, t_vector *target,
-				t_direction direction);
-int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
-				int start);
-int			dim_color(int color, double distance);
+u_int32_t		get_rgba_from_tex(mlx_texture_t *tex, int x, int y);
+int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
+					t_direction direction);
+int				texture_y_value(const mlx_texture_t *tex, int line_height,
+					int window_y, int start);
+int				dim_color(int color, double distance);
+mlx_texture_t	*get_texture(t_window *window, t_vector *target,
+					t_direction direction);
 
 //colors.c
-int			get_rgba(int r, int g, int b, int a);
-int			get_red(int rgba);
-int			get_green(int rgba);
-int			get_blue(int rgba);
-int			get_alpha(int rgba);
+int				get_rgba(int r, int g, int b, int a);
+int				get_red(int rgba);
+int				get_green(int rgba);
+int				get_blue(int rgba);
+int				get_alpha(int rgba);
 
 //utils/utils.c
-double		min(double a, double b);
-double		max(double a, double b);
-bool		is_on_map(double x, double y, t_map *map);
+double			min(double a, double b);
+double			max(double a, double b);
+bool			is_on_map(double x, double y, t_map *map);
 
 //hud.c
-void		setup_hud(t_window *window);
-void		draw_hud(void *arg);
+void			setup_hud(t_window *window);
+void			draw_hud(void *arg);
 
 //minimap.c
-void		draw_minimap(t_window *window);
+void			draw_minimap(t_window *window);
+
+//doors.c
+void			door_handler(mlx_key_data_t keydata, void *arg);
 
 #endif
