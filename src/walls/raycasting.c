@@ -75,8 +75,6 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 	}
 }
 
-//maybe rethink this in the future, it works for right now
-//but it doesnt seem perfect
 static t_direction	get_direction_of_target(t_vector old, t_vector target)
 {
 	if (old.x >= floor(target.x) && old.x < ceil(target.x))
