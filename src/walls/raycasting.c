@@ -28,8 +28,10 @@ static	mlx_texture_t	*get_texture(t_window *window, t_vector *target, t_directio
 {
 	if (get_cube_type(target, window->map) == wall)
 		return (window->map->textures[direction]);
-	else// if (get_cube_type(target, window->map) == door_closed)
+	else if (get_cube_type(target, window->map) == door_closed)
 		return (window->map->door);
+	else
+		return (window->map->placeholder);
 }
 
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
