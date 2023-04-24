@@ -79,3 +79,45 @@ Test(parse_map, invalid_area){
 		i++;
 	}
 }
+
+Test(parse_map, invalid_rgb){
+	int i;
+	char	*map_name;
+	char	*num_str;
+	char	*temp;
+	int		fd;
+	t_map	*result;
+	
+	i = 0;
+	while (i < 43)
+	{
+		if (i < 10)
+		{
+			num_str = ft_itoa(i);
+			temp = ft_strjoin("invalid_maps/invalid_RGB_00", num_str);
+			free(num_str);
+			map_name = ft_strjoin(temp, ".cub");
+			free(temp);
+			fd = open(map_name, O_RDONLY);
+			result = parse(fd);
+			printf("testing on %s\n", map_name);
+			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
+			free(map_name);
+			close(fd);
+		}
+		else
+		{
+			num_str = ft_itoa(i);
+			temp = ft_strjoin("invalid_maps/invalid_RGB_0", num_str);
+			free(num_str);
+			map_name = ft_strjoin(temp, ".cub");
+			free(temp);
+			fd = open(map_name, O_RDONLY);
+			result = parse(fd);
+			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
+			free(map_name);
+			close(fd);
+		}
+		i++;
+	}
+}

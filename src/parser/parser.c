@@ -34,10 +34,11 @@ t_map	*parse(int fd)
 	if (!map_is_valid(map))
 		ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO);
 	parse_options(file_content->option_lines, map);
+	if (!options_are_valid(map))
+		ft_putendl_fd("Error\nInvalid options", STDERR_FILENO);
 	ft_lstclear(&file_content->map_lines, &free);
 	ft_lstclear(&file_content->option_lines, &free);
-	free(file_content);
-	return (map);
+	return (free(file_content), map);
 }
 
 /*
