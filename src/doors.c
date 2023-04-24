@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static void	toggle_surrounding_doors(t_window *window);
+static void	toggle_targeted_door(t_window *window);
 
 void	door_handler(mlx_key_data_t keydata, void *arg)
 {
@@ -9,33 +9,39 @@ void	door_handler(mlx_key_data_t keydata, void *arg)
 	window = (t_window *)arg;
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
-		toggle_surrounding_doors(window);
+		toggle_targeted_door(window);
 		draw_scene(window);
 	}
 }
 
-static void	toggle_surrounding_doors(t_window *window)
+static void	cast_iter_ray(t_window *window, t_vector dir, t_vector *target,
+		t_cube_type target_type)
 {
-	const int	pos_x = window->player->pos->x;
-	const int	pos_y = window->player->pos->y;
-	const int	range = 2;
-	int			i;
-	int			j;
+	const double	step_size = 0.01f;
 
-	i = -range;
-	while (i < range + 1)
+	target->x = window->player->pos->x;
+	target->y = window->player->pos->y;
+	while (get_cube_type(target, window->map) != wall
+		&& get_cube_type(target, window->map) != door_closed
+		&& get_cube_type(target, window->map) != target_type)
 	{
-		j = -range;
-		while (j < range + 1)
-		{
-			if (j == 0 && i == 0)
-				(void)0;
-			else if (window->map->cubes[pos_y + j][pos_x + i] == door_closed)
-				window->map->cubes[pos_y + j][pos_x + i] = door_open;
-			else if (window->map->cubes[pos_y + j][pos_x + i] == door_open)
-				window->map->cubes[pos_y + j][pos_x + i] = door_closed;
-			j++;
-		}
-		i++;
+		target->x -= dir.x * step_size;
+		target->y -= dir.y * step_size;
+	}
+}
+
+static void	toggle_targeted_door(t_window *window)
+{
+	t_vector	target;
+	double		dis;
+
+	cast_iter_ray(window, *window->player->dir, &target, door_open);
+	dis = distance(*window->player->pos, target);
+	if (dis > 0.1f && dis < 2)
+	{
+		if (get_cube_type(&target, window->map) == door_closed)
+			window->map->cubes[(int)target.y][(int)target.x] = door_open;
+		else if (get_cube_type(&target, window->map) == door_open)
+			window->map->cubes[(int)target.y][(int)target.x] = door_closed;
 	}
 }
