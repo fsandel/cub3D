@@ -44,7 +44,9 @@ typedef enum e_cube_type
 	walkable,
 	wall,
 	empty,
-	spawn
+	spawn,
+	door_open,
+	door_closed
 }	t_cube_type;
 
 typedef enum e_direction
