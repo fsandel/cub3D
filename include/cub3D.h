@@ -13,7 +13,7 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-# define FOV 60
+# define FOV 45
 # define SPEED 0.05f
 # define TURN_SPEED 0.05f
 # define DARKNESS_FACTOR 50
@@ -23,7 +23,7 @@
 # define BLUE 0xffffff
 # define PINK 0xff00ffff
 # define RED 0xff0000ff
-# define BLACK 0x0
+# define BLACK 0x000000ff
 # define ORANGE 0xffa500ff
 
 typedef struct s_vector
@@ -80,9 +80,19 @@ typedef struct s_fps
 	mlx_image_t	*fps_image;
 }	t_fps;
 
+typedef struct s_minimap
+{
+	int	pix_pos_x;
+	int	pix_pos_y;
+	int	radius;
+	int	zoom;
+}	t_minimap;
+
 typedef struct s_hud
 {
-	t_fps	*fps;
+	mlx_image_t	*hud_img;
+	t_fps		*fps;
+	t_minimap	*minimap;
 }	t_hud;
 
 typedef struct s_window
@@ -104,6 +114,9 @@ t_cube_type	get_cube_type(t_vector *pos, t_map *map);
 //rotate.c
 void		rotate_hor_f(t_vector *before, t_vector *after, double angle);
 void		norm(t_vector *v, double future_length);
+
+//math/misc.c
+double		quad_add(double x, double y);
 
 // parser
 t_map		*parse(int fd);
@@ -157,9 +170,13 @@ int			get_alpha(int rgba);
 //utils/utils.c
 double		min(double a, double b);
 double		max(double a, double b);
+bool		is_on_map(double x, double y, t_map *map);
 
 //hud.c
 void		setup_hud(t_window *window);
-void		fps(void *arg);
+void		draw_hud(void *arg);
+
+//minimap.c
+void		draw_minimap(t_window *window);
 
 #endif

@@ -15,3 +15,11 @@ double	max(double a, double b)
 	else
 		return (b);
 }
+
+bool	is_on_map(double x, double y, t_map *map)
+{
+	if (x >= 0 && y >= 0 && x < map->width && y < map->height)
+		return (true);
+	else
+		return (false);
+}
