@@ -14,6 +14,7 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
 	window->map->door = mlx_load_png("textures/lock.png"); //remember to yeet this line later
+	window->map->placeholder = mlx_load_png("textures/placeholder.png"); //remember to yeet this line later
 	return (window);
 }
 

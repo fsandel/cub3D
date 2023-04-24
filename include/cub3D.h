@@ -68,6 +68,7 @@ typedef struct s_map
 	int				floor_color;
 	int				ceiling_color;
 	mlx_texture_t	*door;
+	mlx_texture_t	*placeholder;
 }					t_map;
 
 typedef struct s_player
