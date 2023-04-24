@@ -168,8 +168,8 @@ int			get_blue(int rgba);
 int			get_alpha(int rgba);
 
 //utils/utils.c
-int			min(int a, int b);
-int			max(int a, int b);
+double		min(double a, double b);
+double		max(double a, double b);
 bool		is_on_map(double x, double y, t_map *map);
 
 //hud.c

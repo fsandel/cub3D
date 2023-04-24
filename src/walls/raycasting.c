@@ -80,18 +80,22 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 
 //maybe rethink this in the future, it works for right now
 //but it doesnt seem perfect
-static t_direction	get_direction_of_target(t_vector target)
+static t_direction	get_direction_of_target(t_vector old, t_vector target)
 {
-	const double	eps = 0.002f;
-
-	if (ft_modf(target.y) > 1 - eps)
-		return (south);
-	else if (ft_modf(target.y) < eps)
-		return (north);
-	else if (ft_modf(target.x) > 1 - eps)
-		return (east);
+	if (old.x >= floor(target.x) && old.x < ceil(target.x))
+	{
+		if (old.y >= floor(target.y))
+			return (south);
+		else
+			return (north);
+	}
 	else
-		return (west);
+	{
+		if (old.x >= floor(target.x))
+			return (east);
+		else
+			return (west);
+	}
 }
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
@@ -99,24 +103,19 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 {
 	double		dx;
 	double		dy;
-	double		sx;
-	double		sy;
 	double		angle;
+	t_vector	old;
 
 	set_vec(target, pos->x, pos->y, pos->z);
 	while (get_cube_type(target, map) != wall)
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
-		sx = dx / -cos(angle);
-		sy = dy / -sin(angle);
-		if (sx < sy)
-			norm(dir, sx * 1.001);
-		else
-			norm(dir, sy * 1.001);
+		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0001);
+		set_vec(&old, target->x, target->y, target->z);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);
 	}
 	norm(dir, 1);
-	return (get_direction_of_target(*target));
+	return (get_direction_of_target(old, *target));
 }
