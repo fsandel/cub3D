@@ -100,7 +100,6 @@ Test(parse_map, invalid_rgb){
 			free(temp);
 			fd = open(map_name, O_RDONLY);
 			result = parse(fd);
-			printf("testing on %s\n", map_name);
 			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
 			free(map_name);
 			close(fd);
