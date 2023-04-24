@@ -24,6 +24,14 @@ void	draw_scene(t_window *window)
 	}
 }
 
+static	mlx_texture_t	*get_texture(t_window *window, t_vector *target, t_direction direction)
+{
+	if (get_cube_type(target, window->map) == wall)
+		return (window->map->textures[direction]);
+	else// if (get_cube_type(target, window->map) == door_closed)
+		return (window->map->door);
+}
+
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				t_direction direction)
 {
@@ -33,7 +41,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 	int				p_y;
 	uint32_t		pix;
 	t_vector		tex;
-
+	mlx_texture_t	*texture = get_texture(window, target, direction);
 	p_y = 0;
 	while (p_y < HEIGHT)
 	{
@@ -43,12 +51,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
-			tex.x = texture_x_value(window->map->textures[direction],
-					target, direction);
-			tex.y = texture_y_value(window->map->textures[direction],
-					line_height, p_y, start);
-			pix = get_rgba_from_tex(window->map->textures[direction],
-					tex.x, tex.y);
+			tex.x = texture_x_value(texture, target, direction);
+			tex.y = texture_y_value(texture, line_height, p_y, start);
+			pix = get_rgba_from_tex(texture, tex.x, tex.y);
 			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}
