@@ -158,7 +158,8 @@ int			texture_x_value(mlx_texture_t *tex, t_vector *target,
 				t_direction direction);
 int			texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 				int start);
-int			dim_color(int color, double distance);
+int			dim_color_floor(int color, int p_y);
+int			dim_color_walls(int color, double distance);
 
 //colors.c
 int			get_rgba(int r, int g, int b, int a);

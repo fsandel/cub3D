@@ -42,9 +42,22 @@ int	texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 	return ((window_y - start) * tex->height / line_height);
 }
 
-int	dim_color(int color, double distance)
+int	dim_color_floor(int color, int p_y)
 {
-	const double	dis_factor = 2.5f / distance;
+	const double	darkness = abs(HEIGHT / 2 - p_y);
+	const double	dis_factor = darkness / HEIGHT * 2;
+
+	if (dis_factor > 1)
+		return (color);
+	return (get_rgba(get_red(color) * dis_factor,
+			get_green(color) * dis_factor,
+			get_blue(color) * dis_factor,
+			get_alpha(color)));
+}
+
+int	dim_color_walls(int color, double distance)
+{
+	const double	dis_factor = 2.0f / distance;
 
 	if (dis_factor > 1)
 		return (color);
