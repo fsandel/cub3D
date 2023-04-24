@@ -185,6 +185,7 @@ void			draw_hud(void *arg);
 
 //minimap.c
 void			draw_minimap(t_window *window);
+void			draw_minimap_background(t_window *window);
 
 //doors.c
 void			door_handler(mlx_key_data_t keydata, void *arg);

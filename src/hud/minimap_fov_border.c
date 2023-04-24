@@ -12,7 +12,8 @@ static void	draw_minimap_ray(t_window *window, t_vector dir, t_minimap *minimap)
 	const int	zoom = minimap->zoom;
 
 	set_vec(&pos, window->player->pos->x, window->player->pos->y, 0);
-	while (get_cube_type(&pos, window->map) != wall)
+	while (get_cube_type(&pos, window->map) != wall
+		&& get_cube_type(&pos, window->map) != door_closed)
 	{
 		x = (pos.x - window->player->pos->x) * size / zoom + minimap->pix_pos_x;
 		y = (pos.y - window->player->pos->y) * size / zoom + minimap->pix_pos_y;
@@ -57,6 +58,27 @@ void	draw_minimap_border(t_window *window)
 			distance = quad_add(x_iter, y_iter);
 			if (distance >= radius && distance <= radius + border)
 				put_pixel_minimap(x_iter, y_iter, window, BORDER);
+			x_iter++;
+		}
+		y_iter++;
+	}
+}
+
+void	draw_minimap_background(t_window *window)
+{
+	int			x_iter;
+	int			y_iter;
+	const int	border = 3;
+	const int	radius = window->hud->minimap->radius;
+
+	y_iter = -radius - border;
+	while (y_iter <= radius + border)
+	{
+		x_iter = -radius - border;
+		while (x_iter <= radius + border)
+		{
+			if (quad_add(x_iter, y_iter) <= radius)
+				put_pixel_minimap(x_iter, y_iter, window, FLOOR);
 			x_iter++;
 		}
 		y_iter++;

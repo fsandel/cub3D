@@ -22,13 +22,27 @@ void	put_pixel_minimap(int x_iter, int y_iter, t_window *window, int color)
 		);
 }
 
+static void	minimap_choose_surrounding(t_window *window, int x_iter, int y_iter)
+{
+	t_vector	pos;
+
+	pos.x = window->player->pos->x + (double)(x_iter
+			* window->hud->minimap->zoom) / window->hud->minimap->radius;
+	pos.y = window->player->pos->y + (double)(y_iter
+			* window->hud->minimap->zoom) / window->hud->minimap->radius;
+	if (!is_on_map(pos.x, pos.y, window->map))
+		put_pixel_minimap(x_iter, y_iter, window, OUTSIDE);
+	else if (get_cube_type(&pos, window->map) == wall)
+		put_pixel_minimap(x_iter, y_iter, window, WALL);
+	else if (get_cube_type(&pos, window->map) == door_closed)
+		put_pixel_minimap(x_iter, y_iter, window, DOOR);
+}
+
 static void	draw_minimap_surrounding(t_window *window)
 {
 	int				x_iter;
 	int				y_iter;
-	t_vector		pos;
 	const int		size = window->hud->minimap->radius;
-	const double	zoom = window->hud->minimap->zoom;
 
 	y_iter = -size;
 	while (y_iter <= size)
@@ -37,35 +51,7 @@ static void	draw_minimap_surrounding(t_window *window)
 		while (x_iter <= size)
 		{
 			if (quad_add(x_iter, y_iter) <= size)
-			{
-				pos.x = window->player->pos->x + x_iter * zoom / size;
-				pos.y = window->player->pos->y + y_iter * zoom / size;
-				if (!is_on_map(pos.x, pos.y, window->map))
-					put_pixel_minimap(x_iter, y_iter, window, OUTSIDE);
-				else if (get_cube_type(&pos, window->map) == wall)
-					put_pixel_minimap(x_iter, y_iter, window, WALL);
-			}
-			x_iter++;
-		}
-		y_iter++;
-	}
-}
-
-static void	draw_minimap_background(t_window *window)
-{
-	int			x_iter;
-	int			y_iter;
-	const int	border = 3;
-	const int	radius = window->hud->minimap->radius;
-
-	y_iter = -radius - border;
-	while (y_iter <= radius + border)
-	{
-		x_iter = -radius - border;
-		while (x_iter <= radius + border)
-		{
-			if (quad_add(x_iter, y_iter) <= radius)
-				put_pixel_minimap(x_iter, y_iter, window, FLOOR);
+				minimap_choose_surrounding(window, x_iter, y_iter);
 			x_iter++;
 		}
 		y_iter++;
