@@ -18,9 +18,9 @@ static void	toggle_surrounding_doors(t_window *window)
 {
 	const int	pos_x = window->player->pos->x;
 	const int	pos_y = window->player->pos->y;
+	const int	range = 2;
 	int			i;
 	int			j;
-	const int	range = 2;
 
 	i = -range;
 	while (i < range + 1)
