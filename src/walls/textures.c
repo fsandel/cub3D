@@ -44,17 +44,12 @@ int	texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 
 int	dim_color(int color, double distance)
 {
-	int	red;
-	int	green;
-	int	blue;
-	int	alpha;
+	const double	dis_factor = 2.5f / distance;
 
-	red = get_red(color);
-	green = get_green(color);
-	blue = get_blue(color);
-	alpha = get_alpha(color);
-	alpha = alpha * DARKNESS_FACTOR / distance;
-	if (alpha > 255)
-		alpha = get_alpha(color);
-	return (get_rgba(red, green, blue, alpha));
+	if (dis_factor > 1)
+		return (color);
+	return (get_rgba(get_red(color) * dis_factor,
+			get_green(color) * dis_factor,
+			get_blue(color) * dis_factor,
+			get_alpha(color)));
 }

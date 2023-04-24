@@ -27,8 +27,8 @@ void	draw_scene(t_window *window)
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				t_direction direction)
 {
-	const double	line_height = HEIGHT * 1 / distance_perpendicular(
-			*window->player->pos, *window->player->dir, *target);
+	const double	dis = distance_perpendicular(*window->player->pos, *window->player->dir, *target);
+	const double	line_height = HEIGHT * 1 / dis;
 	const int		start = max(((HEIGHT - line_height) / 2), 0);
 	int				p_y;
 	uint32_t		pix;
@@ -49,6 +49,7 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 					line_height, p_y, start);
 			pix = get_rgba_from_tex(window->map->textures[direction],
 					tex.x, tex.y);
+			pix = dim_color(pix, dis);
 			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}
