@@ -26,15 +26,15 @@ Test(valid_args, wrong_file_extension){
 }
 
 Test(valid_args, correct_args){
-char *test[2];
-test[0] = "cub3D";
-test[1] = "../maps/test.cub";
-cr_expect_gt(args_valid(2, test), 2);
+	char *test[2];
+	test[0] = "cub3D";
+	test[1] = "../maps/test.cub";
+	cr_expect_gt(args_valid(2, test), 2);
 }
 
 Test(valid_args, non_existing_file){
-char *test[2];
-test[0] = "cub3D";
-test[1] = "../maps/test123123123123.cub";
-cr_expect_eq(args_valid(2, test), -1);
+	char *test[2];
+	test[0] = "cub3D";
+	test[1] = "../maps/test123123123123.cub";
+	cr_expect_eq(args_valid(2, test), -1);
 }
