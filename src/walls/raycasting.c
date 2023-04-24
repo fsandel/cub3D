@@ -3,7 +3,7 @@
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
-						t_vector *target, t_map *map);
+	t_vector *target, t_map *map);
 
 void	draw_scene(t_window *window)
 {
