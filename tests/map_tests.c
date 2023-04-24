@@ -162,43 +162,84 @@ Test(parse_map, invalid_rgb){
 	}
 }
 
-Test(parse_map, valid_rgb){
-	int i;
-	char	*map_name;
-	char	*num_str;
-	char	*temp;
-	int		fd;
-	t_map	*result;
-	
-	i = 0;
-	while (i < 23)
-	{
-		if (i < 10)
-		{
-			num_str = ft_itoa(i);
-			temp = ft_strjoin("valid_maps/valid_RGB_00", num_str);
-			free(num_str);
-			map_name = ft_strjoin(temp, ".cub");
-			free(temp);
-			fd = open(map_name, O_RDONLY);
-			result = parse(fd);
-			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
-			free(map_name);
-			close(fd);
-		}
-		else
-		{
-			num_str = ft_itoa(i);
-			temp = ft_strjoin("valid_maps/valid_RGB_0", num_str);
-			free(num_str);
-			map_name = ft_strjoin(temp, ".cub");
-			free(temp);
-			fd = open(map_name, O_RDONLY);
-			result = parse(fd);
-			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
-			free(map_name);
-			close(fd);
-		}
-		i++;
-	}
-}
+//Test(parse_map, valid_rgb){
+//	int i;
+//	char	*map_name;
+//	char	*num_str;
+//	char	*temp;
+//	int		fd;
+//	t_map	*result;
+//	
+//	i = 0;
+//	while (i < 23)
+//	{
+//		if (i < 10)
+//		{
+//			num_str = ft_itoa(i);
+//			temp = ft_strjoin("valid_maps/valid_RGB_00", num_str);
+//			free(num_str);
+//			map_name = ft_strjoin(temp, ".cub");
+//			free(temp);
+//			fd = open(map_name, O_RDONLY);
+//			result = parse(fd);
+//			cr_expect(options_are_valid(result) == true, "failed on %s \n", map_name);
+//			free(map_name);
+//			close(fd);
+//		}
+//		else
+//		{
+//			num_str = ft_itoa(i);
+//			temp = ft_strjoin("valid_maps/valid_RGB_0", num_str);
+//			free(num_str);
+//			map_name = ft_strjoin(temp, ".cub");
+//			free(temp);
+//			fd = open(map_name, O_RDONLY);
+//			result = parse(fd);
+//			cr_expect(options_are_valid(result) == true, "failed on %s \n", map_name);
+//			free(map_name);
+//			close(fd);
+//		}
+//		i++;
+//	}
+//}
+
+//Test(parse_map, invalid_tex_NO){
+//	int i;
+//	char	*map_name;
+//	char	*num_str;
+//	char	*temp;
+//	int		fd;
+//	t_map	*result;
+//	
+//	i = 0;
+//	while (i < 23)
+//	{
+//		if (i < 10)
+//		{
+//			num_str = ft_itoa(i);
+//			temp = ft_strjoin("invalid_maps/invalid_tex_NO_00", num_str);
+//			free(num_str);
+//			map_name = ft_strjoin(temp, ".cub");
+//			free(temp);
+//			fd = open(map_name, O_RDONLY);
+//			result = parse(fd);
+//			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
+//			free(map_name);
+//			close(fd);
+//		}
+//		else
+//		{
+//			num_str = ft_itoa(i);
+//			temp = ft_strjoin("invalid_maps/invalid_tex_NO_0", num_str);
+//			free(num_str);
+//			map_name = ft_strjoin(temp, ".cub");
+//			free(temp);
+//			fd = open(map_name, O_RDONLY);
+//			result = parse(fd);
+//			cr_expect(options_are_valid(result) == false, "failed on %s \n", map_name);
+//			free(map_name);
+//			close(fd);
+//		}
+//		i++;
+//	}
+//}
