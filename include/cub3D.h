@@ -67,6 +67,7 @@ typedef struct s_map
 	t_vector		*start_dir;
 	int				floor_color;
 	int				ceiling_color;
+	mlx_texture_t	*door;
 }					t_map;
 
 typedef struct s_player
