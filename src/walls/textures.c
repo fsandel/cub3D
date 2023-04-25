@@ -44,25 +44,32 @@ int	texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
 
 int	dim_color_floor(int color, int p_y)
 {
-	const double	darkness = abs(HEIGHT / 2 - p_y);
-	const double	dis_factor = darkness / HEIGHT * 2;
+	uint8_t alpha = color & 0xff;
+	uint8_t red = (color >> 8) & 0xff;
+	uint8_t green = (color >> 16) & 0xff;
+	uint8_t blue = color >> 24;
 
-	if (dis_factor > 1)
-		return (color);
-	return (get_rgba(get_red(color) * dis_factor,
-			get_green(color) * dis_factor,
-			get_blue(color) * dis_factor,
-			get_alpha(color)));
+	double brightness = abs(HEIGHT / 2 - p_y) / 900.0;
+
+	uint8_t new_red = red * brightness;
+	uint8_t new_green = green * brightness;
+	uint8_t new_blue = blue * brightness;
+
+	return (new_blue << 24) | (new_green << 16) | (new_red << 8) | alpha;
 }
 
 int	dim_color_walls(int color, double distance)
 {
-	const double	dis_factor = 2.0f / distance;
+	uint8_t alpha = color & 0xff;
+	uint8_t red = (color >> 8) & 0xff;
+	uint8_t green = (color >> 16) & 0xff;
+	uint8_t blue = color >> 24;
 
-	if (dis_factor > 1)
-		return (color);
-	return (get_rgba(get_red(color) * dis_factor,
-			get_green(color) * dis_factor,
-			get_blue(color) * dis_factor,
-			get_alpha(color)));
+	double brightness = max(1.0 - (distance / 6.0), 0);
+
+	uint8_t new_red = red * brightness;
+	uint8_t new_green = green * brightness;
+	uint8_t new_blue = blue * brightness;
+
+	return (new_blue << 24) | (new_green << 16) | (new_red << 8) | alpha;
 }
