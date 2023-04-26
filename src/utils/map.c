@@ -30,6 +30,8 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 			set_vec(map->start_dir, 1, 0, 0);
 		map->cubes[line][column] = walkable;
 	}
+	else if (c == 'D')
+		map->cubes[line][column] = door_closed;
 	else
 		map->cubes[line][column] = empty;
 }

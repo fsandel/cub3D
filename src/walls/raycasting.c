@@ -27,12 +27,12 @@ void	draw_scene(t_window *window)
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				t_direction direction)
 {
-	const double	line_height = HEIGHT * 1 / distance_perpendicular(
+	const double		line_height = HEIGHT / distance_perpendicular(
 			*window->player->pos, *window->player->dir, *target);
-	const int		start = max(((HEIGHT - line_height) / 2), 0);
-	int				p_y;
-	uint32_t		pix;
-	t_vector		tex;
+	const int			start = max(((HEIGHT - line_height) / 2), 0);
+	const mlx_texture_t	*texture = get_texture(window, target, direction);
+	int					p_y;
+	int					pix;
 
 	p_y = 0;
 	while (p_y < HEIGHT)
@@ -43,12 +43,9 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
-			tex.x = texture_x_value(window->map->textures[direction],
-					target, direction);
-			tex.y = texture_y_value(window->map->textures[direction],
-					line_height, p_y, start);
-			pix = get_rgba_from_tex(window->map->textures[direction],
-					tex.x, tex.y);
+			pix = get_rgba_from_tex(texture,
+					texture_x_value(texture, target, direction),
+					texture_y_value(texture, line_height, p_y, start));
 			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}
@@ -78,20 +75,22 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 	}
 }
 
-//maybe rethink this in the future, it works for right now
-//but it doesnt seem perfect
-static t_direction	get_direction_of_target(t_vector target)
+static t_direction	get_direction_of_target(t_vector old, t_vector target)
 {
-	const double	eps = 0.002f;
-
-	if (ft_modf(target.y) > 1 - eps)
-		return (south);
-	else if (ft_modf(target.y) < eps)
-		return (north);
-	else if (ft_modf(target.x) > 1 - eps)
-		return (east);
+	if (old.x >= floor(target.x) && old.x < ceil(target.x))
+	{
+		if (old.y >= floor(target.y))
+			return (south);
+		else
+			return (north);
+	}
 	else
-		return (west);
+	{
+		if (old.x >= floor(target.x))
+			return (east);
+		else
+			return (west);
+	}
 }
 
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
@@ -99,24 +98,20 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 {
 	double		dx;
 	double		dy;
-	double		sx;
-	double		sy;
 	double		angle;
+	t_vector	old;
 
 	set_vec(target, pos->x, pos->y, pos->z);
-	while (get_cube_type(target, map) != wall)
+	while (get_cube_type(target, map) != wall
+		&& get_cube_type(target, map) != door_closed)
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
-		sx = dx / -cos(angle);
-		sy = dy / -sin(angle);
-		if (sx < sy)
-			norm(dir, sx * 1.001);
-		else
-			norm(dir, sy * 1.001);
+		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0001);
+		set_vec(&old, target->x, target->y, target->z);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);
 	}
 	norm(dir, 1);
-	return (get_direction_of_target(*target));
+	return (get_direction_of_target(old, *target));
 }

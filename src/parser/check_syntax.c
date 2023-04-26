@@ -34,7 +34,8 @@ bool	is_valid_tex_str(char *tex_str)
 
 	res = false;
 	if (!ft_strncmp(tex_str, "NO", 2) || !ft_strncmp(tex_str, "SO", 2)
-		|| !ft_strncmp(tex_str, "WE", 2) || !ft_strncmp(tex_str, "EA", 2))
+		|| !ft_strncmp(tex_str, "WE", 2) || !ft_strncmp(tex_str, "EA", 2)
+		|| !ft_strncmp(tex_str, "DO", 2))
 		res = true;
 	if (tex_str[2] != ' ')
 		res = false;
@@ -67,7 +68,8 @@ bool	is_valid_f_c_str(char *f_c_str)
 
 static bool	is_map_char(char c)
 {
-	if (c == '1' || c == '0' || c == 'N' || c == 'E' || c == 'S' || c == 'W')
+	if (c == '1' || c == '0' || c == 'N' || c == 'E' || c == 'S' || c == 'W'
+		|| c == 'D')
 		return (true);
 	if (c == ' ' || c == '\n')
 		return (true);

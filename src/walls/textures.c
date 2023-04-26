@@ -1,11 +1,6 @@
 #include <cub3D.h>
 
-double	ft_modf(double num)
-{
-	return (num - (int)num);
-}
-
-u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y)
+u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
 {
 	int	color;
 	int	pos;
@@ -16,7 +11,8 @@ u_int32_t	get_rgba_from_tex(mlx_texture_t *tex, int x, int y)
 	return (color);
 }
 
-int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_direction direction)
+int	texture_x_value(const mlx_texture_t *tex, t_vector *target,
+		t_direction direction)
 {
 	if (direction == north || direction == south)
 	{
@@ -34,7 +30,7 @@ int	texture_x_value(mlx_texture_t *tex, t_vector *target, t_direction direction)
 	}
 }
 
-int	texture_y_value(mlx_texture_t *tex, int line_height, int window_y,
+int	texture_y_value(const mlx_texture_t *tex, int line_height, int window_y,
 		int start)
 {
 	if (line_height >= HEIGHT)
@@ -57,4 +53,15 @@ int	dim_color(int color, double distance)
 	if (alpha > 255)
 		alpha = get_alpha(color);
 	return (get_rgba(red, green, blue, alpha));
+}
+
+mlx_texture_t	*get_texture(t_window *window, t_vector *target,
+							t_direction direction)
+{
+	if (get_cube_type(target, window->map) == wall)
+		return (window->map->textures[direction]);
+	else if (get_cube_type(target, window->map) == door_closed)
+		return (window->map->door);
+	else
+		return (window->map->placeholder);
 }

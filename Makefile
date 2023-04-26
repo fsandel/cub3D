@@ -1,7 +1,7 @@
 NAME			=	cub3D
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -Ofast
+CFLAGS			=	-Wall -Wextra -Ofast -Werror
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
 OS				=	$(shell uname -s)
@@ -12,11 +12,15 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c hud.c
+SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
 PARSER_FILES	=	parser.c validate_args.c validate_map.c parse_options.c check_syntax.c validate_options.c
+
+HUD				=	$(addprefix $(HUD_DIR), $(HUD_FILES))
+HUD_DIR			=	src/hud/
+HUD_FILES		=	hud.c minimap.c minimap_fov_border.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
@@ -24,7 +28,7 @@ UTILS_FILES		=	vector.c utils.c colors.c map.c
 
 MATH			=	$(addprefix $(MATH_DIR), $(MATH_FILES))
 MATH_DIR		=	src/math/
-MATH_FILES		=	distance.c rotate.c
+MATH_FILES		=	distance.c rotate.c misc.c
 
 WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
 WALLS_DIR		=	src/walls/
@@ -35,7 +39,7 @@ HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD)
 
 ################################################################################
 ################################################################################
