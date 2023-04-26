@@ -27,7 +27,8 @@ void	free_window_struct(t_window *window)
 	mlx_delete_texture(window->map->textures[east]);
 	mlx_delete_texture(window->map->textures[south]);
 	mlx_delete_texture(window->map->textures[west]);
-	mlx_delete_texture(window->map->door);
+	if (window->map->door)
+		mlx_delete_texture(window->map->door);
 	mlx_delete_texture(window->map->placeholder);
 	mlx_terminate(window->mlx);
 	free_cubes(window->map);
