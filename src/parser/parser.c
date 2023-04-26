@@ -32,10 +32,10 @@ t_map	*parse(int fd)
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
 	if (!map_is_valid(map))
-		ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO);
+		return (ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO), NULL);
 	parse_options(file_content->option_lines, map);
 	if (!options_are_valid(map))
-		ft_putendl_fd("Error\nInvalid options", STDERR_FILENO);
+		return (ft_putendl_fd("Error\nInvalid options", STDERR_FILENO), NULL);
 	ft_lstclear(&file_content->map_lines, &free);
 	ft_lstclear(&file_content->option_lines, &free);
 	return (free(file_content), map);
