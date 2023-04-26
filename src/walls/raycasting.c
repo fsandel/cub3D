@@ -63,7 +63,7 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 		*dx = -ft_modf(pos->x);
 		*dy = 1 - ft_modf(pos->y);
 	}
-	else if (dir->x < 0 && dir->y > 0)
+	else if (dir->x < 0 && dir->y >= 0)
 	{
 		*dx = 1 - ft_modf(pos->x);
 		*dy = -ft_modf(pos->y);
@@ -107,7 +107,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
-		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0001);
+		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0000001);
 		set_vec(&old, target->x, target->y, target->z);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);
