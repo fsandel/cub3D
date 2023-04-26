@@ -15,13 +15,13 @@ static int	colission(t_window *window, char c, double speed, t_vector *dir)
 
 	if (c == 'x')
 	{
-		future_pos.x = window->player->pos->x - dir->x * speed;
+		future_pos.x = window->player->pos->x - dir->x * speed - COLLISION * sign(dir->x);
 		future_pos.y = window->player->pos->y;
 	}
 	else
 	{
 		future_pos.x = window->player->pos->x;
-		future_pos.y = window->player->pos->y - dir->y * speed;
+		future_pos.y = window->player->pos->y - dir->y * speed - COLLISION * sign(dir->y);
 	}
 	future_pos.z = 0;
 	if (get_cube_type(&future_pos, window->map) != wall

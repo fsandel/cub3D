@@ -107,7 +107,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
-		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.0000001);
+		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.000001);
 		set_vec(&old, target->x, target->y, target->z);
 		set_vec(target, target->x - dir->x, target->y - dir->y,
 			target->z - dir->z);

@@ -38,23 +38,6 @@ int	texture_y_value(const mlx_texture_t *tex, int line_height, int window_y,
 	return ((window_y - start) * tex->height / line_height);
 }
 
-int	dim_color(int color, double distance)
-{
-	int	red;
-	int	green;
-	int	blue;
-	int	alpha;
-
-	red = get_red(color);
-	green = get_green(color);
-	blue = get_blue(color);
-	alpha = get_alpha(color);
-	alpha = alpha * DARKNESS_FACTOR / distance;
-	if (alpha > 255)
-		alpha = get_alpha(color);
-	return (get_rgba(red, green, blue, alpha));
-}
-
 mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 							t_direction direction)
 {
