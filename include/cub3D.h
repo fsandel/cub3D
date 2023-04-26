@@ -125,9 +125,9 @@ double			quad_add(double x, double y);
 double			ft_modf(double num);
 
 // validate_map.c
-bool		map_is_valid(t_map *map);
+bool			map_is_valid(t_map *map);
 // validate_options.c
-bool		options_are_valid(t_map *map);
+bool			options_are_valid(t_map *map);
 
 // parser
 t_map			*parse(int fd);
