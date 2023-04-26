@@ -31,11 +31,14 @@ t_map	*parse(int fd)
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
+	if (!map_is_valid(map))
+		return (ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO), NULL);
 	parse_options(file_content->option_lines, map);
+	if (!options_are_valid(map))
+		return (ft_putendl_fd("Error\nInvalid options", STDERR_FILENO), NULL);
 	ft_lstclear(&file_content->map_lines, &free);
 	ft_lstclear(&file_content->option_lines, &free);
-	free(file_content);
-	return (map);
+	return (free(file_content), map);
 }
 
 /*
@@ -53,6 +56,7 @@ static t_map	*init_map(void)
 	map->width = 0;
 	map->height = 0;
 	map->door = NULL;
+	map->has_spawn = false;
 	return (map);
 }
 
@@ -71,9 +75,12 @@ static void	populate_map(t_list *line_list, t_map *map)
 	{
 		line_s = (char *) line_list->content;
 		col = 0;
-		while ((line_s[col] != '\0' || col < map->width) && line_s[0] != '\n')
+		while (col < map->width)
 		{
-			set_cube_value(map, line, col, line_s[col]);
+			if ((size_t) col < ft_strlen(line_s))
+				set_cube_value(map, line, col, line_s[col]);
+			else
+				set_cube_value(map, line, col, ' ');
 			col++;
 		}
 		line++;
