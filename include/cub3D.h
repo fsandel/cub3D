@@ -10,21 +10,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
-
-# define FOV 45
-# define SPEED 0.05f
-# define TURN_SPEED 0.05f
-# define DARKNESS_FACTOR 50
-
-# define WHITE 0xffffffff
-# define YELLOW 0xffff00ff
-# define BLUE 0xffffff
-# define PINK 0xff00ffff
-# define RED 0xff0000ff
-# define BLACK 0x000000ff
-# define ORANGE 0xffa500ff
+# include "design.h"
 
 typedef struct s_vector
 {
@@ -123,6 +109,7 @@ void			norm(t_vector *v, double future_length);
 //math/misc.c
 double			quad_add(double x, double y);
 double			ft_modf(double num);
+int				sign(double x);
 
 // validate_map.c
 bool			map_is_valid(t_map *map);

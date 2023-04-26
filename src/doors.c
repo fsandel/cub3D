@@ -37,7 +37,7 @@ static void	toggle_targeted_door(t_window *window)
 
 	cast_iter_ray(window, *window->player->dir, &target, door_open);
 	dis = distance(*window->player->pos, target);
-	if (dis > 0.1f && dis < 2)
+	if (dis > COLLISION && dis < 2)
 	{
 		if (get_cube_type(&target, window->map) == door_closed)
 			window->map->cubes[(int)target.y][(int)target.x] = door_open;
