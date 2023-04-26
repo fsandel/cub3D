@@ -63,7 +63,7 @@ static void	set_dx_and_dy(double *dx, double *dy, t_vector *dir, t_vector *pos)
 		*dx = -ft_modf(pos->x);
 		*dy = 1 - ft_modf(pos->y);
 	}
-	else if (dir->x < 0 && dir->y >= 0)
+	else if (dir->x < 0 && dir->y > 0)
 	{
 		*dx = 1 - ft_modf(pos->x);
 		*dy = -ft_modf(pos->y);
@@ -100,6 +100,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	double		dy;
 	double		angle;
 	t_vector	old;
+	//t_vector	test;
 
 	set_vec(target, pos->x, pos->y, pos->z);
 	while (get_cube_type(target, map) != wall
