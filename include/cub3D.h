@@ -150,12 +150,13 @@ void			cub_key_hook(mlx_key_data_t keydata, void *arg);
 void			draw_scene(t_window *window);
 
 //textures.c
-u_int32_t		get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
+int				get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
 int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,
 					int window_y, int start);
-int				dim_color(int color, double distance);
+int				dim_color_floor(int color, int p_y);
+int				dim_color_walls(int color, double distance);
 mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 					t_direction direction);
 

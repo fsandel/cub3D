@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
+int	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
 {
 	int	color;
 	int	pos;
