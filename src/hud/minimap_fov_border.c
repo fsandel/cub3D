@@ -35,7 +35,7 @@ void	draw_minimap_fov(t_window *window)
 	{
 		dir.x = window->player->dir->x;
 		dir.y = window->player->dir->y;
-		rotate_hor_f(&dir, &dir, iter * delta_angle);
+		rotate(&dir, &dir, iter * delta_angle);
 		draw_minimap_ray(window, dir, window->hud->minimap);
 		iter++;
 	}

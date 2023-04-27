@@ -29,7 +29,7 @@ double	distance_perpendicular(t_vector pos, t_vector dir, t_vector target)
 	double		upper;
 	double		lower;
 
-	rotate_hor_f(&dir, &norm, M_PI_2);
+	rotate(&dir, &norm, M_PI_2);
 	pos2 = (t_vector){pos.x + norm.x, pos.y + norm.y};
 	upper = fabs((pos2.x - pos.x) * (pos.y - target.y)
 			- (pos.x - target.x) * (pos2.y - pos.y));
