@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/26 10:46:14 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/27 11:05:33 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@
 # define SPEED 0.05f
 # define TURN_SPEED 0.05f
 # define COLLISION 0.2f
+# define SPRINT_SPEED 0.08f
 
 #endif

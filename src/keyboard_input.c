@@ -33,52 +33,68 @@ static int	colission(t_window *window, char c, double speed, t_vector *dir)
 		return (true);
 }
 
-static void	change_player_position(t_window *window, double angle)
+static	double	get_speed(t_window *window)
 {
-	t_vector	dir;
-	bool		moved;
+	double	speed;
+
+	if (mlx_is_key_down(window->mlx, MLX_KEY_LEFT_SHIFT))
+		speed = SPRINT_SPEED;
+	else
+		speed = SPEED;
+	//speed *= 60 / window->hud->fps->fps_num;
+	return (speed);
+}
+
+static bool	change_player_position(t_window *window, double angle)
+{
+	t_vector		dir;
+	bool			moved;
+	const double	speed = get_speed(window);
 
 	dir.x = window->player->dir->x;
 	dir.y = window->player->dir->y;
 	rotate_hor_f(&dir, &dir, angle);
 	moved = false;
-	if (!colission(window, 'x', SPEED, &dir))
+	if (!colission(window, 'x', speed, &dir))
 	{
-		window->player->pos->x -= dir.x * SPEED;
+		window->player->pos->x -= dir.x * speed;
 		moved = true;
 	}
-	if (!colission(window, 'y', SPEED, &dir))
+	if (!colission(window, 'y', speed, &dir))
 	{
-		window->player->pos->y -= dir.y * SPEED;
+		window->player->pos->y -= dir.y * speed;
 		moved = true;
 	}
-	if (moved)
-		draw_scene(window);
+	return (moved);
 }
 
 void	player_movement(void *arg)
 {
 	t_window	*window;
+	bool		redraw;
 
+	redraw = false;
 	window = (t_window *)arg;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
-		change_player_position(window, 0);
+		redraw = change_player_position(window, 0);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
-		change_player_position(window, M_PI);
+		redraw = change_player_position(window, M_PI);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_D))
-		change_player_position(window, M_PI_2);
+		redraw = change_player_position(window, M_PI_2);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_A))
-		change_player_position(window, -M_PI_2);
+		redraw = change_player_position(window, -M_PI_2);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_E))
 	{
 		rotate_hor_f(window->player->dir, window->player->dir, TURN_SPEED);
-		draw_scene(window);
+		redraw = true;
 	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_Q))
 	{
 		rotate_hor_f(window->player->dir, window->player->dir, -TURN_SPEED);
-		draw_scene(window);
+		redraw = true;
 	}
+	if (redraw == true)
+		draw_scene(window);
 }
