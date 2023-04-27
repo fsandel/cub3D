@@ -1,9 +1,15 @@
 #include <cub3D.h>
 
+
+void			draw_vertical_line_fog(t_window *window, t_vector *target,
+						int x, t_direction direction);
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 						t_vector *target, t_map *map);
+
+int	get_rgba_from_tex_fog(const mlx_texture_t *tex, int x, int y,
+				double dis);
 
 void	draw_scene(t_window *window)
 {
@@ -11,15 +17,19 @@ void	draw_scene(t_window *window)
 	t_vector			ray_dir;
 	const double		fov = (FOV * M_PI) / 180;
 	int					ray_iter;
-	t_direction			direction;
+	t_direction			dir;
 
 	ray_iter = -WIDTH / 2;
 	while (ray_iter < WIDTH / 2)
 	{
 		rotate(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
-		direction = cast_ray_dda(window->player->pos, &ray_dir,
+		dir = cast_ray_dda(window->player->pos, &ray_dir,
 				&target, window->map);
-		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, direction);
+		if (FOG)
+			draw_vertical_line_fog(window, &target,
+				ray_iter + WIDTH / 2, dir);
+		else
+			draw_vertical_line(window, &target, ray_iter + WIDTH / 2, dir);
 		ray_iter++;
 	}
 }
@@ -27,8 +37,8 @@ void	draw_scene(t_window *window)
 static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 				t_direction direction)
 {
-	const double		dis = distance_perpendicular(*window->player->pos, *window->player->dir, *target);
-	const double		line_height = HEIGHT / dis;
+	const double		line_height = HEIGHT / distance_perpendicular(
+			*window->player->pos, *window->player->dir, *target);
 	const int			start = max(((HEIGHT - line_height) / 2), 0);
 	const mlx_texture_t	*texture = get_texture(window, target, direction);
 	int					p_y;
@@ -38,21 +48,14 @@ static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
 	while (p_y < HEIGHT)
 	{
 		if (p_y < start)
-		{
-			mlx_put_pixel(window->img, p_x, p_y, dim_color_floor(window->map->ceiling_color, p_y));
-			p_y++;
-		}
+			mlx_put_pixel(window->img, p_x, p_y++, window->map->ceiling_color);
 		else if (p_y >= start + line_height - 1)
-		{
-			mlx_put_pixel(window->img, p_x, p_y, dim_color_floor(window->map->floor_color, p_y));
-			p_y++;
-		}
+			mlx_put_pixel(window->img, p_x, p_y++, window->map->floor_color);
 		else
 		{
 			pix = get_rgba_from_tex(texture,
 					texture_x_value(texture, target, direction),
 					texture_y_value(texture, line_height, p_y, start));
-			pix = dim_color_walls(pix, dis);
 			mlx_put_pixel(window->img, p_x, p_y++, pix);
 		}
 	}

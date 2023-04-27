@@ -32,7 +32,7 @@ MATH_FILES		=	distance.c rotate.c misc.c
 
 WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
 WALLS_DIR		=	src/walls/
-WALLS_FILES		=	raycasting.c textures.c
+WALLS_FILES		=	raycasting.c textures.c fog.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/

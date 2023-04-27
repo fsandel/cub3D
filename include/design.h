@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/27 14:48:35 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/27 17:43:29 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,8 @@
 # define DYNAMIC_TURN_SPEED 1
 
 # define DOOR_TOUCH_RANGE 2
+
+# define FOG 1
+# define FOG_RANGE 5
 
 #endif

@@ -11,6 +11,8 @@ u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
 	return (color);
 }
 
+
+
 int	texture_x_value(const mlx_texture_t *tex, t_vector *target,
 		t_direction direction)
 {
@@ -65,18 +67,4 @@ int	dim_color_floor(int color, int p_y)
 	return (new_blue << 24) | (new_green << 16) | (new_red << 8) | alpha;
 }
 
-int	dim_color_walls(int color, double distance)
-{
-	uint8_t alpha = color & 0xff;
-	uint8_t red = (color >> 8) & 0xff;
-	uint8_t green = (color >> 16) & 0xff;
-	uint8_t blue = color >> 24;
 
-	double brightness = max(1.0 - (distance / 6.0), 0);
-
-	uint8_t new_red = red * brightness;
-	uint8_t new_green = green * brightness;
-	uint8_t new_blue = blue * brightness;
-
-	return (new_blue << 24) | (new_green << 16) | (new_red << 8) | alpha;
-}
