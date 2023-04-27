@@ -36,7 +36,7 @@ WALLS_FILES		=	raycasting.c textures.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
-HDR_FILES		=	cub3D.h
+HDR_FILES		=	cub3D.h design.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
 ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD)
