@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static void	put_pixel_floor(mlx_image_t *img, int pix_pos_x, int pix_pos_y,
+static void	put_pixel_floor_fog(mlx_image_t *img, int pix_pos_x, int pix_pos_y,
 				int base_color);
 static int	get_rgba_from_tex_fog(const mlx_texture_t *tex, int x, int y,
 				double dis);
@@ -19,10 +19,10 @@ void	draw_vertical_line_fog(t_window *window, t_vector *target,
 	while (p_y < HEIGHT)
 	{
 		if (p_y < start)
-			put_pixel_floor(window->img, p_x, p_y,
+			put_pixel_floor_fog(window->img, p_x, p_y,
 				window->map->ceiling_color);
 		else if (p_y >= start + line_height - 1)
-			put_pixel_floor(window->img, p_x, p_y,
+			put_pixel_floor_fog(window->img, p_x, p_y,
 				window->map->floor_color);
 		else
 			mlx_put_pixel(window->img, p_x, p_y,
@@ -47,10 +47,10 @@ static int	get_rgba_from_tex_fog(const mlx_texture_t *tex, int x, int y,
 	return (color);
 }
 
-static void	put_pixel_floor(mlx_image_t *img, int pix_pos_x, int pix_pos_y,
+static void	put_pixel_floor_fog(mlx_image_t *img, int pix_pos_x, int pix_pos_y,
 			int base_color)
 {
-	const double	brightness = abs(HEIGHT / 2 - pix_pos_y) / 900.0;
+	const double	brightness = abs(HEIGHT / 2 - pix_pos_y) / 900.0 * FOG / 5;
 	const uint8_t	alpha = base_color & 0xff;
 	const uint8_t	red = ((base_color >> 8) & 0xff) * brightness;
 	const uint8_t	green = ((base_color >> 16) & 0xff) * brightness;
