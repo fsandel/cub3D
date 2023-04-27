@@ -4,7 +4,7 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Ofast -Werror
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
-OS				=	$(shell uname -s)
+#OS				=	$(shell uname -s)
 BREW			=	$(HOME)/.brew
 
 ################################################################################
@@ -87,10 +87,6 @@ testclean:
 	rm libcub3dtest.a
 	rm tests/*.out
 
-t:
-	make all
-	./$(NAME) maps/test.cub
-
 $(ALL_OBJ_DIR):
 	@mkdir -p $(ALL_OBJ_DIR)
 
@@ -100,34 +96,34 @@ norm:
 ################################################################################
 ################################################################################
 
-help:
-	@make check_brew
+#help:
+#	@make check_brew
 
-check_brew:
-ifeq ($(shell which brew ),$(BREW)/bin/brew)
-	@echo "brew is installed"
-	@make check_glfw
-else
-	@echo "no brew found in standard path."
-	@echo "use make brew to install"
-endif
+#check_brew:
+#ifeq ($(shell which brew ),$(BREW)/bin/brew)
+#	@echo "brew is installed"
+#	@make check_glfw
+#else
+#	@echo "no brew found in standard path."
+#	@echo "use make brew to install"
+#endif
 
-check_glfw:
-ifeq ($(shell brew list | grep glfw), glfw)
-	@echo "glfw is installed"
-	@make check_cmake
-else
-	@echo "no glfw found"
-	@echo "use make glfw to install"
-endif
+#check_glfw:
+#ifeq ($(shell brew list | grep glfw), glfw)
+#	@echo "glfw is installed"
+#	@make check_cmake
+#else
+#	@echo "no glfw found"
+#	@echo "use make glfw to install"
+#endif
 
-check_cmake:
-ifeq ($(shell which cmake), $(BREW)/bin/cmake)
-	@echo "cmake is installed in the default directory"
-else
-	@echo "no cmake found in the default directory"
-	@echo "use make cmake to install"
-endif
+#check_cmake:
+#ifeq ($(shell which cmake), $(BREW)/bin/cmake)
+#	@echo "cmake is installed in the default directory"
+#else
+#	@echo "no cmake found in the default directory"
+#	@echo "use make cmake to install"
+#endif
 
 ################################################################################
 ################################################################################
@@ -149,12 +145,12 @@ MLX_LIB			=	libmlx42.a
 MLX_DIR			=	lib/MLX42
 MLX_INCLUDE		=	-I ./$(MLX_DIR)/include/MLX42
 
-ifeq ($(OS), Darwin)
+#ifeq ($(OS), Darwin)
 	GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
-endif
-ifeq ($(OS), Linux)
-	GLFW			=	-ldl -lglfw -pthread -lm
-endif
+#endif
+#ifeq ($(OS), Linux)
+#	GLFW			=	-ldl -lglfw -pthread -lm
+#endif
 
 mlx: $(MLX)
 
@@ -186,12 +182,12 @@ $(LIBFT):
 LSAN			=	lib/LeakSanitizer
 LSANLIB			=	$(LSAN)/liblsan.a
 
-ifeq ($(OS),Linux)
+#ifeq ($(OS),Linux)
 	LSANLFLAGS := -rdynamic -Llib/LeakSanitizer -llsan -ldl -lstdc++
-endif
-ifeq ($(OS),Darwin)
-	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
-endif
+#endif
+#ifeq ($(OS),Darwin)
+#	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
+#endif
 
 lsan: CFLAGS += -I $(LSAN) -Wno-gnu-include-next
 lsan: LINK_FLAGS += $(LSANLFLAGS)
