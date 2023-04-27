@@ -21,7 +21,7 @@ void	draw_scene(t_window *window)
 		rotate(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
 		dir = cast_ray_dda(window->player->pos, &ray_dir,
 				&target, window->map);
-		if (FOG)
+		if (FOG > 0)
 			draw_vertical_line_fog(window, &target,
 				ray_iter + WIDTH / 2, dir);
 		else
