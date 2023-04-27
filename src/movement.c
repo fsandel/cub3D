@@ -44,7 +44,7 @@ bool	change_player_position(t_window *window, double angle)
 
 	dir.x = window->player->dir->x;
 	dir.y = window->player->dir->y;
-	rotate_hor_f(&dir, &dir, angle);
+	rotate(&dir, &dir, angle);
 	moved = false;
 	if (!colission(window, 'x', speed, &dir))
 	{
@@ -63,6 +63,6 @@ bool	rotate_camera(t_window *window, double turn_speed)
 {
 	if (DYNAMIC_TURN_SPEED == true)
 		turn_speed *= 60.0f / window->hud->fps->fps_num;
-	rotate_hor_f(window->player->dir, window->player->dir, turn_speed);
+	rotate(window->player->dir, window->player->dir, turn_speed);
 	return (true);
 }
