@@ -182,4 +182,8 @@ void			draw_minimap_background(t_window *window);
 //doors.c
 void			door_handler(mlx_key_data_t keydata, void *arg);
 
+//movement.c
+bool			change_player_position(t_window *window, double angle);
+bool			rotate_camera(t_window *window, double turn_speed);
+
 #endif
