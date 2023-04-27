@@ -101,16 +101,15 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	double		angle;
 	t_vector	old;
 
-	set_vec(target, pos->x, pos->y, pos->z);
+	set_vec(target, pos->x, pos->y);
 	while (get_cube_type(target, map) != wall
 		&& get_cube_type(target, map) != door_closed)
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);
 		norm(dir, min(dx / -cos(angle), dy / -sin(angle)) * 1.000001);
-		set_vec(&old, target->x, target->y, target->z);
-		set_vec(target, target->x - dir->x, target->y - dir->y,
-			target->z - dir->z);
+		set_vec(&old, target->x, target->y);
+		set_vec(target, target->x - dir->x, target->y - dir->y);
 	}
 	norm(dir, 1);
 	return (get_direction_of_target(old, *target));

@@ -11,7 +11,7 @@ static void	draw_minimap_ray(t_window *window, t_vector dir, t_minimap *minimap)
 	const int	size = minimap->radius;
 	const int	zoom = minimap->zoom;
 
-	set_vec(&pos, window->player->pos->x, window->player->pos->y, 0);
+	set_vec(&pos, window->player->pos->x, window->player->pos->y);
 	while (get_cube_type(&pos, window->map) != wall
 		&& get_cube_type(&pos, window->map) != door_closed)
 	{
