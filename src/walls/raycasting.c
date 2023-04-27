@@ -1,15 +1,13 @@
 #include <cub3D.h>
 
-
-void			draw_vertical_line_fog(t_window *window, t_vector *target,
+void				draw_vertical_line_fog(t_window *window, t_vector *target,
 						int x, t_direction direction);
 static void			draw_vertical_line(t_window *window, t_vector *target,
 						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 						t_vector *target, t_map *map);
-
-int	get_rgba_from_tex_fog(const mlx_texture_t *tex, int x, int y,
-				double dis);
+int					get_rgba_from_tex_fog(const mlx_texture_t *tex, int x,
+						int y, double dis);
 
 void	draw_scene(t_window *window)
 {

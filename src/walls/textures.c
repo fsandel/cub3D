@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
+int	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
 {
 	int	color;
 	int	pos;
@@ -10,8 +10,6 @@ u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
 			tex->pixels[pos + 2], tex->pixels[pos + 3]);
 	return (color);
 }
-
-
 
 int	texture_x_value(const mlx_texture_t *tex, t_vector *target,
 		t_direction direction)
@@ -50,21 +48,3 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 	else
 		return (window->map->textures[north]);
 }
-
-int	dim_color_floor(int color, int p_y)
-{
-	uint8_t alpha = color & 0xff;
-	uint8_t red = (color >> 8) & 0xff;
-	uint8_t green = (color >> 16) & 0xff;
-	uint8_t blue = color >> 24;
-
-	double brightness = abs(HEIGHT / 2 - p_y) / 900.0;
-
-	uint8_t new_red = red * brightness;
-	uint8_t new_green = green * brightness;
-	uint8_t new_blue = blue * brightness;
-
-	return (new_blue << 24) | (new_green << 16) | (new_red << 8) | alpha;
-}
-
-
