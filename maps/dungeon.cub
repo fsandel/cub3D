@@ -1,10 +1,10 @@
-NO textures/wood.png
-SO textures/colorstone.png
-WE textures/graywallshade1.png
-EA textures/graywallshade2.png
-DO textures/lock.png
+NO textures/brick1.png
+SO textures/brick2.png
+WE textures/brick3.png
+EA textures/brick4.png
+DO textures/door3.png
 
-F 54,69,79
+F 20,18,16
 C 04,02,73
 
         1111111111111111111111111
