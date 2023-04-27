@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/27 11:05:33 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/27 13:58:36 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,8 @@
 # define TURN_SPEED 0.05f
 # define COLLISION 0.2f
 # define SPRINT_SPEED 0.08f
+
+# define MINIMAP_MAX_ZOOM 10
+# define MINIMAP_MIN_ZOOM 3
 
 #endif
