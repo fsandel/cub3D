@@ -46,5 +46,5 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 	else if (get_cube_type(target, window->map) == door_closed)
 		return (window->map->door);
 	else
-		return (window->map->placeholder);
+		return (window->map->textures[north]);
 }

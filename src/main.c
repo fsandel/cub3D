@@ -13,7 +13,6 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player = malloc(sizeof(t_player) * 1);
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
-	window->map->placeholder = mlx_load_png("textures/placeholder.png");
 	return (window);
 }
 
