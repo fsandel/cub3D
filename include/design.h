@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/27 14:07:49 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/27 14:48:35 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define MINIMAP_MAX_ZOOM 10
 # define MINIMAP_MIN_ZOOM 3
 
-# define DYNAMIC_SPEED true
-# define DYNAMIC_TURN_SPEED true
+# define DYNAMIC_SPEED 1
+# define DYNAMIC_TURN_SPEED 1
 
 # define DOOR_TOUCH_RANGE 2
 
