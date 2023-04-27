@@ -16,7 +16,6 @@ static int	colission(t_window *window, char c, double speed, t_vector *dir)
 		future_pos.y = window->player->pos->y - dir->y * speed
 			- COLLISION * sign(dir->y);
 	}
-	future_pos.z = 0;
 	if (get_cube_type(&future_pos, window->map) != wall
 		&& get_cube_type(&future_pos, window->map) != door_closed)
 		return (false);
