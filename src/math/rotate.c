@@ -5,6 +5,8 @@ void	norm(t_vector *v, double future_length)
 	double	length;
 
 	length = sqrt((v->x * v->x) + (v->y * v->y));
+	if (length == 0)
+		return ;
 	v->x = v->x / length * future_length;
 	v->y = v->y / length * future_length;
 }

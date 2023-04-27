@@ -15,9 +15,9 @@ void	setup_hud(t_window *window)
 {
 	mlx_image_t	*hud_img;
 
-	window->hud = malloc(sizeof(t_hud) * 1);
-	window->hud->fps = malloc(sizeof(t_fps) * 1);
-	window->hud->minimap = malloc(sizeof(t_minimap) * 1);
+	window->hud = malloc(sizeof(t_hud));
+	window->hud->fps = malloc(sizeof(t_fps));
+	window->hud->minimap = malloc(sizeof(t_minimap));
 	window->hud->fps->fps_image = NULL;
 	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
 	window->hud->hud_img = hud_img;
