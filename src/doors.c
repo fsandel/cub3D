@@ -7,7 +7,7 @@ void	door_handler(t_window *window, mlx_key_data_t keydata)
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
 		if (toggle_targeted_door(window))
-			draw_scene(window);
+			window->redraw = true;
 	}
 }
 
