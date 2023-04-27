@@ -143,8 +143,8 @@ double			distance_perpendicular(t_vector pos, t_vector dir,
 					t_vector target);
 
 //keyboard_input.c
-void			escape_handler(void *arg);
 void			player_movement(void *arg);
+void			cub_key_hook(mlx_key_data_t keydata, void *arg);
 
 //raycasting.c
 void			draw_scene(t_window *window);
@@ -180,7 +180,7 @@ void			draw_minimap(t_window *window);
 void			draw_minimap_background(t_window *window);
 
 //doors.c
-void			door_handler(mlx_key_data_t keydata, void *arg);
+void			door_handler(t_window *window, mlx_key_data_t keydata);
 
 //movement.c
 bool			change_player_position(t_window *window, double angle);
