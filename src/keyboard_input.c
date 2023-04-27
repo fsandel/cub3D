@@ -25,7 +25,7 @@ void	player_movement(void *arg)
 		|| mlx_is_key_down(window->mlx, MLX_KEY_Q))
 		redraw = rotate_camera(window, -TURN_SPEED);
 	if (redraw == true)
-		draw_scene(window);
+		window->redraw = true;
 }
 
 void	cub_key_hook(mlx_key_data_t keydata, void *arg)

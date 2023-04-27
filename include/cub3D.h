@@ -22,7 +22,7 @@ typedef struct s_file_content
 {
 	t_list	*map_lines;
 	t_list	*option_lines;
-}			t_file_content;
+}	t_file_content;
 
 typedef enum e_cube_type
 {
@@ -54,13 +54,13 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
-}					t_map;
+}	t_map;
 
 typedef struct s_player
 {
 	t_vector	*pos;
 	t_vector	*dir;
-}			t_player;
+}	t_player;
 
 typedef struct s_fps
 {
@@ -91,6 +91,7 @@ typedef struct s_window
 	t_player	*player;
 	t_map		*map;
 	t_hud		*hud;
+	bool		redraw;
 }	t_window;
 
 //free_utils.c

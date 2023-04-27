@@ -13,7 +13,20 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player = malloc(sizeof(t_player) * 1);
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
+	window->redraw = true;
 	return (window);
+}
+
+static	void	redraw_window(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	if (window->redraw == true)
+	{
+		draw_scene(window);
+		window->redraw = false;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -35,7 +48,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(window->mlx, player_movement, window);
 	mlx_loop_hook(window->mlx, draw_hud, window);
 	mlx_key_hook(window->mlx, cub_key_hook, window);
-	draw_scene(window);
+	mlx_loop_hook(window->mlx, redraw_window, window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);
