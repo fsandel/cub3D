@@ -6,7 +6,7 @@
 /*   By: fsandel <fsandel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:31:56 by fsandel           #+#    #+#             */
-/*   Updated: 2023/04/27 14:05:32 by fsandel          ###   ########.fr       */
+/*   Updated: 2023/04/27 14:07:49 by fsandel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@
 
 # define DYNAMIC_SPEED true
 # define DYNAMIC_TURN_SPEED true
+
+# define DOOR_TOUCH_RANGE 2
 
 #endif
