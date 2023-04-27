@@ -50,7 +50,7 @@ static int	get_rgba_from_tex_fog(const mlx_texture_t *tex, int x, int y,
 static void	put_pixel_floor_fog(mlx_image_t *img, int pix_pos_x, int pix_pos_y,
 			int base_color)
 {
-	const double	brightness = abs(HEIGHT / 2 - pix_pos_y) / 900.0 * FOG / 5;
+	const double	brightness = abs(HEIGHT / 2 - pix_pos_y) * FOG / 4500.0;
 	const uint8_t	alpha = base_color & 0xff;
 	const uint8_t	red = ((base_color >> 8) & 0xff) * brightness;
 	const uint8_t	green = ((base_color >> 16) & 0xff) * brightness;
