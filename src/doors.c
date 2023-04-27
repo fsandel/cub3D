@@ -2,11 +2,8 @@
 
 static void	toggle_targeted_door(t_window *window);
 
-void	door_handler(mlx_key_data_t keydata, void *arg)
+void	door_handler(t_window *window, mlx_key_data_t keydata)
 {
-	t_window	*window;
-
-	window = (t_window *)arg;
 	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
 		toggle_targeted_door(window);
