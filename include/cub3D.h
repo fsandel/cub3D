@@ -18,6 +18,12 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}	t_vector_int;
+
 typedef struct s_file_content
 {
 	t_list	*map_lines;

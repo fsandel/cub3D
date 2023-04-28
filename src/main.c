@@ -27,7 +27,7 @@ static	void	muzzle_flair(void *arg)
 	window = (t_window *)arg;
 	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT) && cooldown == 0)
 	{
-		window->fog +=10;
+		window->fog += 10;
 		cooldown = 10;
 		counter = 4;
 		window->redraw = true;
