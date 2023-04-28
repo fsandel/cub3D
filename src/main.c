@@ -7,9 +7,9 @@ static void	setup_enemy_struct(t_window *window, t_map *map)
 	const int			amount = ft_lstsize(map->enemy_list);
 	t_enemy				**all_enemies;
 	int					i;
-	t_list				**head;
+	t_list				*head;
 
-	head = &map->enemy_list;
+	head = map->enemy_list;
 	all_enemies = malloc((amount + 1) * sizeof(t_enemy *));
 	i = 0;
 	while (i < amount)
@@ -23,7 +23,7 @@ static void	setup_enemy_struct(t_window *window, t_map *map)
 		i++;
 	}
 	all_enemies[i] = NULL;
-	ft_lstclear(head, free);
+	ft_lstclear(&head, free);
 	setup_enemy_textures(all_enemies);
 	window->all_enemies = all_enemies;
 }
