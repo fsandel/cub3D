@@ -31,7 +31,8 @@ typedef enum e_cube_type
 	empty,
 	spawn,
 	door_open,
-	door_closed
+	door_closed,
+	enemy
 }	t_cube_type;
 
 typedef enum e_direction
@@ -54,6 +55,7 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	t_list			*enemy_list;
 }	t_map;
 
 typedef struct s_player

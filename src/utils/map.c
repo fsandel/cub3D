@@ -32,6 +32,11 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 	}
 	else if (c == 'D')
 		map->cubes[line][column] = door_closed;
+	else if (c == 'e')
+	{
+		map->cubes[line][column] = enemy;
+		ft_lstadd_back(&map->enemy_list, ft_lstnew(&(t_vector){column, line}));
+	}
 	else
 		map->cubes[line][column] = empty;
 }
