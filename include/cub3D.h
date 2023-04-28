@@ -18,6 +18,12 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}	t_vector_int;
+
 typedef struct s_file_content
 {
 	t_list	*map_lines;
@@ -193,6 +199,7 @@ int				get_alpha(int rgba);
 double			min(double a, double b);
 double			max(double a, double b);
 bool			is_on_map(double x, double y, t_map *map);
+bool			is_on_screen(double x, double y);
 
 //hud.c
 void			setup_hud(t_window *window);
