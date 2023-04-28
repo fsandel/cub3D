@@ -28,4 +28,6 @@
 
 # define ENEMIE_HITPOINTS 3
 
+# define ENEMY_RANGE 5
+
 #endif
