@@ -92,6 +92,7 @@ typedef struct s_window
 	t_map		*map;
 	t_hud		*hud;
 	bool		redraw;
+	int			fog;
 }	t_window;
 
 //free_utils.c
