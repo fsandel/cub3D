@@ -59,6 +59,7 @@ typedef struct enemy
 	int				hitpoints;
 	mlx_texture_t	*textures[2];
 	int				texture_nb;
+	double			dis;
 }	t_enemy;
 
 typedef struct s_map
