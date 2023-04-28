@@ -56,7 +56,7 @@ typedef struct enemy
 	t_vector		pos;
 	t_enemy_state	state;
 	int				hitpoints;
-	mlx_texture_t	**textures;
+	mlx_texture_t	*textures[2];
 	int				texture_nb;
 }	t_enemy;
 
@@ -111,6 +111,7 @@ typedef struct s_window
 	t_map		*map;
 	t_hud		*hud;
 	bool		redraw;
+	t_enemy		**all_enemies;
 }	t_window;
 
 //free_utils.c

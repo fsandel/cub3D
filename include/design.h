@@ -24,6 +24,8 @@
 
 //range player can see
 //0 to turn of fog
-# define FOG 5
+# define FOG 0
+
+# define ENEMIE_HITPOINTS 3
 
 #endif
