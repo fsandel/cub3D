@@ -36,7 +36,7 @@ WALLS_FILES		=	raycasting.c textures.c fog.c
 
 ENEMIES			=	$(addprefix $(ENEMIES_DIR), $(ENEMIES_FILES))
 ENEMIES_DIR		=	src/enemies/
-ENEMIES_FILES	=	enemies.c enemy_draw.c enemy_movement.c enemy_state.c
+ENEMIES_FILES	=	enemies.c enemy_draw.c enemy_movement.c enemy_state.c enemy_utils.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/

@@ -54,6 +54,7 @@ typedef enum e_enemy_state
 typedef struct enemy
 {
 	t_vector		pos;
+	t_vector		dir;
 	t_enemy_state	state;
 	int				hitpoints;
 	mlx_texture_t	*textures[2];
@@ -212,5 +213,7 @@ void			enemie_handler(void *arg);
 void			draw_enemies(t_window *window);
 void			check_enemies_state(t_window *window);
 void			move_enemies(t_window *window);
+void			set_enemy_dir(t_enemy *enemy, t_player *player);
+
 
 #endif

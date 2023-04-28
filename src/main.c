@@ -19,6 +19,8 @@ static void	setup_enemy_struct(t_window *window, t_map *map)
 		all_enemies[i]->state = out_of_range;
 		all_enemies[i]->pos.x = ((t_vector *)(map->enemy_list->content))->x;
 		all_enemies[i]->pos.y = ((t_vector *)(map->enemy_list->content))->y;
+		all_enemies[i]->dir.x = window->player->pos->x - all_enemies[i]->pos.x;
+		all_enemies[i]->dir.y = window->player->pos->y - all_enemies[i]->pos.y;
 		map->enemy_list = map->enemy_list->next;
 		i++;
 	}
