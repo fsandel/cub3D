@@ -214,6 +214,6 @@ void			draw_enemies(t_window *window);
 void			check_enemies_state(t_window *window);
 void			move_enemies(t_window *window);
 void			set_enemy_dir(t_enemy *enemy, t_player *player);
-
+void			setup_enemy_struct(t_window *window, t_map *map);
 
 #endif
