@@ -207,7 +207,10 @@ void			door_handler(t_window *window, mlx_key_data_t keydata);
 bool			change_player_position(t_window *window, double angle);
 bool			rotate_camera(t_window *window, double turn_speed);
 
-//enemies/enemies.c
+//enemies
 void			enemie_handler(void *arg);
+void			draw_enemies(t_window *window);
+void			check_enemies_state(t_window *window);
+void			move_enemies(t_window *window);
 
 #endif
