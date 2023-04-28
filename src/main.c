@@ -101,6 +101,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(window->mlx, draw_hud, window);
 	mlx_key_hook(window->mlx, cub_key_hook, window);
 	mlx_loop_hook(window->mlx, redraw_window, window);
+	mlx_loop_hook(window->mlx, enemie_handler, window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);

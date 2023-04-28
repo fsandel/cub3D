@@ -34,12 +34,16 @@ WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
 WALLS_DIR		=	src/walls/
 WALLS_FILES		=	raycasting.c textures.c fog.c
 
+ENEMIES			=	$(addprefix $(ENEMIES_DIR), $(ENEMIES_FILES))
+ENEMIES_DIR		=	src/enemies/
+ENEMIES_FILES	=	enemies.c
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h design.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD) $(ENEMIES)
 
 ################################################################################
 ################################################################################
