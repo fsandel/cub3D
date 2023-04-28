@@ -43,6 +43,23 @@ typedef enum e_direction
 	west,
 }	t_direction;
 
+typedef enum e_enemy_state
+{
+	dead,
+	out_of_range,
+	waiting,
+	hunting
+}	t_enemy_state;
+
+typedef struct enemy
+{
+	t_vector		pos;
+	t_enemy_state	state;
+	int				hitpoints;
+	mlx_texture_t	**textures;
+	int				texture_nb;
+}	t_enemy;
+
 typedef struct s_map
 {
 	t_cube_type		**cubes;
