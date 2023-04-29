@@ -27,4 +27,5 @@ void	enemie_handler(void *arg)
 	move_enemies(window);
 	sort_enemies(window);
 	draw_enemies(window);
+	attack_enemies(window);
 }

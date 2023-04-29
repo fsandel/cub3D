@@ -11,6 +11,7 @@ static t_window	*setup_window_struct(t_map *map)
 	mlx_set_instance_depth(window->img->instances, 1);
 	window->map = map;
 	window->player = malloc(sizeof(t_player));
+	window->player->hp = 100;
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
 	window->redraw = true;

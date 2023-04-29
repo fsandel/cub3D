@@ -91,6 +91,7 @@ typedef struct s_player
 {
 	t_vector	*pos;
 	t_vector	*dir;
+	int			hp;
 }	t_player;
 
 typedef struct s_fps
@@ -228,5 +229,6 @@ void			check_enemies_state(t_window *window);
 void			move_enemies(t_window *window);
 void			set_enemy_dir(t_enemy *enemy, t_player *player);
 void			setup_enemy_struct(t_window *window, t_map *map);
+void			attack_enemies(t_window *window);
 
 #endif
