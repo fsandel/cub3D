@@ -32,16 +32,16 @@ void	setup_enemy_struct(t_window *window, t_map *map)
 
 static void	load_textures(t_enemy *enemy)
 {
-	enemy->texture_nb = 9;
-	enemy->textures[0] = mlx_load_png("textures/frames/zombie0.png");
-	enemy->textures[1] = mlx_load_png("textures/frames/zombie1.png");
-	enemy->textures[2] = mlx_load_png("textures/frames/zombie2.png");
-	enemy->textures[3] = mlx_load_png("textures/frames/zombie3.png");
-	enemy->textures[4] = mlx_load_png("textures/frames/zombie4.png");
-	enemy->textures[5] = mlx_load_png("textures/frames/zombie5.png");
-	enemy->textures[6] = mlx_load_png("textures/frames/zombie6.png");
-	enemy->textures[7] = mlx_load_png("textures/frames/zombie7.png");
-	enemy->textures[8] = mlx_load_png("textures/frames/zombie8.png");
+	enemy->walking_texture_nb = 9;
+	enemy->walking_textures[0] = mlx_load_png("textures/frames/zombie0.png");
+	enemy->walking_textures[1] = mlx_load_png("textures/frames/zombie1.png");
+	enemy->walking_textures[2] = mlx_load_png("textures/frames/zombie2.png");
+	enemy->walking_textures[3] = mlx_load_png("textures/frames/zombie3.png");
+	enemy->walking_textures[4] = mlx_load_png("textures/frames/zombie4.png");
+	enemy->walking_textures[5] = mlx_load_png("textures/frames/zombie5.png");
+	enemy->walking_textures[6] = mlx_load_png("textures/frames/zombie6.png");
+	enemy->walking_textures[7] = mlx_load_png("textures/frames/zombie7.png");
+	enemy->walking_textures[8] = mlx_load_png("textures/frames/zombie8.png");
 }
 
 static void	setup_enemy_textures(t_enemy **all_enemies)
@@ -56,11 +56,11 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 	while (all_enemies[i])
 	{
 		j = 0;
-		while (j < all_enemies[0]->texture_nb)
+		while (j < all_enemies[0]->walking_texture_nb)
 		{
-			all_enemies[i]->textures[j] = all_enemies[0]->textures[j];
+			all_enemies[i]->walking_textures[j] = all_enemies[0]->walking_textures[j];
 			j++;
 		}
-		all_enemies[i++]->texture_nb = all_enemies[0]->texture_nb;
+		all_enemies[i++]->walking_texture_nb = all_enemies[0]->walking_texture_nb;
 	}
 }

@@ -64,8 +64,8 @@ typedef struct enemy
 	t_vector		dir;
 	t_enemy_state	state;
 	int				hitpoints;
-	mlx_texture_t	*textures[9];
-	int				texture_nb;
+	mlx_texture_t	*walking_textures[9];
+	int				walking_texture_nb;
 	double			dis;
 	int				frame_count;
 	double			delta_angle;

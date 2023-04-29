@@ -21,7 +21,7 @@ static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 
 static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 {
-	return (enemy->textures[frame_count]);
+	return (enemy->walking_textures[frame_count]);
 }
 
 static int	enemy_adjust_frame_count(t_enemy *enemy)
@@ -37,7 +37,7 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 		cooldown = 10;
 	}
 	cooldown--;
-	if (frame_count >= enemy->texture_nb)
+	if (frame_count >= enemy->walking_texture_nb)
 		frame_count = 0;
 	return (frame_count);
 }
