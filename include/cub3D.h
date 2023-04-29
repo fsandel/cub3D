@@ -54,7 +54,8 @@ typedef enum e_enemy_state
 	dead,
 	out_of_range,
 	waiting,
-	hunting
+	hunting,
+	attacking
 }	t_enemy_state;
 
 typedef struct enemy

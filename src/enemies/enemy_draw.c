@@ -29,7 +29,7 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 	static int	cooldown = 0;
 	static int	frame_count = 0;
 
-	if (enemy->state != hunting)
+	if (!(enemy->state == hunting || enemy->state == attacking))
 		return (frame_count);
 	if (cooldown < 1)
 	{
@@ -79,7 +79,8 @@ void	draw_enemies(t_window *window)
 	{
 		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 2)
 			if (window->all_enemies[i]->state == hunting
-				|| window->all_enemies[i]->state == waiting)
+				|| window->all_enemies[i]->state == waiting
+				|| window->all_enemies[i]->state == attacking)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
 	}

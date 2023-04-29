@@ -20,7 +20,9 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 			break ;
 	}
 	enemy->dis = distance(*player->pos, enemy->pos);
-	if (dis < 0.5 && enemy->dis < ENEMY_RANGE)
+	if (dis < 0.5 && enemy->dis < 1)
+		enemy->state = attacking;
+	else if (dis < 0.5 && enemy->dis < ENEMY_RANGE)
 		enemy->state = hunting;
 	else if (dis < 0.5)
 		enemy->state = waiting;
