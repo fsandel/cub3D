@@ -31,20 +31,17 @@ static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 
 static int	enemy_adjust_frame_count(t_enemy *enemy)
 {
-	static int	cooldown = 0;
-	static int	frame_count = 0;
-
 	if (!(enemy->state == hunting || enemy->state == attacking))
-		return (frame_count);
-	if (cooldown < 1)
+		return (enemy->frame_count);
+	if (enemy->frame_cooldown < 1)
 	{
-		frame_count++;
-		cooldown = 10;
+		enemy->frame_count++;
+		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN;
 	}
-	cooldown--;
-	if (frame_count >= enemy->walking_texture_nb)
-		frame_count = 0;
-	return (frame_count);
+	enemy->frame_cooldown--;
+	if (enemy->frame_count >= enemy->walking_texture_nb)
+		enemy->frame_count = 0;
+	return (enemy->frame_count);
 }
 
 static	void	draw_single_enemy(t_window *window, t_enemy *enemy)

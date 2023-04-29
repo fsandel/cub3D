@@ -27,7 +27,7 @@
 # define FOG 5
 
 # define ENEMIE_HITPOINTS 3
-
 # define ENEMY_RANGE 5
+# define ENEMY_FRAME_COOLDOWN 8
 
 #endif

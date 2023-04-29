@@ -58,7 +58,7 @@ typedef enum e_enemy_state
 	attacking
 }	t_enemy_state;
 
-typedef struct enemy
+typedef struct s_enemy
 {
 	t_vector		pos;
 	t_vector		dir;
@@ -70,6 +70,7 @@ typedef struct enemy
 	int				walking_texture_nb;
 	double			dis;
 	int				frame_count;
+	int				frame_cooldown;
 	double			delta_angle;
 	double			brightness;
 }	t_enemy;
