@@ -57,3 +57,19 @@ static void	escape_handler(t_window *window, mlx_key_data_t keydata)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(window->mlx);
 }
+
+void	mouse_movement(void *arg)
+{
+	t_window	*window;
+	int			x;
+	int			y;
+	bool		redraw;
+
+	window = (t_window *)arg;
+	mlx_get_mouse_pos(window->mlx, &x, &y);
+	x -= WIDTH / 2;
+	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
+	redraw = rotate_camera(window, TURN_SPEED * x / 200);
+	if (redraw)
+		window->redraw = true;
+}

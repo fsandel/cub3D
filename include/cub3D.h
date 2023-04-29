@@ -179,6 +179,7 @@ double			distance_perpendicular(t_vector pos, t_vector dir,
 //keyboard_input.c
 void			player_movement(void *arg);
 void			cub_key_hook(mlx_key_data_t keydata, void *arg);
+void			mouse_movement(void *arg);
 
 //raycasting.c
 void			draw_scene(t_window *window);
@@ -230,5 +231,8 @@ void			move_enemies(t_window *window);
 void			set_enemy_dir(t_enemy *enemy, t_player *player);
 void			setup_enemy_struct(t_window *window, t_map *map);
 void			attack_enemies(t_window *window);
+
+//player_attack.c
+void			player_attack(void *arg);
 
 #endif
