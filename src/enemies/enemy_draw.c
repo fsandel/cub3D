@@ -3,10 +3,10 @@
 static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 	mlx_texture_t *tex, t_enemy *enemy)
 {
+	int				pos;
 	unsigned int	color;
 	const int		x = tex->width * fabs(scale_x);
 	const int		y = tex->height * fabs(scale_y);
-	int				pos;
 
 	if (enemy->delta_angle > 0)
 		pos = (y * tex->width + x) * 4;
@@ -47,25 +47,23 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 {
 	unsigned int	color;
-	const t_vector	max = (t_vector){ENEMY_WIDTH / enemy->dis, ENEMY_HEIGHT / enemy->dis};
 	t_vector_int	iter;
+	const t_vector	max = (t_vector){ENEMY_WIDTH / enemy->dis, ENEMY_HEIGHT / enemy->dis};
 	const int		frame_count = enemy_adjust_frame_count(enemy);
 
 	iter.y = -max.y;
 	while (++iter.y < max.y)
 	{
 		iter.x = -max.x;
-		while (++iter.x < max.x)
+		while (++iter.x < max.x && is_on_screen(enemy->x_on_screen + iter.x,
+			HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
 		{
-			if (is_on_screen(enemy->x_on_screen + iter.x, HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
-			{
 				color = enemy_get_pix((max.x + iter.x) / max.x / 2,
 						(iter.y + max.y) / 2 / max.y,
 						enemy_get_texture(enemy, frame_count), enemy);
 				if (get_alpha(color) != 0)
 					mlx_put_pixel(window->img, enemy->x_on_screen + iter.x,
 						HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis, color);
-			}
 		}
 	}
 }

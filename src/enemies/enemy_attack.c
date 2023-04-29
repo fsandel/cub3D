@@ -8,7 +8,6 @@ static void	attack_single_enemy(t_window *window)
 	{
 		window->player->hp -= 10;
 		cooldown = 30;
-		printf("player hp: %d\n", window->player->hp);
 	}
 	cooldown--;
 }
