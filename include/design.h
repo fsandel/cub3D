@@ -3,7 +3,7 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
-
+# define HUD_SIZE 40
 # define FOV 45
 
 # define SPEED 0.05f

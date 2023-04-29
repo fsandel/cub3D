@@ -29,13 +29,15 @@ static	void	muzzle_flair(t_window *window)
 	static int	counter = 0;
 	static int	cooldown = 0;
 
-	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT) && cooldown == 0)
+	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT) && cooldown == 0
+		&& window->player->ammo > 0)
 	{
 		player_shoot(window);
 		window->fog += 10;
 		cooldown = 10;
 		counter = 4;
 		window->redraw = true;
+		window->player->ammo--;
 	}
 	if (counter > 0)
 		counter--;

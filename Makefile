@@ -189,12 +189,12 @@ $(LIBFT):
 LSAN			=	lib/LeakSanitizer
 LSANLIB			=	$(LSAN)/liblsan.a
 
-#ifeq ($(OS),Linux)
+ifeq ($(OS),Linux)
 	LSANLFLAGS := -rdynamic -Llib/LeakSanitizer -llsan -ldl -lstdc++
-#endif
-#ifeq ($(OS),Darwin)
-#	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
-#endif
+endif
+ifeq ($(OS),Darwin)
+	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
+endif
 
 lsan: CFLAGS += -I $(LSAN) -Wno-gnu-include-next
 lsan: LINK_FLAGS += $(LSANLFLAGS)

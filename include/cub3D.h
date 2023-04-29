@@ -94,6 +94,7 @@ typedef struct s_player
 	t_vector	*pos;
 	t_vector	*dir;
 	int			hp;
+	int			ammo;
 }	t_player;
 
 typedef struct s_fps
@@ -116,6 +117,7 @@ typedef struct s_hud
 	mlx_image_t		*hud_img;
 	t_fps			*fps;
 	t_minimap		*minimap;
+	mlx_image_t		*hp_img;
 }	t_hud;
 
 typedef struct s_window
