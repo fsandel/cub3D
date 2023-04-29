@@ -85,4 +85,5 @@ void	draw_minimap(t_window *window)
 	draw_minimap_surrounding(window);
 	draw_minimap_player(window);
 	draw_minimap_border(window);
+	draw_minimap_enemies(window);
 }

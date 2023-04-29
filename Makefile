@@ -20,7 +20,7 @@ PARSER_FILES	=	parser.c validate_args.c validate_map.c parse_options.c check_syn
 
 HUD				=	$(addprefix $(HUD_DIR), $(HUD_FILES))
 HUD_DIR			=	src/hud/
-HUD_FILES		=	hud.c minimap.c minimap_fov_border.c
+HUD_FILES		=	hud.c minimap.c minimap_fov_border.c minimap_enemies.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
