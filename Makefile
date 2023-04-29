@@ -4,7 +4,7 @@ CC				=	cc
 CFLAGS			=	-Wall -Wextra -Ofast -Werror
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
-#OS				=	$(shell uname -s)
+OS				=	$(shell uname -s)
 BREW			=	$(HOME)/.brew
 
 ################################################################################
@@ -149,12 +149,12 @@ MLX_LIB			=	libmlx42.a
 MLX_DIR			=	lib/MLX42
 MLX_INCLUDE		=	-I ./$(MLX_DIR)/include/MLX42
 
-#ifeq ($(OS), Darwin)
+ifeq ($(OS), Darwin)
 	GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
-#endif
-#ifeq ($(OS), Linux)
-#	GLFW			=	-ldl -lglfw -pthread -lm
-#endif
+endif
+ifeq ($(OS), Linux)
+	GLFW			=	-ldl -lglfw -pthread -lm
+endif
 
 mlx: $(MLX)
 
