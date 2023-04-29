@@ -6,7 +6,7 @@ static bool	move_single_enemy(t_enemy *enemy, t_map *map)
 	bool		moved;
 
 	moved = false;
-	if (enemy->state != hunting)
+	if (enemy->state != hunting || enemy-> dis < 0.9)
 		return (false);
 	future_pos.x = enemy->pos.x - enemy->dir.x * 0.01;
 	future_pos.y = enemy->pos.y;
