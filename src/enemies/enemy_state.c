@@ -4,30 +4,25 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 	t_map *map)
 {
 	t_vector	tmp_pos;
-	double		dis;
 
-	dis = 5;
 	set_enemy_dir(enemy, player);
 	tmp_pos.x = enemy->pos.x;
 	tmp_pos.y = enemy->pos.y;
-	while (get_cube_type(&tmp_pos, map) != wall
-		&& get_cube_type(&tmp_pos, map) != door_closed)
+	while (distance(tmp_pos, *player->pos) > 0.2)
 	{
 		tmp_pos.x -= enemy->dir.x * 0.01;
 		tmp_pos.y -= enemy->dir.y * 0.01;
-		dis = distance(tmp_pos, *player->pos);
-		if (dis < 0.1)
-			break ;
+		if (get_cube_type(&tmp_pos, map) == wall
+			|| get_cube_type(&tmp_pos, map) == door_closed)
+			return (enemy->state = out_of_range, (void)0);
 	}
 	enemy->dis = distance(*player->pos, enemy->pos);
-	if (dis < 0.5 && enemy->dis < 1)
+	if (enemy->dis < 1)
 		enemy->state = attacking;
-	else if (dis < 0.5 && enemy->dis < ENEMY_RANGE)
+	else if (enemy->dis < ENEMY_RANGE)
 		enemy->state = hunting;
-	else if (dis < 0.5)
-		enemy->state = waiting;
 	else
-		enemy->state = out_of_range;
+		enemy->state = waiting;
 }
 
 static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
