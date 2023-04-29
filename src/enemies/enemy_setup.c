@@ -16,7 +16,7 @@ void	setup_enemy_struct(t_window *window, t_map *map)
 	{
 		all_enemies[i] = malloc(sizeof(t_enemy));
 		all_enemies[i]->hitpoints = ENEMIE_HITPOINTS;
-		all_enemies[i]->hitpoints = 3;
+		all_enemies[i]->hitpoints = 10;
 		all_enemies[i]->state = out_of_range;
 		all_enemies[i]->pos.x = ((t_vector *)(map->enemy_list->content))->x;
 		all_enemies[i]->pos.y = ((t_vector *)(map->enemy_list->content))->y;

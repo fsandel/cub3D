@@ -11,8 +11,14 @@ static void	player_shoot(t_window *window)
 			|| window->all_enemies[i]->state == out_of_range)
 			i++;
 		else if (fabs(window->all_enemies[i]->delta_angle)
-			<= FOV * M_PI / 180.0 / 10.0)
-			window->all_enemies[i++]->hitpoints -= 1;
+			<= FOV * M_PI / 180.0 / 2 / 10)
+			window->all_enemies[i++]->hitpoints -= 10;
+		else if (fabs(window->all_enemies[i]->delta_angle)
+			<= FOV * M_PI / 180.0 / 2 / 5)
+			window->all_enemies[i++]->hitpoints -= 4;
+		else if (fabs(window->all_enemies[i]->delta_angle)
+			<= FOV * M_PI / 180.0 / 2 / 3)
+			window->all_enemies[i++]->hitpoints -= 2;
 		else
 			i++;
 	}
