@@ -42,6 +42,16 @@ static void	load_textures(t_enemy *enemy)
 	enemy->walking_textures[6] = mlx_load_png("textures/frames/zombie6.png");
 	enemy->walking_textures[7] = mlx_load_png("textures/frames/zombie7.png");
 	enemy->walking_textures[8] = mlx_load_png("textures/frames/zombie8.png");
+	enemy->attacking_textures[0] = mlx_load_png("textures/frames/attack1.png");
+	enemy->attacking_textures[1] = mlx_load_png("textures/frames/attack2.png");
+	enemy->attacking_textures[2] = mlx_load_png("textures/frames/attack3.png");
+	enemy->attacking_textures[3] = mlx_load_png("textures/frames/attack4.png");
+	enemy->attacking_textures[4] = mlx_load_png("textures/frames/attack4.png");
+	enemy->attacking_textures[5] = mlx_load_png("textures/frames/attack3.png");
+	enemy->attacking_textures[6] = mlx_load_png("textures/frames/attack2.png");
+	enemy->attacking_textures[7] = mlx_load_png("textures/frames/attack1.png");
+	enemy->attacking_textures[8] = mlx_load_png("textures/frames/attack1.png");
+	enemy->dead_textures[0] = mlx_load_png("textures/frames/dead.png");
 }
 
 static void	setup_enemy_textures(t_enemy **all_enemies)
@@ -52,7 +62,7 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 	if (!all_enemies[0])
 		return ;
 	load_textures(all_enemies[0]);
-	i = 0;
+	i = 1;
 	while (all_enemies[i])
 	{
 		j = 0;
@@ -60,8 +70,11 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 		{
 			all_enemies[i]->walking_textures[j]
 				= all_enemies[0]->walking_textures[j];
+			all_enemies[i]->attacking_textures[j]
+				= all_enemies[0]->attacking_textures[j];
 			j++;
 		}
+		all_enemies[i]->dead_textures[0] = all_enemies[0]->dead_textures[0]; 
 		all_enemies[i++]->walking_texture_nb
 			= all_enemies[0]->walking_texture_nb;
 	}

@@ -21,6 +21,7 @@ static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 
 static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 {
+	//if (enemy->state == dead)
 	return (enemy->walking_textures[frame_count]);
 }
 

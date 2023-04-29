@@ -65,6 +65,8 @@ typedef struct enemy
 	t_enemy_state	state;
 	int				hitpoints;
 	mlx_texture_t	*walking_textures[9];
+	mlx_texture_t	*attacking_textures[9];
+	mlx_texture_t	*dead_textures[1];
 	int				walking_texture_nb;
 	double			dis;
 	int				frame_count;
