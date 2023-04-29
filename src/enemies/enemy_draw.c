@@ -21,8 +21,12 @@ static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 
 static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 {
-	//if (enemy->state == dead)
-	return (enemy->walking_textures[frame_count]);
+	if (enemy->state == dead)
+		return (enemy->dead_textures[0]);
+	else if (enemy->state == attacking)
+		return (enemy->attacking_textures[frame_count]);
+	else
+		return (enemy->walking_textures[frame_count]);
 }
 
 static int	enemy_adjust_frame_count(t_enemy *enemy)
@@ -81,7 +85,8 @@ void	draw_enemies(t_window *window)
 		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 2)
 			if (window->all_enemies[i]->state == hunting
 				|| window->all_enemies[i]->state == waiting
-				|| window->all_enemies[i]->state == attacking)
+				|| window->all_enemies[i]->state == attacking
+				|| window->all_enemies[i]->state == dead)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
 	}

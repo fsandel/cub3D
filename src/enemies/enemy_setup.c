@@ -74,7 +74,7 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 				= all_enemies[0]->attacking_textures[j];
 			j++;
 		}
-		all_enemies[i]->dead_textures[0] = all_enemies[0]->dead_textures[0]; 
+		all_enemies[i]->dead_textures[0] = all_enemies[0]->dead_textures[0];
 		all_enemies[i++]->walking_texture_nb
 			= all_enemies[0]->walking_texture_nb;
 	}

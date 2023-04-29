@@ -17,6 +17,8 @@ static t_window	*setup_window_struct(t_map *map)
 	window->redraw = true;
 	setup_enemy_struct(window, map);
 	window->fog = FOG;
+	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 	return (window);
 }
 
@@ -55,7 +57,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(window->mlx, enemie_handler, window);
 	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, mouse_movement, window);
-	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);

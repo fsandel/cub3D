@@ -46,12 +46,9 @@ void	check_enemies_state(t_window *window)
 	i = 0;
 	while (window->all_enemies[i])
 	{
-		if (window->all_enemies[i]->state != dead)
-		{
-			set_single_enemie_state(window->all_enemies[i], window->player,
-				window->map);
-			update_meta_data(window->all_enemies[i], window->player, window);
-		}
+		set_single_enemie_state(window->all_enemies[i], window->player,
+			window->map);
+		update_meta_data(window->all_enemies[i], window->player, window);
 		i++;
 	}
 }

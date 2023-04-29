@@ -9,7 +9,11 @@ static void	free_all_enemies(t_window *window)
 	if (window->all_enemies[0])
 	{
 		while (j < window->all_enemies[0]->walking_texture_nb)
+		{
+			mlx_delete_texture(window->all_enemies[0]->attacking_textures[j]);
 			mlx_delete_texture(window->all_enemies[0]->walking_textures[j++]);
+		}
+		mlx_delete_texture(window->all_enemies[0]->dead_textures[0]);
 	}
 	i = 0;
 	while (window->all_enemies[i])

@@ -69,7 +69,7 @@ void	mouse_movement(void *arg)
 	mlx_get_mouse_pos(window->mlx, &x, &y);
 	x -= WIDTH / 2;
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
-	redraw = rotate_camera(window, TURN_SPEED * x / 200);
+	redraw = rotate_camera(window, TURN_SPEED * x / 100);
 	if (redraw)
 		window->redraw = true;
 }
