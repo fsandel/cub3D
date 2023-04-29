@@ -111,9 +111,9 @@ typedef struct s_minimap
 
 typedef struct s_hud
 {
-	mlx_image_t	*hud_img;
-	t_fps		*fps;
-	t_minimap	*minimap;
+	mlx_image_t		*hud_img;
+	t_fps			*fps;
+	t_minimap		*minimap;
 }	t_hud;
 
 typedef struct s_window

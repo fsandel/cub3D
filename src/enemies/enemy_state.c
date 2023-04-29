@@ -35,6 +35,8 @@ static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
 	enemy->delta_angle = atan2(-(enemy->dir.x), -(enemy->dir.y))
 		- atan2((player->dir->x), (player->dir->y));
 	enemy->brightness = max(1.0 - (enemy->dis / window->fog), 0);
+	if (enemy->hitpoints <= 0)
+		enemy->state = dead;
 }
 
 void	check_enemies_state(t_window *window)
