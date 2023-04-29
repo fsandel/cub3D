@@ -6,6 +6,7 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 	t_vector	tmp_pos;
 	double		dis;
 
+	dis = 5;
 	set_enemy_dir(enemy, player);
 	tmp_pos.x = enemy->pos.x;
 	tmp_pos.y = enemy->pos.y;
@@ -27,6 +28,13 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 		enemy->state = out_of_range;
 }
 
+static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
+{
+	enemy->delta_angle = atan2(-(enemy->dir.x), -(enemy->dir.y))
+		- atan2((player->dir->x), (player->dir->y));
+	enemy->brightness = max(1.0 - (enemy->dis / window->fog), 0);
+}
+
 void	check_enemies_state(t_window *window)
 {
 	int	i;
@@ -35,8 +43,11 @@ void	check_enemies_state(t_window *window)
 	while (window->all_enemies[i])
 	{
 		if (window->all_enemies[i]->state != dead)
+		{
 			set_single_enemie_state(window->all_enemies[i], window->player,
 				window->map);
+			update_meta_data(window->all_enemies[i], window->player, window);
+		}
 		i++;
 	}
 }

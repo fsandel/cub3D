@@ -16,6 +16,7 @@ void	setup_enemy_struct(t_window *window, t_map *map)
 	{
 		all_enemies[i] = malloc(sizeof(t_enemy));
 		all_enemies[i]->hitpoints = ENEMIE_HITPOINTS;
+		all_enemies[i]->hitpoints = 0;
 		all_enemies[i]->state = out_of_range;
 		all_enemies[i]->pos.x = ((t_vector *)(map->enemy_list->content))->x;
 		all_enemies[i]->pos.y = ((t_vector *)(map->enemy_list->content))->y;
@@ -29,6 +30,20 @@ void	setup_enemy_struct(t_window *window, t_map *map)
 	window->all_enemies = all_enemies;
 }
 
+static void	load_textures(t_enemy *enemy)
+{
+	enemy->texture_nb = 9;
+	enemy->textures[0] = mlx_load_png("textures/frames/zombie0.png");
+	enemy->textures[1] = mlx_load_png("textures/frames/zombie1.png");
+	enemy->textures[2] = mlx_load_png("textures/frames/zombie2.png");
+	enemy->textures[3] = mlx_load_png("textures/frames/zombie3.png");
+	enemy->textures[4] = mlx_load_png("textures/frames/zombie4.png");
+	enemy->textures[5] = mlx_load_png("textures/frames/zombie5.png");
+	enemy->textures[6] = mlx_load_png("textures/frames/zombie6.png");
+	enemy->textures[7] = mlx_load_png("textures/frames/zombie7.png");
+	enemy->textures[8] = mlx_load_png("textures/frames/zombie8.png");
+}
+
 static void	setup_enemy_textures(t_enemy **all_enemies)
 {
 	int	i;
@@ -36,9 +51,7 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 
 	if (!all_enemies[0])
 		return ;
-	all_enemies[0]->texture_nb = 2;
-	all_enemies[0]->textures[0] = mlx_load_png("textures/rottmonk2.png");
-	all_enemies[0]->textures[1] = mlx_load_png("textures/rottmonk2.png");
+	load_textures(all_enemies[0]);
 	i = 0;
 	while (all_enemies[i])
 	{

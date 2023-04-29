@@ -63,9 +63,12 @@ typedef struct enemy
 	t_vector		dir;
 	t_enemy_state	state;
 	int				hitpoints;
-	mlx_texture_t	*textures[2];
+	mlx_texture_t	*textures[9];
 	int				texture_nb;
 	double			dis;
+	int				frame_count;
+	double			delta_angle;
+	double			brightness;
 }	t_enemy;
 
 typedef struct s_map
