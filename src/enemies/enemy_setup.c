@@ -58,9 +58,11 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 		j = 0;
 		while (j < all_enemies[0]->walking_texture_nb)
 		{
-			all_enemies[i]->walking_textures[j] = all_enemies[0]->walking_textures[j];
+			all_enemies[i]->walking_textures[j]
+				= all_enemies[0]->walking_textures[j];
 			j++;
 		}
-		all_enemies[i++]->walking_texture_nb = all_enemies[0]->walking_texture_nb;
+		all_enemies[i++]->walking_texture_nb
+			= all_enemies[0]->walking_texture_nb;
 	}
 }
