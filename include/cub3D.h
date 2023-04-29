@@ -120,6 +120,7 @@ typedef struct s_window
 	t_hud		*hud;
 	bool		redraw;
 	t_enemy		**all_enemies;
+	int			fog;
 }	t_window;
 
 //free_utils.c
