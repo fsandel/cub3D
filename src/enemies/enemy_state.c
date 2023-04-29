@@ -37,6 +37,8 @@ static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
 	enemy->brightness = max(1.0 - (enemy->dis / window->fog), 0);
 	if (enemy->hitpoints <= 0 && enemy->state != out_of_range)
 		enemy->state = dead;
+	enemy->x_on_screen = WIDTH * (1 - sin(enemy->delta_angle)
+			/ sin(FOV * M_PI / 360)) / 2;
 }
 
 void	check_enemies_state(t_window *window)

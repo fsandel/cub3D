@@ -29,5 +29,9 @@
 # define ENEMIE_HITPOINTS 3
 # define ENEMY_RANGE 5
 # define ENEMY_FRAME_COOLDOWN 8
+# define ENEMY_Y_OFFSET 130
+
+# define ENEMY_HEIGHT 350
+# define ENEMY_WIDTH 200
 
 #endif

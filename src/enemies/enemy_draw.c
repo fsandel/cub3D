@@ -46,12 +46,10 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 
 static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 {
-	const double		enemy_x_on_screen = WIDTH * (1 - sin(enemy->delta_angle)
-			/ sin(FOV * M_PI / 360)) / 2;
-	unsigned int		color;
-	const t_vector		max = (t_vector){300 / enemy->dis, 500 / enemy->dis};
-	t_vector_int		iter;
-	const int			frame_count = enemy_adjust_frame_count(enemy);
+	unsigned int	color;
+	const t_vector	max = (t_vector){ENEMY_WIDTH / enemy->dis, ENEMY_HEIGHT / enemy->dis};
+	t_vector_int	iter;
+	const int		frame_count = enemy_adjust_frame_count(enemy);
 
 	iter.y = -max.y;
 	while (++iter.y < max.y)
@@ -59,14 +57,14 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 		iter.x = -max.x;
 		while (++iter.x < max.x)
 		{
-			if (is_on_screen(enemy_x_on_screen + iter.x, HEIGHT / 2 + iter.y))
+			if (is_on_screen(enemy->x_on_screen + iter.x, HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
 			{
 				color = enemy_get_pix((max.x + iter.x) / max.x / 2,
 						(iter.y + max.y) / 2 / max.y,
 						enemy_get_texture(enemy, frame_count), enemy);
 				if (get_alpha(color) != 0)
-					mlx_put_pixel(window->img, enemy_x_on_screen
-						+ iter.x, HEIGHT / 2 + iter.y, color);
+					mlx_put_pixel(window->img, enemy->x_on_screen + iter.x,
+						HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis, color);
 			}
 		}
 	}
@@ -80,10 +78,7 @@ void	draw_enemies(t_window *window)
 	while (window->all_enemies[i])
 	{
 		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 2)
-			if (window->all_enemies[i]->state == hunting
-				|| window->all_enemies[i]->state == waiting
-				|| window->all_enemies[i]->state == attacking
-				|| window->all_enemies[i]->state == dead)
+			if (window->all_enemies[i]->state != out_of_range)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
 	}
