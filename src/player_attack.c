@@ -1,5 +1,19 @@
 #include <cub3D.h>
 
+static bool	hit_enemy(t_enemy *enemy)
+{
+	if (enemy->state == dead || enemy->state == out_of_range)
+		return (false);
+	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 10.0)
+		return (enemy->hitpoints -= 10, true);
+	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 5.0)
+		return (enemy->hitpoints -= 4, true);
+	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 3.0)
+		return (enemy->hitpoints -= 2, true);
+	else
+		return (false);
+}
+
 static void	player_shoot(t_window *window)
 {
 	int	i;
@@ -7,20 +21,9 @@ static void	player_shoot(t_window *window)
 	i = 0;
 	while (window->all_enemies[i])
 	{
-		if (window->all_enemies[i]->state == dead
-			|| window->all_enemies[i]->state == out_of_range)
-			i++;
-		else if (fabs(window->all_enemies[i]->delta_angle)
-			<= FOV * M_PI / 180.0 / 2 / 10)
-			window->all_enemies[i++]->hitpoints -= 10;
-		else if (fabs(window->all_enemies[i]->delta_angle)
-			<= FOV * M_PI / 180.0 / 2 / 5)
-			window->all_enemies[i++]->hitpoints -= 4;
-		else if (fabs(window->all_enemies[i]->delta_angle)
-			<= FOV * M_PI / 180.0 / 2 / 3)
-			window->all_enemies[i++]->hitpoints -= 2;
-		else
-			i++;
+		if (hit_enemy(window->all_enemies[i]))
+			break ;
+		i++;
 	}
 }
 
