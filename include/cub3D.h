@@ -32,13 +32,12 @@ typedef struct s_file_content
 
 typedef enum e_cube_type
 {
-	walkable,
-	wall,
 	empty,
 	spawn,
 	door_open,
-	door_closed,
-	enemy
+	walkable,
+	wall,
+	door_closed
 }	t_cube_type;
 
 typedef enum e_direction
