@@ -16,7 +16,7 @@ double	max(double a, double b)
 		return (b);
 }
 
-bool	is_on_screen(double x, double y)
+bool	is_on_screen(int x, int y)
 {
 	if (x < 0 || x > WIDTH)
 		return (false);

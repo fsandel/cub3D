@@ -29,7 +29,7 @@ static void	draw_minimap_single_enemy(t_enemy *enemy, t_window *window)
 	const int		y_pos = (enemy->pos.y - window->player->pos->y) * scale
 		+ window->hud->minimap->pix_pos_y;
 
-	if (on_screen(x_pos, y_pos)
+	if (is_on_screen(x_pos, y_pos)
 		&& quad_add(x_pos - window->hud->minimap->pix_pos_x,
 			y_pos - window->hud->minimap->pix_pos_y)
 		< window->hud->minimap->radius - 1)

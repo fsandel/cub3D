@@ -137,7 +137,6 @@ typedef struct s_window
 void			free_window_struct(t_window *window);
 
 //utils.c
-int				on_screen(int x, int y);
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
 
 //rotate.c
@@ -151,6 +150,7 @@ int				sign(double x);
 
 // validate_map.c
 bool			map_is_valid(t_map *map);
+
 // validate_options.c
 bool			options_are_valid(t_map *map);
 
@@ -176,8 +176,6 @@ t_vector		*set_vec(t_vector *vec, double x, double y);
 
 //distance.c
 double			distance(t_vector pos, t_vector target);
-double			dot_product(t_vector v1, t_vector v2);
-double			abs_vector(t_vector v);
 double			distance_perpendicular(t_vector pos, t_vector dir,
 					t_vector target);
 
@@ -195,8 +193,6 @@ int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,
 					int window_y, int start);
-int				dim_color_floor(int color, int p_y);
-int				dim_color_walls(int color, double distance);
 mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 					t_direction direction);
 
@@ -211,7 +207,7 @@ int				get_alpha(int rgba);
 double			min(double a, double b);
 double			max(double a, double b);
 bool			is_on_map(double x, double y, t_map *map);
-bool			is_on_screen(double x, double y);
+bool			is_on_screen(int x, int y);
 
 //hud.c
 void			setup_hud(t_window *window);
