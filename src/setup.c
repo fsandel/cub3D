@@ -41,7 +41,7 @@ static t_window	*setup_window_struct(t_map *map)
 
 static void	setup_start_screen(t_window *window)
 {
-	draw_tex_to_screen(window->img, "textures/start_screen.png");
+	draw_tex_to_screen(window->img, START_SCREEN);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
 }
 

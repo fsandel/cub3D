@@ -37,4 +37,8 @@
 # define ENEMY_HEIGHT 350
 # define ENEMY_WIDTH 200
 
+# define START_SCREEN "textures/start_screen.png"
+# define DEFEAT_SCREEN "textures/defeat_screen.png"
+# define VICTORY_SCREEN "textures/victory_screen.png"
+
 #endif

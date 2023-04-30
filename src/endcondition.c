@@ -20,7 +20,7 @@ void	check_dead(void *arg)
 	{
 		window->active = false;
 		mlx_set_instance_depth(window->img->instances, 4);
-		draw_tex_to_screen(window->img, "textures/defeat_screen.png");
+		draw_tex_to_screen(window->img, DEFEAT_SCREEN);
 		mlx_key_hook(window->mlx, end_key_hook, window);
 	}
 }

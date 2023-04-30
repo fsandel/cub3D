@@ -21,7 +21,6 @@ int	main(int argc, char **argv)
 	int			fd;
 
 	fd = args_valid(argc, argv);
-	map = NULL;
 	if (fd != -1)
 		map = parse(fd);
 	else
@@ -31,5 +30,5 @@ int	main(int argc, char **argv)
 	window = general_setup(map);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
-	return (0);
+	return (EXIT_SUCCESS);
 }
