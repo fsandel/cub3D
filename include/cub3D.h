@@ -119,7 +119,6 @@ typedef struct s_hud
 	mlx_image_t		*hud_img;
 	t_fps			*fps;
 	t_minimap		*minimap;
-	mlx_image_t		*hp_img;
 }	t_hud;
 
 typedef struct s_window
@@ -129,9 +128,10 @@ typedef struct s_window
 	t_player	*player;
 	t_map		*map;
 	t_hud		*hud;
-	bool		redraw;
 	t_enemy		**all_enemies;
 	int			fog;
+	bool		redraw;
+	bool		active;
 }	t_window;
 
 //free_utils.c
@@ -241,5 +241,12 @@ void			attack_enemies(t_window *window);
 
 //player_attack.c
 void			player_attack(void *arg);
+
+//endcondition.c
+void			check_dead(void *arg);
+
+//start_end_screen.c
+void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);
+void			start_screen_hook(mlx_key_data_t keydata, void *arg);
 
 #endif

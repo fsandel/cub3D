@@ -8,8 +8,10 @@ void	player_movement(void *arg)
 	t_window	*window;
 	bool		redraw;
 
-	redraw = false;
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
+	redraw = false;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
 		redraw = change_player_position(window, 0);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
@@ -66,6 +68,8 @@ void	mouse_movement(void *arg)
 	bool		redraw;
 
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
 	mlx_get_mouse_pos(window->mlx, &x, &y);
 	x -= WIDTH / 2;
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);

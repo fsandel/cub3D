@@ -23,6 +23,8 @@ void	enemie_handler(void *arg)
 	t_window	*window;
 
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
 	check_enemies_state(window);
 	move_enemies(window);
 	sort_enemies(window);

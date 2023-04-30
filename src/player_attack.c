@@ -58,5 +58,7 @@ void	player_attack(void *arg)
 	t_window	*window;
 
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
 	muzzle_flair(window);
 }

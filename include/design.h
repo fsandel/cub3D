@@ -14,6 +14,9 @@
 # define MINIMAP_MAX_ZOOM 10
 # define MINIMAP_MIN_ZOOM 3
 
+# define STARTING_HP 100
+# define STARTING_AMMO 32
+
 //1 to dynamicly change speed based on fps
 //0 to deactivate
 # define DYNAMIC_SPEED 1

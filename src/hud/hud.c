@@ -10,6 +10,8 @@ void	draw_hud(void *arg)
 	static int	delay = 0;
 
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
 	draw_minimap(window);
 	delay++;
 	if (delay == 5)
@@ -29,8 +31,6 @@ void	setup_hud(t_window *window)
 	window->hud = malloc(sizeof(t_hud));
 	window->hud->fps = malloc(sizeof(t_fps));
 	window->hud->minimap = malloc(sizeof(t_minimap));
-	window->hud->fps->fps_image = NULL;
-	window->hud->hp_img = NULL;
 	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
 	window->hud->hud_img = hud_img;
 	window->hud->minimap->pix_pos_x = 105;
