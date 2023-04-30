@@ -1,30 +1,6 @@
 #include <cub3D.h>
 
-static t_window	*setup_window_struct(t_map *map)
-{
-	t_window	*window;
-
-	window = malloc(sizeof(t_window));
-	window->mlx = mlx_init(WIDTH, HEIGHT + HUD_SIZE, "cub3D", 1);
-	window->img = mlx_new_image(window->mlx, WIDTH, HEIGHT + HUD_SIZE);
-	mlx_image_to_window(window->mlx, window->img, 0, 0);
-	mlx_set_instance_depth(window->img->instances, 1);
-	window->map = map;
-	window->player = malloc(sizeof(t_player));
-	window->player->hp = STARTING_HP;
-	window->player->ammo = STARTING_AMMO;
-	window->player->pos = window->map->start_pos;
-	window->player->dir = window->map->start_dir;
-	window->redraw = true;
-	setup_enemy_struct(window, map);
-	window->fog = FOG;
-	window->active = false;
-	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
-	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
-	return (window);
-}
-
-static	void	redraw_window(void *arg)
+void	redraw_window(void *arg)
 {
 	t_window	*window;
 
@@ -36,17 +12,6 @@ static	void	redraw_window(void *arg)
 		draw_scene(window);
 		window->redraw = false;
 	}
-}
-
-static void	implement_loop_hooks(t_window *window)
-{
-	mlx_loop_hook(window->mlx, player_movement, window);
-	mlx_loop_hook(window->mlx, draw_hud, window);
-	mlx_loop_hook(window->mlx, redraw_window, window);
-	mlx_loop_hook(window->mlx, enemie_handler, window);
-	mlx_loop_hook(window->mlx, player_attack, window);
-	mlx_loop_hook(window->mlx, mouse_movement, window);
-	mlx_loop_hook(window->mlx, check_dead, window);
 }
 
 int	main(int argc, char **argv)
@@ -63,11 +28,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	if (!map)
 		return (EXIT_FAILURE);
-	window = setup_window_struct(map);
-	setup_hud(window);
-	implement_loop_hooks(window);
-	draw_tex_to_screen(window->img, "textures/start_screen.png");
-	mlx_key_hook(window->mlx, start_screen_hook, window);
+	window = general_setup(map);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (0);

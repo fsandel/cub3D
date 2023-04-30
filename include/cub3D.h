@@ -249,4 +249,10 @@ void			check_dead(void *arg);
 void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);
 void			start_screen_hook(mlx_key_data_t keydata, void *arg);
 
+//setup.c
+t_window		*general_setup(t_map *map);
+
+//main.c
+void			redraw_window(void *arg);
+
 #endif
