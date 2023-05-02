@@ -12,8 +12,7 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 	{
 		tmp_pos.x -= enemy->dir.x * 0.01;
 		tmp_pos.y -= enemy->dir.y * 0.01;
-		if (get_cube_type(&tmp_pos, map) == wall
-			|| get_cube_type(&tmp_pos, map) == door_closed)
+		if (get_cube_type(&tmp_pos, map) >= wall)
 			return (enemy->state = out_of_range, (void)0);
 	}
 	enemy->dis = distance(*player->pos, enemy->pos);

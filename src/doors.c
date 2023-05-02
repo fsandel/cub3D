@@ -18,8 +18,7 @@ static void	cast_iter_ray(t_window *window, t_vector dir, t_vector *target,
 
 	target->x = window->player->pos->x;
 	target->y = window->player->pos->y;
-	while (get_cube_type(target, window->map) != wall
-		&& get_cube_type(target, window->map) != door_closed
+	while (get_cube_type(target, window->map) < wall
 		&& get_cube_type(target, window->map) != target_type)
 	{
 		target->x -= dir.x * step_size;

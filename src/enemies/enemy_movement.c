@@ -10,16 +10,14 @@ static bool	move_single_enemy(t_enemy *enemy, t_map *map)
 		return (false);
 	future_pos.x = enemy->pos.x - enemy->dir.x * 0.01;
 	future_pos.y = enemy->pos.y;
-	if (get_cube_type(&future_pos, map) != wall
-		&& get_cube_type(&future_pos, map) != door_closed)
+	if (get_cube_type(&future_pos, map) < wall)
 	{
 		enemy->pos = future_pos;
 		moved = true;
 	}
 	future_pos.x = enemy->pos.x;
 	future_pos.y = enemy->pos.y - enemy->dir.y * 0.01;
-	if (get_cube_type(&future_pos, map) != wall
-		&& get_cube_type(&future_pos, map) != door_closed)
+	if (get_cube_type(&future_pos, map) < wall)
 	{
 		enemy->pos = future_pos;
 		moved = true;

@@ -42,7 +42,7 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 	else if (c == 'a')
 		map->cubes[line][column] = ammo_full;
 	else if (c == 'h')
-		map->cubes[line][column] = ammo_empty;
+		map->cubes[line][column] = health_full;
 	else if (c == 'x')
 		map->cubes[line][column] = exit_cube;
 	else
