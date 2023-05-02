@@ -1,9 +1,42 @@
 #include "cub3D.h"
 
+// Read-Errors
+#define OPT_UNKNWON "Found unexpected option"
+#define NO_MAP "File doesn't contain valid map"
+#define NO_OPTS "File has no options"
+#define MAP_NOT_LAST "No options specified before map"
+#define MULTIPLE_MAPS "File contains multiple maps"
+// Parse-Errors
+#define INVALID_TEXTURE "File contains invalid texture"
+#define INVALID_COLOR "Options contain invalid color"
+#define TOO_MANY_TEXTURES "File contains too many textures"
+#define TOO_MANY_SPAWNS "File contains too many spawn positions"
+#define TOO_MANY_COLORS "File contains too many color options"
+// Validation-Errors
+#define MISSING_OPTION "File misses a mandatory option"
+#define INVALID_MAP "Map is invalid - not playable"
+
+enum e_parser_error
+{
+	no_error,
+	opt_unknown,
+	no_map,
+	no_opts,
+	map_not_last,
+	multiple_maps,
+	invalid_texture,
+	invalid_color,
+	too_many_textures,
+	too_many_spawns,
+	too_many_colors,
+	missing_option,
+	invalid_map
+};
+
 struct s_parser_state
 {
-	bool	map_parsed;
-	bool	error;
+	bool				map_parsed;
+	enum e_parser_error	error_type;
 };
 
 static t_map			*init_map(void);
@@ -12,12 +45,39 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
-void	parser_error(char *err, t_file_content *file_content, t_map *map,
+void	print_error(enum e_parser_error err)
+{
+	ft_putendl_fd("Error", STDERR_FILENO);
+	if (err == opt_unknown)
+		ft_putendl_fd(OPT_UNKNWON, STDERR_FILENO);
+	else if (err == no_map)
+		ft_putendl_fd(NO_MAP, STDERR_FILENO);
+	else if (err == multiple_maps)
+		ft_putendl_fd(MULTIPLE_MAPS, STDERR_FILENO);
+	else if (err == map_not_last)
+		ft_putendl_fd(MAP_NOT_LAST, STDERR_FILENO);
+	else if (err == no_opts)
+		ft_putendl_fd(NO_OPTS, STDERR_FILENO);
+	else if (err == invalid_texture)
+		ft_putendl_fd(INVALID_TEXTURE, STDERR_FILENO);
+	else if (err == invalid_color)
+		ft_putendl_fd(INVALID_COLOR, STDERR_FILENO);
+	else if (err == too_many_textures)
+		ft_putendl_fd(TOO_MANY_TEXTURES, STDERR_FILENO);
+	else if (err == too_many_spawns)
+		ft_putendl_fd(TOO_MANY_SPAWNS, STDERR_FILENO);
+	else if (err == too_many_colors)
+		ft_putendl_fd(TOO_MANY_COLORS, STDERR_FILENO);
+	else if (err == missing_option)
+		ft_putendl_fd(MISSING_OPTION, STDERR_FILENO);
+	else if (err == invalid_map)
+		ft_putendl_fd(INVALID_MAP, STDERR_FILENO);
+}
+
+void	parser_error(t_file_content *file_content, t_map *map,
 			struct s_parser_state *s)
 {
-	(void) s;
-	ft_putendl_fd("Error", STDERR_FILENO);
-	ft_putendl_fd(err, STDERR_FILENO);
+	print_error(s->error_type);
 	if (file_content)
 		free_filecontent(file_content);
 	//if (s->map_parsed && map->cubes && *(map)->cubes)
@@ -40,7 +100,7 @@ t_map	*parse(int fd)
 	struct s_parser_state	state;
 
 	state.map_parsed = false;
-	state.error = false;
+	state.error_type = no_error;
 	map = init_map();
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
@@ -48,19 +108,17 @@ t_map	*parse(int fd)
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, &state, file_content);
-	if (state.error || !file_content
+	if (state.error_type > 0 || !file_content
 		|| !file_content->map_lines || !file_content->option_lines)
-		return (parser_error("Read error", file_content, map, &state), NULL);
+		return (parser_error(file_content, map, &state), NULL);
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
-	if (!map->cubes)
-		return (parser_error("Invalid map", file_content, map, &state), NULL);
 	populate_map(file_content->map_lines, map);
 	if (!map_is_valid(map))
-		return (parser_error("Invalid map", file_content, map, &state), NULL);
+		return (parser_error(file_content, map, &state), NULL);
 	parse_options(file_content->option_lines, map);
 	if (!options_are_valid(map))
-		return (parser_error("Invalid opts", file_content, map, &state), NULL);
+		return (parser_error(file_content, map, &state), NULL);
 	return (free_filecontent(file_content), map);
 }
 
@@ -164,8 +222,8 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 			}
 			else
 			{
-				s->error = true;
-				ft_putendl_fd("Error\nFile contains multiple maps", STDERR_FILENO);
+				s->error_type = multiple_maps;
+				free(str);
 				break ;
 			}
 		}
@@ -173,10 +231,8 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 		{
 			if (!ft_iswhitespace(str))
 			{
-				s->error = true;
+				s->error_type = opt_unknown;
 				free(str);
-				ft_putstr_fd("Error\nUnknown option: ", STDERR_FILENO);
-				ft_putendl_fd(str, STDERR_FILENO);
 				break ;
 			}
 			else

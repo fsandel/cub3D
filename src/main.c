@@ -17,7 +17,7 @@ static t_window	*setup_window_struct(t_map *map)
 	return (window);
 }
 
-int	main(int argc, char **argv)
+int	main2(int argc, char **argv)
 {
 	t_window	*window;
 	t_map		*map;
@@ -40,5 +40,12 @@ int	main(int argc, char **argv)
 	draw_scene(window);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	main2(argc, argv);
+	system("leaks cub3D");
 	return (0);
 }
