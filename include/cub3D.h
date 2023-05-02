@@ -112,7 +112,7 @@ typedef struct s_window
 //free_utils.c
 void			free_window_struct(t_window *window);
 void			free_filecontent(t_file_content *file_content);
-void			free_map(t_map *map);
+void			free_cubes(t_map *map);
 
 //utils.c
 int				on_screen(int x, int y);

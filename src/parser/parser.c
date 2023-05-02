@@ -12,6 +12,26 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
+void	parser_error(char *err, t_file_content *file_content, t_map *map,
+			struct s_parser_state *s)
+{
+	(void) s;
+	ft_putendl_fd("Error", STDERR_FILENO);
+	ft_putendl_fd(err, STDERR_FILENO);
+	if (file_content)
+		free_filecontent(file_content);
+	//if (s->map_parsed && map->cubes && *(map)->cubes)
+	//	free_cubes(map);
+	if (map)
+	{
+		if (map->start_dir)
+			free(map->start_dir);
+		if (map->start_pos)
+			free(map->start_pos);
+		free(map);
+	}
+}
+
 // TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
@@ -20,6 +40,7 @@ t_map	*parse(int fd)
 	struct s_parser_state	state;
 
 	state.map_parsed = false;
+	state.error = false;
 	map = init_map();
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
@@ -27,18 +48,19 @@ t_map	*parse(int fd)
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, &state, file_content);
-	if (state.error || !file_content|| !file_content->map_lines || !file_content->option_lines)
-		return (free_filecontent(file_content), free(map->start_pos), free(map->start_dir), free(map), NULL);
+	if (state.error || !file_content
+		|| !file_content->map_lines || !file_content->option_lines)
+		return (parser_error("Read error", file_content, map, &state), NULL);
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
 	if (!map->cubes)
-		return (free_filecontent(file_content), NULL);
+		return (parser_error("Invalid map", file_content, map, &state), NULL);
 	populate_map(file_content->map_lines, map);
 	if (!map_is_valid(map))
-		return (ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO), NULL);
+		return (parser_error("Invalid map", file_content, map, &state), NULL);
 	parse_options(file_content->option_lines, map);
 	if (!options_are_valid(map))
-		return (ft_putendl_fd("Error\nInvalid options", STDERR_FILENO), NULL);
+		return (parser_error("Invalid opts", file_content, map, &state), NULL);
 	return (free_filecontent(file_content), map);
 }
 
@@ -144,6 +166,7 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 			{
 				s->error = true;
 				ft_putendl_fd("Error\nFile contains multiple maps", STDERR_FILENO);
+				break ;
 			}
 		}
 		else
@@ -154,6 +177,7 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 				free(str);
 				ft_putstr_fd("Error\nUnknown option: ", STDERR_FILENO);
 				ft_putendl_fd(str, STDERR_FILENO);
+				break ;
 			}
 			else
 				free(str);
