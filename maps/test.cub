@@ -1,3 +1,13 @@
+NO textures/north.png
+SO textures/south.png
+WE textures/west.png
+EA textures/east.png
+
+F 203,166,247
+C 4,165,229
+
+asdf
+
 1111111111
 1000000001
 1001111001
@@ -6,11 +16,3 @@
 1010101011
 1000000001
 1111111111
-
-NO textures/north.png
-SO textures/south.png
-WE textures/west.png
-EA textures/east.png
-
-F 203,166,247
-C 4,165,229

@@ -23,3 +23,18 @@ bool	is_on_map(double x, double y, t_map *map)
 	else
 		return (false);
 }
+
+bool	ft_iswhitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\n' && str[i] != '\f' && str[i] != ' ' && str[i] != '\r'
+			&& str[i] != '\t' && str[i] != '\v')
+			return (false);
+		i++;
+	}
+	return (true);
+}

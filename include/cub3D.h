@@ -111,10 +111,13 @@ typedef struct s_window
 
 //free_utils.c
 void			free_window_struct(t_window *window);
+void			free_filecontent(t_file_content *file_content);
+void			free_map(t_map *map);
 
 //utils.c
 int				on_screen(int x, int y);
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
+bool			ft_iswhitespace(char *str);
 
 //rotate.c
 void			rotate_hor_f(t_vector *before, t_vector *after, double angle);

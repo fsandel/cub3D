@@ -3,10 +3,11 @@
 struct s_parser_state
 {
 	bool	map_parsed;
+	bool	error;
 };
 
 static t_map			*init_map(void);
-static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
@@ -25,20 +26,20 @@ t_map	*parse(int fd)
 		return (NULL);
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
-	file_content = read_file(fd, map, state, file_content);
-	if (!file_content)
-		return (NULL);
+	file_content = read_file(fd, map, &state, file_content);
+	if (state.error || !file_content|| !file_content->map_lines || !file_content->option_lines)
+		return (free_filecontent(file_content), free(map->start_pos), free(map->start_dir), free(map), NULL);
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
+	if (!map->cubes)
+		return (free_filecontent(file_content), NULL);
 	populate_map(file_content->map_lines, map);
 	if (!map_is_valid(map))
 		return (ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO), NULL);
 	parse_options(file_content->option_lines, map);
 	if (!options_are_valid(map))
 		return (ft_putendl_fd("Error\nInvalid options", STDERR_FILENO), NULL);
-	ft_lstclear(&file_content->map_lines, &free);
-	ft_lstclear(&file_content->option_lines, &free);
-	return (free(file_content), map);
+	return (free_filecontent(file_content), map);
 }
 
 /*
@@ -115,7 +116,7 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
  * reads line by line from fd, adds line to map_lines or option_lines
  * and counts the mapwidth and height
  */
-static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
+static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state *s,
 							t_file_content *file_content)
 {
 	char	*str;
@@ -123,22 +124,40 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if (is_valid_tex_str(str) || is_valid_f_c_str(str))
+		if ((is_valid_tex_str(str) || is_valid_f_c_str(str)) && !s->map_parsed)
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
-		else if (is_valid_map_str(str) && s.map_parsed == false)
+		else if (is_valid_map_str(str))
 		{
-			while (str != NULL && is_valid_map_str(str))
+			if (s->map_parsed == false)
 			{
-				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-				map->height++;
-				if ((int) ft_strlen(str) - 1 > map->width)
-					map->width = ft_strlen(str) - 1;
-				str = get_next_line(fd);
+				while (str != NULL && is_valid_map_str(str))
+				{
+					ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+					map->height++;
+					if ((int) ft_strlen(str) - 1 > map->width)
+						map->width = ft_strlen(str) - 1;
+					str = get_next_line(fd);
+				}
+				s->map_parsed = true;
 			}
-			s.map_parsed = true;
+			else
+			{
+				s->error = true;
+				ft_putendl_fd("Error\nFile contains multiple maps", STDERR_FILENO);
+			}
 		}
 		else
-			free(str);
+		{
+			if (!ft_iswhitespace(str))
+			{
+				s->error = true;
+				free(str);
+				ft_putstr_fd("Error\nUnknown option: ", STDERR_FILENO);
+				ft_putendl_fd(str, STDERR_FILENO);
+			}
+			else
+				free(str);
+		}
 		str = get_next_line(fd);
 	}
 	return (file_content);
