@@ -25,6 +25,8 @@ static void	parse_texture(char *input, t_map *map)
 	str_vals = ft_split(input, ' ');
 	temp = ft_strtrim(str_vals[1], "\n");
 	texture = mlx_load_png(temp);
+	if (!texture)
+		map->state->error_type = invalid_texture;
 	if (ft_strncmp(str_vals[0], "NO", 2) == 0)
 		map->textures[north] = texture;
 	else if (ft_strncmp(str_vals[0], "SO", 2) == 0)
