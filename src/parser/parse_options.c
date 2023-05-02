@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static void	parse_rgb(char *str, int *r, int *g, int *b);
+static int	parse_rgb(char *str, int *r, int *g, int *b);
 static void	parse_f_c(char *f_c_colors, t_map *map);
 static void	parse_texture(char *input, t_map *map);
 
@@ -41,21 +41,24 @@ static void	parse_texture(char *input, t_map *map)
 
 static void	parse_f_c(char *f_c_colors, t_map *map)
 {
-	int		r;
-	int		g;
-	int		b;
-	int		a;
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+	int	success;
 
 	a = 255;
-	parse_rgb(f_c_colors, &r, &g, &b);
+	success = parse_rgb(f_c_colors, &r, &g, &b);
+	if (success == 1)
+		map->state->error_type = invalid_color;
 	if (f_c_colors[0] == 'F' && f_c_colors[1] == ' ')
 		set_floor_color(map, get_rgba(r, g, b, a));
 	else if (f_c_colors[0] == 'C' && f_c_colors[1] == ' ')
 		set_ceiling_color(map, get_rgba(r, g, b, a));
 }
 
-// TODO needs to throw an error if one of the values is bigger < 0 or > 255
-static void	parse_rgb(char *str, int *r, int *g, int *b)
+// TODO needs to throw an error if one of the values is  < 0 or > 255
+static int	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;
 	char	**str_vals;
@@ -76,4 +79,7 @@ static void	parse_rgb(char *str, int *r, int *g, int *b)
 	}
 	ft_arr_free(str_vals);
 	free(temp);
+	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

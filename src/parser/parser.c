@@ -56,8 +56,8 @@ void	parser_error(t_file_content *file_content, t_map *map)
 	print_error(map->state->error_type);
 	if (file_content)
 		free_filecontent(file_content);
-	//if (s->map_parsed && map->cubes && *(map)->cubes)
-	//	free_cubes(map);
+	if (map->state->map_parsed && map->cubes && *(map)->cubes)
+		free_cubes(map);
 	if (map)
 	{
 		if (map->start_dir)
@@ -82,16 +82,15 @@ t_map	*parse(int fd)
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, file_content);
-	if (map->state->error_type > 0 || !file_content
-		|| !file_content->map_lines || !file_content->option_lines)
+	if (map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
 	close(fd);
 	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
-	if (!map_is_valid(map))
+	if (!map_is_valid(map) || map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
 	parse_options(file_content->option_lines, map);
-	if (!options_are_valid(map))
+	if (!options_are_valid(map) || map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
 	return (free_filecontent(file_content), map);
 }
@@ -115,6 +114,8 @@ static t_map	*init_map(void)
 	map->has_spawn = false;
 	state = malloc(sizeof(t_parser_state));
 	state->map_parsed = false;
+	state->f_parsed = false;
+	state->c_parsed = false;
 	state->error_type = no_error;
 	map->state = state;
 	return (map);

@@ -46,6 +46,8 @@ enum e_parser_error
 typedef struct s_parser_state
 {
 	bool				map_parsed;
+	bool				f_parsed;
+	bool				c_parsed;
 	enum e_parser_error	error_type;
 }			t_parser_state;
 

@@ -2,12 +2,24 @@
 
 void	set_floor_color(t_map *map, int color)
 {
-	map->floor_color = color;
+	if (!map->state->f_parsed)
+	{
+		map->floor_color = color;
+		map->state->f_parsed = true;
+	}
+	else
+		map->state->error_type = too_many_colors;
 }
 
 void	set_ceiling_color(t_map *map, int color)
 {
-	map->ceiling_color = color;
+	if (!map->state->c_parsed)
+	{
+		map->ceiling_color = color;
+		map->state->c_parsed = true;
+	}
+	else
+		map->state->error_type = too_many_colors;
 }
 
 void	set_cube_value(t_map *map, int line, int column, char c)
@@ -33,7 +45,7 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 			map->cubes[line][column] = walkable;
 		}
 		else
-			return (ft_putendl_fd("Error\nencountered multiple spawns", STDERR_FILENO));
+			map->state->error_type = too_many_spawns;
 	}
 	else if (c == 'D')
 		map->cubes[line][column] = door_closed;
