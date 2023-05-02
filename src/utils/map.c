@@ -48,7 +48,10 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 			map->state->error_type = too_many_spawns;
 	}
 	else if (c == 'D')
+	{
 		map->cubes[line][column] = door_closed;
+		map->state->contains_door = true;
+	}
 	else
 		map->cubes[line][column] = empty;
 }

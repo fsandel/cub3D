@@ -8,10 +8,11 @@ bool	map_is_valid(t_map *map)
 	int	column;
 
 	line = 0;
-	if (map->width < 3 || map->height < 3)
+	if (map->width < 3 || map->height < 3 || !map->has_spawn)
+	{
+		map->state->error_type = invalid_map;
 		return (false);
-	if (!map->has_spawn)
-		return (false);
+	}
 	while (line < map->height)
 	{
 		column = 0;
@@ -19,7 +20,10 @@ bool	map_is_valid(t_map *map)
 		{
 			if (map->cubes[line][column] == walkable
 				&& !is_valid_field(map, line, column))
+			{
+				map->state->error_type = invalid_map;
 				return (false);
+			}
 			column++;
 		}
 		line++;

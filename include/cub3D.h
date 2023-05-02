@@ -48,6 +48,7 @@ typedef struct s_parser_state
 	bool				map_parsed;
 	bool				f_parsed;
 	bool				c_parsed;
+	bool				contains_door;
 	enum e_parser_error	error_type;
 }			t_parser_state;
 

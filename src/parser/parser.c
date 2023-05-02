@@ -117,9 +117,12 @@ static t_map	*init_map(void)
 	map->door = NULL;
 	map->has_spawn = false;
 	state = malloc(sizeof(t_parser_state));
+	if (!state)
+		return (NULL);
 	state->map_parsed = false;
 	state->f_parsed = false;
 	state->c_parsed = false;
+	state->contains_door = false;
 	state->error_type = no_error;
 	map->state = state;
 	return (map);
