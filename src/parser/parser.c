@@ -6,7 +6,6 @@ static t_file_content	*read_file(int fd, t_map *map,
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
-// TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
 	t_map					*map;
@@ -41,8 +40,6 @@ static t_map	*init_map(void)
 	t_parser_state	*state;
 
 	map = malloc(sizeof(t_map));
-	if (!map)
-		return (NULL);
 	map->start_pos = malloc(sizeof(t_vector));
 	map->start_dir = malloc(sizeof(t_vector));
 	map->textures[0] = NULL;
@@ -54,8 +51,6 @@ static t_map	*init_map(void)
 	map->door = NULL;
 	map->has_spawn = false;
 	state = malloc(sizeof(t_parser_state));
-	if (!state)
-		return (NULL);
 	state->map_parsed = false;
 	state->f_parsed = false;
 	state->c_parsed = false;
@@ -128,37 +123,15 @@ static t_file_content	*read_file(int fd, t_map *map,
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if ((is_valid_tex_str(str) || is_valid_f_c_str(str)) && !map->state->map_parsed)
+		if ((is_valid_tex_str(str) || is_valid_f_c_str(str))
+			&& !map->state->map_parsed)
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
 		else if (is_valid_map_str(str))
-		{
-			if (map->state->map_parsed == false)
-			{
-				while (str != NULL && is_valid_map_str(str))
-				{
-					ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-					map->height++;
-					if ((int) ft_strlen(str) - 1 > map->width)
-						map->width = ft_strlen(str) - 1;
-					str = get_next_line(fd);
-				}
-				map->state->map_parsed = true;
-			}
-			else
-			{
-				map->state->error_type = multiple_maps;
-				free(str);
-				break ;
-			}
-		}
+			parse_map(str, fd, map, file_content);
 		else
 		{
 			if (!ft_iswhitespace(str))
-			{
 				map->state->error_type = opt_unknown;
-				free(str);
-				break ;
-			}
 			else
 				free(str);
 		}

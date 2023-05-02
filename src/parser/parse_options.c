@@ -4,6 +4,24 @@ static int	parse_rgb(char *str, int *r, int *g, int *b);
 static void	parse_f_c(char *f_c_colors, t_map *map);
 static void	parse_texture(char *input, t_map *map);
 
+void	parse_map(char *str, int fd, t_map *map, t_file_content *file_content)
+{
+	if (map->state->map_parsed == false)
+	{
+		while (str != NULL && is_valid_map_str(str))
+		{
+			ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
+			map->height++;
+			if ((int) ft_strlen(str) - 1 > map->width)
+				map->width = ft_strlen(str) - 1;
+			str = get_next_line(fd);
+		}
+		map->state->map_parsed = true;
+	}
+	else
+		map->state->error_type = multiple_maps;
+}
+
 void	parse_options(t_list *option_lines, t_map *map)
 {
 	while (option_lines != NULL)
@@ -61,7 +79,6 @@ static void	parse_f_c(char *f_c_colors, t_map *map)
 		set_ceiling_color(map, get_rgba(r, g, b, a));
 }
 
-// TODO needs to throw an error if one of the values is  < 0 or > 255
 static int	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;

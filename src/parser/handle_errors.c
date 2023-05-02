@@ -64,4 +64,3 @@ static void	print_error(enum e_parser_error err)
 	else if (err == invalid_map)
 		ft_putendl_fd(INVALID_MAP, STDERR_FILENO);
 }
-
