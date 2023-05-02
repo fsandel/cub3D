@@ -163,6 +163,9 @@ bool			options_are_valid(t_map *map);
 t_map			*parse(int fd);
 int				args_valid(int argc, char **argv);
 
+//handle error
+void			parser_error(t_file_content *file_content, t_map *map);
+
 // parse_options.c
 void			parse_options(t_list *option_lines, t_map *map);
 
