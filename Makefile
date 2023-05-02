@@ -1,10 +1,10 @@
 NAME			=	cub3D
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Ofast -Werror
+CFLAGS			=	-Wall -Wextra -Ofast -g -Werror
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
-#OS				=	$(shell uname -s)
+OS				=	$(shell uname -s)
 BREW			=	$(HOME)/.brew
 
 ################################################################################
@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c movement.c
+SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c movement.c player_attack.c start_end_screen.c endcondition.c setup.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -20,7 +20,7 @@ PARSER_FILES	=	parser.c validate_args.c validate_map.c parse_options.c check_syn
 
 HUD				=	$(addprefix $(HUD_DIR), $(HUD_FILES))
 HUD_DIR			=	src/hud/
-HUD_FILES		=	hud.c minimap.c minimap_fov_border.c
+HUD_FILES		=	hud.c minimap.c minimap_fov_border.c minimap_enemies.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
@@ -34,12 +34,16 @@ WALLS			=	$(addprefix $(WALLS_DIR), $(WALLS_FILES))
 WALLS_DIR		=	src/walls/
 WALLS_FILES		=	raycasting.c textures.c fog.c
 
+ENEMIES			=	$(addprefix $(ENEMIES_DIR), $(ENEMIES_FILES))
+ENEMIES_DIR		=	src/enemies/
+ENEMIES_FILES	=	enemies.c enemy_draw.c enemy_movement.c enemy_state.c enemy_utils.c enemy_setup.c enemy_attack.c
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h design.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD) $(ENEMIES)
 
 ################################################################################
 ################################################################################
@@ -93,6 +97,9 @@ $(ALL_OBJ_DIR):
 norm:
 	@norminette $(ALL_SRC) $(HDR) | grep -v "Missing or invalid 42 header"
 
+r: all
+	./$(NAME) maps/enemy.cub
+
 ################################################################################
 ################################################################################
 
@@ -145,12 +152,12 @@ MLX_LIB			=	libmlx42.a
 MLX_DIR			=	lib/MLX42
 MLX_INCLUDE		=	-I ./$(MLX_DIR)/include/MLX42
 
-#ifeq ($(OS), Darwin)
+ifeq ($(OS), Darwin)
 	GLFW			=	-lglfw -L"$(BREW)/opt/glfw/lib/"
-#endif
-#ifeq ($(OS), Linux)
-#	GLFW			=	-ldl -lglfw -pthread -lm
-#endif
+endif
+ifeq ($(OS), Linux)
+	GLFW			=	-ldl -lglfw -pthread -lm
+endif
 
 mlx: $(MLX)
 
@@ -182,12 +189,12 @@ $(LIBFT):
 LSAN			=	lib/LeakSanitizer
 LSANLIB			=	$(LSAN)/liblsan.a
 
-#ifeq ($(OS),Linux)
+ifeq ($(OS),Linux)
 	LSANLFLAGS := -rdynamic -Llib/LeakSanitizer -llsan -ldl -lstdc++
-#endif
-#ifeq ($(OS),Darwin)
-#	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
-#endif
+endif
+ifeq ($(OS),Darwin)
+	LSANLFLAGS := -Llib/LeakSanitizer -llsan -lc++
+endif
 
 lsan: CFLAGS += -I $(LSAN) -Wno-gnu-include-next
 lsan: LINK_FLAGS += $(LSANLFLAGS)

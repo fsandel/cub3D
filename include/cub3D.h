@@ -18,6 +18,12 @@ typedef struct s_vector
 	double	y;
 }	t_vector;
 
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}	t_vector_int;
+
 typedef struct s_file_content
 {
 	t_list	*map_lines;
@@ -26,11 +32,11 @@ typedef struct s_file_content
 
 typedef enum e_cube_type
 {
-	walkable,
-	wall,
 	empty,
 	spawn,
 	door_open,
+	walkable,
+	wall,
 	door_closed
 }	t_cube_type;
 
@@ -41,6 +47,33 @@ typedef enum e_direction
 	south,
 	west,
 }	t_direction;
+
+typedef enum e_enemy_state
+{
+	dead,
+	out_of_range,
+	waiting,
+	hunting,
+	attacking
+}	t_enemy_state;
+
+typedef struct s_enemy
+{
+	t_vector		pos;
+	t_vector		dir;
+	t_enemy_state	state;
+	int				hitpoints;
+	mlx_texture_t	*walking_textures[9];
+	mlx_texture_t	*attacking_textures[9];
+	mlx_texture_t	*dead_textures[1];
+	int				walking_texture_nb;
+	double			dis;
+	int				frame_count;
+	int				frame_cooldown;
+	double			delta_angle;
+	int				x_on_screen;
+	double			brightness;
+}	t_enemy;
 
 typedef struct s_map
 {
@@ -54,12 +87,15 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	t_list			*enemy_list;
 }	t_map;
 
 typedef struct s_player
 {
 	t_vector	*pos;
 	t_vector	*dir;
+	int			hp;
+	int			ammo;
 }	t_player;
 
 typedef struct s_fps
@@ -79,9 +115,9 @@ typedef struct s_minimap
 
 typedef struct s_hud
 {
-	mlx_image_t	*hud_img;
-	t_fps		*fps;
-	t_minimap	*minimap;
+	mlx_image_t		*hud_img;
+	t_fps			*fps;
+	t_minimap		*minimap;
 }	t_hud;
 
 typedef struct s_window
@@ -91,14 +127,16 @@ typedef struct s_window
 	t_player	*player;
 	t_map		*map;
 	t_hud		*hud;
+	t_enemy		**all_enemies;
+	int			fog;
 	bool		redraw;
+	bool		active;
 }	t_window;
 
 //free_utils.c
 void			free_window_struct(t_window *window);
 
 //utils.c
-int				on_screen(int x, int y);
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
 
 //rotate.c
@@ -112,6 +150,7 @@ int				sign(double x);
 
 // validate_map.c
 bool			map_is_valid(t_map *map);
+
 // validate_options.c
 bool			options_are_valid(t_map *map);
 
@@ -137,14 +176,13 @@ t_vector		*set_vec(t_vector *vec, double x, double y);
 
 //distance.c
 double			distance(t_vector pos, t_vector target);
-double			dot_product(t_vector v1, t_vector v2);
-double			abs_vector(t_vector v);
 double			distance_perpendicular(t_vector pos, t_vector dir,
 					t_vector target);
 
 //keyboard_input.c
 void			player_movement(void *arg);
 void			cub_key_hook(mlx_key_data_t keydata, void *arg);
+void			mouse_movement(void *arg);
 
 //raycasting.c
 void			draw_scene(t_window *window);
@@ -155,8 +193,6 @@ int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,
 					int window_y, int start);
-int				dim_color_floor(int color, int p_y);
-int				dim_color_walls(int color, double distance);
 mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 					t_direction direction);
 
@@ -171,6 +207,7 @@ int				get_alpha(int rgba);
 double			min(double a, double b);
 double			max(double a, double b);
 bool			is_on_map(double x, double y, t_map *map);
+bool			is_on_screen(int x, int y);
 
 //hud.c
 void			setup_hud(t_window *window);
@@ -179,6 +216,7 @@ void			draw_hud(void *arg);
 //minimap.c
 void			draw_minimap(t_window *window);
 void			draw_minimap_background(t_window *window);
+void			draw_minimap_enemies(t_window *window);
 
 //doors.c
 void			door_handler(t_window *window, mlx_key_data_t keydata);
@@ -186,5 +224,30 @@ void			door_handler(t_window *window, mlx_key_data_t keydata);
 //movement.c
 bool			change_player_position(t_window *window, double angle);
 bool			rotate_camera(t_window *window, double turn_speed);
+
+//enemies
+void			enemie_handler(void *arg);
+void			draw_enemies(t_window *window);
+void			check_enemies_state(t_window *window);
+void			move_enemies(t_window *window);
+void			set_enemy_dir(t_enemy *enemy, t_player *player);
+void			setup_enemy_struct(t_window *window, t_map *map);
+void			attack_enemies(t_window *window);
+
+//player_attack.c
+void			player_attack(void *arg);
+
+//endcondition.c
+void			check_dead(void *arg);
+
+//start_end_screen.c
+void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);
+void			start_screen_hook(mlx_key_data_t keydata, void *arg);
+
+//setup.c
+t_window		*general_setup(t_map *map);
+
+//main.c
+void			redraw_window(void *arg);
 
 #endif

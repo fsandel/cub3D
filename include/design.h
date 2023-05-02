@@ -3,7 +3,7 @@
 
 # define WIDTH 1000
 # define HEIGHT 1000
-
+# define HUD_SIZE 40
 # define FOV 45
 
 # define SPEED 0.05f
@@ -13,6 +13,9 @@
 
 # define MINIMAP_MAX_ZOOM 10
 # define MINIMAP_MIN_ZOOM 3
+
+# define STARTING_HP 100
+# define STARTING_AMMO 32
 
 //1 to dynamicly change speed based on fps
 //0 to deactivate
@@ -25,5 +28,17 @@
 //range player can see
 //0 to turn of fog
 # define FOG 5
+
+# define ENEMIE_HITPOINTS 3
+# define ENEMY_RANGE 5
+# define ENEMY_FRAME_COOLDOWN 8
+# define ENEMY_Y_OFFSET 130
+
+# define ENEMY_HEIGHT 350
+# define ENEMY_WIDTH 200
+
+# define START_SCREEN "textures/start_screen.png"
+# define DEFEAT_SCREEN "textures/defeat_screen.png"
+# define VICTORY_SCREEN "textures/victory_screen.png"
 
 #endif

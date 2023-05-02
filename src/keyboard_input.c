@@ -8,8 +8,10 @@ void	player_movement(void *arg)
 	t_window	*window;
 	bool		redraw;
 
-	redraw = false;
 	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
+	redraw = false;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_W))
 		redraw = change_player_position(window, 0);
 	if (mlx_is_key_down(window->mlx, MLX_KEY_S))
@@ -56,4 +58,22 @@ static void	escape_handler(t_window *window, mlx_key_data_t keydata)
 {
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(window->mlx);
+}
+
+void	mouse_movement(void *arg)
+{
+	t_window	*window;
+	int			x;
+	int			y;
+	bool		redraw;
+
+	window = (t_window *)arg;
+	if (window->active == false)
+		return ;
+	mlx_get_mouse_pos(window->mlx, &x, &y);
+	x -= WIDTH / 2;
+	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
+	redraw = rotate_camera(window, TURN_SPEED * x / 100);
+	if (redraw)
+		window->redraw = true;
 }

@@ -1,5 +1,26 @@
 #include <cub3D.h>
 
+static void	free_all_enemies(t_window *window)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	if (window->all_enemies[0])
+	{
+		while (j < window->all_enemies[0]->walking_texture_nb)
+		{
+			mlx_delete_texture(window->all_enemies[0]->attacking_textures[j]);
+			mlx_delete_texture(window->all_enemies[0]->walking_textures[j++]);
+		}
+		mlx_delete_texture(window->all_enemies[0]->dead_textures[0]);
+	}
+	i = 0;
+	while (window->all_enemies[i])
+		free(window->all_enemies[i++]);
+	free(window->all_enemies);
+}
+
 void	free_cubes(t_map *map)
 {
 	int	i;
@@ -22,6 +43,7 @@ static void	free_hud(t_window *window)
 
 void	free_window_struct(t_window *window)
 {
+	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
 	mlx_delete_texture(window->map->textures[north]);
 	mlx_delete_texture(window->map->textures[east]);
