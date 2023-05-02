@@ -37,7 +37,12 @@ typedef enum e_cube_type
 	door_open,
 	walkable,
 	wall,
-	door_closed
+	door_closed,
+	health_full,
+	health_empty,
+	ammo_full,
+	ammo_empty,
+	exit_cube
 }	t_cube_type;
 
 typedef enum e_direction

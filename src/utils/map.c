@@ -36,6 +36,12 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 		map->cubes[line][column] = door_closed;
 	else if (c == 'e')
 		map->cubes[line][column] = set_enemy(map, column, line);
+	else if (c == 'a')
+		map->cubes[line][column] = ammo_full;
+	else if (c == 'h')
+		map->cubes[line][column] = ammo_empty;
+	else if (c == 'x')
+		map->cubes[line][column] = exit_cube;
 	else
 		map->cubes[line][column] = empty;
 }
