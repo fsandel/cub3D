@@ -26,6 +26,29 @@
 # define BLACK 0x000000ff
 # define ORANGE 0xffa500ff
 
+enum e_parser_error
+{
+	no_error,
+	opt_unknown,
+	no_map,
+	no_opts,
+	map_not_last,
+	multiple_maps,
+	invalid_texture,
+	invalid_color,
+	too_many_textures,
+	too_many_spawns,
+	too_many_colors,
+	missing_option,
+	invalid_map
+};
+
+typedef struct s_parser_state
+{
+	bool				map_parsed;
+	enum e_parser_error	error_type;
+}			t_parser_state;
+
 typedef struct s_vector
 {
 	double	x;
@@ -59,6 +82,7 @@ typedef enum e_direction
 
 typedef struct s_map
 {
+	t_parser_state	*state;
 	t_cube_type		**cubes;
 	int				width;
 	int				height;

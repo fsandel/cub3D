@@ -48,6 +48,7 @@ void	free_window_struct(t_window *window)
 	free(window->player);
 	free(window->map->start_dir);
 	free(window->map->start_pos);
+	free(window->map->state);
 	free(window->map);
 	free(window);
 }
