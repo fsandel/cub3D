@@ -36,6 +36,12 @@ static t_window	*setup_window_struct(t_map *map)
 	window->redraw = true;
 	window->fog = FOG;
 	window->active = false;
+	map->ammo_text[0] = mlx_load_png("textures/shelf_ammo.png");
+	map->ammo_text[1] = mlx_load_png("textures/shelf_empty1.png");
+	map->health_text[0] = mlx_load_png("textures/shelf_health.png");
+	map->health_text[1] = mlx_load_png("textures/shelf_empty3.png");
+	map->exit_text[0] = mlx_load_png("textures/exit1.png");
+	map->exit_text[1] = mlx_load_png("textures/exit2.png");
 	return (window);
 }
 

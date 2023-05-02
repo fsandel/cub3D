@@ -92,6 +92,9 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	mlx_texture_t	*health_text[2];
+	mlx_texture_t	*ammo_text[2];
+	mlx_texture_t	*exit_text[2];
 	t_list			*enemy_list;
 }	t_map;
 
