@@ -27,16 +27,18 @@ static void	parse_texture(char *input, t_map *map)
 	texture = mlx_load_png(temp);
 	if (!texture)
 		map->state->error_type = invalid_texture;
-	if (ft_strncmp(str_vals[0], "NO", 2) == 0)
+	if (ft_strncmp(str_vals[0], "NO", 2) == 0 && !map->textures[north])
 		map->textures[north] = texture;
-	else if (ft_strncmp(str_vals[0], "SO", 2) == 0)
+	else if (ft_strncmp(str_vals[0], "SO", 2) == 0 && !map->textures[south])
 		map->textures[south] = texture;
-	else if (ft_strncmp(str_vals[0], "WE", 2) == 0)
+	else if (ft_strncmp(str_vals[0], "WE", 2) == 0 && !map->textures[west])
 		map->textures[west] = texture;
-	else if (ft_strncmp(str_vals[0], "EA", 2) == 0)
+	else if (ft_strncmp(str_vals[0], "EA", 2) == 0 && !map->textures[east])
 		map->textures[east] = texture;
-	else if (ft_strncmp(str_vals[0], "DO", 2) == 0)
+	else if (ft_strncmp(str_vals[0], "DO", 2) == 0 && !map->door)
 		map->door = texture;
+	else
+		map->state->error_type = too_many_textures;
 	ft_arr_free(str_vals);
 	free(temp);
 }
