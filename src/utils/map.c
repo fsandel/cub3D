@@ -12,6 +12,21 @@ void	set_ceiling_color(t_map *map, int color)
 	map->ceiling_color = color;
 }
 
+static t_cube_type	set_player_dir_map(t_map *map, int column, int line, char c)
+{
+	set_vec(map->start_pos, column + 0.5f, line + 0.5f);
+	map->has_spawn = true;
+	if (c == 'N')
+		set_vec(map->start_dir, 0, 1);
+	else if (c == 'E')
+		set_vec(map->start_dir, -1, 0);
+	else if (c == 'S')
+		set_vec(map->start_dir, 0, -1);
+	else if (c == 'W')
+		set_vec(map->start_dir, 1, 0);
+	return (walkable);
+}
+
 void	set_cube_value(t_map *map, int line, int column, char c)
 {
 	if (c == '0')
@@ -19,19 +34,7 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 	else if (c == '1')
 		map->cubes[line][column] = wall;
 	else if (!map->has_spawn && (c == 'N' || c == 'E' || c == 'S' || c == 'W'))
-	{
-		set_vec(map->start_pos, column + 0.5f, line + 0.5f);
-		map->has_spawn = true;
-		if (c == 'N')
-			set_vec(map->start_dir, 0, 1);
-		else if (c == 'E')
-			set_vec(map->start_dir, -1, 0);
-		else if (c == 'S')
-			set_vec(map->start_dir, 0, -1);
-		else if (c == 'W')
-			set_vec(map->start_dir, 1, 0);
-		map->cubes[line][column] = walkable;
-	}
+		map->cubes[line][column] = set_player_dir_map(map, column, line, c);
 	else if (c == 'D')
 		map->cubes[line][column] = door_closed;
 	else if (c == 'e')
