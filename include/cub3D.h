@@ -62,6 +62,13 @@ typedef enum e_enemy_state
 	attacking
 }	t_enemy_state;
 
+typedef enum e_window_state
+{
+	start_screen,
+	game_screen,
+	end_screen
+}	t_window_state;
+
 typedef struct s_enemy
 {
 	t_vector		pos;
@@ -130,15 +137,16 @@ typedef struct s_hud
 
 typedef struct s_window
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_player	*player;
-	t_map		*map;
-	t_hud		*hud;
-	t_enemy		**all_enemies;
-	int			fog;
-	bool		redraw;
-	bool		active;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_player		*player;
+	t_map			*map;
+	t_hud			*hud;
+	t_enemy			**all_enemies;
+	t_window_state	state;
+	int				fog;
+	bool			redraw;
+	int				frame_count;
 }	t_window;
 
 //free_utils.c
@@ -247,6 +255,7 @@ void			player_attack(void *arg);
 
 //endcondition.c
 void			check_dead(void *arg);
+void			won_game(t_window *window);
 
 //start_end_screen.c
 void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);

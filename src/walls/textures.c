@@ -55,8 +55,10 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 		return (window->map->health_text[0]);
 	else if (cube_type == health_empty)
 		return (window->map->health_text[1]);
-	else if (cube_type == exit_cube)
+	else if (cube_type == exit_cube && window->frame_count % 32 < 16)
 		return (window->map->exit_text[0]);
+	else if (cube_type == exit_cube && window)
+		return (window->map->exit_text[1]);
 	else if (cube_type == door_closed)
 		return (window->map->door);
 	else

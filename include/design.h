@@ -29,7 +29,7 @@
 //0 to turn of fog
 # define FOG 5
 
-# define ENEMIE_HITPOINTS 3
+# define ENEMIE_HITPOINTS 10
 # define ENEMY_RANGE 5
 # define ENEMY_FRAME_COOLDOWN 8
 # define ENEMY_Y_OFFSET 130
@@ -37,8 +37,12 @@
 # define ENEMY_HEIGHT 350
 # define ENEMY_WIDTH 200
 
-# define START_SCREEN "textures/start_screen.png"
-# define DEFEAT_SCREEN "textures/defeat_screen.png"
-# define VICTORY_SCREEN "textures/victory_screen.png"
+# define START_SCREEN "textures/screen_start0.png"
+# define START_SCREEN1 "textures/screen_start1.png"
+# define DEFEAT_SCREEN "textures/screen_death.png"
+# define VICTORY_SCREEN "textures/screen_victory.png"
+
+# define HP_PICKUP 50
+# define AMMO_PICKUP 16
 
 #endif
