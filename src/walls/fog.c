@@ -55,17 +55,18 @@ static int	get_rgba_from_tex_fog(const mlx_texture_t *tex,
 static void	put_pixel_floor_fog(mlx_image_t *img, t_vector_int pix_pos,
 			int base_color, int fog)
 {
-	const double	brightness = abs(HEIGHT / 2 - pix_pos.y) * fog / 4500.0;
+	const double	brightness = max(abs(HEIGHT / 2 - pix_pos.y)
+			* fog / 4500.0, 0);
 	const uint8_t	alpha = base_color & 0xff;
-	const uint8_t	red = ((base_color >> 8) & 0xff) * brightness;
+	const uint8_t	red = ((base_color >> 24) & 0xff) * brightness;
 	const uint8_t	green = ((base_color >> 16) & 0xff) * brightness;
-	const uint8_t	blue = (base_color >> 24) * brightness;
+	const uint8_t	blue = ((base_color >> 8) & 0xff) * brightness;
 
 	if (brightness >= 1)
 		mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
 	else
 	{
-		base_color = (blue << 24) | (green << 16) | (red << 8) | alpha;
+		base_color = (red << 24) | (green << 16) | (blue << 8) | alpha;
 		mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
 	}
 }
