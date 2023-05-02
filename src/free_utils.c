@@ -49,6 +49,12 @@ void	free_window_struct(t_window *window)
 	mlx_delete_texture(window->map->textures[east]);
 	mlx_delete_texture(window->map->textures[south]);
 	mlx_delete_texture(window->map->textures[west]);
+	mlx_delete_texture(window->map->ammo_text[0]);
+	mlx_delete_texture(window->map->ammo_text[1]);
+	mlx_delete_texture(window->map->health_text[0]);
+	mlx_delete_texture(window->map->health_text[1]);
+	mlx_delete_texture(window->map->exit_text[0]);
+	mlx_delete_texture(window->map->exit_text[1]);
 	if (window->map->door)
 		mlx_delete_texture(window->map->door);
 	mlx_terminate(window->mlx);
