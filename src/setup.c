@@ -13,8 +13,8 @@ t_window	*general_setup(t_map *map)
 	setup_enemy_struct(window, map);
 	setup_hud(window);
 	setup_mouse(window);
-	setup_start_screen(window);
 	implement_loop_hooks(window);
+	setup_start_screen(window);
 	return (window);
 }
 

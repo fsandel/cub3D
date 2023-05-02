@@ -37,6 +37,7 @@ void	setup_hud(t_window *window)
 	window->hud->minimap->pix_pos_y = 105;
 	window->hud->minimap->zoom = 5;
 	window->hud->minimap->radius = 100;
+	window->hud->fps->fps_num = 60;
 	mlx_image_to_window(window->mlx, window->hud->hud_img, 0, 0);
 	mlx_set_instance_depth(window->hud->hud_img->instances, 2);
 }

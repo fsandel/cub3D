@@ -56,9 +56,11 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 	while (++iter.y < max.y)
 	{
 		iter.x = -max.x;
-		while (++iter.x < max.x && is_on_screen(enemy->x_on_screen + iter.x,
-				HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
+		while (++iter.x < max.x)
 		{
+			if (!is_on_screen(enemy->x_on_screen + iter.x,
+					HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
+				continue ;
 			color = enemy_get_pix((max.x + iter.x) / max.x / 2,
 					(iter.y + max.y) / 2 / max.y,
 					enemy_get_texture(enemy, frame_count), enemy);
@@ -76,7 +78,7 @@ void	draw_enemies(t_window *window)
 	i = 0;
 	while (window->all_enemies[i])
 	{
-		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 2)
+		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 0.75)
 			if (window->all_enemies[i]->state != out_of_range)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
