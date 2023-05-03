@@ -168,7 +168,7 @@ void			parser_error(t_file_content *file_content, t_map *map);
 
 // parse_options.c
 void			parse_options(t_list *option_lines, t_map *map);
-void			parse_map(char *str, int fd, t_map *map,
+void			parse_map(char **str, int fd, t_map *map,
 					t_file_content *file_content);
 
 // check_syntax.c
