@@ -114,6 +114,7 @@ Test(parse_map, valid_area){
 			fd = open(map_name, O_RDONLY);
 			result = parse(fd);
 			cr_expect(map_is_valid(result) == true, "failed on %s \n", map_name);
+			cr_expect(result != NULL, "result is null on %s \n", map_name);
 			free(map_name);
 			close(fd);
 		}
