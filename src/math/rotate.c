@@ -5,11 +5,13 @@ void	norm(t_vector *v, double future_length)
 	double	length;
 
 	length = sqrt((v->x * v->x) + (v->y * v->y));
+	if (length == 0)
+		return ;
 	v->x = v->x / length * future_length;
 	v->y = v->y / length * future_length;
 }
 
-void	rotate_hor_f(t_vector *before, t_vector *after, double angle)
+void	rotate(t_vector *before, t_vector *after, double angle)
 {
 	const double	x = before->x;
 	const double	y = before->y;

@@ -9,3 +9,8 @@ double	ft_modf(double num)
 {
 	return (num - (int)num);
 }
+
+int	sign(double x)
+{
+	return ((x > 0) - (x < 0));
+}

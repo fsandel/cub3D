@@ -10,21 +10,7 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
-
-# define FOV 45
-# define SPEED 0.05f
-# define TURN_SPEED 0.05f
-# define DARKNESS_FACTOR 50
-
-# define WHITE 0xffffffff
-# define YELLOW 0xffff00ff
-# define BLUE 0xffffff
-# define PINK 0xff00ffff
-# define RED 0xff0000ff
-# define BLACK 0x000000ff
-# define ORANGE 0xffa500ff
+# include "design.h"
 
 enum e_parser_error
 {
@@ -56,23 +42,33 @@ typedef struct s_vector
 {
 	double	x;
 	double	y;
-	double	z;
-}			t_vector;
+}	t_vector;
+
+typedef struct s_vector_int
+{
+	int	x;
+	int	y;
+}	t_vector_int;
 
 typedef struct s_file_content
 {
 	t_list	*map_lines;
 	t_list	*option_lines;
-}			t_file_content;
+}	t_file_content;
 
 typedef enum e_cube_type
 {
-	walkable,
-	wall,
-	empty,
 	spawn,
 	door_open,
-	door_closed
+	walkable,
+	wall,
+	door_closed,
+	health_full,
+	health_empty,
+	ammo_full,
+	ammo_empty,
+	exit_cube,
+	empty
 }	t_cube_type;
 
 typedef enum e_direction
@@ -82,6 +78,40 @@ typedef enum e_direction
 	south,
 	west,
 }	t_direction;
+
+typedef enum e_enemy_state
+{
+	dead,
+	out_of_range,
+	waiting,
+	hunting,
+	attacking
+}	t_enemy_state;
+
+typedef enum e_window_state
+{
+	start_screen,
+	game_screen,
+	end_screen
+}	t_window_state;
+
+typedef struct s_enemy
+{
+	t_vector		pos;
+	t_vector		dir;
+	t_enemy_state	state;
+	int				hitpoints;
+	mlx_texture_t	*walking_textures[9];
+	mlx_texture_t	*attacking_textures[9];
+	mlx_texture_t	*dead_textures[1];
+	int				walking_texture_nb;
+	double			dis;
+	int				frame_count;
+	int				frame_cooldown;
+	double			delta_angle;
+	int				x_on_screen;
+	double			brightness;
+}	t_enemy;
 
 typedef struct s_map
 {
@@ -96,14 +126,19 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
-	mlx_texture_t	*placeholder;
-}					t_map;
+	mlx_texture_t	*health_text[2];
+	mlx_texture_t	*ammo_text[2];
+	mlx_texture_t	*exit_text[2];
+	t_list			*enemy_list;
+}	t_map;
 
 typedef struct s_player
 {
 	t_vector	*pos;
 	t_vector	*dir;
-}			t_player;
+	int			hp;
+	int			ammo;
+}	t_player;
 
 typedef struct s_fps
 {
@@ -122,18 +157,23 @@ typedef struct s_minimap
 
 typedef struct s_hud
 {
-	mlx_image_t	*hud_img;
-	t_fps		*fps;
-	t_minimap	*minimap;
+	mlx_image_t		*hud_img;
+	t_fps			*fps;
+	t_minimap		*minimap;
 }	t_hud;
 
 typedef struct s_window
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_player	*player;
-	t_map		*map;
-	t_hud		*hud;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_player		*player;
+	t_map			*map;
+	t_hud			*hud;
+	t_enemy			**all_enemies;
+	t_window_state	state;
+	int				fog;
+	bool			redraw;
+	int				frame_count;
 }	t_window;
 
 //free_utils.c
@@ -142,20 +182,21 @@ void			free_filecontent(t_file_content *file_content);
 void			free_cubes(t_map *map);
 
 //utils.c
-int				on_screen(int x, int y);
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
 bool			ft_iswhitespace(char *str);
 
 //rotate.c
-void			rotate_hor_f(t_vector *before, t_vector *after, double angle);
+void			rotate(t_vector *before, t_vector *after, double angle);
 void			norm(t_vector *v, double future_length);
 
 //math/misc.c
 double			quad_add(double x, double y);
 double			ft_modf(double num);
+int				sign(double x);
 
 // validate_map.c
 bool			map_is_valid(t_map *map);
+
 // validate_options.c
 bool			options_are_valid(t_map *map);
 
@@ -182,29 +223,27 @@ void			set_ceiling_color(t_map *map, int color);
 void			set_cube_value(t_map *map, int line, int column, char c);
 
 // vector utils
-t_vector		*set_vec(t_vector *vec, double x, double y, double z);
+t_vector		*set_vec(t_vector *vec, double x, double y);
 
 //distance.c
 double			distance(t_vector pos, t_vector target);
-double			dot_product(t_vector v1, t_vector v2);
-double			abs_vector(t_vector v);
 double			distance_perpendicular(t_vector pos, t_vector dir,
 					t_vector target);
 
 //keyboard_input.c
-void			escape_handler(void *arg);
 void			player_movement(void *arg);
+void			cub_key_hook(mlx_key_data_t keydata, void *arg);
+void			mouse_movement(void *arg);
 
 //raycasting.c
 void			draw_scene(t_window *window);
 
 //textures.c
-u_int32_t		get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
+int				get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
 int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,
 					int window_y, int start);
-int				dim_color(int color, double distance);
 mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 					t_direction direction);
 
@@ -219,6 +258,7 @@ int				get_alpha(int rgba);
 double			min(double a, double b);
 double			max(double a, double b);
 bool			is_on_map(double x, double y, t_map *map);
+bool			is_on_screen(int x, int y);
 
 //hud.c
 void			setup_hud(t_window *window);
@@ -227,8 +267,39 @@ void			draw_hud(void *arg);
 //minimap.c
 void			draw_minimap(t_window *window);
 void			draw_minimap_background(t_window *window);
+void			draw_minimap_enemies(t_window *window);
 
 //doors.c
-void			door_handler(mlx_key_data_t keydata, void *arg);
+void			door_handler(t_window *window, mlx_key_data_t keydata);
+
+//movement.c
+bool			change_player_position(t_window *window, double angle);
+bool			rotate_camera(t_window *window, double turn_speed);
+
+//enemies
+void			enemie_handler(void *arg);
+void			draw_enemies(t_window *window);
+void			check_enemies_state(t_window *window);
+void			move_enemies(t_window *window);
+void			set_enemy_dir(t_enemy *enemy, t_player *player);
+void			setup_enemy_struct(t_window *window, t_map *map);
+void			attack_enemies(t_window *window);
+
+//player_attack.c
+void			player_attack(void *arg);
+
+//endcondition.c
+void			check_dead(void *arg);
+void			won_game(t_window *window);
+
+//start_end_screen.c
+void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);
+void			start_screen_hook(mlx_key_data_t keydata, void *arg);
+
+//setup.c
+t_window		*general_setup(t_map *map);
+
+//main.c
+void			redraw_window(void *arg);
 
 #endif

@@ -49,6 +49,7 @@ static t_map	*init_map(void)
 	map->width = 0;
 	map->height = 0;
 	map->door = NULL;
+	map->enemy_list = NULL;
 	map->has_spawn = false;
 	state = malloc(sizeof(t_parser_state));
 	state->map_parsed = false;
