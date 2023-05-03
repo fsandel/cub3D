@@ -127,7 +127,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 			&& !map->state->map_parsed)
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
 		else if (is_valid_map_str(str))
-			parse_map(str, fd, map, file_content);
+			parse_map(&str, fd, map, file_content);
 		else
 		{
 			if (!ft_iswhitespace(str))
