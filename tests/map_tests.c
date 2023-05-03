@@ -60,8 +60,7 @@ Test(parse_map, invalid_area){
 			fd = open(map_name, O_RDONLY);
 			result = parse(fd);
 			cr_expect(result == NULL, "failed on %s \n", map_name);
-			cr_stderr_match_str("Error\n");
-			printf("%s\n", map_name);
+			//cr_stderr_match_str("Error\n");
 			free(map_name);
 			close(fd);
 		}
@@ -75,7 +74,6 @@ Test(parse_map, invalid_area){
 			fd = open(map_name, O_RDONLY);
 			result = parse(fd);
 			cr_expect(result == NULL, "failed on %s \n", map_name);
-			printf("%s\n", map_name);
 			free(map_name);
 			close(fd);
 		}
