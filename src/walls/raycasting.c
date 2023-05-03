@@ -106,8 +106,7 @@ static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 	t_vector	old;
 
 	set_vec(target, pos->x, pos->y);
-	while (get_cube_type(target, map) != wall
-		&& get_cube_type(target, map) != door_closed)
+	while (get_cube_type(target, map) < wall)
 	{
 		set_dx_and_dy(&dx, &dy, dir, target);
 		angle = atan2(dir->y, dir->x);

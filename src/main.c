@@ -5,7 +5,7 @@ void	redraw_window(void *arg)
 	t_window	*window;
 
 	window = (t_window *)arg;
-	if (window->active == false)
+	if (window->state != game_screen)
 		return ;
 	if (window->redraw == true)
 	{

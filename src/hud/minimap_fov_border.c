@@ -12,8 +12,7 @@ static void	draw_minimap_ray(t_window *window, t_vector dir, t_minimap *minimap)
 	const int	zoom = minimap->zoom;
 
 	set_vec(&pos, window->player->pos->x, window->player->pos->y);
-	while (get_cube_type(&pos, window->map) != wall
-		&& get_cube_type(&pos, window->map) != door_closed)
+	while (get_cube_type(&pos, window->map) < wall)
 	{
 		x = (pos.x - window->player->pos->x) * size / zoom + minimap->pix_pos_x;
 		y = (pos.y - window->player->pos->y) * size / zoom + minimap->pix_pos_y;

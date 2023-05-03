@@ -58,7 +58,7 @@ void	player_attack(void *arg)
 	t_window	*window;
 
 	window = (t_window *)arg;
-	if (window->active == false)
+	if (window->state != game_screen)
 		return ;
 	muzzle_flair(window);
 }

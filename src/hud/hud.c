@@ -10,7 +10,7 @@ void	draw_hud(void *arg)
 	static int	delay = 0;
 
 	window = (t_window *)arg;
-	if (window->active == false)
+	if (window->state != game_screen)
 		return ;
 	draw_minimap(window);
 	delay++;
@@ -59,6 +59,7 @@ static void	fps(t_window *window)
 	temp_img = fps_img;
 	fps_img = mlx_put_string(window->mlx, fps_char_joined,
 			WIDTH - 100, HEIGHT + 10);
+	mlx_set_instance_depth(fps_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(fps_char);
@@ -81,6 +82,7 @@ static void	hp(t_window *window)
 	temp_img = hp_img;
 	hp_img = mlx_put_string(window->mlx, hp_char_joined,
 			WIDTH / 2, HEIGHT + 10);
+	mlx_set_instance_depth(hp_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(hp_char);
@@ -103,6 +105,7 @@ static void	ammo(t_window *window)
 	temp_img = ammo_img;
 	ammo_img = mlx_put_string(window->mlx, ammo_char_joined,
 			10, HEIGHT + 10);
+	mlx_set_instance_depth(ammo_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(ammo_char);

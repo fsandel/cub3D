@@ -4,6 +4,8 @@ static void		setup_start_screen(t_window *window);
 static void		implement_loop_hooks(t_window *window);
 static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
+void			frame_counter_hook(void *arg);
+void			start_screen_loop_hook(void *arg);
 
 t_window	*general_setup(t_map *map)
 {
@@ -33,15 +35,21 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player->ammo = STARTING_AMMO;
 	window->player->pos = window->map->start_pos;
 	window->player->dir = window->map->start_dir;
+	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
-	window->active = false;
+	window->state = start_screen;
+	map->ammo_text[0] = mlx_load_png("textures/shelf_ammo.png");
+	map->ammo_text[1] = mlx_load_png("textures/shelf_empty1.png");
+	map->health_text[0] = mlx_load_png("textures/shelf_health.png");
+	map->health_text[1] = mlx_load_png("textures/shelf_empty3.png");
+	map->exit_text[0] = mlx_load_png("textures/exit1.png");
+	map->exit_text[1] = mlx_load_png("textures/exit2.png");
 	return (window);
 }
 
 static void	setup_start_screen(t_window *window)
 {
-	draw_tex_to_screen(window->img, START_SCREEN);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
 }
 
@@ -53,6 +61,7 @@ static void	setup_mouse(t_window *window)
 
 static void	implement_loop_hooks(t_window *window)
 {
+	mlx_loop_hook(window->mlx, start_screen_loop_hook, window);
 	mlx_loop_hook(window->mlx, player_movement, window);
 	mlx_loop_hook(window->mlx, draw_hud, window);
 	mlx_loop_hook(window->mlx, redraw_window, window);
@@ -60,4 +69,5 @@ static void	implement_loop_hooks(t_window *window)
 	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, mouse_movement, window);
 	mlx_loop_hook(window->mlx, check_dead, window);
+	mlx_loop_hook(window->mlx, frame_counter_hook, window);
 }

@@ -32,12 +32,17 @@ typedef struct s_file_content
 
 typedef enum e_cube_type
 {
-	empty,
 	spawn,
 	door_open,
 	walkable,
 	wall,
-	door_closed
+	door_closed,
+	health_full,
+	health_empty,
+	ammo_full,
+	ammo_empty,
+	exit_cube,
+	empty
 }	t_cube_type;
 
 typedef enum e_direction
@@ -56,6 +61,13 @@ typedef enum e_enemy_state
 	hunting,
 	attacking
 }	t_enemy_state;
+
+typedef enum e_window_state
+{
+	start_screen,
+	game_screen,
+	end_screen
+}	t_window_state;
 
 typedef struct s_enemy
 {
@@ -87,6 +99,9 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	mlx_texture_t	*health_text[2];
+	mlx_texture_t	*ammo_text[2];
+	mlx_texture_t	*exit_text[2];
 	t_list			*enemy_list;
 }	t_map;
 
@@ -122,15 +137,16 @@ typedef struct s_hud
 
 typedef struct s_window
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_player	*player;
-	t_map		*map;
-	t_hud		*hud;
-	t_enemy		**all_enemies;
-	int			fog;
-	bool		redraw;
-	bool		active;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_player		*player;
+	t_map			*map;
+	t_hud			*hud;
+	t_enemy			**all_enemies;
+	t_window_state	state;
+	int				fog;
+	bool			redraw;
+	int				frame_count;
 }	t_window;
 
 //free_utils.c
@@ -239,6 +255,7 @@ void			player_attack(void *arg);
 
 //endcondition.c
 void			check_dead(void *arg);
+void			won_game(t_window *window);
 
 //start_end_screen.c
 void			draw_tex_to_screen(mlx_image_t *img, char *texture_string);

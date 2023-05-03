@@ -49,6 +49,30 @@ void	start_screen_hook(mlx_key_data_t keydata, void *arg)
 	{
 		ft_bzero(window->img->pixels, (HEIGHT + HUD_SIZE) * WIDTH * 4);
 		mlx_key_hook(window->mlx, cub_key_hook, window);
-		window->active = true;
+		window->state = game_screen;
 	}
+}
+
+void	start_screen_loop_hook(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	if (window->state != start_screen)
+		return ;
+	if (window->frame_count % 24 < 12)
+		draw_tex_to_screen(window->img, START_SCREEN1);
+	else
+		draw_tex_to_screen(window->img, START_SCREEN);
+}
+
+void	frame_counter_hook(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	if (window->frame_count < INT32_MAX)
+		window->frame_count++;
+	else
+		window->frame_count = 0;
 }
