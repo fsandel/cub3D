@@ -69,19 +69,23 @@ static void	setup_weapon(t_window *window)
 	int				x_iter;
 	int				y_iter;
 	mlx_texture_t	*tex;
-	const int		x_max = 200;
-	const int		y_max = 200;
+	const int		x_max = 300;
+	const int		y_max = 300;
 	int				color;
-	const int		x_offset = 300;
-	const int		y_offset = 300;
+	const int		x_offset = 800;
+	const int		y_offset = 1000;
 
 	tex = mlx_load_png("textures/gun0.png");
 	y_iter = -y_max;
 	while (++y_iter < y_max)
 	{
+		if (y_iter + y_offset >= HEIGHT)
+			continue;
 		x_iter = -x_max;
 		while (++x_iter < x_max)
 		{
+			if (x_iter + x_offset >= WIDTH)
+				continue;
 			color = weapon_get_color(1 - (x_max - x_iter) / 2.0 / x_max , 1 - (y_max - y_iter) / 2.0 / y_max, tex);
 			mlx_put_pixel(window->hud->hud_img, x_iter + x_offset, y_iter + y_offset, color);
 		}
@@ -93,7 +97,7 @@ static void	draw_cross_hair(t_window *window)
 {
 	int			x_iter;
 	int			y_iter;
-	const int	size = 20;
+	const int	size = 25;
 	const int	width = 2;
 
 	y_iter = -size;
@@ -103,7 +107,7 @@ static void	draw_cross_hair(t_window *window)
 		while (x_iter <= width)
 		{
 			mlx_put_pixel(window->hud->hud_img, x_iter + WIDTH / 2, y_iter + HEIGHT / 2, 0x000000ff);
-			x_iter++;
+			
 		}
 		y_iter++;
 	}
