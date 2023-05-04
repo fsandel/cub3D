@@ -104,9 +104,9 @@ void	draw_cross_hair(t_window *window)
 {
 	int			x_iter;
 	int			y_iter;
-	const int	size = 35;
+	const int	size = 35 + window->player->weapon->cooldown;
 	const int	width = 0;
-	const int	free_space = 5;
+	const int	free_space = 5 + window->player->weapon->cooldown;
 
 	y_iter = -size - 1;
 	while (y_iter++ <= size)
@@ -153,7 +153,7 @@ void	clean_cross_hair(t_window *window)
 {
 	int			x_iter;
 	int			y_iter;
-	const int	size = 35;
+	const int	size = 35 + 10;
 	const int	width = 0;
 
 	y_iter = -size - 1;

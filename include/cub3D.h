@@ -83,6 +83,7 @@ typedef struct s_weapon
 	mlx_texture_t	*torch_tex[9];
 	mlx_texture_t	*gun_tex[2];
 	mlx_texture_t	*muzzle_tex[2];
+	int				cooldown;
 }	t_weapon;
 
 typedef struct s_enemy
