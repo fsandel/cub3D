@@ -28,7 +28,7 @@ void	draw_weapon_loop_hook(void *arg)
 	{
 		draw_weapon(window,
 			window->player->weapon->torch_tex[(window->frame_count % 24) / 3]);
-		window->fog = FOG + 3;
+		window->fog = FOG + 5;
 	}
 }
 
@@ -67,22 +67,24 @@ void	draw_weapon(t_window *window, mlx_texture_t *tex)
 	int				x_iter;
 	int				y_iter;
 	int				color;
+	const t_vector_int	offset = (t_vector_int){WEAPON_OFFSET_X,
+		WEAPON_OFFSET_Y - window->player->weapon->cooldown};
 
 	y_iter = -WEAPON_SIZE_Y;
 	while (++y_iter < WEAPON_SIZE_Y)
 	{
-		if (y_iter + WEAPON_OFFSET_Y >= HEIGHT)
+		if (y_iter + offset.y >= HEIGHT)
 			continue ;
 		x_iter = -WEAPON_SIZE_X;
 		while (++x_iter < WEAPON_SIZE_X)
 		{
-			if (x_iter + WEAPON_OFFSET_X >= WIDTH)
+			if (x_iter + offset.x >= WIDTH)
 				continue ;
 			color = weapon_get_color(
 					1 - (WEAPON_SIZE_X - x_iter) / 2.0 / WEAPON_SIZE_X,
 					1 - (WEAPON_SIZE_Y - y_iter) / 2.0 / WEAPON_SIZE_Y, tex);
 			mlx_put_pixel(window->hud->hud_img,
-				x_iter + WEAPON_OFFSET_X, y_iter + WEAPON_OFFSET_Y, color);
+				x_iter + offset.x, y_iter + offset.y, color);
 		}
 	}
 }
@@ -153,7 +155,7 @@ void	clean_cross_hair(t_window *window)
 {
 	int			x_iter;
 	int			y_iter;
-	const int	size = 35 + 10;
+	const int	size = 35 + WEAPON_COOLDOWN;
 	const int	width = 0;
 
 	y_iter = -size - 1;

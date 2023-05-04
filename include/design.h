@@ -50,6 +50,8 @@
 # define WEAPON_OFFSET_X 750
 # define WEAPON_OFFSET_Y 900
 
+# define WEAPON_COOLDOWN 10
+
 # define CROSSHAIR_COLOR 0xc3c3c3ff
 
 #endif

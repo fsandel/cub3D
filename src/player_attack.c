@@ -59,7 +59,7 @@ static	void	muzzle_flair(t_window *window)
 		player_shoot(window);
 		draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], true);
 		window->fog += 10;
-		window->player->weapon->cooldown = 10;
+		window->player->weapon->cooldown = WEAPON_COOLDOWN;
 		counter = 4;
 		window->redraw = true;
 		window->player->ammo--;
@@ -82,5 +82,6 @@ void	player_attack(void *arg)
 	window = (t_window *)arg;
 	if (window->state != game_screen)
 		return ;
-	muzzle_flair(window);
+	if (window->player->weapon->weapon_type == gun)
+		muzzle_flair(window);
 }
