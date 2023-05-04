@@ -26,7 +26,8 @@ static	double	get_speed(t_window *window)
 {
 	double	speed;
 
-	if (mlx_is_key_down(window->mlx, MLX_KEY_LEFT_SHIFT))
+	if (mlx_is_key_down(window->mlx, MLX_KEY_LEFT_SHIFT)
+		&& mlx_is_key_down(window->mlx, MLX_KEY_W))
 		speed = SPRINT_SPEED;
 	else
 		speed = SPEED;
