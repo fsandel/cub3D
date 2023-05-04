@@ -46,8 +46,10 @@
 # define AMMO_PICKUP 16
 
 # define WEAPON_SIZE_X 300
-# define WEAPON_SIZE_y 300
+# define WEAPON_SIZE_Y 300
 # define WEAPON_OFFSET_X 750
 # define WEAPON_OFFSET_Y 900
+
+# define CROSSHAIR_COLOR 0xc3c3c3ff
 
 #endif
