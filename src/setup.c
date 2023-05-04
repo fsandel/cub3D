@@ -5,7 +5,6 @@ static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
-static t_weapon	*setup_weapon(void);
 
 t_window	*general_setup(t_map *map)
 {
@@ -30,16 +29,11 @@ static t_window	*setup_window_struct(t_map *map)
 	mlx_image_to_window(window->mlx, window->img, 0, 0);
 	mlx_set_instance_depth(window->img->instances, 1);
 	window->map = map;
-	window->player = malloc(sizeof(t_player));
-	window->player->hp = STARTING_HP;
-	window->player->ammo = STARTING_AMMO;
-	window->player->pos = window->map->start_pos;
-	window->player->dir = window->map->start_dir;
-	window->player->weapon = setup_weapon();
 	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
 	window->state = start_screen;
+	window->player = setup_player(window->map);
 	map->ammo_text[0] = mlx_load_png("textures/shelf_ammo.png");
 	map->ammo_text[1] = mlx_load_png("textures/shelf_empty1.png");
 	map->health_text[0] = mlx_load_png("textures/shelf_health.png");
@@ -48,26 +42,6 @@ static t_window	*setup_window_struct(t_map *map)
 	map->exit_text[1] = mlx_load_png("textures/exit2.png");
 	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
 	return (window);
-}
-
-static t_weapon	*setup_weapon(void)
-{
-	t_weapon	*weapon;
-
-	weapon = malloc(sizeof(t_weapon));
-	weapon->weapon_type = torch;
-	weapon->gun_tex[0] = mlx_load_png("textures/gun0.png");
-	weapon->gun_tex[1] = NULL;
-	weapon->torch_tex[0] = mlx_load_png("textures/torch0.png");
-	weapon->torch_tex[1] = mlx_load_png("textures/torch1.png");
-	weapon->torch_tex[2] = mlx_load_png("textures/torch2.png");
-	weapon->torch_tex[3] = mlx_load_png("textures/torch3.png");
-	weapon->torch_tex[4] = mlx_load_png("textures/torch4.png");
-	weapon->torch_tex[5] = mlx_load_png("textures/torch5.png");
-	weapon->torch_tex[6] = mlx_load_png("textures/torch6.png");
-	weapon->torch_tex[7] = mlx_load_png("textures/torch7.png");
-	weapon->torch_tex[8] = NULL;
-	return (weapon);
 }
 
 static void	setup_mouse(t_window *window)

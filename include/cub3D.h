@@ -290,4 +290,7 @@ void			draw_cross_hair(t_window *window);
 void			clean_weapon(t_window *window);
 void			draw_weapon_loop_hook(void *arg);
 
+//setup_player.c
+t_player		*setup_player(t_map *map);
+
 #endif
