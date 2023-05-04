@@ -54,7 +54,7 @@ static t_weapon	*setup_weapon(void)
 	t_weapon	*weapon;
 
 	weapon = malloc(sizeof(t_weapon));
-	weapon->weapon_type = gun;
+	weapon->weapon_type = torch;
 	weapon->gun_tex[0] = mlx_load_png("textures/gun0.png");
 	weapon->gun_tex[1] = NULL;
 	weapon->torch_tex[0] = mlx_load_png("textures/torch0.png");
@@ -84,6 +84,7 @@ static void	implement_loop_hooks(t_window *window)
 	mlx_loop_hook(window->mlx, enemie_handler, window);
 	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, mouse_movement, window);
+	mlx_loop_hook(window->mlx, draw_weapon_loop_hook, window);
 	mlx_loop_hook(window->mlx, check_dead, window);
 	mlx_loop_hook(window->mlx, frame_counter_hook, window);
 }

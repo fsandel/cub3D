@@ -3,6 +3,26 @@
 static int	weapon_get_color(double scale_x, double scale_y,
 				mlx_texture_t *tex);
 
+void	draw_weapon_loop_hook(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	if (mlx_is_key_down(window->mlx, MLX_KEY_1))
+		window->player->weapon->weapon_type = gun;
+	if (mlx_is_key_down(window->mlx, MLX_KEY_2))
+		window->player->weapon->weapon_type = torch;
+	if (mlx_is_key_down(window->mlx, MLX_KEY_3))
+		window->player->weapon->weapon_type = none;
+	if (window->state != game_screen)
+		return ;
+	clean_weapon(window);
+	if (window->player->weapon->weapon_type == gun)
+		draw_weapon(window, window->player->weapon->gun_tex[0]);
+	else if (window->player->weapon->weapon_type == torch)
+		draw_weapon(window, window->player->weapon->torch_tex[window->frame_count % 8]);
+}
+
 void	draw_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int				x_iter;

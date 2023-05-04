@@ -285,5 +285,7 @@ void			redraw_window(void *arg);
 //weapon.c
 void			draw_weapon(t_window *window, mlx_texture_t *tex);
 void			draw_cross_hair(t_window *window);
+void			clean_weapon(t_window *window);
+void			draw_weapon_loop_hook(void *arg);
 
 #endif
