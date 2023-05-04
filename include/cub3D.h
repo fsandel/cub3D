@@ -36,6 +36,7 @@ typedef enum e_cube_type
 	door_open,
 	walkable,
 	wall,
+	destructible,
 	door_closed,
 	health_full,
 	health_empty,
@@ -113,6 +114,7 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	mlx_texture_t	*destructible_tex;
 	mlx_texture_t	*health_text[2];
 	mlx_texture_t	*ammo_text[2];
 	mlx_texture_t	*exit_text[2];
