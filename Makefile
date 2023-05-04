@@ -1,7 +1,7 @@
 NAME			=	cub3D
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -g -Ofast #-Werror
+CFLAGS			=	-Wall -Wextra -g -Ofast -Werror
 LINKFLAGS		=
 REDIRECT		=	2> /dev/null 1> /dev/null
 OS				=	$(shell uname -s)
@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c movement.c player_attack.c start_end_screen.c endcondition.c setup.c weapon.c
+SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c movement.c player_attack.c start_end_screen.c endcondition.c setup.c weapon.c setup_player.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
