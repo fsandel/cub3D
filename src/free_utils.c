@@ -53,6 +53,9 @@ static void	free_weapon(t_weapon *weapon)
 	i = 0;
 	while (weapon->torch_tex[i])
 		mlx_delete_texture(weapon->torch_tex[i++]);
+	i = 0;
+	while (weapon->muzzle_tex[i])
+		mlx_delete_texture(weapon->muzzle_tex[i++]);
 	free(weapon);
 }
 

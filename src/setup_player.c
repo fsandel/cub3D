@@ -32,5 +32,7 @@ static t_weapon	*setup_weapon(void)
 	weapon->torch_tex[6] = mlx_load_png("textures/torch6.png");
 	weapon->torch_tex[7] = mlx_load_png("textures/torch7.png");
 	weapon->torch_tex[8] = NULL;
+	weapon->muzzle_tex[0] = mlx_load_png("textures/muzzle_flash.png");
+	weapon->muzzle_tex[1] = NULL;
 	return (weapon);
 }
