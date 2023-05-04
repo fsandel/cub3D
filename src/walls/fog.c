@@ -1,11 +1,11 @@
 #include <cub3D.h>
 
-static void	put_pixel_floor_fog(mlx_image_t *img, t_vector_int pix_pos,
+static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
 				int base_color, int fog);
-static int	get_rgba_from_tex_fog(const mlx_texture_t *tex,
+static int	get_rgba_from_tex(const mlx_texture_t *tex,
 				t_vector_int pix_pos, double dis, int fog);
 
-void	draw_vertical_line_fog(t_window *window, t_vector *target,
+void	draw_vertical_line(t_window *window, t_vector *target,
 				int p_x, t_direction direction)
 {
 	const double		dis = distance_perpendicular(*window->player->pos,
@@ -20,14 +20,14 @@ void	draw_vertical_line_fog(t_window *window, t_vector *target,
 	while (p.y < HEIGHT)
 	{
 		if (p.y < start)
-			put_pixel_floor_fog(window->img, p,
+			put_pixel_floor(window->img, p,
 				window->map->ceiling_color, window->fog);
 		else if (p.y >= start + line_height - 1)
-			put_pixel_floor_fog(window->img, p,
+			put_pixel_floor(window->img, p,
 				window->map->floor_color, window->fog);
 		else
 			mlx_put_pixel(window->img, p.x, p.y,
-				get_rgba_from_tex_fog(texture,
+				get_rgba_from_tex(texture,
 					(t_vector_int){texture_x_value(texture, target, direction),
 					texture_y_value(texture, line_height, p.y, start)},
 					dis, window->fog));
@@ -35,7 +35,7 @@ void	draw_vertical_line_fog(t_window *window, t_vector *target,
 	}
 }
 
-static int	get_rgba_from_tex_fog(const mlx_texture_t *tex,
+static int	get_rgba_from_tex(const mlx_texture_t *tex,
 				t_vector_int pix_pos, double dis, int fog)
 {
 	int				color;
@@ -45,14 +45,14 @@ static int	get_rgba_from_tex_fog(const mlx_texture_t *tex,
 
 	if (dis > fog)
 		return (0x000000ff);
-	color = get_rgba(tex->pixels[pos] * brightness,
-			tex->pixels[pos + 1] * brightness,
-			tex->pixels[pos + 2] * brightness,
-			tex->pixels[pos + 3]);
+	color = (int)(tex->pixels[pos] * brightness) << 24 |
+			(int)(tex->pixels[pos + 1] * brightness) << 16 |
+			(int)(tex->pixels[pos + 2] * brightness) << 8 |
+			(int)tex->pixels[pos + 3];
 	return (color);
 }
 
-static void	put_pixel_floor_fog(mlx_image_t *img, t_vector_int pix_pos,
+static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
 			int base_color, int fog)
 {
 	const double	brightness = max(abs(HEIGHT / 2 - pix_pos.y)
