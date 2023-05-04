@@ -21,6 +21,7 @@ static t_weapon	*setup_weapon(void)
 
 	weapon = malloc(sizeof(t_weapon));
 	weapon->weapon_type = gun;
+	weapon->cooldown = 0;
 	weapon->gun_tex[0] = mlx_load_png("textures/gun0.png");
 	weapon->gun_tex[1] = NULL;
 	weapon->torch_tex[0] = mlx_load_png("textures/torch0.png");
