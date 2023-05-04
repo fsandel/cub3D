@@ -291,7 +291,8 @@ void			draw_weapon(t_window *window, mlx_texture_t *tex);
 void			draw_cross_hair(t_window *window);
 void			clean_weapon(t_window *window);
 void			draw_weapon_loop_hook(void *arg);
-void			draw_muzzle_flash(t_window *window, mlx_texture_t *tex, bool draw);
+void			draw_muzzle_flash(t_window *window, mlx_texture_t *tex,
+					bool draw);
 
 //setup_player.c
 t_player		*setup_player(t_map *map);

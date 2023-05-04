@@ -43,7 +43,7 @@ static int	get_rgba_from_tex_fog(const mlx_texture_t *tex,
 		* tex->bytes_per_pixel;
 	const double	brightness = max(1.0 - (dis / fog), 0);
 
-	if (dis > FOG)
+	if (dis > fog)
 		return (0x000000ff);
 	color = get_rgba(tex->pixels[pos] * brightness,
 			tex->pixels[pos + 1] * brightness,

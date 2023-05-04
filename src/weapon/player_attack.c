@@ -28,7 +28,7 @@ static void	player_shoot_wall(t_window *window)
 		window->map->cubes[(int)temp.y][(int)temp.x] = walkable;
 }
 
-static void	player_shoot(t_window *window)
+static void	player_shoot_enemies(t_window *window)
 {
 	int		i;
 	bool	hit;
@@ -46,27 +46,26 @@ static void	player_shoot(t_window *window)
 		player_shoot_wall(window);
 }
 
-static	void	muzzle_flair(t_window *window)
+static	void	player_shoot(t_window *window)
 {
-	static int	counter = 0;
+	static int	brightness_counter = 0;
 
 	draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], false);
 	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT)
 		&& window->player->weapon->cooldown == 0
-		&& window->player->ammo > 0
-		&& window->player->weapon->weapon_type == gun)
+		&& window->player->ammo > 0)
 	{
-		player_shoot(window);
+		player_shoot_enemies(window);
 		draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], true);
 		window->fog += 10;
 		window->player->weapon->cooldown = WEAPON_COOLDOWN;
-		counter = 4;
+		brightness_counter = 4;
 		window->redraw = true;
 		window->player->ammo--;
 	}
-	if (counter > 0)
-		counter--;
-	if (counter == 0)
+	if (brightness_counter > 0)
+		brightness_counter--;
+	if (brightness_counter == 0)
 	{
 		window->fog = FOG;
 		window->redraw = true;
@@ -83,5 +82,5 @@ void	player_attack(void *arg)
 	if (window->state != game_screen)
 		return ;
 	if (window->player->weapon->weapon_type == gun)
-		muzzle_flair(window);
+		player_shoot(window);
 }
