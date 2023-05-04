@@ -45,10 +45,10 @@ static int	get_rgba_from_tex(const mlx_texture_t *tex,
 
 	if (dis > fog)
 		return (0x000000ff);
-	color = (int)(tex->pixels[pos] * brightness) << 24 |
-			(int)(tex->pixels[pos + 1] * brightness) << 16 |
-			(int)(tex->pixels[pos + 2] * brightness) << 8 |
-			(int)tex->pixels[pos + 3];
+	color = (int)(tex->pixels[pos] * brightness) << 24
+		| (int)(tex->pixels[pos + 1] * brightness) << 16
+		| (int)(tex->pixels[pos + 2] * brightness) << 8
+		| (int)tex->pixels[pos + 3];
 	return (color);
 }
 
