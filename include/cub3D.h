@@ -223,7 +223,6 @@ void			mouse_movement(void *arg);
 void			draw_scene(t_window *window);
 
 //textures.c
-int				get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
 int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,

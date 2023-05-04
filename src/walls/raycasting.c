@@ -1,9 +1,7 @@
 #include <cub3D.h>
 
-void				draw_vertical_line_fog(t_window *window, t_vector *target,
+void				draw_vertical_line(t_window *window, t_vector *target,
 						int p_x, t_direction direction);
-static void			draw_vertical_line(t_window *window, t_vector *target,
-						int i, t_direction direction);
 static t_direction	cast_ray_dda(t_vector *pos, t_vector *dir,
 						t_vector *target, t_map *map);
 
@@ -21,37 +19,8 @@ void	draw_scene(t_window *window)
 		rotate(window->player->dir, &ray_dir, ray_iter * fov / WIDTH);
 		dir = cast_ray_dda(window->player->pos, &ray_dir,
 				&target, window->map);
-		if (FOG > 0)
-			draw_vertical_line_fog(window, &target,
-				ray_iter + WIDTH / 2, dir);
-		else
-			draw_vertical_line(window, &target, ray_iter + WIDTH / 2, dir);
+		draw_vertical_line(window, &target, ray_iter + WIDTH / 2, dir);
 		ray_iter++;
-	}
-}
-
-static void	draw_vertical_line(t_window *window, t_vector *target, int p_x,
-				t_direction direction)
-{
-	const double		line_height = HEIGHT / distance_perpendicular(
-			*window->player->pos, *window->player->dir, *target);
-	const int			start = max(((HEIGHT - line_height) / 2), 0);
-	const mlx_texture_t	*texture = get_texture(window, target, direction);
-	int					p_y;
-
-	p_y = 0;
-	while (p_y < HEIGHT)
-	{
-		if (p_y < start)
-			mlx_put_pixel(window->img, p_x, p_y, window->map->ceiling_color);
-		else if (p_y >= start + line_height - 1)
-			mlx_put_pixel(window->img, p_x, p_y, window->map->floor_color);
-		else
-			mlx_put_pixel(window->img, p_x, p_y,
-				get_rgba_from_tex(texture,
-					texture_x_value(texture, target, direction),
-					texture_y_value(texture, line_height, p_y, start)));
-		p_y++;
 	}
 }
 
