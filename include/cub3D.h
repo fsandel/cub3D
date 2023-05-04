@@ -69,6 +69,20 @@ typedef enum e_window_state
 	end_screen
 }	t_window_state;
 
+typedef enum e_weapon_type
+{
+	none,
+	torch,
+	gun
+}	t_weapon_type;
+
+typedef struct s_weapon
+{
+	t_weapon_type	weapon_type;
+	mlx_texture_t	*torch[8];
+	mlx_texture_t	*gun[1];
+}	t_weapon;
+
 typedef struct s_enemy
 {
 	t_vector		pos;
@@ -107,6 +121,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	t_weapon	*weapon;
 	t_vector	*pos;
 	t_vector	*dir;
 	int			hp;
