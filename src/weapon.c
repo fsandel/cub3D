@@ -32,6 +32,36 @@ void	draw_weapon_loop_hook(void *arg)
 	}
 }
 
+void	draw_muzzle_flash(t_window *window, mlx_texture_t *tex, bool draw)
+{
+	int				x_iter;
+	int				y_iter;
+	int				color;
+	const t_vector_int	size = (t_vector_int){60, 40};
+	const t_vector_int	offset = (t_vector_int){510, 725};
+
+	y_iter = -size.y;
+	while (++y_iter < size.y)
+	{
+		if (y_iter + offset.y >= HEIGHT)
+			continue ;
+		x_iter = -size.x;
+		while (++x_iter < size.x)
+		{
+			if (x_iter + offset.x >= WIDTH)
+				continue ;
+			if (draw == true)
+				color = weapon_get_color(
+						(size.x - x_iter) / 2.0 / size.x,
+						1 - (size.y - y_iter) / 2.0 / size.y, tex);
+			else
+				color = 0x00000000;
+			mlx_put_pixel(window->hud->hud_img,
+				x_iter + offset.x, y_iter + offset.y, color);
+		}
+	}
+}
+
 void	draw_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int				x_iter;
@@ -59,8 +89,8 @@ void	draw_weapon(t_window *window, mlx_texture_t *tex)
 
 static int	weapon_get_color(double scale_x, double scale_y, mlx_texture_t *tex)
 {
-	const int	x_pos = tex->width * scale_x;
-	const int	y_pos = tex->width * scale_y;
+	const int	x_pos = tex->width * max(min(scale_x, 1), 0);
+	const int	y_pos = tex->height * max(min(scale_y, 1), 0);
 	const int	pos = (y_pos * tex->width + x_pos) * tex->bytes_per_pixel;
 	const int	color = get_rgba(tex->pixels[pos],
 			tex->pixels[pos + 1],
