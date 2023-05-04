@@ -5,7 +5,7 @@ static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
-static void		setup_weapon(t_window *window);
+static void		setup_weapon(t_window *window, mlx_texture_t *tex);
 static void		draw_cross_hair(t_window *window);
 
 t_window	*general_setup(t_map *map)
@@ -18,8 +18,10 @@ t_window	*general_setup(t_map *map)
 	setup_mouse(window);
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
-	setup_weapon(window);
-	draw_cross_hair(window);
+	mlx_texture_t	*tex = mlx_load_png("textures/gun0.png");
+	setup_weapon(window, tex);
+	mlx_delete_texture(tex);
+	//draw_cross_hair(window);
 	return (window);
 }
 
@@ -64,33 +66,26 @@ static int	weapon_get_color(double scale_x, double scale_y, mlx_texture_t *tex)
 	return (color);
 }
 
-static void	setup_weapon(t_window *window)
+static void	setup_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int				x_iter;
 	int				y_iter;
-	mlx_texture_t	*tex;
-	const int		x_max = 300;
-	const int		y_max = 300;
 	int				color;
-	const int		x_offset = 800;
-	const int		y_offset = 1000;
 
-	tex = mlx_load_png("textures/gun0.png");
-	y_iter = -y_max;
-	while (++y_iter < y_max)
+	y_iter = -WEAPON_SIZE_y;
+	while (++y_iter < WEAPON_SIZE_y)
 	{
-		if (y_iter + y_offset >= HEIGHT)
+		if (y_iter + WEAPON_OFFSET_Y >= HEIGHT)
 			continue;
-		x_iter = -x_max;
-		while (++x_iter < x_max)
+		x_iter = -WEAPON_SIZE_X;
+		while (++x_iter < WEAPON_SIZE_X)
 		{
-			if (x_iter + x_offset >= WIDTH)
+			if (x_iter + WEAPON_OFFSET_X >= WIDTH)
 				continue;
-			color = weapon_get_color(1 - (x_max - x_iter) / 2.0 / x_max , 1 - (y_max - y_iter) / 2.0 / y_max, tex);
-			mlx_put_pixel(window->hud->hud_img, x_iter + x_offset, y_iter + y_offset, color);
+			color = weapon_get_color(1 - (WEAPON_SIZE_X - x_iter) / 2.0 / WEAPON_SIZE_X , 1 - (WEAPON_SIZE_y - y_iter) / 2.0 / WEAPON_SIZE_y, tex);
+			mlx_put_pixel(window->hud->hud_img, x_iter + WEAPON_OFFSET_X, y_iter + WEAPON_OFFSET_Y, color);
 		}
 	}
-	mlx_delete_texture(tex);
 }
 
 static void	draw_cross_hair(t_window *window)

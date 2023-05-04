@@ -45,4 +45,9 @@
 # define HP_PICKUP 50
 # define AMMO_PICKUP 16
 
+# define WEAPON_SIZE_X 300
+# define WEAPON_SIZE_y 300
+# define WEAPON_OFFSET_X 750
+# define WEAPON_OFFSET_Y 900
+
 #endif
