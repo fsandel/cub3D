@@ -5,8 +5,6 @@ static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
-static void		setup_weapon(t_window *window, mlx_texture_t *tex);
-static void		draw_cross_hair(t_window *window);
 
 t_window	*general_setup(t_map *map)
 {
@@ -19,9 +17,8 @@ t_window	*general_setup(t_map *map)
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
 	mlx_texture_t	*tex = mlx_load_png("textures/gun0.png");
-	setup_weapon(window, tex);
+	draw_weapon(window, tex);
 	mlx_delete_texture(tex);
-	//draw_cross_hair(window);
 	return (window);
 }
 
@@ -53,71 +50,6 @@ static t_window	*setup_window_struct(t_map *map)
 	return (window);
 }
 
-static int	weapon_get_color(double scale_x, double scale_y, mlx_texture_t *tex)
-{
-	const int	x_pos = tex->width * scale_x;
-	const int	y_pos = tex->width * scale_y;
-	const int	pos = (y_pos * tex->width + x_pos) * tex->bytes_per_pixel;
-	const int	color = get_rgba(tex->pixels[pos],
-			tex->pixels[pos + 1],
-			tex->pixels[pos + 2],
-			tex->pixels[pos + 3]);
-
-	return (color);
-}
-
-static void	setup_weapon(t_window *window, mlx_texture_t *tex)
-{
-	int				x_iter;
-	int				y_iter;
-	int				color;
-
-	y_iter = -WEAPON_SIZE_y;
-	while (++y_iter < WEAPON_SIZE_y)
-	{
-		if (y_iter + WEAPON_OFFSET_Y >= HEIGHT)
-			continue;
-		x_iter = -WEAPON_SIZE_X;
-		while (++x_iter < WEAPON_SIZE_X)
-		{
-			if (x_iter + WEAPON_OFFSET_X >= WIDTH)
-				continue;
-			color = weapon_get_color(1 - (WEAPON_SIZE_X - x_iter) / 2.0 / WEAPON_SIZE_X , 1 - (WEAPON_SIZE_y - y_iter) / 2.0 / WEAPON_SIZE_y, tex);
-			mlx_put_pixel(window->hud->hud_img, x_iter + WEAPON_OFFSET_X, y_iter + WEAPON_OFFSET_Y, color);
-		}
-	}
-}
-
-static void	draw_cross_hair(t_window *window)
-{
-	int			x_iter;
-	int			y_iter;
-	const int	size = 25;
-	const int	width = 2;
-
-	y_iter = -size;
-	while (y_iter <= size)
-	{
-		x_iter = -width;
-		while (x_iter <= width)
-		{
-			mlx_put_pixel(window->hud->hud_img, x_iter + WIDTH / 2, y_iter + HEIGHT / 2, 0x000000ff);
-			
-		}
-		y_iter++;
-	}
-	y_iter = -width;
-	while (y_iter <= width)
-	{
-		x_iter = -size;
-		while (x_iter <= size)
-		{
-			mlx_put_pixel(window->hud->hud_img, x_iter + WIDTH / 2, y_iter + HEIGHT / 2, 0x000000ff);
-			x_iter++;
-		}
-		y_iter++;
-	}
-}
 static void	setup_mouse(t_window *window)
 {
 	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
