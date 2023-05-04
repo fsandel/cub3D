@@ -14,17 +14,26 @@ static bool	hit_enemy(t_enemy *enemy)
 		return (false);
 }
 
+static void player_shoot_wall(t_window *window)
+{
+	(void)window;
+}
+
 static void	player_shoot(t_window *window)
 {
-	int	i;
-
+	int		i;
+	bool	hit;
 	i = 0;
+	hit = false;
 	while (window->all_enemies[i])
 	{
-		if (hit_enemy(window->all_enemies[i]))
+		hit = hit_enemy(window->all_enemies[i]);
+		if (hit)
 			break ;
 		i++;
 	}
+	if (!hit)
+		player_shoot_wall(window);
 }
 
 static	void	muzzle_flair(t_window *window)
@@ -33,7 +42,7 @@ static	void	muzzle_flair(t_window *window)
 	static int	cooldown = 0;
 
 	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT) && cooldown == 0
-		&& window->player->ammo > 0)
+		&& window->player->ammo > 0 && window->player->weapon->weapon_type == gun)
 	{
 		player_shoot(window);
 		window->fog += 10;

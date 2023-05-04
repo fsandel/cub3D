@@ -61,6 +61,8 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 		return (window->map->exit_text[1]);
 	else if (cube_type == door_closed)
 		return (window->map->door);
+	else if (cube_type == destructible)
+		return (window->map->destructible_tex);
 	else
 		return (window->map->textures[north]);
 }

@@ -45,6 +45,8 @@ void	set_cube_value(t_map *map, int line, int column, char c)
 		map->cubes[line][column] = health_full;
 	else if (c == 'x')
 		map->cubes[line][column] = exit_cube;
+	else if (c == 'd')
+		map->cubes[line][column] = destructible;
 	else
 		map->cubes[line][column] = empty;
 }

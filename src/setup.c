@@ -46,6 +46,7 @@ static t_window	*setup_window_struct(t_map *map)
 	map->health_text[1] = mlx_load_png("textures/shelf_empty3.png");
 	map->exit_text[0] = mlx_load_png("textures/exit1.png");
 	map->exit_text[1] = mlx_load_png("textures/exit2.png");
+	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
 	return (window);
 }
 
