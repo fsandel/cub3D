@@ -51,11 +51,13 @@ static	void	muzzle_flair(t_window *window)
 	static int	counter = 0;
 	static int	cooldown = 0;
 
+	draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], false);
 	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT) && cooldown == 0
 		&& window->player->ammo > 0
 		&& window->player->weapon->weapon_type == gun)
 	{
 		player_shoot(window);
+		draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], true);
 		window->fog += 10;
 		cooldown = 10;
 		counter = 4;
