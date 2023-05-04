@@ -79,8 +79,8 @@ typedef enum e_weapon_type
 typedef struct s_weapon
 {
 	t_weapon_type	weapon_type;
-	mlx_texture_t	*torch[8];
-	mlx_texture_t	*gun[1];
+	mlx_texture_t	*torch_tex[9];
+	mlx_texture_t	*gun_tex[2];
 }	t_weapon;
 
 typedef struct s_enemy
