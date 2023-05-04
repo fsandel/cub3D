@@ -58,15 +58,10 @@ static void	put_pixel_floor_fog(mlx_image_t *img, t_vector_int pix_pos,
 	const double	brightness = max(abs(HEIGHT / 2 - pix_pos.y)
 			* fog / 4500.0, 0);
 	const uint8_t	alpha = base_color & 0xff;
-	const uint8_t	red = ((base_color >> 24) & 0xff) * brightness;
-	const uint8_t	green = ((base_color >> 16) & 0xff) * brightness;
-	const uint8_t	blue = ((base_color >> 8) & 0xff) * brightness;
+	const uint8_t	red = min(((base_color >> 24) & 0xff) * brightness, 255);
+	const uint8_t	green = min(((base_color >> 16) & 0xff) * brightness, 255);
+	const uint8_t	blue = min(((base_color >> 8) & 0xff) * brightness, 255);
 
-	if (brightness >= 1)
-		mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
-	else
-	{
-		base_color = (red << 24) | (green << 16) | (blue << 8) | alpha;
-		mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
-	}
+	base_color = (red << 24) | (green << 16) | (blue << 8) | alpha;
+	mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
 }
