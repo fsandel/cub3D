@@ -66,6 +66,7 @@ void	mouse_movement(void *arg)
 	int			x;
 	int			y;
 	bool		redraw;
+	int			x_diff;
 
 	window = (t_window *)arg;
 	if (window->state != game_screen)
@@ -78,9 +79,12 @@ void	mouse_movement(void *arg)
 	else
 		mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
 	mlx_get_mouse_pos(window->mlx, &x, &y);
-	x -= WIDTH / 2;
+	x_diff = x - WIDTH / 2;
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
-	redraw = rotate_camera(window, TURN_SPEED * x / 100);
+	mlx_get_mouse_pos(window->mlx, &x, &y);
+	if (x != WIDTH / 2 && y != HEIGHT / 2)
+		return ;
+	redraw = rotate_camera(window, TURN_SPEED * x_diff / 100);
 	if (redraw)
 		window->redraw = true;
 }
