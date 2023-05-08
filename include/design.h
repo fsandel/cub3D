@@ -37,10 +37,10 @@
 # define ENEMY_HEIGHT 350
 # define ENEMY_WIDTH 200
 
-# define START_SCREEN "textures/screen_start0.png"
-# define START_SCREEN1 "textures/screen_start1.png"
-# define DEFEAT_SCREEN "textures/screen_death.png"
-# define VICTORY_SCREEN "textures/screen_victory.png"
+# define START_SCREEN "textures/screen/screen_start0.png"
+# define START_SCREEN1 "textures/screen/screen_start1.png"
+# define DEFEAT_SCREEN "textures/screen/screen_death.png"
+# define VICTORY_SCREEN "textures/screen/screen_victory.png"
 
 # define HP_PICKUP 50
 # define AMMO_PICKUP 16

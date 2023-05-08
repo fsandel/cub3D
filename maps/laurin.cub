@@ -1,8 +1,8 @@
-NO textures/lwall1.png
-SO textures/lwall2.png
-WE textures/lwall3.png
-EA textures/lwall4.png
-DO textures/lock.png
+NO textures/laurin/lwall1.png
+SO textures/laurin/lwall2.png
+WE textures/laurin/lwall3.png
+EA textures/laurin/lwall4.png
+DO textures/door/lock.png
 
 F 203,166,247
 C 4,165,229
