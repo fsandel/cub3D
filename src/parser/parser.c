@@ -138,5 +138,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 		}
 		str = get_next_line(fd);
 	}
+	if (!file_content->map_lines)
+		map->state->error_type = invalid_map;
 	return (file_content);
 }
