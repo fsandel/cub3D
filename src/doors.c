@@ -43,8 +43,8 @@ static bool	interact_ammo_shelf(t_window *window, int x, int y)
 		return (false);
 	window->map->cubes[y][x] = ammo_empty;
 	window->player->ammo += AMMO_PICKUP;
-	if (window->player->ammo > STARTING_AMMO)
-		window->player->ammo = STARTING_AMMO;
+	if (window->player->ammo > STARTING_AMMO * 2)
+		window->player->ammo = STARTING_AMMO * 2;
 	return (true);
 }
 
