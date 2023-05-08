@@ -18,10 +18,10 @@ t_map	*parse(int fd)
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
 	file_content = read_file(fd, map, file_content);
+	map->cubes = create_map(file_content->map_lines, map);
 	if (map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
 	close(fd);
-	map->cubes = create_map(file_content->map_lines, map);
 	populate_map(file_content->map_lines, map);
 	if (!map_is_valid(map) || map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
@@ -132,7 +132,10 @@ static t_file_content	*read_file(int fd, t_map *map,
 		else
 		{
 			if (!ft_iswhitespace(str))
+			{
+				free(str);
 				map->state->error_type = opt_unknown;
+			}
 			else
 				free(str);
 		}
