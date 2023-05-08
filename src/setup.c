@@ -36,8 +36,10 @@ static t_window	*setup_window_struct(t_map *map)
 	window->player = setup_player(window->map);
 	map->ammo_text[0] = mlx_load_png("textures/interactable/shelf_ammo.png");
 	map->ammo_text[1] = mlx_load_png("textures/interactable/shelf_empty1.png");
-	map->health_text[0] = mlx_load_png("textures/interactable/shelf_health.png");
-	map->health_text[1] = mlx_load_png("textures/interactable/shelf_empty3.png");
+	map->health_text[0]
+		= mlx_load_png("textures/interactable/shelf_health.png");
+	map->health_text[1]
+		= mlx_load_png("textures/interactable/shelf_empty3.png");
 	map->exit_text[0] = mlx_load_png("textures/interactable/exit1.png");
 	map->exit_text[1] = mlx_load_png("textures/interactable/exit2.png");
 	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
