@@ -180,6 +180,7 @@ typedef struct s_window
 void			free_window_struct(t_window *window);
 void			free_filecontent(t_file_content *file_content);
 void			free_cubes(t_map *map);
+void			free_map(t_map *map);
 
 //utils.c
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);

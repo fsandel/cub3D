@@ -46,11 +46,18 @@ static t_map	*init_map(void)
 	map->textures[1] = NULL;
 	map->textures[2] = NULL;
 	map->textures[3] = NULL;
+	map->exit_text[0] = NULL;
+	map->exit_text[1] = NULL;
+	map->ammo_text[0] = NULL;
+	map->ammo_text[1] = NULL;
+	map->enemy_list = NULL;
 	map->width = 0;
 	map->height = 0;
 	map->door = NULL;
 	map->enemy_list = NULL;
 	map->has_spawn = false;
+	map->floor_color = -1;
+	map->ceiling_color = -1;
 	state = malloc(sizeof(t_parser_state));
 	state->map_parsed = false;
 	state->f_parsed = false;
@@ -98,6 +105,8 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 	t_cube_type	**res;
 	int			i;
 
+	if (!line_list)
+		return (NULL);
 	res = malloc((map->height + 1) * sizeof(t_cube_type *));
 	if (!res)
 		return (NULL);

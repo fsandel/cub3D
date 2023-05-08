@@ -23,15 +23,9 @@ void	parser_error(t_file_content *file_content, t_map *map)
 	print_error(map->state->error_type);
 	if (file_content)
 		free_filecontent(file_content);
-	if (map->state->map_parsed && map->cubes && *(map)->cubes)
-		free_cubes(map);
 	if (map)
 	{
-		if (map->start_dir)
-			free(map->start_dir);
-		if (map->start_pos)
-			free(map->start_pos);
-		free(map->state);
+		free_map(map);
 		free(map);
 	}
 }

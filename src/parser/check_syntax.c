@@ -50,13 +50,13 @@ bool	is_valid_f_c_str(char *f_c_str)
 
 	res = false;
 	comma_count = 0;
-	if ((f_c_str[0] == 'F' || f_c_str[0] == 'C') && f_c_str[1] == ' ')
+	if (f_c_str[0] == 'F' || f_c_str[0] == 'C')
 		res = true;
 	i = 2;
-	while (i < (int) ft_strlen(f_c_str + 2) - 1)
+	while (i < (int) ft_strlen(&f_c_str[1]))
 	{
 		if (!is_valid_color_char(f_c_str[i]))
-			res = false;
+			return (false);
 		if (f_c_str[i] == ',')
 			comma_count++;
 		i++;

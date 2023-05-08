@@ -2,7 +2,8 @@
 
 bool	options_are_valid(t_map *map)
 {
-	if (!map->floor_color || !map->ceiling_color)
+	if (!map->floor_color || !map->ceiling_color || map->floor_color == -1
+		|| map->ceiling_color == -1)
 	{
 		map->state->error_type = missing_option;
 		return (false);

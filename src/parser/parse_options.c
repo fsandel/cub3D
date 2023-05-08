@@ -85,8 +85,10 @@ static int	parse_rgb(char *str, int *r, int *g, int *b)
 	char	**str_vals;
 	int		i;
 
-	temp = ft_strtrim(str, "FC ");
+	temp = ft_strtrim(str, "FC \n");
 	str_vals = ft_split(temp, ',');
+	if (ft_arr_size(str_vals) != 3)
+		return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
 	i = 0;
 	while (i < 3)
 	{
