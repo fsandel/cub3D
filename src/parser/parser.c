@@ -1,64 +1,33 @@
 #include "cub3D.h"
 
-struct s_parser_state
-{
-	bool	map_parsed;
-};
-
-static t_map			*init_map(void);
-static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
+static t_file_content	*read_file(int fd, t_map *map,
 							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
 static t_cube_type		**create_map(t_list *line_list, t_map *map);
 
-// TODO: needs proper freeing on errors
 t_map	*parse(int fd)
 {
 	t_map					*map;
 	t_file_content			*file_content;
-	struct s_parser_state	state;
 
-	state.map_parsed = false;
 	map = init_map();
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
 		return (NULL);
 	file_content->option_lines = NULL;
 	file_content->map_lines = NULL;
-	file_content = read_file(fd, map, state, file_content);
-	if (!file_content)
-		return (NULL);
-	close(fd);
+	file_content = read_file(fd, map, file_content);
 	map->cubes = create_map(file_content->map_lines, map);
+	if (map->state->error_type > 0)
+		return (parser_error(file_content, map), NULL);
+	close(fd);
 	populate_map(file_content->map_lines, map);
-	if (!map_is_valid(map))
-		return (ft_putendl_fd("Error\nMap is invalid", STDERR_FILENO), NULL);
+	if (!map_is_valid(map) || map->state->error_type > 0)
+		return (parser_error(file_content, map), NULL);
 	parse_options(file_content->option_lines, map);
-	if (!options_are_valid(map))
-		return (ft_putendl_fd("Error\nInvalid options", STDERR_FILENO), NULL);
-	ft_lstclear(&file_content->map_lines, &free);
-	ft_lstclear(&file_content->option_lines, &free);
-	return (free(file_content), map);
-}
-
-/*
- * inits the map struct
- */
-static t_map	*init_map(void)
-{
-	t_map	*map;
-
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (NULL);
-	map->start_pos = malloc(sizeof(t_vector));
-	map->start_dir = malloc(sizeof(t_vector));
-	map->width = 0;
-	map->height = 0;
-	map->door_tex = NULL;
-	map->enemy_list = NULL;
-	map->has_spawn = false;
-	return (map);
+	if (!options_are_valid(map) || map->state->error_type > 0)
+		return (parser_error(file_content, map), NULL);
+	return (free_filecontent(file_content), map);
 }
 
 /*
@@ -98,6 +67,8 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
 	t_cube_type	**res;
 	int			i;
 
+	if (!line_list)
+		return (NULL);
 	res = malloc((map->height + 1) * sizeof(t_cube_type *));
 	if (!res)
 		return (NULL);
@@ -116,7 +87,7 @@ static t_cube_type	**create_map(t_list *line_list, t_map *map)
  * reads line by line from fd, adds line to map_lines or option_lines
  * and counts the mapwidth and height
  */
-static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
+static t_file_content	*read_file(int fd, t_map *map,
 							t_file_content *file_content)
 {
 	char	*str;
@@ -124,23 +95,24 @@ static t_file_content	*read_file(int fd, t_map *map, struct s_parser_state s,
 	str = get_next_line(fd);
 	while (str != NULL)
 	{
-		if (is_valid_tex_str(str) || is_valid_f_c_str(str))
+		if ((is_valid_tex_str(str) || is_valid_f_c_str(str))
+			&& !map->state->map_parsed)
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
-		else if (is_valid_map_str(str) && s.map_parsed == false)
-		{
-			while (str != NULL && is_valid_map_str(str))
-			{
-				ft_lstadd_back(&file_content->map_lines, ft_lstnew(str));
-				map->height++;
-				if ((int) ft_strlen(str) - 1 > map->width)
-					map->width = ft_strlen(str) - 1;
-				str = get_next_line(fd);
-			}
-			s.map_parsed = true;
-		}
+		else if (is_valid_map_str(str))
+			parse_map(&str, fd, map, file_content);
 		else
-			free(str);
+		{
+			if (!ft_iswhitespace(str))
+			{
+				free(str);
+				map->state->error_type = opt_unknown;
+			}
+			else
+				free(str);
+		}
 		str = get_next_line(fd);
 	}
+	if (!file_content->map_lines)
+		map->state->error_type = invalid_map;
 	return (file_content);
 }
