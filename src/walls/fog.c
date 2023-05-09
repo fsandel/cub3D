@@ -8,8 +8,8 @@ static int	get_rgba_from_tex(const mlx_texture_t *tex,
 void	draw_vertical_line(t_window *window, t_vector *target,
 				int p_x, t_direction direction)
 {
-	const double		dis = distance_perpendicular(*window->player->pos,
-			*window->player->dir, *target);
+	const double		dis = distance_perpendicular(window->player->pos,
+			window->player->dir, *target);
 	const double		line_height = HEIGHT / dis;
 	const int			start = max(((HEIGHT - line_height) / 2), 0);
 	const mlx_texture_t	*texture = get_texture(window, target, direction);

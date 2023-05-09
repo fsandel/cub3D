@@ -9,8 +9,8 @@ t_player	*setup_player(t_map *map)
 	player = malloc(sizeof(t_player));
 	player->hp = STARTING_HP;
 	player->ammo = STARTING_AMMO;
-	player->pos = map->start_pos;
-	player->dir = map->start_dir;
+	set_vec(&player->pos, map->start_pos.x, map->start_pos.y);
+	set_vec(&player->dir, map->start_dir.x, map->start_dir.y);
 	player->weapon = setup_weapon();
 	return (player);
 }

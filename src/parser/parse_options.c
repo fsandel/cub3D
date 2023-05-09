@@ -53,8 +53,8 @@ static void	parse_texture(char *input, t_map *map)
 		map->textures[west] = texture;
 	else if (ft_strncmp(str_vals[0], "EA", 2) == 0 && !map->textures[east])
 		map->textures[east] = texture;
-	else if (ft_strncmp(str_vals[0], "DO", 2) == 0 && !map->door)
-		map->door = texture;
+	else if (ft_strncmp(str_vals[0], "DO", 2) == 0 && !map->door_tex)
+		map->door_tex = texture;
 	else
 		map->state->error_type = too_many_textures;
 	ft_arr_free(str_vals);

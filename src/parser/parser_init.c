@@ -22,20 +22,14 @@ t_map	*init_map(void)
 	t_map			*map;
 
 	map = malloc(sizeof(t_map));
-	map->start_pos = malloc(sizeof(t_vector));
-	map->start_dir = malloc(sizeof(t_vector));
 	map->textures[0] = NULL;
 	map->textures[1] = NULL;
 	map->textures[2] = NULL;
 	map->textures[3] = NULL;
-	map->exit_text[0] = NULL;
-	map->exit_text[1] = NULL;
-	map->ammo_text[0] = NULL;
-	map->ammo_text[1] = NULL;
 	map->enemy_list = NULL;
 	map->width = 0;
 	map->height = 0;
-	map->door = NULL;
+	map->door_tex = NULL;
 	map->enemy_list = NULL;
 	map->has_spawn = false;
 	map->floor_color = get_rgba(0, 0, 0, 0);

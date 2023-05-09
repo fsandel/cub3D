@@ -4,22 +4,23 @@ static void	free_weapon(t_weapon *weapon);
 
 static void	free_all_enemies(t_window *window)
 {
-	int	i;
-	int	j;
+	int	enemy_iter;
+	int	tex_iter;
 
-	j = 0;
+	tex_iter = 0;
 	if (window->all_enemies[0])
 	{
-		while (j < window->all_enemies[0]->walking_texture_nb)
+		while (tex_iter < window->all_enemies[0]->tex_nb)
 		{
-			mlx_delete_texture(window->all_enemies[0]->attacking_textures[j]);
-			mlx_delete_texture(window->all_enemies[0]->walking_textures[j++]);
+			mlx_delete_texture(window->all_enemies[0]->attacking_tex[tex_iter]);
+			mlx_delete_texture(window->all_enemies[0]->walking_tex[tex_iter]);
+			tex_iter++;
 		}
-		mlx_delete_texture(window->all_enemies[0]->dead_textures[0]);
+		mlx_delete_texture(window->all_enemies[0]->dead_tex);
 	}
-	i = 0;
-	while (window->all_enemies[i])
-		free(window->all_enemies[i++]);
+	enemy_iter = 0;
+	while (window->all_enemies[enemy_iter])
+		free(window->all_enemies[enemy_iter++]);
 	free(window->all_enemies);
 }
 
@@ -38,8 +39,6 @@ void	free_cubes(t_map *map)
 
 static void	free_hud(t_window *window)
 {
-	free(window->hud->fps);
-	free(window->hud->minimap);
 	free(window->hud);
 }
 
@@ -63,6 +62,13 @@ void	free_window_struct(t_window *window)
 {
 	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
+	mlx_delete_texture(window->exit_tex[0]);
+	mlx_delete_texture(window->exit_tex[1]);
+	mlx_delete_texture(window->health_tex[0]);
+	mlx_delete_texture(window->health_tex[1]);
+	mlx_delete_texture(window->ammo_tex[0]);
+	mlx_delete_texture(window->ammo_tex[1]);
+	mlx_delete_texture(window->destructible_tex);
 	mlx_terminate(window->mlx);
 	free_hud(window);
 	free_weapon(window->player->weapon);

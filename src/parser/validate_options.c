@@ -15,7 +15,7 @@ bool	options_are_valid(t_map *map)
 		map->state->error_type = missing_option;
 		return (false);
 	}
-	if (map->state->contains_door && !map->door)
+	if (map->state->contains_door && !map->door_tex)
 	{
 		map->state->error_type = missing_option;
 		return (false);
