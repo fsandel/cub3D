@@ -35,23 +35,21 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 	if (cube_type == wall)
 		return (window->map->textures[direction]);
 	else if (cube_type == door_closed)
-		return (window->map->door);
+		return (window->map->door_tex);
 	else if (cube_type == ammo_full)
-		return (window->map->ammo_text[0]);
+		return (window->ammo_tex[0]);
 	else if (cube_type == ammo_empty)
-		return (window->map->ammo_text[1]);
+		return (window->ammo_tex[1]);
 	else if (cube_type == health_full)
-		return (window->map->health_text[0]);
+		return (window->health_tex[0]);
 	else if (cube_type == health_empty)
-		return (window->map->health_text[1]);
+		return (window->health_tex[1]);
 	else if (cube_type == exit_cube && window->frame_count % 32 < 16)
-		return (window->map->exit_text[0]);
+		return (window->exit_tex[0]);
 	else if (cube_type == exit_cube && window)
-		return (window->map->exit_text[1]);
-	else if (cube_type == door_closed)
-		return (window->map->door);
+		return (window->exit_tex[1]);
 	else if (cube_type == destructible)
-		return (window->map->destructible_tex);
+		return (window->destructible_tex);
 	else
 		return (window->map->textures[north]);
 }

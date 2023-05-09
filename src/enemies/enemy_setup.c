@@ -3,7 +3,7 @@
 static void	setup_enemy_textures(t_enemy **all_enemies);
 static void	setup_singular_enemy(t_enemy *enemy);
 
-t_enemy	**setup_enemy_struct(t_window *window, t_map *map)
+t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 {
 	const int	amount = ft_lstsize(map->enemy_list);
 	int			i;
@@ -19,7 +19,7 @@ t_enemy	**setup_enemy_struct(t_window *window, t_map *map)
 		setup_singular_enemy(all_enemies[i]);
 		all_enemies[i]->pos.x = ((t_vector *)(head->content))->x;
 		all_enemies[i]->pos.y = ((t_vector *)(head->content))->y;
-		set_enemy_dir(all_enemies[i], window->player);
+		set_enemy_dir(all_enemies[i], player);
 		head = head->next;
 		i++;
 	}

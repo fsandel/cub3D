@@ -55,7 +55,7 @@ static t_map	*init_map(void)
 	map->start_dir = malloc(sizeof(t_vector));
 	map->width = 0;
 	map->height = 0;
-	map->door = NULL;
+	map->door_tex = NULL;
 	map->enemy_list = NULL;
 	map->has_spawn = false;
 	return (map);

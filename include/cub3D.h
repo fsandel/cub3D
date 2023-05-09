@@ -115,11 +115,7 @@ typedef struct s_map
 	int				floor_color;
 	int				ceiling_color;
 	bool			has_spawn;
-	mlx_texture_t	*door;
-	mlx_texture_t	*destructible_tex;
-	mlx_texture_t	*health_text[2];
-	mlx_texture_t	*ammo_text[2];
-	mlx_texture_t	*exit_text[2];
+	mlx_texture_t	*door_tex;
 	t_list			*enemy_list;
 }	t_map;
 
@@ -158,6 +154,10 @@ typedef struct s_window
 	t_hud			*hud;
 	t_enemy			**all_enemies;
 	t_window_state	state;
+	mlx_texture_t	*destructible_tex;
+	mlx_texture_t	*health_tex[2];
+	mlx_texture_t	*ammo_tex[2];
+	mlx_texture_t	*exit_tex[2];
 	int				fog;
 	bool			redraw;
 	int				frame_count;
@@ -239,7 +239,7 @@ bool			is_on_map(double x, double y, t_map *map);
 bool			is_on_screen(int x, int y);
 
 //hud.c
-t_hud			*setup_hud(t_window *window);
+t_hud			*setup_hud(mlx_t *mlx);
 void			draw_hud(void *arg);
 
 //minimap.c
@@ -260,7 +260,7 @@ void			draw_enemies(t_window *window);
 void			check_enemies_state(t_window *window);
 void			move_enemies(t_window *window);
 void			set_enemy_dir(t_enemy *enemy, t_player *player);
-t_enemy			**setup_enemy_struct(t_window *window, t_map *map);
+t_enemy			**setup_enemy_struct(t_player *player, t_map *map);
 void			attack_enemies(t_window *window);
 
 //player_attack.c
