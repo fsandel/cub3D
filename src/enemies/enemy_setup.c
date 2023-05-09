@@ -64,25 +64,28 @@ static bool	load_textures(t_enemy *enemy)
 
 static void	setup_enemy_textures(t_enemy **all_enemies)
 {
-	int		i;
-	int		j;
+	int		enemy_iter;
+	int		tex_iter;
 	t_enemy	tex_enemy;
 
 	if (!all_enemies[0])
 		return ;
 	if (!load_textures(&tex_enemy))
 		return ;
-	i = 0;
-	while (all_enemies[i])
+	enemy_iter = 0;
+	while (all_enemies[enemy_iter])
 	{
-		j = 0;
-		while (j < all_enemies[0]->tex_nb)
+		tex_iter = 0;
+		while (tex_iter < tex_enemy.tex_nb)
 		{
-			all_enemies[i]->walking_tex[j] = tex_enemy.walking_tex[j];
-			all_enemies[i]->attacking_tex[j] = tex_enemy.attacking_tex[j];
-			j++;
+			all_enemies[enemy_iter]->walking_tex[tex_iter]
+				= tex_enemy.walking_tex[tex_iter];
+			all_enemies[enemy_iter]->attacking_tex[tex_iter]
+				= tex_enemy.attacking_tex[tex_iter];
+			tex_iter++;
 		}
-		all_enemies[i]->dead_tex = tex_enemy.dead_tex;
-		all_enemies[i++]->tex_nb = tex_enemy.tex_nb;
+		all_enemies[enemy_iter]->dead_tex = tex_enemy.dead_tex;
+		all_enemies[enemy_iter]->tex_nb = tex_enemy.tex_nb;
+		enemy_iter++;
 	}
 }
