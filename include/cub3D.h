@@ -12,6 +12,32 @@
 
 # include "design.h"
 
+enum e_parser_error
+{
+	no_error,
+	opt_unknown,
+	no_map,
+	no_opts,
+	map_not_last,
+	multiple_maps,
+	invalid_texture,
+	invalid_color,
+	too_many_textures,
+	too_many_spawns,
+	too_many_colors,
+	missing_option,
+	invalid_map
+};
+
+typedef struct s_parser_state
+{
+	bool				map_parsed;
+	bool				f_parsed;
+	bool				c_parsed;
+	bool				contains_door;
+	enum e_parser_error	error_type;
+}			t_parser_state;
+
 typedef struct s_vector
 {
 	double	x;
@@ -106,6 +132,7 @@ typedef struct s_enemy
 
 typedef struct s_map
 {
+	t_parser_state	*state;
 	t_cube_type		**cubes;
 	int				width;
 	int				height;
@@ -170,9 +197,13 @@ typedef struct s_window
 
 //free_utils.c
 void			free_window_struct(t_window *window);
+void			free_filecontent(t_file_content *file_content);
+void			free_cubes(t_map *map);
+void			free_map(t_map *map);
 
 //utils.c
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
+bool			ft_iswhitespace(char *str);
 
 //rotate.c
 void			rotate(t_vector *before, t_vector *after, double angle);
@@ -188,13 +219,22 @@ bool			map_is_valid(t_map *map);
 
 // validate_options.c
 bool			options_are_valid(t_map *map);
+bool			is_num_str(char *str);
+
+// parser_init.c
+t_map			*init_map(void);
 
 // parser
 t_map			*parse(int fd);
 int				args_valid(int argc, char **argv);
 
+//handle error
+void			parser_error(t_file_content *file_content, t_map *map);
+
 // parse_options.c
 void			parse_options(t_list *option_lines, t_map *map);
+void			parse_map(char **str, int fd, t_map *map,
+					t_file_content *file_content);
 
 // check_syntax.c
 bool			is_valid_map_str(char *map_str);

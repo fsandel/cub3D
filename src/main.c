@@ -14,7 +14,7 @@ void	redraw_window(void *arg)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main2(int argc, char **argv)
 {
 	t_window	*window;
 	t_map		*map;
@@ -26,9 +26,16 @@ int	main(int argc, char **argv)
 	else
 		return (EXIT_FAILURE);
 	if (!map)
-		return (EXIT_FAILURE);
+		return (close(fd), EXIT_FAILURE);
 	window = general_setup(map);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	main2(argc, argv);
+	system("leaks cub3D");
+	return (0);
 }

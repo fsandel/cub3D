@@ -28,7 +28,7 @@ void	free_cubes(t_map *map)
 	int	i;
 
 	i = 0;
-	while (i < map->height)
+	while (i < map->height && map->cubes[i])
 	{
 		free(map->cubes[i]);
 		i++;
@@ -63,26 +63,11 @@ void	free_window_struct(t_window *window)
 {
 	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
-	mlx_delete_texture(window->map->textures[north]);
-	mlx_delete_texture(window->map->textures[east]);
-	mlx_delete_texture(window->map->textures[south]);
-	mlx_delete_texture(window->map->textures[west]);
-	mlx_delete_texture(window->map->ammo_text[0]);
-	mlx_delete_texture(window->map->ammo_text[1]);
-	mlx_delete_texture(window->map->health_text[0]);
-	mlx_delete_texture(window->map->health_text[1]);
-	mlx_delete_texture(window->map->exit_text[0]);
-	mlx_delete_texture(window->map->exit_text[1]);
-	mlx_delete_texture(window->map->destructible_tex);
-	if (window->map->door)
-		mlx_delete_texture(window->map->door);
 	mlx_terminate(window->mlx);
-	free_cubes(window->map);
 	free_hud(window);
 	free_weapon(window->player->weapon);
 	free(window->player);
-	free(window->map->start_dir);
-	free(window->map->start_pos);
+	free_map(window->map);
 	free(window->map);
 	free(window);
 }

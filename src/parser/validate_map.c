@@ -8,18 +8,20 @@ bool	map_is_valid(t_map *map)
 	int	column;
 
 	line = 0;
-	if (map->width < 3 || map->height < 3)
-		return (false);
-	if (!map->has_spawn)
-		return (false);
+	if (map->width < 3 || map->height < 3 || !map->has_spawn)
+		return (map->state->error_type = invalid_map, false);
 	while (line < map->height)
 	{
 		column = 0;
 		while (column < map->width)
 		{
-			if (map->cubes[line][column] == walkable
+			if ((map->cubes[line][column] <= walkable
+				|| map->cubes[line][column] == door_closed)
 				&& !is_valid_field(map, line, column))
+			{
+				map->state->error_type = invalid_map;
 				return (false);
+			}
 			column++;
 		}
 		line++;
