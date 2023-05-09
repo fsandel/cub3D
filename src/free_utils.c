@@ -61,6 +61,13 @@ void	free_window_struct(t_window *window)
 {
 	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
+	mlx_delete_texture(window->exit_tex[0]);
+	mlx_delete_texture(window->exit_tex[1]);
+	mlx_delete_texture(window->health_tex[0]);
+	mlx_delete_texture(window->health_tex[1]);
+	mlx_delete_texture(window->ammo_tex[0]);
+	mlx_delete_texture(window->ammo_tex[1]);
+	mlx_delete_texture(window->destructible_tex);
 	mlx_terminate(window->mlx);
 	free_hud(window);
 	free_weapon(window->player->weapon);
