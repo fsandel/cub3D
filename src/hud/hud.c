@@ -29,7 +29,6 @@ void	setup_hud(t_window *window)
 	mlx_image_t	*hud_img;
 
 	window->hud = malloc(sizeof(t_hud));
-	window->hud->fps = malloc(sizeof(t_fps));
 	window->hud->minimap = malloc(sizeof(t_minimap));
 	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
 	window->hud->hud_img = hud_img;
@@ -37,7 +36,7 @@ void	setup_hud(t_window *window)
 	window->hud->minimap->pix_pos_y = 105;
 	window->hud->minimap->zoom = 5;
 	window->hud->minimap->radius = 100;
-	window->hud->fps->fps_num = 60;
+	window->hud->fps_num = 60;
 	mlx_image_to_window(window->mlx, window->hud->hud_img, 0, 0);
 	mlx_set_instance_depth(window->hud->hud_img->instances, 2);
 }
@@ -50,11 +49,11 @@ static void	fps(t_window *window)
 	static mlx_image_t	*fps_img = NULL;
 	static int			draw_order = 0;
 
-	window->hud->fps->fps_num = (int)(1 / window->mlx->delta_time);
+	window->hud->fps_num = (int)(1 / window->mlx->delta_time);
 	draw_order = (draw_order + 1) % 3;
 	if (draw_order != 0)
 		return ;
-	fps_char = ft_itoa(window->hud->fps->fps_num);
+	fps_char = ft_itoa(window->hud->fps_num);
 	fps_char_joined = ft_strjoin("FPS: ", fps_char);
 	temp_img = fps_img;
 	fps_img = mlx_put_string(window->mlx, fps_char_joined,

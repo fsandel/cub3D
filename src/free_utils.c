@@ -38,7 +38,6 @@ void	free_cubes(t_map *map)
 
 static void	free_hud(t_window *window)
 {
-	free(window->hud->fps);
 	free(window->hud->minimap);
 	free(window->hud);
 }

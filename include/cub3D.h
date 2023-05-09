@@ -132,13 +132,6 @@ typedef struct s_player
 	int			ammo;
 }	t_player;
 
-typedef struct s_fps
-{
-	int			fps_num;
-	int			*frame_time;
-	mlx_image_t	*fps_image;
-}	t_fps;
-
 typedef struct s_minimap
 {
 	int	pix_pos_x;
@@ -150,8 +143,10 @@ typedef struct s_minimap
 typedef struct s_hud
 {
 	mlx_image_t		*hud_img;
-	t_fps			*fps;
 	t_minimap		*minimap;
+	int				fps_num;
+	int				*frame_time;
+	mlx_image_t		*fps_image;
 }	t_hud;
 
 typedef struct s_window

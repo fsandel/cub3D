@@ -32,7 +32,7 @@ static	double	get_speed(t_window *window)
 	else
 		speed = SPEED;
 	if (DYNAMIC_SPEED == true)
-		speed *= 60.0f / window->hud->fps->fps_num;
+		speed *= 60.0f / window->hud->fps_num;
 	return (speed);
 }
 
@@ -62,7 +62,7 @@ bool	change_player_position(t_window *window, double angle)
 bool	rotate_camera(t_window *window, double turn_speed)
 {
 	if (DYNAMIC_TURN_SPEED == true)
-		turn_speed *= 60.0f / window->hud->fps->fps_num;
+		turn_speed *= 60.0f / window->hud->fps_num;
 	rotate(window->player->dir, window->player->dir, turn_speed);
 	return (true);
 }
