@@ -36,18 +36,6 @@ void	free_cubes(t_map *map)
 	free(map->cubes);
 }
 
-void	free_filecontent(t_file_content *file_content)
-{
-	if (file_content)
-	{
-		if (file_content->map_lines)
-			ft_lstclear(&file_content->map_lines, &free);
-		if (file_content->option_lines)
-			ft_lstclear(&file_content->option_lines, &free);
-		free(file_content);
-	}
-}
-
 static void	free_hud(t_window *window)
 {
 	free(window->hud->fps);

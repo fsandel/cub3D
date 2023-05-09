@@ -1,5 +1,17 @@
 #include <cub3D.h>
 
+void	free_filecontent(t_file_content *file_content)
+{
+	if (file_content)
+	{
+		if (file_content->map_lines)
+			ft_lstclear(&file_content->map_lines, &free);
+		if (file_content->option_lines)
+			ft_lstclear(&file_content->option_lines, &free);
+		free(file_content);
+	}
+}
+
 void	free_map(t_map *map)
 {
 	if (map->textures[north])
