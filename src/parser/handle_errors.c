@@ -26,7 +26,6 @@ void	parser_error(t_file_content *file_content, t_map *map)
 	if (map)
 	{
 		free_map(map);
-		free(map);
 	}
 }
 
