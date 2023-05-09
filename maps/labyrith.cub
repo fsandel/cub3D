@@ -2,7 +2,7 @@ NO textures/brick5.png
 SO textures/brick6.png
 WE textures/brick7.png
 EA textures/brick8.png
-DO textures/door3.png
+DO textures/door/door3.png
 
 F 20,18,16
 C 04,02,73

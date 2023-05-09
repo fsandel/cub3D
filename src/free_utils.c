@@ -1,5 +1,7 @@
 #include <cub3D.h>
 
+static void	free_weapon(t_weapon *weapon);
+
 static void	free_all_enemies(t_window *window)
 {
 	int	i;
@@ -53,12 +55,29 @@ static void	free_hud(t_window *window)
 	free(window->hud);
 }
 
+static void	free_weapon(t_weapon *weapon)
+{
+	int	i;
+
+	i = 0;
+	while (weapon->gun_tex[i])
+		mlx_delete_texture(weapon->gun_tex[i++]);
+	i = 0;
+	while (weapon->torch_tex[i])
+		mlx_delete_texture(weapon->torch_tex[i++]);
+	i = 0;
+	while (weapon->muzzle_tex[i])
+		mlx_delete_texture(weapon->muzzle_tex[i++]);
+	free(weapon);
+}
+
 void	free_window_struct(t_window *window)
 {
 	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
 	mlx_terminate(window->mlx);
 	free_hud(window);
+	free_weapon(window->player->weapon);
 	free(window->player);
 	free_map(window->map);
 	free(window->map);

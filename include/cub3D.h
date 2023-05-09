@@ -62,6 +62,7 @@ typedef enum e_cube_type
 	door_open,
 	walkable,
 	wall,
+	destructible,
 	door_closed,
 	health_full,
 	health_empty,
@@ -95,6 +96,22 @@ typedef enum e_window_state
 	end_screen
 }	t_window_state;
 
+typedef enum e_weapon_type
+{
+	none,
+	torch,
+	gun
+}	t_weapon_type;
+
+typedef struct s_weapon
+{
+	t_weapon_type	weapon_type;
+	mlx_texture_t	*torch_tex[9];
+	mlx_texture_t	*gun_tex[2];
+	mlx_texture_t	*muzzle_tex[2];
+	int				cooldown;
+}	t_weapon;
+
 typedef struct s_enemy
 {
 	t_vector		pos;
@@ -126,6 +143,7 @@ typedef struct s_map
 	int				ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door;
+	mlx_texture_t	*destructible_tex;
 	mlx_texture_t	*health_text[2];
 	mlx_texture_t	*ammo_text[2];
 	mlx_texture_t	*exit_text[2];
@@ -134,6 +152,7 @@ typedef struct s_map
 
 typedef struct s_player
 {
+	t_weapon	*weapon;
 	t_vector	*pos;
 	t_vector	*dir;
 	int			hp;
@@ -244,7 +263,6 @@ void			mouse_movement(void *arg);
 void			draw_scene(t_window *window);
 
 //textures.c
-int				get_rgba_from_tex(const mlx_texture_t *tex, int x, int y);
 int				texture_x_value(const mlx_texture_t *tex, t_vector *target,
 					t_direction direction);
 int				texture_y_value(const mlx_texture_t *tex, int line_height,
@@ -306,5 +324,16 @@ t_window		*general_setup(t_map *map);
 
 //main.c
 void			redraw_window(void *arg);
+
+//weapon.c
+void			draw_weapon(t_window *window, mlx_texture_t *tex);
+void			draw_cross_hair(t_window *window);
+void			clean_weapon(t_window *window);
+void			draw_weapon_loop_hook(void *arg);
+void			draw_muzzle_flash(t_window *window, mlx_texture_t *tex,
+					bool draw);
+
+//setup_player.c
+t_player		*setup_player(t_map *map);
 
 #endif

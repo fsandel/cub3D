@@ -1,16 +1,5 @@
 #include <cub3D.h>
 
-int	get_rgba_from_tex(const mlx_texture_t *tex, int x, int y)
-{
-	int	color;
-	int	pos;
-
-	pos = (y * tex->width + x) * tex->bytes_per_pixel;
-	color = get_rgba(tex->pixels[pos], tex->pixels[pos + 1],
-			tex->pixels[pos + 2], tex->pixels[pos + 3]);
-	return (color);
-}
-
 int	texture_x_value(const mlx_texture_t *tex, t_vector *target,
 		t_direction direction)
 {
@@ -61,6 +50,8 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 		return (window->map->exit_text[1]);
 	else if (cube_type == door_closed)
 		return (window->map->door);
+	else if (cube_type == destructible)
+		return (window->map->destructible_tex);
 	else
 		return (window->map->textures[north]);
 }

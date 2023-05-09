@@ -69,7 +69,7 @@ bool	is_valid_f_c_str(char *f_c_str)
 static bool	is_map_char(char c)
 {
 	if (c == '1' || c == '0' || c == 'N' || c == 'E' || c == 'S' || c == 'W'
-		|| c == 'D' || c == 'e' || c == 'a' || c == 'h' || c == 'x')
+		|| c == 'D' || c == 'e' || c == 'a' || c == 'h' || c == 'x' || c == 'd')
 		return (true);
 	if (c == ' ' || c == '\n')
 		return (true);

@@ -48,21 +48,22 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 {
 	unsigned int	color;
 	t_vector_int	iter;
-	const t_vector	max = (t_vector){ENEMY_WIDTH / enemy->dis,
+	const t_vector	lim = (t_vector){ENEMY_WIDTH / enemy->dis,
 		ENEMY_HEIGHT / enemy->dis};
 	const int		frame_count = enemy_adjust_frame_count(enemy);
 
-	iter.y = -max.y;
-	while (++iter.y < max.y)
+	iter.y = max(-lim.y, -HEIGHT / 2 - ENEMY_Y_OFFSET / enemy->dis);
+	while (++iter.y < lim.y
+		&& iter.y < HEIGHT / 2 - ENEMY_Y_OFFSET / enemy->dis)
 	{
-		iter.x = -max.x;
-		while (++iter.x < max.x)
+		iter.x = max(-lim.x, -500);
+		while (++iter.x < lim.x && iter.x < 500)
 		{
 			if (!is_on_screen(enemy->x_on_screen + iter.x,
 					HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
 				continue ;
-			color = enemy_get_pix((max.x + iter.x) / max.x / 2,
-					(iter.y + max.y) / 2 / max.y,
+			color = enemy_get_pix((lim.x + iter.x) / lim.x / 2,
+					(iter.y + lim.y) / 2 / lim.y,
 					enemy_get_texture(enemy, frame_count), enemy);
 			if (get_alpha(color) != 0)
 				mlx_put_pixel(window->img, enemy->x_on_screen + iter.x,

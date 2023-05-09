@@ -1,6 +1,5 @@
 #include <cub3D.h>
 
-static void		setup_start_screen(t_window *window);
 static void		implement_loop_hooks(t_window *window);
 static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
@@ -16,7 +15,7 @@ t_window	*general_setup(t_map *map)
 	setup_hud(window);
 	setup_mouse(window);
 	implement_loop_hooks(window);
-	setup_start_screen(window);
+	mlx_key_hook(window->mlx, start_screen_hook, window);
 	return (window);
 }
 
@@ -30,27 +29,21 @@ static t_window	*setup_window_struct(t_map *map)
 	mlx_image_to_window(window->mlx, window->img, 0, 0);
 	mlx_set_instance_depth(window->img->instances, 1);
 	window->map = map;
-	window->player = malloc(sizeof(t_player));
-	window->player->hp = STARTING_HP;
-	window->player->ammo = STARTING_AMMO;
-	window->player->pos = window->map->start_pos;
-	window->player->dir = window->map->start_dir;
 	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
 	window->state = start_screen;
-	map->ammo_text[0] = mlx_load_png("textures/shelf_ammo.png");
-	map->ammo_text[1] = mlx_load_png("textures/shelf_empty1.png");
-	map->health_text[0] = mlx_load_png("textures/shelf_health.png");
-	map->health_text[1] = mlx_load_png("textures/shelf_empty3.png");
-	map->exit_text[0] = mlx_load_png("textures/exit1.png");
-	map->exit_text[1] = mlx_load_png("textures/exit2.png");
+	window->player = setup_player(window->map);
+	map->ammo_text[0] = mlx_load_png("textures/interactable/shelf_ammo.png");
+	map->ammo_text[1] = mlx_load_png("textures/interactable/shelf_empty1.png");
+	map->health_text[0]
+		= mlx_load_png("textures/interactable/shelf_health.png");
+	map->health_text[1]
+		= mlx_load_png("textures/interactable/shelf_empty3.png");
+	map->exit_text[0] = mlx_load_png("textures/interactable/exit1.png");
+	map->exit_text[1] = mlx_load_png("textures/interactable/exit2.png");
+	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
 	return (window);
-}
-
-static void	setup_start_screen(t_window *window)
-{
-	mlx_key_hook(window->mlx, start_screen_hook, window);
 }
 
 static void	setup_mouse(t_window *window)
@@ -66,8 +59,9 @@ static void	implement_loop_hooks(t_window *window)
 	mlx_loop_hook(window->mlx, draw_hud, window);
 	mlx_loop_hook(window->mlx, redraw_window, window);
 	mlx_loop_hook(window->mlx, enemie_handler, window);
-	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, mouse_movement, window);
+	mlx_loop_hook(window->mlx, draw_weapon_loop_hook, window);
+	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, check_dead, window);
 	mlx_loop_hook(window->mlx, frame_counter_hook, window);
 }
