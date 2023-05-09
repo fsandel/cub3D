@@ -44,7 +44,7 @@ mlx_texture_t	*get_texture(t_window *window, t_vector *target,
 		return (window->health_tex[0]);
 	else if (cube_type == health_empty)
 		return (window->health_tex[1]);
-	else if (cube_type == exit_cube && window->frame_count % 32 < 16)
+	else if (cube_type == exit_cube && window->frame_count % 64 < 32)
 		return (window->exit_tex[0]);
 	else if (cube_type == exit_cube && window)
 		return (window->exit_tex[1]);

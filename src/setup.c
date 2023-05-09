@@ -42,16 +42,15 @@ static t_window	*setup_window_struct(t_map *map)
 
 static t_window	*load_extra_wall_textures(t_window *window)
 {
-	window->ammo_tex[0] = mlx_load_png("textures/interactable/shelf_ammo.png");
-	window->ammo_tex[1]
-		= mlx_load_png("textures/interactable/shelf_empty1.png");
+	window->ammo_tex[0] = mlx_load_png("textures/interactable/wolf_ammo.png");
+	window->ammo_tex[1] = mlx_load_png("textures/interactable/wolf_empty.png");
 	window->health_tex[0]
-		= mlx_load_png("textures/interactable/shelf_health.png");
+		= mlx_load_png("textures/interactable/wolf_health.png");
 	window->health_tex[1]
-		= mlx_load_png("textures/interactable/shelf_empty3.png");
-	window->exit_tex[0] = mlx_load_png("textures/interactable/exit1.png");
-	window->exit_tex[1] = mlx_load_png("textures/interactable/exit2.png");
-	window->destructible_tex = mlx_load_png("textures/cracked_wall.png");
+		= mlx_load_png("textures/interactable/wolf_empty.png");
+	window->exit_tex[0] = mlx_load_png("textures/interactable/wolf_exit.png");
+	window->exit_tex[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
+	window->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
 	return (window);
 }
 

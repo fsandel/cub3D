@@ -126,7 +126,7 @@ typedef struct s_enemy
 	char			frame_count;
 	char			frame_cooldown;
 	double			delta_angle;
-	char			x_on_screen;
+	short			x_on_screen;
 	double			brightness;
 }	t_enemy;
 
