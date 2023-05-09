@@ -63,48 +63,48 @@ static void	parse_texture(char *input, t_map *map)
 
 static void	parse_f_c(char *f_c_colors, t_map *map)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
-	int	success;
+	int		r;
+	int		g;
+	int		b;
+	int		a;
+	char	*trimmed;
 
 	a = 255;
-	success = parse_rgb(f_c_colors, &r, &g, &b);
-	if (success == 1)
+	trimmed = ft_strtrim(f_c_colors, "FC \n");
+	if (parse_rgb(trimmed, &r, &g, &b))
 		map->state->error_type = invalid_color;
 	if (f_c_colors[0] == 'F' && f_c_colors[1] == ' ')
 		set_floor_color(map, get_rgba(r, g, b, a));
 	else if (f_c_colors[0] == 'C' && f_c_colors[1] == ' ')
 		set_ceiling_color(map, get_rgba(r, g, b, a));
+	free(trimmed);
 }
 
-// TODO function still leaks the temp string
 static int	parse_rgb(char *str, int *r, int *g, int *b)
 {
-	char	*temp;
+	char	*trimmed;
 	char	**str_vals;
 	int		i;
 
-	temp = ft_strtrim(str, "FC \n");
-	str_vals = ft_split(temp, ',');
+	str_vals = ft_split(str, ',');
 	if (ft_arr_size(str_vals) != 3)
-		return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
+		return (ft_arr_free(str_vals), EXIT_FAILURE);
 	i = 0;
 	while (i < 3)
 	{
-		temp = ft_strtrim(str_vals[i], " ");
-		if (!is_num_str(temp))
-			return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
+		trimmed = ft_strtrim(str_vals[i], " ");
+		if (!is_num_str(trimmed))
+			return (ft_arr_free(str_vals), EXIT_FAILURE);
 		if (i == 0)
 			*r = ft_atoi(str_vals[i]);
 		else if (i == 1)
 			*g = ft_atoi(str_vals[i]);
 		else if (i == 2)
 			*b = ft_atoi(str_vals[i]);
+		free(trimmed);
 		i++;
 	}
 	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
-		return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
-	return (ft_arr_free(str_vals), free(temp), EXIT_SUCCESS);
+		return (ft_arr_free(str_vals), EXIT_FAILURE);
+	return (ft_arr_free(str_vals), EXIT_SUCCESS);
 }
