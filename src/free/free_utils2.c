@@ -27,4 +27,5 @@ void	free_map(t_map *map)
 		mlx_delete_texture(map->door_tex);
 	if (map->cubes)
 		free_cubes(map);
+	free(map);
 }

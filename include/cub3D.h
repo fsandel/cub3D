@@ -184,10 +184,12 @@ typedef struct s_window
 }	t_window;
 
 //free_utils.c
-void			free_window_struct(t_window *window);
+void			free_window(t_window *window);
 void			free_filecontent(t_file_content *file_content);
 void			free_cubes(t_map *map);
 void			free_map(t_map *map);
+void			free_all_enemies(t_enemy **all_enemies);
+void			free_weapon(t_weapon *weapon);
 
 //utils.c
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);

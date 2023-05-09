@@ -1,18 +1,6 @@
 #include <cub3D.h>
 
-void	redraw_window(void *arg)
-{
-	t_window	*window;
-
-	window = (t_window *)arg;
-	if (window->state != game_screen)
-		return ;
-	if (window->redraw == true)
-	{
-		draw_scene(window);
-		window->redraw = false;
-	}
-}
+static void	free_everything(t_window *window);
 
 int	main2(int argc, char **argv)
 {
@@ -31,8 +19,32 @@ int	main2(int argc, char **argv)
 	if (!window)
 		return (EXIT_FAILURE);
 	mlx_loop(window->mlx);
-	free_window_struct(window);
+	free_everything(window);
 	return (EXIT_SUCCESS);
+}
+
+void	free_everything(t_window *window)
+{
+	free_all_enemies(window->all_enemies);
+	free_map(window->map);
+	free_weapon(window->player->weapon);
+	free(window->player);
+	free(window->hud);
+	free_window(window);
+}
+
+void	redraw_window(void *arg)
+{
+	t_window	*window;
+
+	window = (t_window *)arg;
+	if (window->state != game_screen)
+		return ;
+	if (window->redraw == true)
+	{
+		draw_scene(window);
+		window->redraw = false;
+	}
 }
 
 int	main(int argc, char **argv)
