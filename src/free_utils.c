@@ -53,41 +53,6 @@ static void	free_hud(t_window *window)
 	free(window->hud);
 }
 
-void	free_map(t_map *map)
-{
-	if (map->textures[north])
-		mlx_delete_texture(map->textures[north]);
-	if (map->textures[east])
-		mlx_delete_texture(map->textures[east]);
-	if (map->textures[south])
-		mlx_delete_texture(map->textures[south]);
-	if (map->textures[west])
-		mlx_delete_texture(map->textures[west]);
-	if (map->ammo_text[0])
-		mlx_delete_texture(map->ammo_text[0]);
-	if (map->ammo_text[1])
-		mlx_delete_texture(map->ammo_text[1]);
-	// TODO: this freeing stuff here leads to segfaults in some cases
-	//if (map->health_text[0])
-		//mlx_delete_texture(map->health_text[0]);
-	//if (map->health_text[1])
-		//mlx_delete_texture(map->health_text[1]);
-	if (map->exit_text[0])
-		mlx_delete_texture(map->exit_text[0]);
-	if (map->exit_text[1])
-		mlx_delete_texture(map->exit_text[1]);
-	if (map->start_dir)
-		free(map->start_dir);
-	if (map->start_pos)
-		free(map->start_pos);
-	if (map->state)
-		free(map->state);
-	if (map->door)
-		mlx_delete_texture(map->door);
-	if (map->cubes)
-		free_cubes(map);
-}
-
 void	free_window_struct(t_window *window)
 {
 	free_all_enemies(window);

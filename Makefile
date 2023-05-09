@@ -12,11 +12,11 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c free_utils.c keyboard_input.c doors.c movement.c player_attack.c start_end_screen.c endcondition.c setup.c
+SRC_FILES		=	main.c utils.c free_utils.c free_utils2.c keyboard_input.c doors.c movement.c player_attack.c start_end_screen.c endcondition.c setup.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
-PARSER_FILES	=	parser.c validate_args.c validate_map.c parse_options.c check_syntax.c validate_options.c handle_errors.c
+PARSER_FILES	=	parser.c validate_args.c validate_map.c parse_options.c check_syntax.c validate_options.c handle_errors.c parser_init.c
 
 HUD				=	$(addprefix $(HUD_DIR), $(HUD_FILES))
 HUD_DIR			=	src/hud/

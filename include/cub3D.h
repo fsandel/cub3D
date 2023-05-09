@@ -202,6 +202,9 @@ bool			map_is_valid(t_map *map);
 bool			options_are_valid(t_map *map);
 bool			is_num_str(char *str);
 
+// parser_init.c
+t_map			*init_map(void);
+
 // parser
 t_map			*parse(int fd);
 int				args_valid(int argc, char **argv);

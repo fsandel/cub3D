@@ -1,6 +1,5 @@
 #include "cub3D.h"
 
-static t_map			*init_map(void);
 static t_file_content	*read_file(int fd, t_map *map,
 							t_file_content *file_content);
 static void				populate_map(t_list *line_list, t_map *map);
@@ -29,43 +28,6 @@ t_map	*parse(int fd)
 	if (!options_are_valid(map) || map->state->error_type > 0)
 		return (parser_error(file_content, map), NULL);
 	return (free_filecontent(file_content), map);
-}
-
-/*
- * inits the map struct
- */
-static t_map	*init_map(void)
-{
-	t_map			*map;
-	t_parser_state	*state;
-
-	map = malloc(sizeof(t_map));
-	map->start_pos = malloc(sizeof(t_vector));
-	map->start_dir = malloc(sizeof(t_vector));
-	map->textures[0] = NULL;
-	map->textures[1] = NULL;
-	map->textures[2] = NULL;
-	map->textures[3] = NULL;
-	map->exit_text[0] = NULL;
-	map->exit_text[1] = NULL;
-	map->ammo_text[0] = NULL;
-	map->ammo_text[1] = NULL;
-	map->enemy_list = NULL;
-	map->width = 0;
-	map->height = 0;
-	map->door = NULL;
-	map->enemy_list = NULL;
-	map->has_spawn = false;
-	map->floor_color = get_rgba(0, 0, 0, 0);
-	map->ceiling_color = get_rgba(0, 0, 0, 0);
-	state = malloc(sizeof(t_parser_state));
-	state->map_parsed = false;
-	state->f_parsed = false;
-	state->c_parsed = false;
-	state->contains_door = false;
-	state->error_type = no_error;
-	map->state = state;
-	return (map);
 }
 
 /*
