@@ -126,7 +126,6 @@ typedef struct s_weapon
 
 typedef struct s_enemy
 {
-
 	t_vector		pos;
 	t_vector		dir;
 	t_enemy_state	state;
