@@ -36,6 +36,6 @@ int	main2(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	main2(argc, argv);
-	//system("leaks cub3D");
+	system("leaks cub3D");
 	return (0);
 }

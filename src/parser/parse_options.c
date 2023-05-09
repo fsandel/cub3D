@@ -79,6 +79,7 @@ static void	parse_f_c(char *f_c_colors, t_map *map)
 		set_ceiling_color(map, get_rgba(r, g, b, a));
 }
 
+// TODO function still leaks the temp string
 static int	parse_rgb(char *str, int *r, int *g, int *b)
 {
 	char	*temp;
