@@ -6,14 +6,14 @@ static int	colission(t_window *window, char c, double speed, t_vector *dir)
 
 	if (c == 'x')
 	{
-		future_pos.x = window->player->pos->x - dir->x * speed
+		future_pos.x = window->player->pos.x - dir->x * speed
 			- COLLISION * sign(dir->x);
-		future_pos.y = window->player->pos->y;
+		future_pos.y = window->player->pos.y;
 	}
 	else
 	{
-		future_pos.x = window->player->pos->x;
-		future_pos.y = window->player->pos->y - dir->y * speed
+		future_pos.x = window->player->pos.x;
+		future_pos.y = window->player->pos.y - dir->y * speed
 			- COLLISION * sign(dir->y);
 	}
 	if (get_cube_type(&future_pos, window->map) < wall)
@@ -42,18 +42,18 @@ bool	change_player_position(t_window *window, double angle)
 	bool			moved;
 	const double	speed = get_speed(window);
 
-	dir.x = window->player->dir->x;
-	dir.y = window->player->dir->y;
+	dir.x = window->player->dir.x;
+	dir.y = window->player->dir.y;
 	rotate(&dir, &dir, angle);
 	moved = false;
 	if (!colission(window, 'x', speed, &dir))
 	{
-		window->player->pos->x -= dir.x * speed;
+		window->player->pos.x -= dir.x * speed;
 		moved = true;
 	}
 	if (!colission(window, 'y', speed, &dir))
 	{
-		window->player->pos->y -= dir.y * speed;
+		window->player->pos.y -= dir.y * speed;
 		moved = true;
 	}
 	return (moved);
@@ -63,6 +63,6 @@ bool	rotate_camera(t_window *window, double turn_speed)
 {
 	if (DYNAMIC_TURN_SPEED == true)
 		turn_speed *= 60.0f / window->hud->fps_num;
-	rotate(window->player->dir, window->player->dir, turn_speed);
+	rotate(&window->player->dir, &window->player->dir, turn_speed);
 	return (true);
 }

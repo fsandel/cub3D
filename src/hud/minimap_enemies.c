@@ -24,9 +24,9 @@ static void	draw_minimap_single_enemy(t_enemy *enemy, t_window *window)
 {
 	const double	scale = window->hud->minimap.radius
 		/ window->hud->minimap.zoom;
-	const int		x_pos = (enemy->pos.x - window->player->pos->x) * scale
+	const int		x_pos = (enemy->pos.x - window->player->pos.x) * scale
 		+ window->hud->minimap.pix_pos_x;
-	const int		y_pos = (enemy->pos.y - window->player->pos->y) * scale
+	const int		y_pos = (enemy->pos.y - window->player->pos.y) * scale
 		+ window->hud->minimap.pix_pos_y;
 
 	if (is_on_screen(x_pos, y_pos)

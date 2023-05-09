@@ -16,8 +16,8 @@ static void	cast_iter_ray(t_window *window, t_vector dir, t_vector *target,
 {
 	const double	step_size = 0.01f;
 
-	target->x = window->player->pos->x;
-	target->y = window->player->pos->y;
+	target->x = window->player->pos.x;
+	target->y = window->player->pos.y;
 	while (get_cube_type(target, window->map) < wall
 		&& get_cube_type(target, window->map) != target_type)
 	{
@@ -53,8 +53,8 @@ static bool	toggle_targeted_door(t_window *window)
 	t_vector	target;
 	double		dis;
 
-	cast_iter_ray(window, *window->player->dir, &target, door_open);
-	dis = distance(*window->player->pos, target);
+	cast_iter_ray(window, window->player->dir, &target, door_open);
+	dis = distance(window->player->pos, target);
 	if (dis > COLLISION && dis < DOOR_TOUCH_RANGE)
 	{
 		if (get_cube_type(&target, window->map) == door_closed)

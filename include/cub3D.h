@@ -149,8 +149,8 @@ typedef struct s_map
 typedef struct s_player
 {
 	t_weapon	*weapon;
-	t_vector	*pos;
-	t_vector	*dir;
+	t_vector	pos;
+	t_vector	dir;
 	int			hp;
 	int			ammo;
 }	t_player;

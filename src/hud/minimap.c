@@ -27,9 +27,9 @@ static void	minimap_choose_surrounding(t_window *window, int x_iter, int y_iter)
 	t_vector	pos;
 	t_cube_type	cube_type;
 
-	pos.x = window->player->pos->x + (double)(x_iter
+	pos.x = window->player->pos.x + (double)(x_iter
 			* window->hud->minimap.zoom) / window->hud->minimap.radius;
-	pos.y = window->player->pos->y + (double)(y_iter
+	pos.y = window->player->pos.y + (double)(y_iter
 			* window->hud->minimap.zoom) / window->hud->minimap.radius;
 	cube_type = get_cube_type(&pos, window->map);
 	if (cube_type < wall)
