@@ -1,27 +1,25 @@
 #include <cub3D.h>
 
-static void	free_weapon(t_weapon *weapon);
-
-static void	free_all_enemies(t_window *window)
+void	free_all_enemies(t_enemy **all_enemies)
 {
 	int	enemy_iter;
 	int	tex_iter;
 
 	tex_iter = 0;
-	if (window->all_enemies[0])
+	if (all_enemies[0])
 	{
-		while (tex_iter < window->all_enemies[0]->tex_nb)
+		while (tex_iter < all_enemies[0]->tex_nb)
 		{
-			mlx_delete_texture(window->all_enemies[0]->attacking_tex[tex_iter]);
-			mlx_delete_texture(window->all_enemies[0]->walking_tex[tex_iter]);
+			mlx_delete_texture(all_enemies[0]->attacking_tex[tex_iter]);
+			mlx_delete_texture(all_enemies[0]->walking_tex[tex_iter]);
 			tex_iter++;
 		}
-		mlx_delete_texture(window->all_enemies[0]->dead_tex);
+		mlx_delete_texture(all_enemies[0]->dead_tex);
 	}
 	enemy_iter = 0;
-	while (window->all_enemies[enemy_iter])
-		free(window->all_enemies[enemy_iter++]);
-	free(window->all_enemies);
+	while (all_enemies[enemy_iter])
+		free(all_enemies[enemy_iter++]);
+	free(all_enemies);
 }
 
 void	free_cubes(t_map *map)
@@ -37,12 +35,7 @@ void	free_cubes(t_map *map)
 	free(map->cubes);
 }
 
-static void	free_hud(t_window *window)
-{
-	free(window->hud);
-}
-
-static void	free_weapon(t_weapon *weapon)
+void	free_weapon(t_weapon *weapon)
 {
 	int	i;
 
@@ -58,9 +51,8 @@ static void	free_weapon(t_weapon *weapon)
 	free(weapon);
 }
 
-void	free_window_struct(t_window *window)
+void	free_window(t_window *window)
 {
-	free_all_enemies(window);
 	mlx_delete_image(window->mlx, window->img);
 	mlx_delete_texture(window->exit_tex[0]);
 	mlx_delete_texture(window->exit_tex[1]);
@@ -70,10 +62,5 @@ void	free_window_struct(t_window *window)
 	mlx_delete_texture(window->ammo_tex[1]);
 	mlx_delete_texture(window->destructible_tex);
 	mlx_terminate(window->mlx);
-	free_hud(window);
-	free_weapon(window->player->weapon);
-	free(window->player);
-	free_map(window->map);
-	free(window->map);
 	free(window);
 }
