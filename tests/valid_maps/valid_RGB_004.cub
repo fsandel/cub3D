@@ -1,5 +1,5 @@
-                                                                                                                                    C 255,200,160
-                                                                                                                                    F 122,122,122
+C 255,200,160
+F 122,122,122
 NO ./wolftex/greystone.png
 SO ./wolftex/redbrick.png
 EA ./wolftex/wood.png
