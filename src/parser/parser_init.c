@@ -22,8 +22,6 @@ t_map	*init_map(void)
 	t_map			*map;
 
 	map = malloc(sizeof(t_map));
-	map->start_pos = malloc(sizeof(t_vector));
-	map->start_dir = malloc(sizeof(t_vector));
 	map->textures[0] = NULL;
 	map->textures[1] = NULL;
 	map->textures[2] = NULL;

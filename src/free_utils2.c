@@ -22,10 +22,6 @@ void	free_map(t_map *map)
 		mlx_delete_texture(map->textures[south]);
 	if (map->textures[west])
 		mlx_delete_texture(map->textures[west]);
-	if (map->start_dir)
-		free(map->start_dir);
-	if (map->start_pos)
-		free(map->start_pos);
 	free(map->state);
 	if (map->door_tex)
 		mlx_delete_texture(map->door_tex);

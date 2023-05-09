@@ -56,16 +56,16 @@ static void	set_spawn(t_map *map, int line, int column, char c)
 {
 	if (!map->has_spawn)
 	{
-		set_vec(map->start_pos, column + 0.5f, line + 0.5f);
+		set_vec(&map->start_pos, column + 0.5f, line + 0.5f);
 		map->has_spawn = true;
 		if (c == 'N')
-			set_vec(map->start_dir, 0, 1);
+			set_vec(&map->start_dir, 0, 1);
 		else if (c == 'E')
-			set_vec(map->start_dir, -1, 0);
+			set_vec(&map->start_dir, -1, 0);
 		else if (c == 'S')
-			set_vec(map->start_dir, 0, -1);
+			set_vec(&map->start_dir, 0, -1);
 		else if (c == 'W')
-			set_vec(map->start_dir, 1, 0);
+			set_vec(&map->start_dir, 1, 0);
 		map->cubes[line][column] = walkable;
 	}
 	else

@@ -137,8 +137,8 @@ typedef struct s_map
 	int				width;
 	int				height;
 	mlx_texture_t	*textures[4];
-	t_vector		*start_pos;
-	t_vector		*start_dir;
+	t_vector		start_pos;
+	t_vector		start_dir;
 	int				floor_color;
 	int				ceiling_color;
 	bool			has_spawn;
