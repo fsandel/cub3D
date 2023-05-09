@@ -6,18 +6,18 @@ void	draw_minimap_border(t_window *window);
 
 void	put_pixel_minimap(int x_iter, int y_iter, t_window *window, int color)
 {
-	if (window->hud->minimap->pix_pos_x + x_iter < 0)
+	if (window->hud->minimap.pix_pos_x + x_iter < 0)
 		return ;
-	if (window->hud->minimap->pix_pos_y + y_iter >= WIDTH)
+	if (window->hud->minimap.pix_pos_y + y_iter >= WIDTH)
 		return ;
-	if (window->hud->minimap->pix_pos_x + x_iter < 0)
+	if (window->hud->minimap.pix_pos_x + x_iter < 0)
 		return ;
-	if (window->hud->minimap->pix_pos_x + y_iter >= HEIGHT)
+	if (window->hud->minimap.pix_pos_x + y_iter >= HEIGHT)
 		return ;
 	mlx_put_pixel(
 		window->hud->hud_img,
-		window->hud->minimap->pix_pos_x + x_iter,
-		window->hud->minimap->pix_pos_y + y_iter,
+		window->hud->minimap.pix_pos_x + x_iter,
+		window->hud->minimap.pix_pos_y + y_iter,
 		color
 		);
 }
@@ -28,9 +28,9 @@ static void	minimap_choose_surrounding(t_window *window, int x_iter, int y_iter)
 	t_cube_type	cube_type;
 
 	pos.x = window->player->pos->x + (double)(x_iter
-			* window->hud->minimap->zoom) / window->hud->minimap->radius;
+			* window->hud->minimap.zoom) / window->hud->minimap.radius;
 	pos.y = window->player->pos->y + (double)(y_iter
-			* window->hud->minimap->zoom) / window->hud->minimap->radius;
+			* window->hud->minimap.zoom) / window->hud->minimap.radius;
 	cube_type = get_cube_type(&pos, window->map);
 	if (cube_type < wall)
 		return ;
@@ -46,15 +46,15 @@ static void	draw_minimap_surrounding(t_window *window)
 {
 	int				x_iter;
 	int				y_iter;
-	const int		size = window->hud->minimap->radius;
+	const int		radius = window->hud->minimap.radius;
 
-	y_iter = -size;
-	while (y_iter <= size)
+	y_iter = -radius;
+	while (y_iter <= radius)
 	{
-		x_iter = -size;
-		while (x_iter <= size)
+		x_iter = -radius;
+		while (x_iter <= radius)
 		{
-			if (quad_add(x_iter, y_iter) <= size)
+			if (quad_add(x_iter, y_iter) <= radius)
 				minimap_choose_surrounding(window, x_iter, y_iter);
 			x_iter++;
 		}

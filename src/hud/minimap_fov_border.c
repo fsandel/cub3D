@@ -35,7 +35,7 @@ void	draw_minimap_fov(t_window *window)
 		dir.x = window->player->dir->x;
 		dir.y = window->player->dir->y;
 		rotate(&dir, &dir, iter * delta_angle);
-		draw_minimap_ray(window, dir, window->hud->minimap);
+		draw_minimap_ray(window, dir, &window->hud->minimap);
 		iter++;
 	}
 }
@@ -46,7 +46,7 @@ void	draw_minimap_border(t_window *window)
 	int			y_iter;
 	double		distance;
 	const int	border = 3;
-	const int	radius = window->hud->minimap->radius;
+	const int	radius = window->hud->minimap.radius;
 
 	y_iter = -radius - border;
 	while (y_iter <= radius + border)
@@ -68,7 +68,7 @@ void	draw_minimap_background(t_window *window)
 	int			x_iter;
 	int			y_iter;
 	const int	border = 3;
-	const int	radius = window->hud->minimap->radius;
+	const int	radius = window->hud->minimap.radius;
 
 	y_iter = -radius - border;
 	while (y_iter <= radius + border)
