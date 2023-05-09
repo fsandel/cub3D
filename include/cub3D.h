@@ -200,6 +200,7 @@ bool			map_is_valid(t_map *map);
 
 // validate_options.c
 bool			options_are_valid(t_map *map);
+bool			is_num_str(char *str);
 
 // parser
 t_map			*parse(int fd);

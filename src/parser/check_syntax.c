@@ -78,7 +78,7 @@ static bool	is_map_char(char c)
 
 static bool	is_valid_color_char(char c)
 {
-	if (ft_isdigit(c) || c == ',')
+	if (ft_isdigit(c) || c == ',' || c == ' ')
 		return (true);
 	else
 		return (false);

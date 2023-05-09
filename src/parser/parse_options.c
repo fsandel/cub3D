@@ -92,6 +92,9 @@ static int	parse_rgb(char *str, int *r, int *g, int *b)
 	i = 0;
 	while (i < 3)
 	{
+		temp = ft_strtrim(str_vals[i], " ");
+		if (!is_num_str(temp))
+			return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
 		if (i == 0)
 			*r = ft_atoi(str_vals[i]);
 		else if (i == 1)
@@ -100,9 +103,7 @@ static int	parse_rgb(char *str, int *r, int *g, int *b)
 			*b = ft_atoi(str_vals[i]);
 		i++;
 	}
-	ft_arr_free(str_vals);
-	free(temp);
 	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (ft_arr_free(str_vals), free(temp), EXIT_FAILURE);
+	return (ft_arr_free(str_vals), free(temp), EXIT_SUCCESS);
 }

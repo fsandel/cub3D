@@ -56,8 +56,8 @@ static t_map	*init_map(void)
 	map->door = NULL;
 	map->enemy_list = NULL;
 	map->has_spawn = false;
-	map->floor_color = -1;
-	map->ceiling_color = -1;
+	map->floor_color = get_rgba(0, 0, 0, 0);
+	map->ceiling_color = get_rgba(0, 0, 0, 0);
 	state = malloc(sizeof(t_parser_state));
 	state->map_parsed = false;
 	state->f_parsed = false;
