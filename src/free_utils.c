@@ -4,22 +4,23 @@ static void	free_weapon(t_weapon *weapon);
 
 static void	free_all_enemies(t_window *window)
 {
-	int	i;
-	int	j;
+	int	enemy_iter;
+	int	tex_iter;
 
-	j = 0;
+	tex_iter = 0;
 	if (window->all_enemies[0])
 	{
-		while (j < window->all_enemies[0]->tex_nb)
+		while (tex_iter < window->all_enemies[0]->tex_nb)
 		{
-			mlx_delete_texture(window->all_enemies[0]->attacking_tex[j]);
-			mlx_delete_texture(window->all_enemies[0]->walking_tex[j++]);
+			mlx_delete_texture(window->all_enemies[0]->attacking_tex[tex_iter]);
+			mlx_delete_texture(window->all_enemies[0]->walking_tex[tex_iter]);
+			tex_iter++;
 		}
 		mlx_delete_texture(window->all_enemies[0]->dead_tex);
 	}
-	i = 0;
-	while (window->all_enemies[i])
-		free(window->all_enemies[i++]);
+	enemy_iter = 0;
+	while (window->all_enemies[enemy_iter])
+		free(window->all_enemies[enemy_iter++]);
 	free(window->all_enemies);
 }
 
