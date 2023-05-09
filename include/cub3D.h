@@ -109,7 +109,7 @@ typedef struct s_weapon
 	mlx_texture_t	*torch_tex[9];
 	mlx_texture_t	*gun_tex[2];
 	mlx_texture_t	*muzzle_tex[2];
-	int				cooldown;
+	char			cooldown;
 }	t_weapon;
 
 typedef struct s_enemy
@@ -117,16 +117,16 @@ typedef struct s_enemy
 	t_vector		pos;
 	t_vector		dir;
 	t_enemy_state	state;
-	int				hitpoints;
+	char			hitpoints;
 	mlx_texture_t	*walking_tex[9];
 	mlx_texture_t	*attacking_tex[9];
 	mlx_texture_t	*dead_tex;
-	int				tex_nb;
+	char			tex_nb;
 	double			dis;
-	int				frame_count;
-	int				frame_cooldown;
+	char			frame_count;
+	char			frame_cooldown;
 	double			delta_angle;
-	int				x_on_screen;
+	char			x_on_screen;
 	double			brightness;
 }	t_enemy;
 
@@ -151,8 +151,8 @@ typedef struct s_player
 	t_weapon	*weapon;
 	t_vector	pos;
 	t_vector	dir;
-	int			hp;
-	int			ammo;
+	char		hp;
+	char		ammo;
 }	t_player;
 
 typedef struct s_hud
