@@ -167,8 +167,6 @@ typedef struct s_hud
 {
 	mlx_image_t		*hud_img;
 	t_minimap		minimap;
-	int				fps_num;
-	int				*frame_time;
 	mlx_image_t		*fps_image;
 }	t_hud;
 

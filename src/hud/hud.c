@@ -36,7 +36,6 @@ t_hud	*setup_hud(mlx_t *mlx)
 	hud->minimap.pix_pos_y = 105;
 	hud->minimap.zoom = 5;
 	hud->minimap.radius = 100;
-	hud->fps_num = 60;
 	mlx_image_to_window(mlx, hud->hud_img, 0, 0);
 	mlx_set_instance_depth(hud->hud_img->instances, 2);
 	return (hud);
@@ -50,11 +49,10 @@ static void	fps(t_window *window)
 	static mlx_image_t	*fps_img = NULL;
 	static int			draw_order = 0;
 
-	window->hud->fps_num = (int)(1 / window->mlx->delta_time);
 	draw_order = (draw_order + 1) % 3;
 	if (draw_order != 0)
 		return ;
-	fps_char = ft_itoa(window->hud->fps_num);
+	fps_char = ft_itoa(1 / window->mlx->delta_time);
 	fps_char_joined = ft_strjoin("FPS: ", fps_char);
 	temp_img = fps_img;
 	fps_img = mlx_put_string(window->mlx, fps_char_joined,
