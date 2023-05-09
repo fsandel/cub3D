@@ -39,25 +39,23 @@ static void	setup_singular_enemy(t_enemy *enemy)
 
 static bool	load_textures(t_enemy *enemy)
 {
-	enemy->tex_nb = 9;
-	enemy->walking_tex[0] = mlx_load_png("textures/enemy/zombie0.png");
-	enemy->walking_tex[1] = mlx_load_png("textures/enemy/zombie1.png");
-	enemy->walking_tex[2] = mlx_load_png("textures/enemy/zombie2.png");
-	enemy->walking_tex[3] = mlx_load_png("textures/enemy/zombie3.png");
-	enemy->walking_tex[4] = mlx_load_png("textures/enemy/zombie4.png");
-	enemy->walking_tex[5] = mlx_load_png("textures/enemy/zombie5.png");
-	enemy->walking_tex[6] = mlx_load_png("textures/enemy/zombie6.png");
-	enemy->walking_tex[7] = mlx_load_png("textures/enemy/zombie7.png");
-	enemy->walking_tex[8] = mlx_load_png("textures/enemy/zombie8.png");
-	enemy->attacking_tex[0] = mlx_load_png("textures/enemy/attack1.png");
-	enemy->attacking_tex[1] = mlx_load_png("textures/enemy/attack2.png");
-	enemy->attacking_tex[2] = mlx_load_png("textures/enemy/attack3.png");
-	enemy->attacking_tex[3] = mlx_load_png("textures/enemy/attack4.png");
-	enemy->attacking_tex[4] = mlx_load_png("textures/enemy/attack4.png");
-	enemy->attacking_tex[5] = mlx_load_png("textures/enemy/attack3.png");
-	enemy->attacking_tex[6] = mlx_load_png("textures/enemy/attack2.png");
-	enemy->attacking_tex[7] = mlx_load_png("textures/enemy/attack1.png");
-	enemy->attacking_tex[8] = mlx_load_png("textures/enemy/attack1.png");
+	enemy->tex_nb = 8;
+	enemy->walking_tex[0][0] = mlx_load_png("textures/enemy/zombie0.png");
+	enemy->walking_tex[0][1] = mlx_load_png("textures/enemy/zombie1.png");
+	enemy->walking_tex[0][2] = mlx_load_png("textures/enemy/zombie2.png");
+	enemy->walking_tex[0][3] = mlx_load_png("textures/enemy/zombie3.png");
+	enemy->walking_tex[0][4] = mlx_load_png("textures/enemy/zombie4.png");
+	enemy->walking_tex[0][5] = mlx_load_png("textures/enemy/zombie5.png");
+	enemy->walking_tex[0][6] = mlx_load_png("textures/enemy/zombie6.png");
+	enemy->walking_tex[0][7] = mlx_load_png("textures/enemy/zombie7.png");
+	enemy->attacking_tex[0][0] = mlx_load_png("textures/enemy/attack1.png");
+	enemy->attacking_tex[0][1] = mlx_load_png("textures/enemy/attack2.png");
+	enemy->attacking_tex[0][2] = mlx_load_png("textures/enemy/attack3.png");
+	enemy->attacking_tex[0][3] = mlx_load_png("textures/enemy/attack4.png");
+	enemy->attacking_tex[0][4] = mlx_load_png("textures/enemy/attack4.png");
+	enemy->attacking_tex[0][5] = mlx_load_png("textures/enemy/attack3.png");
+	enemy->attacking_tex[0][6] = mlx_load_png("textures/enemy/attack2.png");
+	enemy->attacking_tex[0][7] = mlx_load_png("textures/enemy/attack1.png");
 	enemy->dead_tex = mlx_load_png("textures/enemy/dead.png");
 	return (true);
 }
