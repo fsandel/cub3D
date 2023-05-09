@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c free_utils.c free_utils2.c keyboard_input.c doors.c movement.c start_end_screen.c endcondition.c setup.c setup_player.c
+SRC_FILES		=	main.c utils.c keyboard_input.c doors.c movement.c start_end_screen.c endcondition.c setup.c setup_player.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
@@ -42,12 +42,16 @@ WEAPON			=	$(addprefix $(WEAPON_DIR), $(WEAPON_FILES))
 WEAPON_DIR		=	src/weapon/
 WEAPON_FILES	=	weapon_clear.c weapon_draw.c player_attack.c
 
+FREE			=	$(addprefix $(FREE_DIR), $(FREE_FILES))
+FREE_DIR		=	src/free/
+FREE_FILES		=	free_utils.c free_utils2.c
+
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
 HDR_FILES		=	cub3D.h design.h
 HDR_INCLUDE		=	-I $(HDR_DIR)
 
-ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD) $(ENEMIES) $(WEAPON)
+ALL_SRC			=	$(SRC) $(PARSER) $(UTILS) $(MATH) $(WALLS) $(HUD) $(ENEMIES) $(WEAPON) $(FREE)
 
 ################################################################################
 ################################################################################
