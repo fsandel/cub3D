@@ -3,6 +3,8 @@
 static void		implement_loop_hooks(t_window *window);
 static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
+static t_map	*load_extra_wall_textures(t_map *map);
+
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
 
@@ -11,8 +13,8 @@ t_window	*general_setup(t_map *map)
 	t_window	*window;
 
 	window = setup_window_struct(map);
-	setup_enemy_struct(window, map);
-	setup_hud(window);
+	window->all_enemies = setup_enemy_struct(window, map);
+	window->hud = setup_hud(window);
 	setup_mouse(window);
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
@@ -28,12 +30,17 @@ static t_window	*setup_window_struct(t_map *map)
 	window->img = mlx_new_image(window->mlx, WIDTH, HEIGHT + HUD_SIZE);
 	mlx_image_to_window(window->mlx, window->img, 0, 0);
 	mlx_set_instance_depth(window->img->instances, 1);
-	window->map = map;
+	window->map = load_extra_wall_textures(map);
 	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
 	window->state = start_screen;
 	window->player = setup_player(window->map);
+	return (window);
+}
+
+static t_map	*load_extra_wall_textures(t_map *map)
+{
 	map->ammo_text[0] = mlx_load_png("textures/interactable/shelf_ammo.png");
 	map->ammo_text[1] = mlx_load_png("textures/interactable/shelf_empty1.png");
 	map->health_text[0]
@@ -43,7 +50,7 @@ static t_window	*setup_window_struct(t_map *map)
 	map->exit_text[0] = mlx_load_png("textures/interactable/exit1.png");
 	map->exit_text[1] = mlx_load_png("textures/interactable/exit2.png");
 	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
-	return (window);
+	return (map);
 }
 
 static void	setup_mouse(t_window *window)

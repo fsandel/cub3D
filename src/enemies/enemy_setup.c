@@ -3,28 +3,30 @@
 static void	setup_enemy_textures(t_enemy **all_enemies);
 static void	setup_singular_enemy(t_enemy *enemy);
 
-void	setup_enemy_struct(t_window *window, t_map *map)
+t_enemy	**setup_enemy_struct(t_window *window, t_map *map)
 {
 	const int	amount = ft_lstsize(map->enemy_list);
 	int			i;
 	t_list		*head;
+	t_enemy		**all_enemies;
 
 	head = map->enemy_list;
-	window->all_enemies = malloc((amount + 1) * sizeof(t_enemy *));
+	all_enemies = malloc((amount + 1) * sizeof(t_enemy *));
 	i = 0;
 	while (i < amount)
 	{
-		window->all_enemies[i] = malloc(sizeof(t_enemy));
-		setup_singular_enemy(window->all_enemies[i]);
-		window->all_enemies[i]->pos.x = ((t_vector *)(head->content))->x;
-		window->all_enemies[i]->pos.y = ((t_vector *)(head->content))->y;
-		set_enemy_dir(window->all_enemies[i], window->player);
+		all_enemies[i] = malloc(sizeof(t_enemy));
+		setup_singular_enemy(all_enemies[i]);
+		all_enemies[i]->pos.x = ((t_vector *)(head->content))->x;
+		all_enemies[i]->pos.y = ((t_vector *)(head->content))->y;
+		set_enemy_dir(all_enemies[i], window->player);
 		head = head->next;
 		i++;
 	}
-	window->all_enemies[i] = NULL;
+	all_enemies[i] = NULL;
 	ft_lstclear(&map->enemy_list, free);
-	setup_enemy_textures(window->all_enemies);
+	setup_enemy_textures(all_enemies);
+	return (all_enemies);
 }
 
 static void	setup_singular_enemy(t_enemy *enemy)

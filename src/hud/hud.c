@@ -24,20 +24,22 @@ void	draw_hud(void *arg)
 	ammo(window);
 }
 
-void	setup_hud(t_window *window)
+t_hud	*setup_hud(t_window *window)
 {
 	mlx_image_t	*hud_img;
+	t_hud		*hud;
 
-	window->hud = malloc(sizeof(t_hud));
+	hud = malloc(sizeof(t_hud));
 	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
-	window->hud->hud_img = hud_img;
-	window->hud->minimap.pix_pos_x = 105;
-	window->hud->minimap.pix_pos_y = 105;
-	window->hud->minimap.zoom = 5;
-	window->hud->minimap.radius = 100;
-	window->hud->fps_num = 60;
+	hud->hud_img = hud_img;
+	hud->minimap.pix_pos_x = 105;
+	hud->minimap.pix_pos_y = 105;
+	hud->minimap.zoom = 5;
+	hud->minimap.radius = 100;
+	hud->fps_num = 60;
 	mlx_image_to_window(window->mlx, window->hud->hud_img, 0, 0);
 	mlx_set_instance_depth(window->hud->hud_img->instances, 2);
+	return (hud);
 }
 
 static void	fps(t_window *window)

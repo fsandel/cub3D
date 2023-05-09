@@ -239,7 +239,7 @@ bool			is_on_map(double x, double y, t_map *map);
 bool			is_on_screen(int x, int y);
 
 //hud.c
-void			setup_hud(t_window *window);
+t_hud			*setup_hud(t_window *window);
 void			draw_hud(void *arg);
 
 //minimap.c
@@ -260,7 +260,7 @@ void			draw_enemies(t_window *window);
 void			check_enemies_state(t_window *window);
 void			move_enemies(t_window *window);
 void			set_enemy_dir(t_enemy *enemy, t_player *player);
-void			setup_enemy_struct(t_window *window, t_map *map);
+t_enemy			**setup_enemy_struct(t_window *window, t_map *map);
 void			attack_enemies(t_window *window);
 
 //player_attack.c
