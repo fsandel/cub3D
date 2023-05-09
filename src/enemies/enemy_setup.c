@@ -56,11 +56,15 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 		tex_iter = 0;
 		while (tex_iter < 8)
 		{
-			type = all_enemies[enemy_iter]->type;
-			all_enemies[enemy_iter]->walking_tex[type][tex_iter]
-				= tex_enemy.walking_tex[type][tex_iter];
-			all_enemies[enemy_iter]->attacking_tex[type][tex_iter]
-				= tex_enemy.attacking_tex[type][tex_iter];
+			type = 0;
+			while (type < 8)
+			{
+				all_enemies[enemy_iter]->walking_tex[type][tex_iter]
+					= tex_enemy.walking_tex[type][tex_iter];
+				all_enemies[enemy_iter]->attacking_tex[type][tex_iter]
+					= tex_enemy.attacking_tex[type][tex_iter];
+				type++;
+			}
 			tex_iter++;
 		}
 		all_enemies[enemy_iter]->tex_nb = 8;
