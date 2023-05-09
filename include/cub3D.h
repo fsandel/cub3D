@@ -92,10 +92,10 @@ typedef struct s_enemy
 	t_vector		dir;
 	t_enemy_state	state;
 	int				hitpoints;
-	mlx_texture_t	*walking_textures[9];
-	mlx_texture_t	*attacking_textures[9];
-	mlx_texture_t	*dead_textures[1];
-	int				walking_texture_nb;
+	mlx_texture_t	*walking_tex[9];
+	mlx_texture_t	*attacking_tex[9];
+	mlx_texture_t	*dead_tex;
+	int				tex_nb;
 	double			dis;
 	int				frame_count;
 	int				frame_cooldown;

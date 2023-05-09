@@ -22,11 +22,11 @@ static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 {
 	if (enemy->state == dead)
-		return (enemy->dead_textures[0]);
+		return (enemy->dead_tex);
 	else if (enemy->state == attacking)
-		return (enemy->attacking_textures[frame_count]);
+		return (enemy->attacking_tex[frame_count]);
 	else
-		return (enemy->walking_textures[frame_count]);
+		return (enemy->walking_tex[frame_count]);
 }
 
 static int	enemy_adjust_frame_count(t_enemy *enemy)
@@ -39,7 +39,7 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN;
 	}
 	enemy->frame_cooldown--;
-	if (enemy->frame_count >= enemy->walking_texture_nb)
+	if (enemy->frame_count >= enemy->tex_nb)
 		enemy->frame_count = 0;
 	return (enemy->frame_count);
 }

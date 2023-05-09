@@ -28,6 +28,8 @@ int	main(int argc, char **argv)
 	if (!map)
 		return (EXIT_FAILURE);
 	window = general_setup(map);
+	if (!window)
+		return (EXIT_FAILURE);
 	mlx_loop(window->mlx);
 	free_window_struct(window);
 	return (EXIT_SUCCESS);
