@@ -8,14 +8,14 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 	set_enemy_dir(enemy, player);
 	tmp_pos.x = enemy->pos.x;
 	tmp_pos.y = enemy->pos.y;
-	while (distance(tmp_pos, *player->pos) > 0.2)
+	while (distance(tmp_pos, player->pos) > 0.2)
 	{
 		tmp_pos.x -= enemy->dir.x * 0.01;
 		tmp_pos.y -= enemy->dir.y * 0.01;
 		if (get_cube_type(&tmp_pos, map) >= wall)
 			return (enemy->state = out_of_range, (void)0);
 	}
-	enemy->dis = distance(*player->pos, enemy->pos);
+	enemy->dis = distance(player->pos, enemy->pos);
 	if (enemy->dis < 1)
 		enemy->state = attacking;
 	else if (enemy->dis < ENEMY_RANGE)
@@ -27,7 +27,7 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
 {
 	enemy->delta_angle = atan2(-(enemy->dir.x), -(enemy->dir.y))
-		- atan2((player->dir->x), (player->dir->y));
+		- atan2((player->dir.x), (player->dir.y));
 	enemy->brightness = max(1.0 - (enemy->dis / window->fog), 0);
 	if (enemy->hitpoints <= 0 && enemy->state != out_of_range)
 		enemy->state = dead;

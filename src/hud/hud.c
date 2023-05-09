@@ -24,22 +24,21 @@ void	draw_hud(void *arg)
 	ammo(window);
 }
 
-void	setup_hud(t_window *window)
+t_hud	*setup_hud(mlx_t *mlx)
 {
 	mlx_image_t	*hud_img;
+	t_hud		*hud;
 
-	window->hud = malloc(sizeof(t_hud));
-	window->hud->fps = malloc(sizeof(t_fps));
-	window->hud->minimap = malloc(sizeof(t_minimap));
-	hud_img = mlx_new_image(window->mlx, WIDTH, HEIGHT);
-	window->hud->hud_img = hud_img;
-	window->hud->minimap->pix_pos_x = 105;
-	window->hud->minimap->pix_pos_y = 105;
-	window->hud->minimap->zoom = 5;
-	window->hud->minimap->radius = 100;
-	window->hud->fps->fps_num = 60;
-	mlx_image_to_window(window->mlx, window->hud->hud_img, 0, 0);
-	mlx_set_instance_depth(window->hud->hud_img->instances, 2);
+	hud = malloc(sizeof(t_hud));
+	hud_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	hud->hud_img = hud_img;
+	hud->minimap_pos_x = 105;
+	hud->minimap_pos_y = 105;
+	hud->minimap_zoom = 5;
+	hud->minimap_radius = 100;
+	mlx_image_to_window(mlx, hud->hud_img, 0, 0);
+	mlx_set_instance_depth(hud->hud_img->instances, 2);
+	return (hud);
 }
 
 static void	fps(t_window *window)
@@ -50,11 +49,10 @@ static void	fps(t_window *window)
 	static mlx_image_t	*fps_img = NULL;
 	static int			draw_order = 0;
 
-	window->hud->fps->fps_num = (int)(1 / window->mlx->delta_time);
 	draw_order = (draw_order + 1) % 3;
 	if (draw_order != 0)
 		return ;
-	fps_char = ft_itoa(window->hud->fps->fps_num);
+	fps_char = ft_itoa(1 / window->mlx->delta_time);
 	fps_char_joined = ft_strjoin("FPS: ", fps_char);
 	temp_img = fps_img;
 	fps_img = mlx_put_string(window->mlx, fps_char_joined,

@@ -3,6 +3,8 @@
 static void		implement_loop_hooks(t_window *window);
 static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
+static t_window	*load_extra_wall_textures(t_window *window);
+
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
 
@@ -11,8 +13,9 @@ t_window	*general_setup(t_map *map)
 	t_window	*window;
 
 	window = setup_window_struct(map);
-	setup_enemy_struct(window, map);
-	setup_hud(window);
+	window->player = setup_player(window->map);
+	window->all_enemies = setup_enemy_struct(window->player, map);
+	window->hud = setup_hud(window->mlx);
 	setup_mouse(window);
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
@@ -29,20 +32,25 @@ static t_window	*setup_window_struct(t_map *map)
 	mlx_image_to_window(window->mlx, window->img, 0, 0);
 	mlx_set_instance_depth(window->img->instances, 1);
 	window->map = map;
+	window = load_extra_wall_textures(window);
 	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
 	window->state = start_screen;
-	window->player = setup_player(window->map);
-	map->ammo_text[0] = mlx_load_png("textures/interactable/wolf_ammo.png");
-	map->ammo_text[1] = mlx_load_png("textures/interactable/wolf_empty.png");
-	map->health_text[0]
+	return (window);
+}
+
+static t_window	*load_extra_wall_textures(t_window *window)
+{
+	window->ammo_tex[0] = mlx_load_png("textures/interactable/wolf_ammo.png");
+	window->ammo_tex[1] = mlx_load_png("textures/interactable/wolf_empty.png");
+	window->health_tex[0]
 		= mlx_load_png("textures/interactable/wolf_health.png");
-	map->health_text[1]
+	window->health_tex[1]
 		= mlx_load_png("textures/interactable/wolf_empty.png");
-	map->exit_text[0] = mlx_load_png("textures/interactable/wolf_exit.png");
-	map->exit_text[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
-	map->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
+	window->exit_tex[0] = mlx_load_png("textures/interactable/wolf_exit.png");
+	window->exit_tex[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
+	window->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
 	return (window);
 }
 

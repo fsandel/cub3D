@@ -18,11 +18,11 @@ static void	player_shoot_wall(t_window *window)
 {
 	t_vector	temp;
 
-	temp = (t_vector){window->player->pos->x, window->player->pos->y};
+	temp = (t_vector){window->player->pos.x, window->player->pos.y};
 	while (get_cube_type(&temp, window->map) < wall)
 	{
-		temp.x -= window->player->dir->x * 0.01;
-		temp.y -= window->player->dir->y * 0.01;
+		temp.x -= window->player->dir.x * 0.01;
+		temp.y -= window->player->dir.y * 0.01;
 	}
 	if (get_cube_type(&temp, window->map) == destructible)
 		window->map->cubes[(int)temp.y][(int)temp.x] = walkable;
