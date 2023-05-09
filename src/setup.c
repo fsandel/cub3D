@@ -34,15 +34,15 @@ static t_window	*setup_window_struct(t_map *map)
 	window->fog = FOG;
 	window->state = start_screen;
 	window->player = setup_player(window->map);
-	map->ammo_text[0] = mlx_load_png("textures/interactable/shelf_ammo.png");
-	map->ammo_text[1] = mlx_load_png("textures/interactable/shelf_empty1.png");
+	map->ammo_text[0] = mlx_load_png("textures/interactable/wolf_ammo.png");
+	map->ammo_text[1] = mlx_load_png("textures/interactable/wolf_empty.png");
 	map->health_text[0]
-		= mlx_load_png("textures/interactable/shelf_health.png");
+		= mlx_load_png("textures/interactable/wolf_health.png");
 	map->health_text[1]
-		= mlx_load_png("textures/interactable/shelf_empty3.png");
-	map->exit_text[0] = mlx_load_png("textures/interactable/exit1.png");
-	map->exit_text[1] = mlx_load_png("textures/interactable/exit2.png");
-	map->destructible_tex = mlx_load_png("textures/cracked_wall.png");
+		= mlx_load_png("textures/interactable/wolf_empty.png");
+	map->exit_text[0] = mlx_load_png("textures/interactable/wolf_exit.png");
+	map->exit_text[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
+	map->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
 	return (window);
 }
 
