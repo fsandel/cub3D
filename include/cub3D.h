@@ -89,6 +89,18 @@ typedef enum e_enemy_state
 	attacking
 }	t_enemy_state;
 
+typedef enum e_enemy_type
+{
+	big_hans_blue,
+	big_hans_red,
+	dog,
+	guard,
+	hans,
+	mutant,
+	officer,
+	surgeon
+}	t_enemy_type;
+
 typedef enum e_window_state
 {
 	start_screen,
@@ -114,13 +126,14 @@ typedef struct s_weapon
 
 typedef struct s_enemy
 {
+
 	t_vector		pos;
 	t_vector		dir;
 	t_enemy_state	state;
+	t_enemy_type	type;
 	char			hitpoints;
 	mlx_texture_t	*walking_tex[8][8];
 	mlx_texture_t	*attacking_tex[8][8];
-	mlx_texture_t	*dead_tex;
 	char			tex_nb;
 	double			dis;
 	char			frame_count;
