@@ -32,10 +32,10 @@ t_hud	*setup_hud(mlx_t *mlx)
 	hud = malloc(sizeof(t_hud));
 	hud_img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	hud->hud_img = hud_img;
-	hud->minimap.pix_pos_x = 105;
-	hud->minimap.pix_pos_y = 105;
-	hud->minimap.zoom = 5;
-	hud->minimap.radius = 100;
+	hud->minimap_pos_x = 105;
+	hud->minimap_pos_y = 105;
+	hud->minimap_zoom = 5;
+	hud->minimap_radius = 100;
 	mlx_image_to_window(mlx, hud->hud_img, 0, 0);
 	mlx_set_instance_depth(hud->hud_img->instances, 2);
 	return (hud);

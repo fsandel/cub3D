@@ -155,19 +155,14 @@ typedef struct s_player
 	int			ammo;
 }	t_player;
 
-typedef struct s_minimap
-{
-	int	pix_pos_x;
-	int	pix_pos_y;
-	int	radius;
-	int	zoom;
-}	t_minimap;
-
 typedef struct s_hud
 {
 	mlx_image_t		*hud_img;
-	t_minimap		minimap;
 	mlx_image_t		*fps_image;
+	short			minimap_pos_x;
+	short			minimap_pos_y;
+	char			minimap_radius;
+	char			minimap_zoom;
 }	t_hud;
 
 typedef struct s_window

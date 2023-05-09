@@ -44,13 +44,13 @@ static void	zoom_minimap(t_window *window, mlx_key_data_t keydata)
 {
 	if (keydata.key == MLX_KEY_PAGE_UP && keydata.action == MLX_PRESS)
 	{
-		if (window->hud->minimap.zoom <= MINIMAP_MAX_ZOOM)
-			window->hud->minimap.zoom++;
+		if (window->hud->minimap_zoom <= MINIMAP_MAX_ZOOM)
+			window->hud->minimap_zoom++;
 	}
 	if (keydata.key == MLX_KEY_PAGE_DOWN && keydata.action == MLX_PRESS)
 	{
-		if (window->hud->minimap.zoom >= MINIMAP_MIN_ZOOM)
-			window->hud->minimap.zoom--;
+		if (window->hud->minimap_zoom >= MINIMAP_MIN_ZOOM)
+			window->hud->minimap_zoom--;
 	}
 }
 
