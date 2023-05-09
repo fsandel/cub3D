@@ -19,7 +19,8 @@ char	*create_texture_name(const char *name, int num, char *tp)
 	return (temp);
 }
 
-void	enemy_load_single_png(t_enemy *enemy, t_enemy_type type, const char *name)
+void	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
+			const char *name)
 {
 	int		i;
 	char	*att_char;
@@ -37,18 +38,19 @@ void	enemy_load_single_png(t_enemy *enemy, t_enemy_type type, const char *name)
 		i++;
 	}
 }
+
 void	enemy_load_png(t_enemy *enemy)
 {
-	t_enemy_type type;
-	const char *names[8] = {
-	names[big_hans_blue] = "big_hans_blue",
-	names[big_hans_red] = "big_hans_red",
-	names[dog] = "dog",
-	names[guard] = "guard",
-	names[hans] = "hans",
-	names[mutant] = "mutant",
-	names[officer] = "officer",
-	names[surgeon] = "surgeon"
+	t_enemy_type	type;
+	const char		*names[8] = {
+		names[big_hans_blue] = "big_hans_blue",
+		names[big_hans_red] = "big_hans_red",
+		names[dog] = "dog",
+		names[guard] = "guard",
+		names[hans] = "hans",
+		names[mutant] = "mutant",
+		names[officer] = "officer",
+		names[surgeon] = "surgeon"
 	};
 
 	type = 0;
