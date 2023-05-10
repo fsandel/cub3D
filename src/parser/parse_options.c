@@ -60,8 +60,7 @@ static void	parse_texture(char *input, t_map *map)
 		mlx_delete_texture(texture);
 		map->state->error_type = too_many_textures;
 	}
-	ft_arr_free(str_vals);
-	free(temp);
+	return (ft_arr_free(str_vals), free(temp));
 }
 
 static void	parse_f_c(char *f_c_colors, t_map *map)
