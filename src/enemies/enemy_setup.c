@@ -3,7 +3,7 @@
 static bool	setup_enemy_textures(t_enemy **all_enemies);
 static void	setup_singular_enemy(t_enemy *enemy, t_vector *pos);
 static void	free_prior_enemies(t_enemy **all_enemies, int amount);
-void		enemy_load_png(t_enemy *enemy);
+int			enemy_load_png(t_enemy *enemy);
 void		setup_enemy_type_speficic_values(t_enemy *enemy);
 
 t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
@@ -80,10 +80,11 @@ static bool	setup_enemy_textures(t_enemy **all_enemies)
 	int				enemy_iter;
 	int				tex_iter;
 	t_enemy			tex_enemy;
+	int				error;
 
 	if (!all_enemies[0])
-		return ;
-	enemy_load_png(&tex_enemy);
+		return (true);
+	error = enemy_load_png(&tex_enemy);
 	enemy_iter = 0;
 	while (all_enemies[enemy_iter])
 	{
@@ -97,5 +98,7 @@ static bool	setup_enemy_textures(t_enemy **all_enemies)
 		all_enemies[enemy_iter]->tex_nb = 8;
 		enemy_iter++;
 	}
+	if (error > 0)
+		return (free_all_enemies(all_enemies), false);
 	return (true);
 }
