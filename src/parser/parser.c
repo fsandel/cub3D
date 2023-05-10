@@ -11,6 +11,8 @@ t_map	*parse(int fd)
 	t_file_content			*file_content;
 
 	map = init_map();
+	if (!map)
+		return (NULL);
 	file_content = malloc(sizeof(t_file_content));
 	if (!file_content)
 		return (NULL);

@@ -5,11 +5,11 @@ static bool	hit_enemy(t_enemy *enemy)
 	if (enemy->state == dead || enemy->state == out_of_range)
 		return (false);
 	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 10.0)
-		return (enemy->hitpoints -= 10, true);
+		return (enemy->hp -= 10, true);
 	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 5.0)
-		return (enemy->hitpoints -= 4, true);
+		return (enemy->hp -= 4, true);
 	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 3.0)
-		return (enemy->hitpoints -= 2, true);
+		return (enemy->hp -= 2, true);
 	else
 		return (false);
 }

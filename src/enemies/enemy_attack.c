@@ -1,15 +1,14 @@
 #include <cub3D.h>
 
-static void	attack_single_enemy(t_window *window)
+static void	attack_single_enemy(t_enemy *enemy, t_player *player)
 {
-	static int	cooldown = 0;
-
-	if (cooldown < 1)
+	if (enemy->cooldown < 1)
 	{
-		window->player->hp -= 10;
-		cooldown = 30;
+		player->hp -= enemy->attack;
+		enemy->cooldown = 30;
 	}
-	cooldown--;
+	if (enemy->cooldown > 0)
+		enemy->cooldown--;
 }
 
 void	attack_enemies(t_window *window)
@@ -20,7 +19,7 @@ void	attack_enemies(t_window *window)
 	while (window->all_enemies[i])
 	{
 		if (window->all_enemies[i]->state == attacking)
-			attack_single_enemy(window);
+			attack_single_enemy(window->all_enemies[i], window->player);
 		i++;
 	}
 }

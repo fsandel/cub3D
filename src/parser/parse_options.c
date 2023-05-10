@@ -69,6 +69,9 @@ static void	parse_f_c(char *f_c_colors, t_map *map)
 	int		a;
 	char	*trimmed;
 
+	r = 255;
+	g = 255;
+	b = 255;
 	a = 255;
 	trimmed = ft_strtrim(f_c_colors, "FC \n");
 	if (parse_rgb(trimmed, &r, &g, &b))

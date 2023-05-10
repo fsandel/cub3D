@@ -8,7 +8,7 @@ static bool	move_single_enemy(t_enemy *enemy, t_map *map)
 	moved = false;
 	if (enemy->state != hunting || enemy-> dis < 0.9)
 		return (false);
-	future_pos.x = enemy->pos.x - enemy->dir.x * 0.01;
+	future_pos.x = enemy->pos.x - enemy->dir.x * 0.01 * enemy->speed;
 	future_pos.y = enemy->pos.y;
 	if (get_cube_type(&future_pos, map) < wall)
 	{
@@ -16,7 +16,7 @@ static bool	move_single_enemy(t_enemy *enemy, t_map *map)
 		moved = true;
 	}
 	future_pos.x = enemy->pos.x;
-	future_pos.y = enemy->pos.y - enemy->dir.y * 0.01;
+	future_pos.y = enemy->pos.y - enemy->dir.y * 0.01 * enemy->speed;
 	if (get_cube_type(&future_pos, map) < wall)
 	{
 		enemy->pos = future_pos;

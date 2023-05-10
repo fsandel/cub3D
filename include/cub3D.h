@@ -89,6 +89,18 @@ typedef enum e_enemy_state
 	attacking
 }	t_enemy_state;
 
+typedef enum e_enemy_type
+{
+	big_hans_blue,
+	big_hans_red,
+	dog,
+	guard,
+	hans,
+	mutant,
+	officer,
+	surgeon
+}	t_enemy_type;
+
 typedef enum e_window_state
 {
 	start_screen,
@@ -117,10 +129,9 @@ typedef struct s_enemy
 	t_vector		pos;
 	t_vector		dir;
 	t_enemy_state	state;
-	char			hitpoints;
-	mlx_texture_t	*walking_tex[9];
-	mlx_texture_t	*attacking_tex[9];
-	mlx_texture_t	*dead_tex;
+	t_enemy_type	type;
+	mlx_texture_t	*walking_tex[8][8];
+	mlx_texture_t	*attacking_tex[8][8];
 	char			tex_nb;
 	double			dis;
 	char			frame_count;
@@ -128,6 +139,11 @@ typedef struct s_enemy
 	double			delta_angle;
 	short			x_on_screen;
 	double			brightness;
+	short			range;
+	short			speed;
+	short			hp;
+	short			attack;
+	int				cooldown;
 }	t_enemy;
 
 typedef struct s_map
