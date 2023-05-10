@@ -1,7 +1,7 @@
 #include <cub3D.h>
 
 static bool	setup_enemy_textures(t_enemy **all_enemies);
-static void	setup_singular_enemy(t_enemy *enemy);
+static void	setup_singular_enemy(t_enemy *enemy, t_vector *pos);
 static void	free_prior_enemies(t_enemy **all_enemies, int amount);
 
 t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
@@ -20,10 +20,8 @@ t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 	{
 		all_enemies[i] = malloc(sizeof(t_enemy));
 		if (!all_enemies[i])
-			return(free_prior_enemies(all_enemies, i), free(all_enemies), NULL);
-		setup_singular_enemy(all_enemies[i]);
-		all_enemies[i]->pos.x = ((t_vector *)(head->content))->x;
-		all_enemies[i]->pos.y = ((t_vector *)(head->content))->y;
+			return (free_prior_enemies(all_enemies, i), NULL);
+		setup_singular_enemy(all_enemies[i], head->content);
 		set_enemy_dir(all_enemies[i], player);
 		head = head->next;
 		i++;
@@ -38,18 +36,21 @@ t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 static void	free_prior_enemies(t_enemy **all_enemies, int amount)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < amount)
 		free(all_enemies[i++]);
+	free(all_enemies);
 }
 
-static void	setup_singular_enemy(t_enemy *enemy)
+static void	setup_singular_enemy(t_enemy *enemy, t_vector *pos)
 {
 	enemy->hitpoints = ENEMIE_HITPOINTS;
 	enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN;
 	enemy->frame_count = 0;
 	enemy->state = out_of_range;
+	enemy->pos.x = pos->x;
+	enemy->pos.y = pos->y;
 }
 
 static bool	load_textures(t_enemy *enemy)

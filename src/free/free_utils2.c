@@ -33,6 +33,6 @@ void	free_map(t_map *map)
 void	ft_mlx_delete_texture(mlx_texture_t *texture)
 {
 	if (!texture)
-		return;
+		return ;
 	mlx_delete_texture(texture);
 }

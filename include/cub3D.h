@@ -193,7 +193,6 @@ void			free_weapon(t_weapon *weapon);
 void			free_player(t_player *player);
 void			ft_mlx_delete_texture(mlx_texture_t *texture);
 
-
 //utils.c
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
 bool			ft_iswhitespace(char *str);

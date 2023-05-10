@@ -71,19 +71,19 @@ static bool	load_extra_wall_textures(t_window *window)
 	window->exit_tex[0] = mlx_load_png("textures/interactable/wolf_exit.png");
 	window->exit_tex[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
 	window->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
-	if (!(window->ammo_tex[0] &&window->ammo_tex[1] && window->health_tex[0]
-		&& window->health_tex[1] && window->exit_tex[0] && window->exit_tex[1]
-		&& window->destructible_tex))
-		{
-			ft_mlx_delete_texture(window->ammo_tex[0]);
-			ft_mlx_delete_texture(window->ammo_tex[1]);
-			ft_mlx_delete_texture(window->health_tex[0]);
-			ft_mlx_delete_texture(window->health_tex[1]);
-			ft_mlx_delete_texture(window->exit_tex[0]);
-			ft_mlx_delete_texture(window->exit_tex[1]);
-			ft_mlx_delete_texture(window->destructible_tex);
-			return (false);
-		}
+	if (!(window->ammo_tex[0] && window->ammo_tex[1] && window->health_tex[0]
+			&& window->health_tex[1] && window->exit_tex[0]
+			&& window->exit_tex[1] && window->destructible_tex))
+	{
+		ft_mlx_delete_texture(window->ammo_tex[0]);
+		ft_mlx_delete_texture(window->ammo_tex[1]);
+		ft_mlx_delete_texture(window->health_tex[0]);
+		ft_mlx_delete_texture(window->health_tex[1]);
+		ft_mlx_delete_texture(window->exit_tex[0]);
+		ft_mlx_delete_texture(window->exit_tex[1]);
+		ft_mlx_delete_texture(window->destructible_tex);
+		return (false);
+	}
 	return (true);
 }
 
