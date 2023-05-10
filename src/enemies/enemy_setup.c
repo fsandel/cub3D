@@ -3,12 +3,7 @@
 static void	setup_enemy_textures(t_enemy **all_enemies);
 static void	setup_singular_enemy(t_enemy *enemy);
 void		enemy_load_png(t_enemy *enemy);
-
-typedef struct s_value
-{
-	short			value;
-	t_enemy_type	type;
-}	t_value;
+void		setup_enemy_type_speficic_values(t_enemy *enemy);
 
 t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 {
@@ -36,26 +31,6 @@ t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 	return (all_enemies);
 }
 
-static void	setup_enemy_type_speficic_values(t_enemy *enemy)
-{
-	const t_value	range[8] = {{2, big_hans_blue}, {2, big_hans_red},
-	{1, dog}, {3, guard}, {3, hans}, {1, mutant}, {3, officer},
-	{1, surgeon}
-	};
-	const t_value	hp[8] = {{25, big_hans_blue}, {25, big_hans_red},
-	{5, dog}, {10, guard}, {20, hans}, {20, mutant}, {30, officer},
-	{30, surgeon}
-	};
-	const t_value	speed[8] = {{1, big_hans_blue}, {1, big_hans_red},
-	{3, dog}, {2, guard}, {2, hans}, {2, mutant}, {2, officer},
-	{1, surgeon}
-	};
-
-	enemy->range = range[enemy->type].value;
-	enemy->hp = hp[enemy->type].value;
-	enemy->speed = speed[enemy->type].value;
-}
-
 static void	setup_singular_enemy(t_enemy *enemy)
 {
 	static t_enemy_type	type = 0;
@@ -64,6 +39,7 @@ static void	setup_singular_enemy(t_enemy *enemy)
 	enemy->frame_count = 0;
 	enemy->state = out_of_range;
 	enemy->type = type++;
+	enemy->cooldown = 30;
 	setup_enemy_type_speficic_values(enemy);
 }
 
