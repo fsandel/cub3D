@@ -3,12 +3,13 @@
 /*
  * inits the map struct
  */
-
 static t_parser_state	*init_state(void)
 {
 	t_parser_state	*state;
 
 	state = malloc(sizeof(t_parser_state));
+	if (!state)
+		return (NULL);
 	state->map_parsed = false;
 	state->f_parsed = false;
 	state->c_parsed = false;
@@ -22,6 +23,8 @@ t_map	*init_map(void)
 	t_map			*map;
 
 	map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
 	map->textures[0] = NULL;
 	map->textures[1] = NULL;
 	map->textures[2] = NULL;
@@ -35,5 +38,7 @@ t_map	*init_map(void)
 	map->floor_color = get_rgba(0, 0, 0, 0);
 	map->ceiling_color = get_rgba(0, 0, 0, 0);
 	map->state = init_state();
+	if (!map->state)
+		return (NULL);
 	return (map);
 }
