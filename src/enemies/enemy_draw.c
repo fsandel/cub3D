@@ -8,10 +8,7 @@ static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 	const int		x = tex->width * fabs(scale_x);
 	const int		y = tex->height * fabs(scale_y);
 
-	if (enemy->delta_angle > 0)
-		pos = (y * tex->width + x) * 4;
-	else
-		pos = (y * tex->width + (tex->width - x)) * 4;
+	pos = (y * tex->width + x) * 4;
 	color = get_rgba(tex->pixels[pos] * enemy->brightness,
 			tex->pixels[pos + 1] * enemy->brightness,
 			tex->pixels[pos + 2] * enemy->brightness,
