@@ -26,7 +26,7 @@ int	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
 	int		i;
 	char	*att_char;
 	char	*mov_char;
-	int	error;
+	int		error;
 
 	error = 0;
 	i = 0;
@@ -48,6 +48,7 @@ int	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
 int	enemy_load_png(t_enemy *enemy)
 {
 	t_enemy_type	type;
+	int				error;
 	const char		*names[8] = {
 		names[big_hans_blue] = "big_hans_blue",
 		names[big_hans_red] = "big_hans_red",
@@ -58,7 +59,6 @@ int	enemy_load_png(t_enemy *enemy)
 		names[officer] = "officer",
 		names[surgeon] = "surgeon"
 	};
-	int	error;
 
 	error = 0;
 	type = 0;
