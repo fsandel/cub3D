@@ -13,9 +13,17 @@ t_window	*general_setup(t_map *map)
 	t_window	*window;
 
 	window = setup_window_struct(map);
+	if (!window)
+		return (ft_lstclear(&map->enemy_list, free), free_map(map), NULL);
 	window->player = setup_player(window->map);
+	if (!window->player)
+		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), NULL);
 	window->all_enemies = setup_enemy_struct(window->player, map);
+	if (!window->all_enemies)
+		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), free_player(window->player), NULL);
 	window->hud = setup_hud(window->mlx);
+	if (!window->hud)
+		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), free_player(window->player), free_all_enemies(window->all_enemies), NULL);
 	setup_mouse(window);
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
@@ -27,6 +35,8 @@ static t_window	*setup_window_struct(t_map *map)
 	t_window	*window;
 
 	window = malloc(sizeof(t_window));
+	if (!window)
+		return (NULL);
 	window->mlx = mlx_init(WIDTH, HEIGHT + HUD_SIZE, "cub3D", 1);
 	window->img = mlx_new_image(window->mlx, WIDTH, HEIGHT + HUD_SIZE);
 	mlx_image_to_window(window->mlx, window->img, 0, 0);

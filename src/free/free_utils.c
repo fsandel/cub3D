@@ -64,3 +64,9 @@ void	free_window(t_window *window)
 	mlx_terminate(window->mlx);
 	free(window);
 }
+
+void	free_player(t_player *player)
+{
+	free_weapon(player->weapon);
+	free(player);
+}

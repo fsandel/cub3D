@@ -190,6 +190,7 @@ void			free_cubes(t_map *map);
 void			free_map(t_map *map);
 void			free_all_enemies(t_enemy **all_enemies);
 void			free_weapon(t_weapon *weapon);
+void			free_player(t_player *player);
 
 //utils.c
 t_cube_type		get_cube_type(t_vector *pos, t_map *map);
