@@ -16,6 +16,7 @@ void	parse_map(char **str, int fd, t_map *map, t_file_content *file_content)
 				map->width = ft_strlen(*str) - 1;
 			*str = get_next_line(fd);
 		}
+		free(*str);
 		map->state->map_parsed = true;
 	}
 	else
