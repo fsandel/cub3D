@@ -100,7 +100,7 @@ static int	parse_rgb(char *str, int *r, int *g, int *b)
 	{
 		trimmed = ft_strtrim(str_vals[i], " ");
 		if (!is_num_str(trimmed))
-			return (ft_arr_free(str_vals), EXIT_FAILURE);
+			return (ft_arr_free(str_vals), free(trimmed), EXIT_FAILURE);
 		if (i == 0)
 			*r = ft_atoi(str_vals[i]);
 		else if (i == 1)
