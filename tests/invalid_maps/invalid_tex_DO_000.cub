@@ -1,16 +1,15 @@
-WE ./wolftex/wood.png
-
+WE ./wolftex/greystone.png
 SO ./wolftex/redbrick.png
-F 122,122,122
-NO ./wolftex/greystone.png
 EA ./wolftex/wood.png
-DO ../textures/door/wolf_door.png
-
+NO ./wolftex/wood.png
 C 255,200,160
+F 122,122,122
+DO 
+
 11111111111111111
 10000000000000001
+100D0000000000001
 10000000000000001
-1000000D000000001
 10000000000000001
 10000000000000001
 10000000N00000001
