@@ -27,10 +27,10 @@
 
 //range player can see
 //0 to turn of fog
-# define FOG 5
+# define FOG 7
 
 # define ENEMIE_HITPOINTS 10
-# define ENEMY_RANGE 5
+# define ENEMY_RANGE 6
 # define ENEMY_FRAME_COOLDOWN 8
 # define ENEMY_Y_OFFSET 130
 
