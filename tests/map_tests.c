@@ -339,6 +339,31 @@ Test(parse_map, invalid_tex_WE){
 	}
 }
 
+Test(parse_map, invalid_tex_DO){
+	int i;
+	char	*map_name;
+	char	*num_str;
+	char	*temp;
+	int		fd;
+	t_map	*result;
+	
+	i = 0;
+	while (i < 1)
+	{
+		num_str = ft_itoa(i);
+		temp = ft_strjoin("invalid_maps/invalid_tex_DO_00", num_str);
+		free(num_str);
+		map_name = ft_strjoin(temp, ".cub");
+		free(temp);
+		fd = open(map_name, O_RDONLY);
+		result = parse(fd);
+		cr_expect(result == NULL, "failed on %s \n", map_name);
+		free(map_name);
+		close(fd);
+		i++;
+	}
+}
+
 Test(parse_map, valid_tex){
 	int i;
 	char	*map_name;
