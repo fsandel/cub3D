@@ -17,13 +17,17 @@ t_window	*general_setup(t_map *map)
 		return (ft_lstclear(&map->enemy_list, free), free_map(map), NULL);
 	window->player = setup_player(window->map);
 	if (!window->player)
-		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), NULL);
+		return (ft_lstclear(&map->enemy_list, free), free_map(map),
+			free_window(window), NULL);
 	window->all_enemies = setup_enemy_struct(window->player, map);
 	if (!window->all_enemies)
-		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), free_player(window->player), NULL);
+		return (ft_lstclear(&map->enemy_list, free), free_map(map),
+			free_window(window), free_player(window->player), NULL);
 	window->hud = setup_hud(window->mlx);
 	if (!window->hud)
-		return (ft_lstclear(&map->enemy_list, free), free_map(map), free_window(window), free_player(window->player), free_all_enemies(window->all_enemies), NULL);
+		return (ft_lstclear(&map->enemy_list, free), free_map(map),
+			free_window(window), free_player(window->player),
+			free_all_enemies(window->all_enemies), NULL);
 	setup_mouse(window);
 	implement_loop_hooks(window);
 	mlx_key_hook(window->mlx, start_screen_hook, window);
