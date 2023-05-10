@@ -1,7 +1,8 @@
 #include <cub3D.h>
 
-static void	setup_enemy_textures(t_enemy **all_enemies);
+static bool	setup_enemy_textures(t_enemy **all_enemies);
 static void	setup_singular_enemy(t_enemy *enemy);
+static void	free_prior_enemies(t_enemy **all_enemies, int amount);
 
 t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 {
@@ -12,10 +13,14 @@ t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 
 	head = map->enemy_list;
 	all_enemies = malloc((amount + 1) * sizeof(t_enemy *));
+	if (!all_enemies)
+		return (NULL);
 	i = 0;
 	while (i < amount)
 	{
 		all_enemies[i] = malloc(sizeof(t_enemy));
+		if (!all_enemies[i])
+			return(free_prior_enemies(all_enemies, i), free(all_enemies), NULL);
 		setup_singular_enemy(all_enemies[i]);
 		all_enemies[i]->pos.x = ((t_vector *)(head->content))->x;
 		all_enemies[i]->pos.y = ((t_vector *)(head->content))->y;
@@ -24,9 +29,19 @@ t_enemy	**setup_enemy_struct(t_player *player, t_map *map)
 		i++;
 	}
 	all_enemies[i] = NULL;
+	if (!setup_enemy_textures(all_enemies))
+		return (NULL);
 	ft_lstclear(&map->enemy_list, free);
-	setup_enemy_textures(all_enemies);
 	return (all_enemies);
+}
+
+static void	free_prior_enemies(t_enemy **all_enemies, int amount)
+{
+	int	i;
+	
+	i = 0;
+	while (i < amount)
+		free(all_enemies[i++]);
 }
 
 static void	setup_singular_enemy(t_enemy *enemy)
@@ -62,16 +77,16 @@ static bool	load_textures(t_enemy *enemy)
 	return (true);
 }
 
-static void	setup_enemy_textures(t_enemy **all_enemies)
+static bool	setup_enemy_textures(t_enemy **all_enemies)
 {
 	int		enemy_iter;
 	int		tex_iter;
 	t_enemy	tex_enemy;
 
 	if (!all_enemies[0])
-		return ;
+		return (true);
 	if (!load_textures(&tex_enemy))
-		return ;
+		return (false);
 	enemy_iter = 0;
 	while (all_enemies[enemy_iter])
 	{
@@ -88,4 +103,5 @@ static void	setup_enemy_textures(t_enemy **all_enemies)
 		all_enemies[enemy_iter]->tex_nb = tex_enemy.tex_nb;
 		enemy_iter++;
 	}
+	return (true);
 }

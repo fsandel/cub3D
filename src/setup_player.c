@@ -1,17 +1,22 @@
 #include <cub3D.h>
 
 static t_weapon	*setup_weapon(void);
+static bool		all_weapon_textures_exist(t_weapon *weapon);
 
 t_player	*setup_player(t_map *map)
 {
 	t_player	*player;
 
 	player = malloc(sizeof(t_player));
+	if (!player)
+		return (NULL);
 	player->hp = STARTING_HP;
 	player->ammo = STARTING_AMMO;
 	set_vec(&player->pos, map->start_pos.x, map->start_pos.y);
 	set_vec(&player->dir, map->start_dir.x, map->start_dir.y);
 	player->weapon = setup_weapon();
+	if (!player->weapon)
+		return (free(player), NULL);
 	return (player);
 }
 
@@ -20,6 +25,8 @@ static t_weapon	*setup_weapon(void)
 	t_weapon	*weapon;
 
 	weapon = malloc(sizeof(t_weapon));
+	if (!weapon)
+		return (NULL);
 	weapon->weapon_type = gun;
 	weapon->cooldown = 0;
 	weapon->gun_tex[0] = mlx_load_png("textures/gun/gun.png");
@@ -35,5 +42,32 @@ static t_weapon	*setup_weapon(void)
 	weapon->torch_tex[8] = NULL;
 	weapon->muzzle_tex[0] = mlx_load_png("textures/gun/muzzle_flash.png");
 	weapon->muzzle_tex[1] = NULL;
+	if (!all_weapon_textures_exist(weapon))
+		return (free(weapon), NULL);
 	return (weapon);
+}
+
+static bool	all_weapon_textures_exist(t_weapon *weapon)
+{
+	if (!weapon->gun_tex[0])
+		return (false);
+	if (!weapon->torch_tex[0])
+		return (false);
+	if (!weapon->torch_tex[1])
+		return (false);
+	if (!weapon->torch_tex[2])
+		return (false);
+	if (!weapon->torch_tex[3])
+		return (false);
+	if (!weapon->torch_tex[4])
+		return (false);
+	if (!weapon->torch_tex[5])
+		return (false);
+	if (!weapon->torch_tex[6])
+		return (false);
+	if (!weapon->torch_tex[7])
+		return (false);
+	if (!weapon->muzzle_tex[0])
+		return (false);
+	return (true);
 }
