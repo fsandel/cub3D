@@ -20,16 +20,15 @@ void	draw_weapon_loop_hook(void *arg)
 	clean_weapon(window);
 	clean_cross_hair(window);
 	if (window->player->weapon->weapon_type == gun)
-	{
-		draw_weapon(window, window->player->weapon->gun_tex[0]);
-		draw_cross_hair(window);
-	}
+		return (draw_weapon(window, window->player->weapon->gun_tex[0]),
+			draw_cross_hair(window));
 	else if (window->player->weapon->weapon_type == torch)
-	{
-		draw_weapon(window,
-			window->player->weapon->torch_tex[(window->frame_count % 24) / 3]);
-		window->fog = FOG + 5;
-	}
+		return (draw_weapon(window,
+				window->player->weapon->torch_tex
+				[(window->frame_count % 24) / 3]),
+			window->fog = FOG + 5, (void)0);
+	else if (window->player->weapon->weapon_type == none)
+		window->fog = FOG;
 }
 
 void	draw_muzzle_flash(t_window *window, mlx_texture_t *tex, bool draw)
