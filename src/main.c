@@ -17,7 +17,7 @@ int	main2(int argc, char **argv)
 		return (close(fd), EXIT_FAILURE);
 	window = general_setup(map);
 	if (!window)
-		return (EXIT_FAILURE);
+		return (ft_putendl_fd("Allocation failed", 2), EXIT_FAILURE);
 	mlx_loop(window->mlx);
 	free_everything(window);
 	return (EXIT_SUCCESS);

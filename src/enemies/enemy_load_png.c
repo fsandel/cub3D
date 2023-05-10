@@ -20,13 +20,15 @@ char	*create_texture_name(const char *name, int num, char *tp)
 	return (temp);
 }
 
-void	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
+int	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
 			const char *name)
 {
 	int		i;
 	char	*att_char;
 	char	*mov_char;
+	int		error;
 
+	error = 0;
 	i = 0;
 	while (i < 8)
 	{
@@ -34,15 +36,19 @@ void	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
 		att_char = create_texture_name(name, i, "a");
 		enemy->walking_tex[type][i] = mlx_load_png(mov_char);
 		enemy->attacking_tex[type][i] = mlx_load_png(att_char);
+		if (!(enemy->walking_tex[type][i] && enemy->attacking_tex[type][i]))
+			error++;
 		free(mov_char);
 		free(att_char);
 		i++;
 	}
+	return (error);
 }
 
-void	enemy_load_png(t_enemy *enemy)
+int	enemy_load_png(t_enemy *enemy)
 {
 	t_enemy_type	type;
+	int				error;
 	const char		*names[8] = {
 		names[big_hans_blue] = "big_hans_blue",
 		names[big_hans_red] = "big_hans_red",
@@ -54,10 +60,12 @@ void	enemy_load_png(t_enemy *enemy)
 		names[surgeon] = "surgeon"
 	};
 
+	error = 0;
 	type = 0;
 	while (type < 8)
 	{
-		enemy_load_single_png(enemy, type, names[type]);
+		error += enemy_load_single_png(enemy, type, names[type]);
 		type++;
 	}
+	return (error);
 }

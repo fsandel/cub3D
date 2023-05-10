@@ -30,13 +30,18 @@ t_hud	*setup_hud(mlx_t *mlx)
 	t_hud		*hud;
 
 	hud = malloc(sizeof(t_hud));
+	if (!hud)
+		return (NULL);
 	hud_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!hud->hud_img)
+		return (free(hud), NULL);
 	hud->hud_img = hud_img;
 	hud->minimap_pos_x = 105;
 	hud->minimap_pos_y = 105;
 	hud->minimap_zoom = 5;
 	hud->minimap_radius = 100;
-	mlx_image_to_window(mlx, hud->hud_img, 0, 0);
+	if (mlx_image_to_window(mlx, hud->hud_img, 0, 0) == -1)
+		return (mlx_delete_image(mlx, hud_img), free(hud), NULL);
 	mlx_set_instance_depth(hud->hud_img->instances, 2);
 	return (hud);
 }
@@ -53,11 +58,14 @@ static void	fps(t_window *window)
 	if (draw_order != 0)
 		return ;
 	fps_char = ft_itoa(1 / window->mlx->delta_time);
+	if (!fps_char)
+		return ;
 	fps_char_joined = ft_strjoin("FPS: ", fps_char);
 	temp_img = fps_img;
 	fps_img = mlx_put_string(window->mlx, fps_char_joined,
 			WIDTH - 100, HEIGHT + 10);
-	mlx_set_instance_depth(fps_img->instances, 3);
+	if (fps_img)
+		mlx_set_instance_depth(fps_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(fps_char);
@@ -76,11 +84,14 @@ static void	hp(t_window *window)
 	if (draw_order != 1)
 		return ;
 	hp_char = ft_itoa(window->player->hp);
+	if (!hp_char)
+		return ;
 	hp_char_joined = ft_strjoin("HP: ", hp_char);
 	temp_img = hp_img;
 	hp_img = mlx_put_string(window->mlx, hp_char_joined,
 			WIDTH / 2, HEIGHT + 10);
-	mlx_set_instance_depth(hp_img->instances, 3);
+	if (hp_img)
+		mlx_set_instance_depth(hp_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(hp_char);
@@ -99,11 +110,14 @@ static void	ammo(t_window *window)
 	if (draw_order != 2)
 		return ;
 	ammo_char = ft_itoa(window->player->ammo);
+	if (!ammo_char)
+		return ;
 	ammo_char_joined = ft_strjoin("AMMO: ", ammo_char);
 	temp_img = ammo_img;
 	ammo_img = mlx_put_string(window->mlx, ammo_char_joined,
 			10, HEIGHT + 10);
-	mlx_set_instance_depth(ammo_img->instances, 3);
+	if (ammo_img)
+		mlx_set_instance_depth(ammo_img->instances, 3);
 	if (temp_img)
 		mlx_delete_image(window->mlx, temp_img);
 	free(ammo_char);
