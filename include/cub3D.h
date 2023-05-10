@@ -130,7 +130,6 @@ typedef struct s_enemy
 	t_vector		dir;
 	t_enemy_state	state;
 	t_enemy_type	type;
-	char			hitpoints;
 	mlx_texture_t	*walking_tex[8][8];
 	mlx_texture_t	*attacking_tex[8][8];
 	char			tex_nb;
