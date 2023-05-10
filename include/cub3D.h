@@ -167,7 +167,7 @@ typedef struct s_player
 	t_weapon	*weapon;
 	t_vector	pos;
 	t_vector	dir;
-	char		hp;
+	short		hp;
 	char		ammo;
 }	t_player;
 

@@ -10,7 +10,7 @@ static void	set_hp(t_enemy *enemy)
 	hp[guard] = 10;
 	hp[hans] = 20;
 	hp[mutant] = 20;
-	hp[officer] = 30;
+	hp[officer] = 20;
 	hp[surgeon] = 30;
 	enemy->hp = hp[enemy->type];
 }
