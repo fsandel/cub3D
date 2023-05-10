@@ -100,7 +100,7 @@ static t_file_content	*read_file(int fd, t_map *map,
 		if ((is_valid_tex_str(str) || is_valid_f_c_str(str))
 			&& !map->state->map_parsed)
 			ft_lstadd_back(&file_content->option_lines, ft_lstnew(str));
-		else if (is_valid_map_str(str))
+		else if (is_valid_map_str(str) && !map->state->map_parsed)
 			parse_map(&str, fd, map, file_content);
 		else
 		{
