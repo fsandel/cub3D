@@ -3,7 +3,7 @@
 static void		implement_loop_hooks(t_window *window);
 static t_window	*setup_window_struct(t_map *map);
 static void		setup_mouse(t_window *window);
-static t_window	*load_extra_wall_textures(t_window *window);
+static bool		load_extra_wall_textures(t_window *window);
 
 void			frame_counter_hook(void *arg);
 void			start_screen_loop_hook(void *arg);
@@ -42,11 +42,17 @@ static t_window	*setup_window_struct(t_map *map)
 	if (!window)
 		return (NULL);
 	window->mlx = mlx_init(WIDTH, HEIGHT + HUD_SIZE, "cub3D", 1);
+	if (!window->mlx)
+		return (free(window), NULL);
 	window->img = mlx_new_image(window->mlx, WIDTH, HEIGHT + HUD_SIZE);
-	mlx_image_to_window(window->mlx, window->img, 0, 0);
+	if (!window->img)
+		return (free(window), mlx_terminate(window->mlx), NULL);
+	if (mlx_image_to_window(window->mlx, window->img, 0, 0) == -1)
+		return (free(window), mlx_terminate(window->mlx), NULL);
 	mlx_set_instance_depth(window->img->instances, 1);
 	window->map = map;
-	window = load_extra_wall_textures(window);
+	if (!load_extra_wall_textures(window))
+		return (free(window), mlx_terminate(window->mlx), NULL);
 	window->frame_count = 0;
 	window->redraw = true;
 	window->fog = FOG;
@@ -54,7 +60,7 @@ static t_window	*setup_window_struct(t_map *map)
 	return (window);
 }
 
-static t_window	*load_extra_wall_textures(t_window *window)
+static bool	load_extra_wall_textures(t_window *window)
 {
 	window->ammo_tex[0] = mlx_load_png("textures/interactable/wolf_ammo.png");
 	window->ammo_tex[1] = mlx_load_png("textures/interactable/wolf_empty.png");
@@ -65,7 +71,20 @@ static t_window	*load_extra_wall_textures(t_window *window)
 	window->exit_tex[0] = mlx_load_png("textures/interactable/wolf_exit.png");
 	window->exit_tex[1] = mlx_load_png("textures/interactable/wolf_exit1.png");
 	window->destructible_tex = mlx_load_png("textures/wolf_destr_wood.png");
-	return (window);
+	if (!(window->ammo_tex[0] &&window->ammo_tex[1] && window->health_tex[0]
+		&& window->health_tex[1] && window->exit_tex[0] && window->exit_tex[1]
+		&& window->destructible_tex))
+		{
+			ft_mlx_delete_texture(window->ammo_tex[0]);
+			ft_mlx_delete_texture(window->ammo_tex[1]);
+			ft_mlx_delete_texture(window->health_tex[0]);
+			ft_mlx_delete_texture(window->health_tex[1]);
+			ft_mlx_delete_texture(window->exit_tex[0]);
+			ft_mlx_delete_texture(window->exit_tex[1]);
+			ft_mlx_delete_texture(window->destructible_tex);
+			return (false);
+		}
+	return (true);
 }
 
 static void	setup_mouse(t_window *window)
