@@ -4,14 +4,22 @@ void	free_all_enemies(t_enemy **all_enemies)
 {
 	int	enemy_iter;
 	int	tex_iter;
+	int	state_iter;
 
 	tex_iter = 0;
 	if (all_enemies[0])
 	{
 		while (tex_iter < all_enemies[0]->tex_nb)
 		{
-			mlx_delete_texture(all_enemies[0]->attacking_tex[0][tex_iter]);
-			mlx_delete_texture(all_enemies[0]->walking_tex[0][tex_iter]);
+			state_iter = 0;
+			while (state_iter < 8)
+			{
+				mlx_delete_texture(
+					all_enemies[0]->attacking_tex[state_iter][tex_iter]);
+				mlx_delete_texture(
+					all_enemies[0]->walking_tex[state_iter][tex_iter]);
+				state_iter++;
+			}
 			tex_iter++;
 		}
 	}

@@ -16,6 +16,7 @@ char	*create_texture_name(const char *name, int num, char *tp)
 	free(num_char);
 	free(temp);
 	temp = ft_strjoin(temp2, ".png");
+	free(temp2);
 	return (temp);
 }
 
