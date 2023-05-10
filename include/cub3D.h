@@ -140,6 +140,9 @@ typedef struct s_enemy
 	double			delta_angle;
 	short			x_on_screen;
 	double			brightness;
+	short			range;
+	short			speed;
+	short			hp;
 }	t_enemy;
 
 typedef struct s_map
