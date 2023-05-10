@@ -2,7 +2,7 @@
 
 static void	attack_single_enemy(t_window *window)
 {
-	static int	cooldown = 0;
+	static int	cooldown = 5;
 
 	if (cooldown < 1)
 	{

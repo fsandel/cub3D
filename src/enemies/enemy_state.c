@@ -16,7 +16,7 @@ static void	set_single_enemie_state(t_enemy *enemy, t_player *player,
 			return (enemy->state = out_of_range, (void)0);
 	}
 	enemy->dis = distance(player->pos, enemy->pos);
-	if (enemy->dis < 1)
+	if (enemy->dis < enemy->range)
 		enemy->state = attacking;
 	else if (enemy->dis < ENEMY_RANGE)
 		enemy->state = hunting;
@@ -29,7 +29,7 @@ static void	update_meta_data(t_enemy *enemy, t_player *player, t_window *window)
 	enemy->delta_angle = atan2(-(enemy->dir.x), -(enemy->dir.y))
 		- atan2((player->dir.x), (player->dir.y));
 	enemy->brightness = max(1.0 - (enemy->dis / window->fog), 0);
-	if (enemy->hitpoints <= 0 && enemy->state != out_of_range)
+	if (enemy->hp <= 0 && enemy->state != out_of_range)
 		enemy->state = dead;
 	enemy->x_on_screen = WIDTH * (1 - sin(enemy->delta_angle)
 			/ sin(FOV * M_PI / 360)) / 2;
