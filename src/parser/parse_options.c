@@ -56,7 +56,10 @@ static void	parse_texture(char *input, t_map *map)
 	else if (ft_strncmp(str_vals[0], "DO", 2) == 0 && !map->door_tex)
 		map->door_tex = texture;
 	else
+	{
+		mlx_delete_texture(texture);
 		map->state->error_type = too_many_textures;
+	}
 	ft_arr_free(str_vals);
 	free(temp);
 }
