@@ -54,7 +54,7 @@ static void	setup_singular_enemy(t_enemy *enemy, t_vector *pos)
 	enemy->state = out_of_range;
 	enemy->pos.x = pos->x;
 	enemy->pos.y = pos->y;
-	enemy->type = type++;
+	enemy->type = type++ % 8;
 	enemy->cooldown = 30;
 	setup_enemy_type_speficic_values(enemy);
 }
