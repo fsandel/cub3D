@@ -12,7 +12,11 @@ void	draw_weapon_loop_hook(void *arg)
 	if (window->state != game_screen)
 		return ;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_1))
+	{
+		if (window->player->weapon->weapon_type != gun)
+			play_sound(window, gun_draw);
 		window->player->weapon->weapon_type = gun;
+	}
 	if (mlx_is_key_down(window->mlx, MLX_KEY_2))
 		window->player->weapon->weapon_type = torch;
 	if (mlx_is_key_down(window->mlx, MLX_KEY_3))

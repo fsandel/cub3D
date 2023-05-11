@@ -51,6 +51,7 @@ void	start_screen_hook(mlx_key_data_t keydata, void *arg)
 		mlx_key_hook(window->mlx, cub_key_hook, window);
 		mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 		draw_cross_hair(window);
+		play_sound(window, start_sound);
 		window->state = game_screen;
 	}
 }

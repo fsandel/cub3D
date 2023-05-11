@@ -60,19 +60,30 @@ static bool	toggle_targeted_door(t_window *window)
 		if (get_cube_type(&target, window->map) == door_closed)
 		{
 			window->map->cubes[(int)target.y][(int)target.x] = door_open;
+			play_sound(window, door_sound);
 			return (true);
 		}
 		else if (get_cube_type(&target, window->map) == door_open)
 		{
 			window->map->cubes[(int)target.y][(int)target.x] = door_closed;
+			play_sound(window, door_sound);
 			return (true);
 		}
 		else if (get_cube_type(&target, window->map) == health_full)
+		{
+			play_sound(window, health_pickup);
 			return (interact_health_shelf(window, target.x, target.y));
+		}
 		else if (get_cube_type(&target, window->map) == ammo_full)
+		{
+			play_sound(window, ammo_pickup);
 			return (interact_ammo_shelf(window, target.x, target.y));
+		}
 		else if (get_cube_type(&target, window->map) == exit_cube)
+		{
+			play_sound(window, window);
 			won_game(window);
+		}
 	}
 	return (false);
 }
