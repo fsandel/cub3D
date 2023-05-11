@@ -40,7 +40,7 @@ ENEMIES_FILES	=	enemies.c enemy_draw.c enemy_movement.c enemy_state.c enemy_util
 
 WEAPON			=	$(addprefix $(WEAPON_DIR), $(WEAPON_FILES))
 WEAPON_DIR		=	src/weapon/
-WEAPON_FILES	=	weapon_clear.c weapon_draw.c player_attack.c
+WEAPON_FILES	=	weapon_clear.c weapon_draw.c player_attack.c weapon_utils.c
 
 FREE			=	$(addprefix $(FREE_DIR), $(FREE_FILES))
 FREE_DIR		=	src/free/
