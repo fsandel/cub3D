@@ -47,10 +47,6 @@ void	redraw_window(void *arg)
 
 int	main(int argc, char **argv)
 {
-//	int	err_code;
-
 	main2(argc, argv);
-//	err_code = system("leaks cub3D");
-//	return (err_code);
-return (0);
+	return (0);
 }

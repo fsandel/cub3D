@@ -58,32 +58,19 @@ static bool	toggle_targeted_door(t_window *window)
 	if (dis > COLLISION && dis < DOOR_TOUCH_RANGE)
 	{
 		if (get_cube_type(&target, window->map) == door_closed)
-		{
-			window->map->cubes[(int)target.y][(int)target.x] = door_open;
-			play_sound(window, door_sound);
-			return (true);
-		}
+			return (window->map->cubes[(int)target.y][(int)target.x]
+				= door_open, play_sound(window, door_sound), true);
 		else if (get_cube_type(&target, window->map) == door_open)
-		{
-			window->map->cubes[(int)target.y][(int)target.x] = door_closed;
-			play_sound(window, door_sound);
-			return (true);
-		}
+			return (window->map->cubes[(int)target.y][(int)target.x]
+				= door_closed, play_sound(window, door_sound), true);
 		else if (get_cube_type(&target, window->map) == health_full)
-		{
-			play_sound(window, health_pickup);
-			return (interact_health_shelf(window, target.x, target.y));
-		}
+			return (play_sound(window, health_pickup),
+				interact_health_shelf(window, target.x, target.y));
 		else if (get_cube_type(&target, window->map) == ammo_full)
-		{
-			play_sound(window, ammo_pickup);
-			return (interact_ammo_shelf(window, target.x, target.y));
-		}
+			return (play_sound(window, ammo_pickup),
+				interact_ammo_shelf(window, target.x, target.y));
 		else if (get_cube_type(&target, window->map) == exit_cube)
-		{
-			play_sound(window, win_sound);
-			won_game(window);
-		}
+			return (play_sound(window, win_sound), won_game(window), true);
 	}
 	return (false);
 }
