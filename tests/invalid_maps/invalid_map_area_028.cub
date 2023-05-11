@@ -1,0 +1,14 @@
+NO ./wolftex/greystone.png
+SO ./wolftex/redbrick.png
+EA ./wolftex/wood.png
+WE ./wolftex/wood.png
+C 255,200,160
+F 122,122,122
+
+1111111111
+1000000001
+1000000001
+1000000001
+100000000d
+1N00000001
+1111111111
