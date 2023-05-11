@@ -4,7 +4,7 @@ static bool	hit_enemy(t_enemy *enemy)
 {
 	if (enemy->state == dead || enemy->state == out_of_range)
 		return (false);
-	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 10.0)
+	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 8.0)
 		return (enemy->hp -= 10, true);
 	else if (fabs(enemy->delta_angle) <= FOV * M_PI / 180.0 / 2.0 / 5.0)
 		return (enemy->hp -= 4, true);
@@ -34,13 +34,15 @@ static void	player_shoot_enemies(t_window *window)
 	bool	hit;
 
 	i = 0;
-	hit = false;
 	while (window->all_enemies[i])
+		i++;
+	hit = false;
+	while (i-- > 0)
 	{
 		hit = hit_enemy(window->all_enemies[i]);
 		if (hit)
 			break ;
-		i++;
+		i--;
 	}
 	if (!hit)
 		player_shoot_wall(window);
