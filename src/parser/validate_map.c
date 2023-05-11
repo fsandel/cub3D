@@ -16,7 +16,8 @@ bool	map_is_valid(t_map *map)
 		while (column < map->width)
 		{
 			if ((map->cubes[line][column] <= walkable
-				|| map->cubes[line][column] == door_closed)
+				|| map->cubes[line][column] == door_closed
+				|| map->cubes[line][column] == destructible)
 				&& !is_valid_field(map, line, column))
 			{
 				map->state->error_type = invalid_map;
