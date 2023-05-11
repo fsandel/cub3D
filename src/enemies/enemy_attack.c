@@ -1,11 +1,20 @@
 #include <cub3D.h>
 
-static void	attack_single_enemy(t_enemy *enemy, t_player *player)
+static void	attack_single_enemy(t_enemy *enemy, t_player *player,
+	t_window *window)
 {
 	if (enemy->cooldown < 1)
 	{
 		player->hp -= enemy->attack;
 		enemy->cooldown = 30;
+		if (enemy->type == big_hans_blue || enemy->type == big_hans_red)
+			play_sound(window, burst_fire);
+		else if (enemy->type == mutant || enemy->type == surgeon)
+			play_sound(window, stab_attack);
+		else if (enemy->type == dog)
+			play_sound(window, bite_attack);
+		else
+			play_sound(window, pistol_fire);
 	}
 	if (enemy->cooldown > 0)
 		enemy->cooldown--;
@@ -19,7 +28,7 @@ void	attack_enemies(t_window *window)
 	while (window->all_enemies[i])
 	{
 		if (window->all_enemies[i]->state == attacking)
-			attack_single_enemy(window->all_enemies[i], window->player);
+			attack_single_enemy(window->all_enemies[i], window->player, window);
 		i++;
 	}
 }

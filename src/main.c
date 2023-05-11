@@ -1,7 +1,5 @@
 #include <cub3D.h>
 
-static void	free_everything(t_window *window);
-
 int	main2(int argc, char **argv)
 {
 	t_window	*window;

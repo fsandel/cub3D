@@ -101,6 +101,22 @@ typedef enum e_enemy_type
 	surgeon
 }	t_enemy_type;
 
+typedef enum s_sound_type
+{
+	pistol_fire,
+	burst_fire,
+	stab_attack,
+	bite_attack,
+	wall_smash,
+	door_sound,
+	gun_draw,
+	ammo_pickup,
+	health_pickup,
+	start_sound,
+	win_sound,
+	loss_sound
+}	t_sound_type;
+
 typedef enum e_window_state
 {
 	start_screen,
@@ -198,6 +214,9 @@ typedef struct s_window
 	bool			redraw;
 	int				frame_count;
 }	t_window;
+
+//main.c
+void			free_everything(t_window *window);
 
 //free_utils.c
 void			free_window(t_window *window);
@@ -343,5 +362,8 @@ void			draw_muzzle_flash(t_window *window, mlx_texture_t *tex,
 
 //setup_player.c
 t_player		*setup_player(t_map *map);
+
+//sound.c
+void			play_sound(t_window *window, t_sound_type sound_type);
 
 #endif
