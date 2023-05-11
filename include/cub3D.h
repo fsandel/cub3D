@@ -102,7 +102,7 @@ typedef enum e_enemy_type
 	surgeon
 }	t_enemy_type;
 
-typedef enum s_sound_type
+typedef enum e_sound_type
 {
 	pistol_fire,
 	burst_fire,
