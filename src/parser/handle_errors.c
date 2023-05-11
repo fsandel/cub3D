@@ -24,7 +24,10 @@ void	parser_error(t_file_content *file_content, t_map *map)
 	if (file_content)
 		free_filecontent(file_content);
 	if (map)
+	{
+		ft_lstclear(&map->enemy_list, &free);
 		free_map(map);
+	}
 }
 
 static void	print_error(enum e_parser_error err)

@@ -77,6 +77,8 @@ static t_cube_type	set_enemy(t_map *map, int column, int line)
 	t_vector	*enemy_pos;
 
 	enemy_pos = malloc(sizeof(t_vector));
+	if (!enemy_pos)
+		return (walkable);
 	enemy_pos->x = column + 0.5f;
 	enemy_pos->y = line + 0.5f;
 	ft_lstadd_back(&map->enemy_list, ft_lstnew(enemy_pos));
