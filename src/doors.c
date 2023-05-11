@@ -81,7 +81,7 @@ static bool	toggle_targeted_door(t_window *window)
 		}
 		else if (get_cube_type(&target, window->map) == exit_cube)
 		{
-			play_sound(window, window);
+			play_sound(window, win_sound);
 			won_game(window);
 		}
 	}
