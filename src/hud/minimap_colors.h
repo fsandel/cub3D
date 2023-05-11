@@ -7,7 +7,7 @@
 # define BORDER 0x000000dd
 # define PLAYER 0x000000dd
 # define CONE 0xa0a0a0dd
-# define DOOR 0xffa500dd
+# define DOOR 0xffffffdd
 # define ENEMY 0xff0000dd
 
 #endif

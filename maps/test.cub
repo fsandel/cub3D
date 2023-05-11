@@ -1,0 +1,13 @@
+NO textures/wall_debug/north.png
+WE textures/wall_debug/west.png
+EA textures/wall_debug/east.png
+
+C 255,255,255
+SO textures/wall_debug/south.png
+F 150,150,150
+
+111111
+1000dd1
+10N011
+10001
+11111
