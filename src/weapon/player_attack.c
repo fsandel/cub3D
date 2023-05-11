@@ -40,12 +40,11 @@ static void	player_shoot_enemies(t_window *window)
 	while (window->all_enemies[i])
 		i++;
 	hit = false;
-	while (i-- > 0)
+	while (--i >= 0)
 	{
 		hit = hit_enemy(window->all_enemies[i]);
 		if (hit)
 			break ;
-		i--;
 	}
 	if (!hit)
 		player_shoot_wall(window);
