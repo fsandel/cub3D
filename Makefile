@@ -12,7 +12,7 @@ BREW			=	$(HOME)/.brew
 
 SRC				=	$(addprefix $(SRC_DIR), $(SRC_FILES))
 SRC_DIR			=	src/
-SRC_FILES		=	main.c utils.c keyboard_input.c doors.c movement.c start_end_screen.c endcondition.c setup.c setup_player.c
+SRC_FILES		=	main.c utils.c keyboard_input.c doors.c movement.c start_end_screen.c endcondition.c setup.c setup_player.c sound.c
 
 PARSER			=	$(addprefix $(PARSER_DIR), $(PARSER_FILES))
 PARSER_DIR		=	src/parser/
