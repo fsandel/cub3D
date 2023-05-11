@@ -49,6 +49,7 @@ void	start_screen_hook(mlx_key_data_t keydata, void *arg)
 	{
 		ft_bzero(window->img->pixels, (HEIGHT + HUD_SIZE) * WIDTH * 4);
 		mlx_key_hook(window->mlx, cub_key_hook, window);
+		mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 		draw_cross_hair(window);
 		window->state = game_screen;
 	}
