@@ -19,7 +19,7 @@ Test(parse_map, invalid_area){
 	t_map	*result;
 	
 	i = 0;
-	while (i < 28)
+	while (i < 33)
 	{
 		if (i < 10)
 		{
