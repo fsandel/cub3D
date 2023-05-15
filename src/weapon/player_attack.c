@@ -54,14 +54,14 @@ static	void	player_shoot(t_window *window)
 {
 	static int	brightness_counter = 0;
 
-	draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], false);
+	//draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], false);
 	if (mlx_is_mouse_down(window->mlx, MLX_MOUSE_BUTTON_LEFT)
 		&& window->player->weapon->cooldown == 0
 		&& window->player->ammo > 0)
 	{
 		player_shoot_enemies(window);
 		play_sound(window, pistol_fire);
-		draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], true);
+		//draw_muzzle_flash(window, window->player->weapon->muzzle_tex[0], true);
 		window->fog += 10;
 		window->player->weapon->cooldown = WEAPON_COOLDOWN;
 		brightness_counter = 4;

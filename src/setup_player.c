@@ -29,8 +29,12 @@ static t_weapon	*setup_weapon(void)
 		return (NULL);
 	weapon->weapon_type = gun;
 	weapon->cooldown = 0;
-	weapon->gun_tex[0] = mlx_load_png("textures/gun/gun.png");
-	weapon->gun_tex[1] = NULL;
+	weapon->gun_tex[0] = mlx_load_png("textures/pistol/00.png");
+	weapon->gun_tex[1] = mlx_load_png("textures/pistol/01.png");
+	weapon->gun_tex[2] = mlx_load_png("textures/pistol/02.png");
+	weapon->gun_tex[3] = mlx_load_png("textures/pistol/03.png");
+	weapon->gun_tex[4] = mlx_load_png("textures/pistol/04.png");
+	weapon->gun_tex[5] = NULL;
 	weapon->torch_tex[0] = mlx_load_png("textures/torch/torch0.png");
 	weapon->torch_tex[1] = mlx_load_png("textures/torch/torch1.png");
 	weapon->torch_tex[2] = mlx_load_png("textures/torch/torch2.png");
@@ -49,25 +53,15 @@ static t_weapon	*setup_weapon(void)
 
 static bool	all_weapon_textures_exist(t_weapon *weapon)
 {
-	if (!weapon->gun_tex[0])
-		return (false);
-	if (!weapon->torch_tex[0])
-		return (false);
-	if (!weapon->torch_tex[1])
-		return (false);
-	if (!weapon->torch_tex[2])
-		return (false);
-	if (!weapon->torch_tex[3])
-		return (false);
-	if (!weapon->torch_tex[4])
-		return (false);
-	if (!weapon->torch_tex[5])
-		return (false);
-	if (!weapon->torch_tex[6])
-		return (false);
-	if (!weapon->torch_tex[7])
-		return (false);
-	if (!weapon->muzzle_tex[0])
-		return (false);
+	int	i;
+
+	i = 0;
+	while (i < 5)
+		if (!weapon->gun_tex[i++])
+			return (false);
+	i = 0;
+	while (i < 8)
+		if (!weapon->torch_tex[i++])
+			return (false);
 	return (true);
 }
