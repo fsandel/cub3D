@@ -1,9 +1,11 @@
 #include <cub3D.h>
 
-static int	weapon_get_color(double scale_x, double scale_y,
-				mlx_texture_t *tex);
-void		clean_cross_hair(t_window *window);
-static int	calc_weap_tex(t_window *window);
+static int				weapon_get_color(double scale_x, double scale_y,
+							mlx_texture_t *tex);
+static mlx_texture_t	*get_weapon_tex(t_window *window);
+static void				draw_weapon(t_window *window, mlx_texture_t *tex);
+
+void					clean_cross_hair(t_window *window);
 
 void	draw_weapon_loop_hook(void *arg)
 {
@@ -21,44 +23,35 @@ void	draw_weapon_loop_hook(void *arg)
 	clean_weapon(window);
 	clean_cross_hair(window);
 	if (window->player->weapon->weapon_type == gun)
-		return (draw_weapon(window, window->player->weapon->gun_tex[calc_weap_tex(window)]),
+		return (draw_weapon(window, get_weapon_tex(window)),
 			draw_cross_hair(window));
 	else if (window->player->weapon->weapon_type == torch)
-		return (draw_weapon(window,
-				window->player->weapon->torch_tex
-				[(window->frame_count % 24) / 3]),
+		return (draw_weapon(window, get_weapon_tex(window)),
 			window->fog = FOG + 5, (void)0);
 	else if (window->player->weapon->weapon_type == none)
 		window->fog = FOG;
 }
 
-int	calc_weap_tex(t_window *window)
+static mlx_texture_t	*get_weapon_tex(t_window *window)
 {
-	int	index;
+	int				index;
+	mlx_texture_t	*tex;
 
-	index = (float)window->player->weapon->cooldown / WEAPON_COOLDOWN * 5;
-	return (index);
+	tex = NULL;
+	if (window->player->weapon->weapon_type == gun)
+	{
+		index = (float)window->player->weapon->cooldown / WEAPON_COOLDOWN * 5;
+		tex = window->player->weapon->gun_tex[index];
+	}
+	if (window->player->weapon->weapon_type == torch)
+	{
+		index = window->frame_count % 24 / 3;
+		tex = window->player->weapon->torch_tex[index];
+	}
+	return (tex);
 }
 
-void set_weapon_details(t_weapon_type weapon_type, t_vector_int *offset,
-		t_vector_int *size)
-{
-	if (weapon_type == gun)
-	{
-		offset->x = WEAPON_OFFSET_X;
-		offset->y = WEAPON_OFFSET_Y;
-		size->x = WEAPON_SIZE_X;
-		size->y = WEAPON_SIZE_Y;
-	}
-	if (weapon_type == torch)
-	{
-		offset->x = TORCH_OFFSET_X;
-		offset->y = TORCH_OFFSET_Y;
-		size->x = TORCH_SIZE_X;
-		size->y = TORCH_SIZE_Y;
-	}
-}
-void	draw_weapon(t_window *window, mlx_texture_t *tex)
+static void	draw_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int					x_iter;
 	int					y_iter;
