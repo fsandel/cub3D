@@ -1,8 +1,11 @@
 #include <cub3D.h>
 
-static int	weapon_get_color(double scale_x, double scale_y,
-				mlx_texture_t *tex);
-void		clean_cross_hair(t_window *window);
+static int				weapon_get_color(double scale_x, double scale_y,
+							mlx_texture_t *tex);
+static mlx_texture_t	*get_weapon_tex(t_window *window);
+static void				draw_weapon(t_window *window, mlx_texture_t *tex);
+
+void					clean_cross_hair(t_window *window);
 
 void	draw_weapon_loop_hook(void *arg)
 {
@@ -20,66 +23,56 @@ void	draw_weapon_loop_hook(void *arg)
 	clean_weapon(window);
 	clean_cross_hair(window);
 	if (window->player->weapon->weapon_type == gun)
-		return (draw_weapon(window, window->player->weapon->gun_tex[0]),
+		return (draw_weapon(window, get_weapon_tex(window)),
 			draw_cross_hair(window));
 	else if (window->player->weapon->weapon_type == torch)
-		return (draw_weapon(window,
-				window->player->weapon->torch_tex
-				[(window->frame_count % 24) / 3]),
+		return (draw_weapon(window, get_weapon_tex(window)),
 			window->fog = FOG + 5, (void)0);
 	else if (window->player->weapon->weapon_type == none)
 		window->fog = FOG;
 }
 
-void	draw_muzzle_flash(t_window *window, mlx_texture_t *tex, bool draw)
+static mlx_texture_t	*get_weapon_tex(t_window *window)
+{
+	int				index;
+	mlx_texture_t	*tex;
+
+	tex = NULL;
+	if (window->player->weapon->weapon_type == gun)
+	{
+		index = (float)window->player->weapon->cooldown / WEAPON_COOLDOWN * 5;
+		tex = window->player->weapon->gun_tex[index];
+	}
+	if (window->player->weapon->weapon_type == torch)
+	{
+		index = window->frame_count % 24 / 3;
+		tex = window->player->weapon->torch_tex[index];
+	}
+	return (tex);
+}
+
+static void	draw_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int					x_iter;
 	int					y_iter;
 	int					color;
-	const t_vector_int	size = (t_vector_int){60, 40};
-	const t_vector_int	offset = (t_vector_int){510, 725};
+	t_vector_int		offset;
+	t_vector_int		size;
 
+	set_weapon_details(window->player->weapon->weapon_type, &offset, &size);
 	y_iter = -size.y;
 	while (++y_iter < size.y)
 	{
-		x_iter = -size.x;
-		while (++x_iter < size.x)
-		{
-			if (x_iter + offset.x >= WIDTH || y_iter + offset.y >= HEIGHT)
-				continue ;
-			if (draw == true)
-				color = weapon_get_color(
-						(size.x - x_iter) / 2.0 / size.x,
-						1 - (size.y - y_iter) / 2.0 / size.y, tex);
-			else
-				color = 0x00000000;
-			mlx_put_pixel(window->hud->hud_img,
-				x_iter + offset.x, y_iter + offset.y, color);
-		}
-	}
-}
-
-void	draw_weapon(t_window *window, mlx_texture_t *tex)
-{
-	int					x_iter;
-	int					y_iter;
-	int					color;
-	const t_vector_int	offset = (t_vector_int){WEAPON_OFFSET_X,
-		WEAPON_OFFSET_Y - window->player->weapon->cooldown};
-
-	y_iter = -WEAPON_SIZE_Y;
-	while (++y_iter < WEAPON_SIZE_Y)
-	{
 		if (y_iter + offset.y >= HEIGHT)
 			continue ;
-		x_iter = -WEAPON_SIZE_X;
-		while (++x_iter < WEAPON_SIZE_X)
+		x_iter = -size.x;
+		while (++x_iter < size.x)
 		{
 			if (x_iter + offset.x >= WIDTH)
 				continue ;
 			color = weapon_get_color(
-					1 - (WEAPON_SIZE_X - x_iter) / 2.0 / WEAPON_SIZE_X,
-					1 - (WEAPON_SIZE_Y - y_iter) / 2.0 / WEAPON_SIZE_Y, tex);
+					1 - (size.x - x_iter) / 2.0 / size.x,
+					1 - (size.y - y_iter) / 2.0 / size.y, tex);
 			mlx_put_pixel(window->hud->hud_img,
 				x_iter + offset.x, y_iter + offset.y, color);
 		}

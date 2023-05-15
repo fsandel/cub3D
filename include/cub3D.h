@@ -136,8 +136,7 @@ typedef struct s_weapon
 {
 	t_weapon_type	weapon_type;
 	mlx_texture_t	*torch_tex[9];
-	mlx_texture_t	*gun_tex[2];
-	mlx_texture_t	*muzzle_tex[2];
+	mlx_texture_t	*gun_tex[6];
 	char			cooldown;
 }	t_weapon;
 
@@ -354,13 +353,12 @@ t_window		*general_setup(t_map *map);
 void			redraw_window(void *arg);
 
 //weapon.c
-void			draw_weapon(t_window *window, mlx_texture_t *tex);
 void			draw_cross_hair(t_window *window);
 void			clean_weapon(t_window *window);
 void			draw_weapon_loop_hook(void *arg);
-void			draw_muzzle_flash(t_window *window, mlx_texture_t *tex,
-					bool draw);
 void			swap_weapon(t_window *window);
+void			set_weapon_details(t_weapon_type weapon_type,
+					t_vector_int *offset, t_vector_int *size);
 
 //setup_player.c
 t_player		*setup_player(t_map *map);
