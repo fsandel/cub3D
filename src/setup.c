@@ -97,11 +97,11 @@ static void	implement_loop_hooks(t_window *window)
 {
 	mlx_loop_hook(window->mlx, start_screen_loop_hook, window);
 	mlx_loop_hook(window->mlx, player_movement, window);
+	mlx_loop_hook(window->mlx, draw_weapon_loop_hook, window);
 	mlx_loop_hook(window->mlx, draw_hud, window);
 	mlx_loop_hook(window->mlx, redraw_window, window);
 	mlx_loop_hook(window->mlx, enemie_handler, window);
 	mlx_loop_hook(window->mlx, mouse_movement, window);
-	mlx_loop_hook(window->mlx, draw_weapon_loop_hook, window);
 	mlx_loop_hook(window->mlx, player_attack, window);
 	mlx_loop_hook(window->mlx, check_dead, window);
 	mlx_loop_hook(window->mlx, frame_counter_hook, window);
