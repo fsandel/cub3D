@@ -40,27 +40,46 @@ int	calc_weap_tex(t_window *window)
 	return (index);
 }
 
+void set_weapon_details(t_weapon_type weapon_type, t_vector_int *offset,
+		t_vector_int *size)
+{
+	if (weapon_type == gun)
+	{
+		offset->x = WEAPON_OFFSET_X;
+		offset->y = WEAPON_OFFSET_Y;
+		size->x = WEAPON_SIZE_X;
+		size->y = WEAPON_SIZE_Y;
+	}
+	if (weapon_type == torch)
+	{
+		offset->x = TORCH_OFFSET_X;
+		offset->y = TORCH_OFFSET_Y;
+		size->x = TORCH_SIZE_X;
+		size->y = TORCH_SIZE_Y;
+	}
+}
 void	draw_weapon(t_window *window, mlx_texture_t *tex)
 {
 	int					x_iter;
 	int					y_iter;
 	int					color;
-	const t_vector_int	offset = (t_vector_int){WEAPON_OFFSET_X,
-		WEAPON_OFFSET_Y};
+	t_vector_int		offset;
+	t_vector_int		size;
 
-	y_iter = -WEAPON_SIZE_Y;
-	while (++y_iter < WEAPON_SIZE_Y)
+	set_weapon_details(window->player->weapon->weapon_type, &offset, &size);
+	y_iter = -size.y;
+	while (++y_iter < size.y)
 	{
 		if (y_iter + offset.y >= HEIGHT)
 			continue ;
-		x_iter = -WEAPON_SIZE_X;
-		while (++x_iter < WEAPON_SIZE_X)
+		x_iter = -size.x;
+		while (++x_iter < size.x)
 		{
 			if (x_iter + offset.x >= WIDTH)
 				continue ;
 			color = weapon_get_color(
-					1 - (WEAPON_SIZE_X - x_iter) / 2.0 / WEAPON_SIZE_X,
-					1 - (WEAPON_SIZE_Y - y_iter) / 2.0 / WEAPON_SIZE_Y, tex);
+					1 - (size.x - x_iter) / 2.0 / size.x,
+					1 - (size.y - y_iter) / 2.0 / size.y, tex);
 			mlx_put_pixel(window->hud->hud_img,
 				x_iter + offset.x, y_iter + offset.y, color);
 		}
