@@ -1,6 +1,8 @@
 # cub3D
 basically wolfenstein
 
+![](https://github.com/fsandel/cub3D/media/gameplay.gif)
+
 ## Sound Credits
 
 The following sounds from [freesounds.org](https://freesounds.org/) were used in this project:
