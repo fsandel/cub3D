@@ -1,7 +1,7 @@
 # cub3D
 basically wolfenstein
 
-![](https://github.com/fsandel/cub3D/media/gameplay.gif)
+![](https://github.com/fsandel/cub3D/blob/gif/media/gameplay.gif)
 
 ## Sound Credits
 
