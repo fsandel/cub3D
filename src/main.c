@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-int	main2(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_window	*window;
 	t_map		*map;
@@ -43,10 +43,4 @@ void	redraw_window(void *arg)
 		draw_scene(window);
 		window->redraw = false;
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	main2(argc, argv);
-	return (0);
 }
