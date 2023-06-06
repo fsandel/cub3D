@@ -5,10 +5,15 @@ static void	get_sound_str(t_sound_type sound_type, char **ret);
 void	play_sound(t_window *window, t_sound_type sound_type)
 {
 	char	*sound_str;
+	int		system_error;
 
+	sound_str = NULL;
+	system_error = 0;
 	get_sound_str(sound_type, &sound_str);
 	if (sound_str)
-		system(sound_str);
+		system_error = system(sound_str);
+	if (system_error)
+		ft_putendl_fd("Error\nSomething went wrong playing sounds", 2);
 	free(sound_str);
 	(void)window;
 }
