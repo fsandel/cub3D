@@ -148,6 +148,7 @@ typedef struct s_enemy
 	t_enemy_type	type;
 	mlx_texture_t	*walking_tex[8][8];
 	mlx_texture_t	*attacking_tex[8][8];
+	mlx_texture_t	*death_tex[8][4];
 	char			tex_nb;
 	double			dis;
 	char			frame_count;
