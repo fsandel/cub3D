@@ -45,6 +45,27 @@ int	enemy_load_single_png(t_enemy *enemy, t_enemy_type type,
 	return (error);
 }
 
+int	enemy_load_single_death_png(t_enemy *enemy, t_enemy_type type,
+			const char *name)
+{
+	int		i;
+	char	*death_char;
+	int		error;
+
+	error = 0;
+	i = 0;
+	while (i < 4)
+	{
+		death_char = create_texture_name(name, i, "d");
+		enemy->death_tex[type][i] = mlx_load_png(death_char);
+		if (!(enemy->walking_tex[type][i] && enemy->attacking_tex[type][i]))
+			error++;
+		free(death_char);
+		i++;
+	}
+	return (error);
+}
+
 int	enemy_load_png(t_enemy *enemy)
 {
 	t_enemy_type	type;
@@ -65,6 +86,7 @@ int	enemy_load_png(t_enemy *enemy)
 	while (type < 8)
 	{
 		error += enemy_load_single_png(enemy, type, names[type]);
+		error += enemy_load_single_death_png(enemy, type, names[type]);
 		type++;
 	}
 	return (error);
