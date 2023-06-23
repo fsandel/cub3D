@@ -161,6 +161,8 @@ typedef struct s_enemy
 	short			hp;
 	short			attack;
 	int				cooldown;
+	int				death_frame_count;
+	int				death_cooldown;
 }	t_enemy;
 
 typedef struct s_map
