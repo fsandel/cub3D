@@ -77,7 +77,8 @@ void	draw_enemies(t_window *window)
 		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 0.75)
 			if (window->all_enemies[i]->state == hunting
 				|| window->all_enemies[i]->state == attacking
-				|| window->all_enemies[i]->state == waiting)
+				|| window->all_enemies[i]->state == waiting
+				|| window->all_enemies[i]->state == dead)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
 	}
