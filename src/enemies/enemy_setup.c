@@ -74,7 +74,7 @@ void	enemy_copy_tex_pointers(t_enemy *enemy, t_enemy *tex_enemy,
 		enemy->attacking_tex[type][tex_iter]
 			= tex_enemy->attacking_tex[type][tex_iter];
 		enemy->death_tex[type][tex_iter / 2]
-			 = tex_enemy->death_tex[type][tex_iter / 2];
+			= tex_enemy->death_tex[type][tex_iter / 2];
 		type++;
 	}
 }
