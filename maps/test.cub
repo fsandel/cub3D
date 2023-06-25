@@ -1,0 +1,22 @@
+NO textures/brick1.png
+SO textures/brick2.png
+WE textures/brick3.png
+EA textures/brick4.png
+DO textures/door/door3.png
+
+F 20,18,16
+C 00,00,100
+
+    11111
+    10001
+    10e01
+    10001
+11111DDD11111
+1000D000D0001
+10e0D0S0D0e01
+1000D000D0001
+11111DDD11111
+    10001
+    10e01
+    10001
+    11111
