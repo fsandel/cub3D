@@ -13,6 +13,8 @@ t_window	*general_setup(t_map *map)
 	t_window	*window;
 
 	window = setup_window_struct(map);
+	mlx_focus(window->mlx); //important line
+	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 	if (!window)
 		return (ft_lstclear(&map->enemy_list, free), free_map(map), NULL);
 	window->player = setup_player(window->map);
