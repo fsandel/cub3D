@@ -3,6 +3,6 @@
 void	swap_weapon(t_window *window)
 {
 	if (window->player->weapon->weapon_type != gun)
-		play_sound(window, gun_draw);
+		play_sound(gun_draw);
 	window->player->weapon->weapon_type = gun;
 }

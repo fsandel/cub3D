@@ -22,7 +22,7 @@ void	check_dead(void *arg)
 		mlx_set_instance_depth(window->img->instances, 4);
 		draw_tex_to_screen(window->img, DEFEAT_SCREEN);
 		mlx_key_hook(window->mlx, end_key_hook, window);
-		play_sound(window, loss_sound);
+		play_sound(loss_sound);
 	}
 }
 

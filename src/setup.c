@@ -91,6 +91,7 @@ static bool	load_extra_wall_textures(t_window *window)
 
 static void	setup_mouse(t_window *window)
 {
+  mlx_focus(window->mlx);
 	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 }

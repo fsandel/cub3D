@@ -27,7 +27,7 @@ static void	player_shoot_wall(t_window *window)
 	if (get_cube_type(&temp, window->map) == destructible)
 	{
 		window->map->cubes[(int)temp.y][(int)temp.x] = walkable;
-		play_sound(window, wall_smash);
+		play_sound(wall_smash);
 	}
 }
 
@@ -61,7 +61,7 @@ static	void	player_shoot(t_window *window)
 		&& window->player->ammo > 0)
 	{
 		player_shoot_enemies(window);
-		play_sound(window, pistol_fire);
+		play_sound(pistol_fire);
 		window->fog += 10;
 		window->player->weapon->cooldown = WEAPON_COOLDOWN;
 		brightness_counter = 4;
