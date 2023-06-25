@@ -367,6 +367,6 @@ void			set_weapon_details(t_weapon_type weapon_type,
 t_player		*setup_player(t_map *map);
 
 //sound.c
-void			play_sound(t_window *window, t_sound_type sound_type);
+void			play_sound(t_sound_type sound_type);
 
 #endif
