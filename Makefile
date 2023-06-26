@@ -44,7 +44,7 @@ WEAPON_FILES	=	weapon_clear.c weapon_draw.c player_attack.c weapon_utils.c weapo
 
 FREE			=	$(addprefix $(FREE_DIR), $(FREE_FILES))
 FREE_DIR		=	src/free/
-FREE_FILES		=	free_utils.c free_utils2.c
+FREE_FILES		=	free_utils.c free_utils2.c free_enemy_textures.c
 
 HDR				=	$(addprefix $(HDR_DIR), $(HDR_FILES))
 HDR_DIR			=	include/
