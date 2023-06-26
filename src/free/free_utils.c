@@ -1,27 +1,17 @@
 #include <cub3D.h>
 
+void	free_texture_array(int first_max, int second_max,
+			mlx_texture_t *array[first_max][second_max]);
+
 void	free_all_enemies(t_enemy **all_enemies)
 {
 	int	enemy_iter;
-	int	tex_iter;
-	int	state_iter;
 
-	tex_iter = 0;
 	if (all_enemies[0])
 	{
-		while (tex_iter < all_enemies[0]->tex_nb)
-		{
-			state_iter = 0;
-			while (state_iter < 8)
-			{
-				ft_mlx_delete_texture(
-					all_enemies[0]->attacking_tex[state_iter][tex_iter]);
-				ft_mlx_delete_texture(
-					all_enemies[0]->walking_tex[state_iter][tex_iter]);
-				state_iter++;
-			}
-			tex_iter++;
-		}
+		free_texture_array(8, 8, all_enemies[0]->attacking_tex);
+		free_texture_array(8, 8, all_enemies[0]->walking_tex);
+		free_texture_array(8, 4, all_enemies[0]->death_tex);
 	}
 	enemy_iter = 0;
 	while (all_enemies[enemy_iter])
