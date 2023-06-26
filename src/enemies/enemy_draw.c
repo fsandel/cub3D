@@ -20,12 +20,23 @@ static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 {
 	if (enemy->state == attacking)
 		return (enemy->attacking_tex[enemy->type][frame_count]);
+	else if (enemy->state == dead)
+		return (enemy->death_tex[enemy->type][enemy->death_frame_count % 4]);
 	else
 		return (enemy->walking_tex[enemy->type][frame_count]);
 }
 
 static int	enemy_adjust_frame_count(t_enemy *enemy)
 {
+	if (enemy->state == dead)
+	{
+		if (enemy->death_cooldown < 0 && enemy->death_frame_count < 3)
+		{
+			enemy->death_frame_count++;
+			enemy->death_cooldown = 5;
+		}
+		enemy->death_cooldown--;
+	}
 	if (!(enemy->state == hunting || enemy->state == attacking))
 		return (enemy->frame_count);
 	if (enemy->frame_cooldown < 1)
@@ -77,7 +88,8 @@ void	draw_enemies(t_window *window)
 		if (fabs(window->all_enemies[i]->delta_angle * 180 / M_PI) < FOV / 0.75)
 			if (window->all_enemies[i]->state == hunting
 				|| window->all_enemies[i]->state == attacking
-				|| window->all_enemies[i]->state == waiting)
+				|| window->all_enemies[i]->state == waiting
+				|| window->all_enemies[i]->state == dead)
 				draw_single_enemy(window, window->all_enemies[i]);
 		i++;
 	}
