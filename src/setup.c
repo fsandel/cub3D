@@ -13,7 +13,7 @@ t_window	*general_setup(t_map *map)
 	t_window	*window;
 
 	window = setup_window_struct(map);
-	mlx_focus(window->mlx); //important line
+	mlx_focus(window->mlx);
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 	if (!window)
 		return (ft_lstclear(&map->enemy_list, free), free_map(map), NULL);
@@ -91,7 +91,7 @@ static bool	load_extra_wall_textures(t_window *window)
 
 static void	setup_mouse(t_window *window)
 {
-  mlx_focus(window->mlx);
+	mlx_focus(window->mlx);
 	mlx_set_cursor_mode(window->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(window->mlx, WIDTH / 2, HEIGHT / 2);
 }
