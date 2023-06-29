@@ -42,7 +42,7 @@ static int	enemy_adjust_frame_count(t_enemy *enemy, double delta_time)
 	if (enemy->frame_cooldown < 1)
 	{
 		enemy->frame_count++;
-		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN / (delta_time * 60);
+		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN;
 	}
 	enemy->frame_cooldown--;
 	if (enemy->frame_count >= enemy->tex_nb)
