@@ -56,7 +56,8 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 	t_vector_int	iter;
 	const t_vector	lim = (t_vector){ENEMY_WIDTH / enemy->dis,
 		ENEMY_HEIGHT / enemy->dis};
-	const int		frame_count = enemy_adjust_frame_count(enemy, window->mlx->delta_time);
+	const int		frame_count
+		= enemy_adjust_frame_count(enemy, window->mlx->delta_time);
 
 	iter.y = max(-lim.y, -HEIGHT / 2 - ENEMY_Y_OFFSET / enemy->dis);
 	while (++iter.y < lim.y
