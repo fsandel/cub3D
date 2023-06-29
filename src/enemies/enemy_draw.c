@@ -26,14 +26,14 @@ static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
 		return (enemy->walking_tex[enemy->type][frame_count]);
 }
 
-static int	enemy_adjust_frame_count(t_enemy *enemy)
+static int	enemy_adjust_frame_count(t_enemy *enemy, double delta_time)
 {
 	if (enemy->state == dead)
 	{
 		if (enemy->death_cooldown < 0 && enemy->death_frame_count < 3)
 		{
 			enemy->death_frame_count++;
-			enemy->death_cooldown = 5;
+			enemy->death_cooldown = 4 / (delta_time * 60);
 		}
 		enemy->death_cooldown--;
 	}
@@ -42,7 +42,7 @@ static int	enemy_adjust_frame_count(t_enemy *enemy)
 	if (enemy->frame_cooldown < 1)
 	{
 		enemy->frame_count++;
-		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN;
+		enemy->frame_cooldown = ENEMY_FRAME_COOLDOWN / (delta_time * 60);
 	}
 	enemy->frame_cooldown--;
 	if (enemy->frame_count >= enemy->tex_nb)
@@ -56,7 +56,7 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 	t_vector_int	iter;
 	const t_vector	lim = (t_vector){ENEMY_WIDTH / enemy->dis,
 		ENEMY_HEIGHT / enemy->dis};
-	const int		frame_count = enemy_adjust_frame_count(enemy);
+	const int		frame_count = enemy_adjust_frame_count(enemy, window->mlx->delta_time);
 
 	iter.y = max(-lim.y, -HEIGHT / 2 - ENEMY_Y_OFFSET / enemy->dis);
 	while (++iter.y < lim.y

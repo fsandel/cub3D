@@ -1,7 +1,7 @@
 #ifndef DESIGN_H
 # define DESIGN_H
 
-# define WIDTH 1250
+# define WIDTH 1500
 # define HEIGHT 1250
 # define HUD_SIZE 40
 # define FOV 45
@@ -44,13 +44,6 @@
 
 # define HP_PICKUP 50
 # define AMMO_PICKUP 16
-
-# define WEAPON_OFFSET 125
-
-# define TORCH_SIZE_X 300
-# define TORCH_SIZE_Y 300
-# define TORCH_OFFSET_X 750
-# define TORCH_OFFSET_Y 900
 
 # define WEAPON_COOLDOWN 10
 
