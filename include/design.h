@@ -1,8 +1,8 @@
 #ifndef DESIGN_H
 # define DESIGN_H
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 1250
+# define HEIGHT 1250
 # define HUD_SIZE 40
 # define FOV 45
 
