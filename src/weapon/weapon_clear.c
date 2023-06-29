@@ -2,21 +2,24 @@
 
 void	clean_weapon(t_window *window)
 {
-	int				x_iter;
-	int				y_iter;
+	const int	size = min(WIDTH, HEIGHT) / 2.5;
+	const int	offset_x = WIDTH / 2;
+	const int	offset_y = HEIGHT - size;
+	int			x_iter;
+	int			y_iter;
 
-	y_iter = -WEAPON_SIZE_Y;
-	while (++y_iter < WEAPON_SIZE_Y)
+	y_iter = -size;
+	while (++y_iter < size)
 	{
-		if (y_iter + WEAPON_OFFSET_Y >= HEIGHT)
+		if (y_iter + offset_y >= HEIGHT)
 			continue ;
-		x_iter = -WEAPON_SIZE_X;
-		while (++x_iter < WEAPON_SIZE_X)
+		x_iter = -size;
+		while (++x_iter < size)
 		{
-			if (x_iter + WEAPON_OFFSET_X >= WIDTH)
+			if (x_iter + offset_x >= WIDTH)
 				continue ;
 			mlx_put_pixel(window->hud->hud_img,
-				x_iter + WEAPON_OFFSET_X, y_iter + WEAPON_OFFSET_Y, 0x00000000);
+				x_iter + offset_x, y_iter + offset_y, 0x00000000);
 		}
 	}
 }
