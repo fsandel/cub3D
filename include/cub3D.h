@@ -30,6 +30,18 @@ enum e_parser_error
 	invalid_map
 };
 
+typedef union u_rgba
+{
+	u_int32_t	bytes;
+	struct s_color
+	{
+		u_int8_t	red;
+		u_int8_t	blue;
+		u_int8_t	green;
+		u_int8_t	alpha;
+	}	t_color;
+}	t_rgba;
+
 typedef struct s_parser_state
 {
 	bool				map_parsed;
