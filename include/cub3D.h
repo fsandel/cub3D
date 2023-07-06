@@ -29,16 +29,15 @@ enum e_parser_error
 	missing_option,
 	invalid_map
 };
-
 typedef union u_rgba
 {
 	u_int32_t	bytes;
 	struct s_color
 	{
-		u_int8_t	red;
+		u_int8_t	alpha;
 		u_int8_t	blue;
 		u_int8_t	green;
-		u_int8_t	alpha;
+		u_int8_t	red;
 	}	t_color;
 }	t_rgba;
 

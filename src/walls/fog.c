@@ -1,12 +1,12 @@
 #include <cub3D.h>
 
-static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
-				int base_color, int fog);
-static int	get_rgba_from_tex(const mlx_texture_t *tex,
-				t_vector_int pix_pos, double dis, int fog);
+static void			put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
+						int base_color, int fog);
+static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
+						t_vector_int pix_pos, double dis, int fog);
 
 void	draw_vertical_line(t_window *window, t_vector *target,
-				int p_x, t_direction direction)
+						int p_x, t_direction direction)
 {
 	const double		dis = distance_perpendicular(window->player->pos,
 			window->player->dir, *target);
@@ -35,21 +35,21 @@ void	draw_vertical_line(t_window *window, t_vector *target,
 	}
 }
 
-static int	get_rgba_from_tex(const mlx_texture_t *tex,
+static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
 				t_vector_int pix_pos, double dis, int fog)
 {
-	int				color;
+	t_rgba			color;
 	const int		pos = (pix_pos.y * tex->width + pix_pos.x)
 		* tex->bytes_per_pixel;
 	const double	brightness = max(1.0 - (dis / fog), 0);
 
 	if (dis > fog)
 		return (0x000000ff);
-	color = (int)(tex->pixels[pos] * brightness) << 24
-		| (int)(tex->pixels[pos + 1] * brightness) << 16
-		| (int)(tex->pixels[pos + 2] * brightness) << 8
-		| (int)tex->pixels[pos + 3];
-	return (color);
+	color.t_color.red = tex->pixels[pos] * brightness;
+	color.t_color.green = tex->pixels[pos + 1] * brightness;
+	color.t_color.blue = tex->pixels[pos + 2] * brightness;
+	color.t_color.alpha = tex->pixels[pos + 3];
+	return (color.bytes);
 }
 
 static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
