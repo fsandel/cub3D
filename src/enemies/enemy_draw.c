@@ -3,17 +3,17 @@
 static unsigned int	enemy_get_pix(double scale_x, double scale_y,
 	mlx_texture_t *tex, t_enemy *enemy)
 {
-	int				pos;
-	unsigned int	color;
-	const int		x = tex->width * fabs(scale_x);
-	const int		y = tex->height * fabs(scale_y);
+	int			pos;
+	t_rgba		color;
+	const int	x = tex->width * fabs(scale_x);
+	const int	y = tex->height * fabs(scale_y);
 
 	pos = (y * tex->width + x) * 4;
-	color = get_rgba(tex->pixels[pos] * enemy->brightness,
-			tex->pixels[pos + 1] * enemy->brightness,
-			tex->pixels[pos + 2] * enemy->brightness,
-			tex->pixels[pos + 3]);
-	return (color);
+	color.t_color.red = tex->pixels[pos] * enemy->brightness;
+	color.t_color.green = tex->pixels[pos + 1] * enemy->brightness;
+	color.t_color.blue = tex->pixels[pos + 2] * enemy->brightness;
+	color.t_color.alpha = tex->pixels[pos + 3];
+	return (color.bytes);
 }
 
 static mlx_texture_t	*enemy_get_texture(t_enemy *enemy, int frame_count)
