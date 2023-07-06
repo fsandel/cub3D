@@ -1,6 +1,6 @@
 #include <cub3D.h>
 
-static unsigned int	enemy_get_pix(double scale_x, double scale_y,
+static u_int32_t	enemy_get_pix(double scale_x, double scale_y,
 	mlx_texture_t *tex, t_enemy *enemy)
 {
 	int			pos;
