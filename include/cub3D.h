@@ -29,6 +29,17 @@ enum e_parser_error
 	missing_option,
 	invalid_map
 };
+typedef union u_rgba
+{
+	u_int32_t	bytes;
+	struct s_color
+	{
+		u_int8_t	alpha;
+		u_int8_t	blue;
+		u_int8_t	green;
+		u_int8_t	red;
+	}	t_color;
+}	t_rgba;
 
 typedef struct s_parser_state
 {
@@ -174,8 +185,8 @@ typedef struct s_map
 	mlx_texture_t	*textures[4];
 	t_vector		start_pos;
 	t_vector		start_dir;
-	int				floor_color;
-	int				ceiling_color;
+	t_rgba			floor_color;
+	t_rgba			ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door_tex;
 	t_list			*enemy_list;
@@ -312,6 +323,9 @@ double			min(double a, double b);
 double			max(double a, double b);
 bool			is_on_map(double x, double y, t_map *map);
 bool			is_on_screen(int x, int y);
+
+//utils/border.c
+double			border(double lower_bound, double value, double upper_bound);
 
 //hud.c
 t_hud			*setup_hud(mlx_t *mlx);

@@ -1,12 +1,12 @@
 #include <cub3D.h>
 
-static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
-				int base_color, int fog);
-static int	get_rgba_from_tex(const mlx_texture_t *tex,
-				t_vector_int pix_pos, double dis, int fog);
+static void			put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
+						t_rgba base_color, int fog);
+static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
+						t_vector_int pix_pos, double dis, int fog);
 
 void	draw_vertical_line(t_window *window, t_vector *target,
-				int p_x, t_direction direction)
+						int p_x, t_direction direction)
 {
 	const double		dis = distance_perpendicular(window->player->pos,
 			window->player->dir, *target);
@@ -35,33 +35,35 @@ void	draw_vertical_line(t_window *window, t_vector *target,
 	}
 }
 
-static int	get_rgba_from_tex(const mlx_texture_t *tex,
+static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
 				t_vector_int pix_pos, double dis, int fog)
 {
-	int				color;
+	t_rgba			color;
 	const int		pos = (pix_pos.y * tex->width + pix_pos.x)
 		* tex->bytes_per_pixel;
 	const double	brightness = max(1.0 - (dis / fog), 0);
 
 	if (dis > fog)
 		return (0x000000ff);
-	color = (int)(tex->pixels[pos] * brightness) << 24
-		| (int)(tex->pixels[pos + 1] * brightness) << 16
-		| (int)(tex->pixels[pos + 2] * brightness) << 8
-		| (int)tex->pixels[pos + 3];
-	return (color);
+	color.t_color.red = tex->pixels[pos] * brightness;
+	color.t_color.green = tex->pixels[pos + 1] * brightness;
+	color.t_color.blue = tex->pixels[pos + 2] * brightness;
+	color.t_color.alpha = tex->pixels[pos + 3];
+	return (color.bytes);
 }
 
 static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
-			int base_color, int fog)
+			t_rgba base_color, int fog)
 {
-	const double	brightness = max(abs(HEIGHT / 2 - pix_pos.y)
-			* fog / 4500.0, 0);
-	const uint8_t	alpha = base_color & 0xff;
-	const uint8_t	red = min(((base_color >> 24) & 0xff) * brightness, 255);
-	const uint8_t	green = min(((base_color >> 16) & 0xff) * brightness, 255);
-	const uint8_t	blue = min(((base_color >> 8) & 0xff) * brightness, 255);
+	t_rgba			color;
+	const double	brightness = border(0,
+			abs(HEIGHT / 2 - pix_pos.y) * fog / 4500.0,
+			1);
 
-	base_color = (red << 24) | (green << 16) | (blue << 8) | alpha;
-	mlx_put_pixel(img, pix_pos.x, pix_pos.y, base_color);
+	color.bytes = base_color.bytes;
+	color.t_color.red = (color.t_color.red * brightness);
+	color.t_color.green = (color.t_color.green * brightness);
+	color.t_color.blue = (color.t_color.blue * brightness);
+	color.t_color.alpha = color.t_color.alpha;
+	mlx_put_pixel(img, pix_pos.x, pix_pos.y, color.bytes);
 }

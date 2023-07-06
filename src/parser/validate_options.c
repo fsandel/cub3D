@@ -2,9 +2,9 @@
 
 bool	options_are_valid(t_map *map)
 {
-	if (!map->floor_color || !map->ceiling_color
-		|| map->floor_color == get_rgba(0, 0, 0, 0)
-		|| map->ceiling_color == get_rgba(0, 0, 0, 0))
+	if (!map->floor_color.bytes || !map->ceiling_color.bytes
+		|| map->floor_color.bytes == 0x0
+		|| map->ceiling_color.bytes == 0x0)
 	{
 		map->state->error_type = missing_option;
 		return (false);

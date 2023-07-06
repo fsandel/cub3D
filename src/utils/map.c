@@ -7,7 +7,7 @@ void	set_floor_color(t_map *map, int color)
 {
 	if (!map->state->f_parsed)
 	{
-		map->floor_color = color;
+		map->floor_color.bytes = color;
 		map->state->f_parsed = true;
 	}
 	else
@@ -18,7 +18,7 @@ void	set_ceiling_color(t_map *map, int color)
 {
 	if (!map->state->c_parsed)
 	{
-		map->ceiling_color = color;
+		map->ceiling_color.bytes = color;
 		map->state->c_parsed = true;
 	}
 	else
