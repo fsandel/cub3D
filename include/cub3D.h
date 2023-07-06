@@ -325,7 +325,7 @@ bool			is_on_map(double x, double y, t_map *map);
 bool			is_on_screen(int x, int y);
 
 //utils/border.c
-double			border(double lower_bound, double value, double upper_bound)
+double			border(double lower_bound, double value, double upper_bound);
 
 //hud.c
 t_hud			*setup_hud(mlx_t *mlx);
