@@ -185,8 +185,8 @@ typedef struct s_map
 	mlx_texture_t	*textures[4];
 	t_vector		start_pos;
 	t_vector		start_dir;
-	int				floor_color;
-	int				ceiling_color;
+	t_rgba			floor_color;
+	t_rgba			ceiling_color;
 	bool			has_spawn;
 	mlx_texture_t	*door_tex;
 	t_list			*enemy_list;

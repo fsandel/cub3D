@@ -1,7 +1,7 @@
 #include <cub3D.h>
 
 static void			put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
-						int base_color, int fog);
+						t_rgba base_color, int fog);
 static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
 						t_vector_int pix_pos, double dis, int fog);
 
@@ -53,14 +53,14 @@ static u_int32_t	get_rgba_from_tex(const mlx_texture_t *tex,
 }
 
 static void	put_pixel_floor(mlx_image_t *img, t_vector_int pix_pos,
-			int base_color, int fog)
+			t_rgba base_color, int fog)
 {
 	t_rgba			color;
 	const double	brightness = border(0,
 			abs(HEIGHT / 2 - pix_pos.y) * fog / 4500.0,
 			1);
 
-	color.bytes = base_color;
+	color.bytes = base_color.bytes;
 	color.t_color.red = (color.t_color.red * brightness);
 	color.t_color.green = (color.t_color.green * brightness);
 	color.t_color.blue = (color.t_color.blue * brightness);

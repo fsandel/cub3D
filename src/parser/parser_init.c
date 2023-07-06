@@ -35,8 +35,8 @@ t_map	*init_map(void)
 	map->door_tex = NULL;
 	map->enemy_list = NULL;
 	map->has_spawn = false;
-	map->floor_color = get_rgba(0, 0, 0, 0);
-	map->ceiling_color = get_rgba(0, 0, 0, 0);
+	map->floor_color.bytes = 0x0;
+	map->ceiling_color.bytes = 0x0;
 	map->state = init_state();
 	if (!map->state)
 		return (NULL);
