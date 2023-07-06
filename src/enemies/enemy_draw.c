@@ -54,7 +54,7 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 {
 	t_rgba			color;
 	t_vector_int	iter;
-	const t_vector	lim = (t_vector){ENEMY_WIDTH / enemy->dis,
+	const t_vector	lim = (t_vector){min(ENEMY_WIDTH / enemy->dis, 500),
 		ENEMY_HEIGHT / enemy->dis};
 	const int		frame_count
 		= enemy_adjust_frame_count(enemy, window->mlx->delta_time);
@@ -64,7 +64,7 @@ static	void	draw_single_enemy(t_window *window, t_enemy *enemy)
 		&& iter.y < HEIGHT / 2 - ENEMY_Y_OFFSET / enemy->dis)
 	{
 		iter.x = max(-lim.x, -500);
-		while (++iter.x < lim.x && iter.x < 500)
+		while (++iter.x < lim.x)
 		{
 			if (!is_on_screen(enemy->x_on_screen + iter.x,
 					HEIGHT / 2 + iter.y + ENEMY_Y_OFFSET / enemy->dis))
