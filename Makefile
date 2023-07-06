@@ -24,7 +24,7 @@ HUD_FILES		=	hud.c minimap.c minimap_fov_border.c minimap_enemies.c
 
 UTILS			=	$(addprefix $(UTILS_DIR), $(UTILS_FILES))
 UTILS_DIR		=	src/utils/
-UTILS_FILES		=	vector.c utils.c colors.c map.c
+UTILS_FILES		=	vector.c utils.c colors.c map.c border.c
 
 MATH			=	$(addprefix $(MATH_DIR), $(MATH_FILES))
 MATH_DIR		=	src/math/
